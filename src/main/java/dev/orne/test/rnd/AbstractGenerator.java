@@ -43,8 +43,11 @@ import org.apiguardian.api.API.Status;
 public abstract class AbstractGenerator
 implements Generator {
 
+    /** The default probability of {@code null} values. */
+    public static final float DEFAULT_NULL_PROBABILITY = 0.3f;
+
     /** The probability of {@code null} values. */
-    private float nullProbability = 0.3f;
+    private float nullProbability = DEFAULT_NULL_PROBABILITY;
 
     /**
      * Verifies that the specified type is supported by this instance.
