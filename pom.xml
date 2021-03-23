@@ -1,0 +1,144 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>dev.orne</groupId>
+    <artifactId>java-root-pom</artifactId>
+    <version>0.2.0</version>
+    <relativePath />
+  </parent>
+
+  <groupId>dev.orne.test</groupId>
+  <artifactId>generators</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Orne Generator</name>
+  <description>Orne random value generator</description>
+  <inceptionYear>2021</inceptionYear>
+  <url>https://orne-dev.github.io/java-test-generators/</url>
+
+  <licenses>
+    <license>
+      <name>GNU Lesser General Public License (LGPL) version 3.0</name>
+      <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>wamphiry</id>
+      <name>(w) Iker Hernaez</name>
+      <url>https://github.com/ihernaez</url>
+    </developer>
+  </developers>
+
+  <properties>
+    <java.version>1.8</java.version>
+    <license.licenseName>lgpl_v3</license.licenseName>
+
+    <commons.lang.version>3.10</commons.lang.version>
+
+    <javax.validation.version>2.0.1.Final</javax.validation.version>
+
+    <hibernate.validation.version>6.1.5.Final</hibernate.validation.version>
+    <glassfish.jakarta.el.version>3.0.3</glassfish.jakarta.el.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${commons.lang.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apiguardian</groupId>
+      <artifactId>apiguardian-api</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>${javax.validation.version}</version>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate.validation.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>jakarta.el</artifactId>
+      <version>${glassfish.jakarta.el.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <groups>ut</groups>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <configuration>
+            <groups>it</groups>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <scm>
+    <connection>scm:git:https://github.com/orne-dev/java-test-generators.git</connection>
+    <developerConnection>scm:git:ssh://github.com:orne-dev/java-test-generators.git</developerConnection>
+    <url>https://github.com/orne-dev/java-test-generators/</url>
+  </scm>
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>http://github.com/orne-dev/java-test-generators/issues</url>
+  </issueManagement>
+  <distributionManagement>
+    <site>
+      <id>github</id>
+      <name>Github Project Pages</name>
+      <url>${project.scm.connection}</url>
+    </site>
+  </distributionManagement>
+
+</project>
