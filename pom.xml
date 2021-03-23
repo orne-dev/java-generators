@@ -15,8 +15,8 @@
   <version>0.1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Orne Generator</name>
-  <description>Orne random value generator</description>
+  <name>Orne Test Generators</name>
+  <description>Orne random value generator for tests</description>
   <inceptionYear>2021</inceptionYear>
   <url>https://orne-dev.github.io/java-test-generators/</url>
 

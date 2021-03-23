@@ -1,7 +1,7 @@
 package dev.orne.test.rnd;
 /*-
  * #%L
- * Orne Generator
+ * Orne Test Generators
  * %%
  * Copyright (C) 2021 Orne Developments
  * %%
