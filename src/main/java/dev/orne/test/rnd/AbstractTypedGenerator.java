@@ -37,13 +37,24 @@ import org.apiguardian.api.API.Status;
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL)
+@API(status=Status.STABLE, since="0.1")
 public abstract class AbstractTypedGenerator<T>
 extends AbstractGenerator
 implements TypedGenerator<T> {
 
     /** The type of generated values. */
     private final @NotNull Class<T> valueType;
+
+    /**
+     * Crates a new instance.
+     * 
+     * @param valuesType The type of generated values
+     */
+    protected AbstractTypedGenerator(
+            final @NotNull Class<T> valueType) {
+        super();
+        this.valueType = Validate.notNull(valueType);
+    }
 
     /**
      * Crates a new instance.
@@ -61,17 +72,6 @@ implements TypedGenerator<T> {
     }
 
     /**
-     * Crates a new instance.
-     * 
-     * @param valuesType The type of generated values
-     */
-    protected AbstractTypedGenerator(
-            final @NotNull Class<T> valuesType) {
-        super();
-        this.valueType = Validate.notNull(valuesType);
-    }
-
-    /**
      * Returns the type of generated values.
      * 
      * @return The type of generated values
@@ -85,8 +85,8 @@ implements TypedGenerator<T> {
      */
     @Override
     public boolean supports(
-            final @NotNull Class<?> clazz) {
-        return Validate.notNull(clazz).equals(this.valueType);
+            final @NotNull Class<?> type) {
+        return Validate.notNull(type).equals(this.valueType);
     }
 
     /**
@@ -94,9 +94,17 @@ implements TypedGenerator<T> {
      */
     @Override
     public @NotNull <V> V defaultValue(
-            final @NotNull Class<V> clazz) {
-        assertSupported(clazz);
-        return clazz.cast(defaultValue());
+            final @NotNull Class<V> type) {
+        assertSupported(type);
+        return type.cast(defaultValue());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T nullableDefaultValue() {
+        return null;
     }
 
     /**
@@ -104,8 +112,22 @@ implements TypedGenerator<T> {
      */
     @Override
     public @NotNull <V> V randomValue(
-            final @NotNull Class<V> clazz) {
-        assertSupported(clazz);
-        return clazz.cast(randomValue());
+            final @NotNull Class<V> type) {
+        assertSupported(type);
+        return type.cast(randomValue());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T nullableRandomValue() {
+        final T value;
+        if (randomNull()) {
+            value = null;
+        } else {
+            value = randomValue();
+        }
+        return value;
     }
 }

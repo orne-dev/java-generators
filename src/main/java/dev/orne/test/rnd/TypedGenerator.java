@@ -36,7 +36,7 @@ import org.apiguardian.api.API.Status;
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL)
+@API(status=Status.STABLE, since="0.1")
 public interface TypedGenerator<T>
 extends Generator {
 
@@ -48,9 +48,31 @@ extends Generator {
     @NotNull T defaultValue();
 
     /**
+     * Returns the default value of the supported type allowing {@code null}
+     * values.
+     * <p>
+     * This method should return {@code null} except for native types.
+     * 
+     * @return The nullable default value.
+     */
+    T nullableDefaultValue();
+
+    /**
      * Returns a random value of the supported type.
      * 
      * @return A random value.
      */
     @NotNull T randomValue();
+
+    /**
+     * Returns a random value of the supported type allowing {@code null}
+     * values.
+     * <p>
+     * The returned value has a probability of be {@code null} except for
+     * native types. If not {@code null} behaves as {@code randomValue()}.
+     * 
+     * @return A random nullable value.
+     * @see #randomValue()
+     */
+    T nullableRandomValue();
 }

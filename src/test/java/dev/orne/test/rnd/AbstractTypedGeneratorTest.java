@@ -113,6 +113,15 @@ class AbstractTypedGeneratorTest {
     }
 
     /**
+     * Unit test for {@link AbstractTypedGenerator#nullableDefaultValue()}
+     */
+    @Test
+    void testNullableDefaultValue() {
+        final AbstractTypedGenerator<?> generator = spy(AbstractTypedGenerator.class);
+        assertNull(generator.nullableDefaultValue());
+    }
+
+    /**
      * Unit test for {@link AbstractTypedGenerator#randomValue(Class)}
      */
     @Test
@@ -138,6 +147,24 @@ class AbstractTypedGeneratorTest {
         });
         then(generator).should().supports(Object.class);
         then(generator).should(never()).randomValue();
+    }
+
+    /**
+     * Unit test for {@link AbstractTypedGenerator#nullableRandomValue()}
+     */
+    @Test
+    void testNullableRandomValue() {
+        final AbstractTypedGenerator<?> generator = spy(AbstractTypedGenerator.class);
+        final Object mockResult = new Object();
+        willReturn(mockResult).given(generator).randomValue();
+        willReturn(true).given(generator).randomNull();
+        then(generator).should(times(1)).randomNull();
+        then(generator).should(never()).randomValue();
+        assertNull(generator.nullableRandomValue());
+        willReturn(false).given(generator).randomNull();
+        assertSame(mockResult, generator.nullableRandomValue());
+        then(generator).should(times(2)).randomNull();
+        then(generator).should(times(1)).randomValue();
     }
 
     /**

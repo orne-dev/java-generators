@@ -39,7 +39,7 @@ import org.apiguardian.api.API.Status;
  * @version 1.0, 2021-03
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL)
+@API(status=Status.STABLE, since="0.1")
 public abstract class AbstractGenerator
 implements Generator {
 
@@ -74,23 +74,24 @@ implements Generator {
      */
     @Override
     public <T> T nullableDefaultValue(
-            final @NotNull Class<T> clazz) {
-        assertSupported(clazz);
+            final @NotNull Class<T> type) {
+        assertSupported(type);
         return null;
     }
 
     /**
      * {@inheritDoc}
+     * @see #setNullProbability(float)
      */
     @Override
     public <T> T nullableRandomValue(
-            final @NotNull Class<T> clazz) {
-        assertSupported(clazz);
+            final @NotNull Class<T> type) {
+        assertSupported(type);
         final T value;
-        if (RandomUtils.nextFloat(0, 1) < this.nullProbability) {
+        if (randomNull()) {
             value = null;
         } else {
-            value = randomValue(clazz);
+            value = randomValue(type);
         }
         return value;
     }
@@ -115,5 +116,16 @@ implements Generator {
             final @Min(0) @Max(1) float prob) {
         Validate.inclusiveBetween(0, 1, prob);
         this.nullProbability = prob;
+    }
+
+    /**
+     * Determines if the value must be {@code null} based on the probability of
+     * {@code null} values.
+     * 
+     * @return If the value must be {@code null}
+     * @see #setNullProbability(float)
+     */
+    public boolean randomNull() {
+        return RandomUtils.nextFloat(0, 1) < this.nullProbability;
     }
 }

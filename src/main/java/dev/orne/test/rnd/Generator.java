@@ -34,7 +34,7 @@ import org.apiguardian.api.API.Status;
  * @version 1.0, 2021-03
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL)
+@API(status=Status.STABLE, since="0.1")
 public interface Generator {
 
     /**
@@ -80,7 +80,8 @@ public interface Generator {
     @NotNull <T> T randomValue(@NotNull Class<T> type);
 
     /**
-     * Returns a random value of the specified type.
+     * Returns a random value of the specified type allowing {@code null}
+     * values.
      * <p>
      * The returned value has a probability of be {@code null} except for
      * native types. If not {@code null} behaves as {@code randomValue()}.
@@ -89,7 +90,6 @@ public interface Generator {
      * @param type The requested value type.
      * @return A random nullable value for the specified type.
      * @throws IllegalArgumentException If the specified type is not supported.
-     * @see #setNullProbability(double)
      * @see #randomValue(Class)
      */
     <T> T nullableRandomValue(@NotNull Class<T> type);

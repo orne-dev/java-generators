@@ -65,6 +65,18 @@ class AbstractGeneratorTest {
     }
 
     /**
+     * Unit test for {@link AbstractGenerator#randomNull()}
+     */
+    @Test
+    void testRandomNull() {
+        final AbstractGenerator generator = spy(AbstractGenerator.class);
+        generator.setNullProbability(1f);
+        assertTrue(generator.randomNull());
+        generator.setNullProbability(0f);
+        assertFalse(generator.randomNull());
+    }
+
+    /**
      * Unit test for {@link AbstractGenerator#assertSupported(Class)}
      */
     @Test
