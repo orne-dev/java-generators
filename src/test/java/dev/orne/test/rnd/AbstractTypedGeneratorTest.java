@@ -178,6 +178,26 @@ class AbstractTypedGeneratorTest {
     }
 
     /**
+     * Unit test for {@link AbstractTypedGenerator#equals(Object)},
+     * {@link AbstractTypedGenerator#hashCode()} and
+     * {@link AbstractTypedGenerator#toString()}
+     */
+    @Test
+    @SuppressWarnings({ "java:S5785", "unlikely-arg-type" })
+    void testEqualsHashCodeToString() {
+        final GenericChild<?> generator = new GenericChild<>(String.class);
+        assertFalse(generator.equals(null));
+        assertTrue(generator.equals(generator));
+        assertFalse(generator.equals(new TestGenerator()));
+        GenericChild<?> other = new GenericChild<>(String.class);
+        assertTrue(generator.equals(other));
+        assertEquals(generator.hashCode(), other.hashCode());
+        assertEquals(generator.toString(), other.toString());
+        other = new GenericChild<>(Number.class);
+        assertFalse(generator.equals(other));
+    }
+
+    /**
      * Generic extension of {@code AbstractTypedGenerator} for
      * test purposes.
      * @param <T> The type of generated values

@@ -25,6 +25,8 @@ package dev.orne.test.rnd;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
@@ -142,5 +144,31 @@ implements TypedGenerator<T> {
             value = randomValue();
         }
         return value;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder()
+                .appendSuper(super.hashCode())
+                .append(this.valueType)
+                .build();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null) { return false; }
+        if (obj == this) { return true; }
+        if (obj.getClass() != getClass()) { return false; }
+        final AbstractTypedGenerator<?> other = (AbstractTypedGenerator<?>) obj;
+        return new EqualsBuilder()
+                .appendSuper(super.equals(obj))
+                .append(this.valueType, other.valueType)
+                .build();
     }
 }

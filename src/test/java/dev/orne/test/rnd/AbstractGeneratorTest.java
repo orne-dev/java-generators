@@ -172,4 +172,22 @@ class AbstractGeneratorTest {
         });
         then(generator).should().supports(Object.class);
     }
+
+    /**
+     * Unit test for {@link AbstractGenerator#equals(Object)},
+     * {@link AbstractGenerator#hashCode()} and
+     * {@link AbstractGenerator#toString()}
+     */
+    @Test
+    @SuppressWarnings("java:S5785")
+    void testEqualsHashCodeToString() {
+        final TestGenerator generator = new TestGenerator();
+        assertFalse(generator.equals(null));
+        assertTrue(generator.equals(generator));
+        assertFalse(generator.equals(new Object()));
+        final TestGenerator other = new TestGenerator();
+        assertTrue(generator.equals(other));
+        assertEquals(generator.hashCode(), other.hashCode());
+        assertEquals(generator.toString(), other.toString());
+    }
 }
