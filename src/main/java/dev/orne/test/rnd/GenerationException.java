@@ -1,5 +1,8 @@
 package dev.orne.test.rnd;
 
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
 /**
  * Exception for error occurred during instances generation.
  * 
@@ -7,6 +10,7 @@ package dev.orne.test.rnd;
  * @version 1.0, 2022-10
  * @since 0.1
  */
+@API(status=Status.STABLE, since="0.1")
 public class GenerationException
 extends RuntimeException {
 

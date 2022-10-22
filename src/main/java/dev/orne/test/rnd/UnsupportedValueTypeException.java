@@ -1,5 +1,8 @@
 package dev.orne.test.rnd;
 
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
 /**
  * Exception thrown by {@code Generator} instances when a value of an
  * unsupported type is requested.
@@ -8,6 +11,7 @@ package dev.orne.test.rnd;
  * @version 1.0, 2022-10
  * @since 0.1
  */
+@API(status=Status.STABLE, since="0.1")
 public class UnsupportedValueTypeException
 extends GenerationException {
 

@@ -97,4 +97,15 @@ public interface Generator {
      * @see #randomValue(Class)
      */
     <T> T nullableRandomValue(@NotNull Class<T> type);
+
+    /**
+     * Returns the priority of this generator.
+     * 
+     * @return The priority of this generator
+     */
+    default int getPriority() {
+        final Class<?> type = getClass();
+        final Priority annot = type.getAnnotation(Priority.class);
+        return annot == null ? Priority.DEFAULT : annot.value();
+    }
 }
