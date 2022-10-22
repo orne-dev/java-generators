@@ -59,9 +59,18 @@ implements TypedGenerator<T> {
     /**
      * Crates a new instance.
      * <p>
-     * Infers generated values type from concrete class generic parameters.
+     * Infers generated values type from the generic type arguments of this
+     * instance class.
+     * The class must extend {@code AbstractTypedGenerator} specifying the
+     * generic types.
      * <p>
-     * Requires that the concrete class 
+     * Example:
+     * <pre>
+     * class MyGenerator
+     * extends AbstractTypedGenerator{@literal <}MyValues{@literal >} {
+     *     ...
+     * }
+     * </pre>
      */
     @SuppressWarnings("unchecked")
     protected AbstractTypedGenerator() {
@@ -69,6 +78,10 @@ implements TypedGenerator<T> {
         this.valueType = (Class<T>) TypeUtils.unrollVariables(
                 TypeUtils.getTypeArguments(getClass(), AbstractTypedGenerator.class),
                 AbstractTypedGenerator.class.getTypeParameters()[0]);
+        Validate.notNull(
+                this.valueType,
+                "Cannot infer the type of generated values from class %s. Wrong implementation?",
+                getClass());
     }
 
     /**

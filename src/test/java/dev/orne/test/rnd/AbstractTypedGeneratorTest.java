@@ -62,6 +62,16 @@ class AbstractTypedGeneratorTest {
     }
 
     /**
+     * Unit test for {@link AbstractTypedGenerator#AbstractTypedGenerator()}
+     */
+    @Test
+    void testTypeInferred_Generic() {
+        assertThrows(NullPointerException.class, () -> {
+            new GenericChild<>();
+        });
+    }
+
+    /**
      * Unit test for {@link AbstractTypedGenerator#AbstractTypedGenerator(Class)}
      */
     @Test
@@ -89,7 +99,7 @@ class AbstractTypedGeneratorTest {
      */
     @Test
     void testDefaultValue() {
-        final AbstractTypedGenerator<?> generator = spy(AbstractTypedGenerator.class);
+        final AbstractTypedGenerator<?> generator = spy(new GenericChild<>(Object.class));
         final Object mockResult = new Object();
         willReturn(true).given(generator).supports(Object.class);
         willReturn(mockResult).given(generator).defaultValue();
@@ -103,7 +113,7 @@ class AbstractTypedGeneratorTest {
      */
     @Test
     void testDefaultValue_Unsupported() {
-        final AbstractTypedGenerator<?> generator = spy(AbstractTypedGenerator.class);
+        final AbstractTypedGenerator<?> generator = spy(new GenericChild<>(Object.class));
         willReturn(false).given(generator).supports(Object.class);
         assertThrows(IllegalArgumentException.class, () -> {
             generator.defaultValue(Object.class);
@@ -117,7 +127,7 @@ class AbstractTypedGeneratorTest {
      */
     @Test
     void testNullableDefaultValue() {
-        final AbstractTypedGenerator<?> generator = spy(AbstractTypedGenerator.class);
+        final AbstractTypedGenerator<?> generator = spy(new GenericChild<>(Object.class));
         assertNull(generator.nullableDefaultValue());
     }
 
@@ -126,7 +136,7 @@ class AbstractTypedGeneratorTest {
      */
     @Test
     void testRandomValue() {
-        final AbstractTypedGenerator<?> generator = spy(AbstractTypedGenerator.class);
+        final AbstractTypedGenerator<?> generator = spy(new GenericChild<>(Object.class));
         final Object mockResult = new Object();
         willReturn(true).given(generator).supports(Object.class);
         willReturn(mockResult).given(generator).randomValue();
@@ -140,7 +150,7 @@ class AbstractTypedGeneratorTest {
      */
     @Test
     void testRandomValue_Unsupported() {
-        final AbstractTypedGenerator<?> generator = spy(AbstractTypedGenerator.class);
+        final AbstractTypedGenerator<?> generator = spy(new GenericChild<>(Object.class));
         willReturn(false).given(generator).supports(Object.class);
         assertThrows(IllegalArgumentException.class, () -> {
             generator.randomValue(Object.class);
@@ -154,7 +164,7 @@ class AbstractTypedGeneratorTest {
      */
     @Test
     void testNullableRandomValue() {
-        final AbstractTypedGenerator<?> generator = spy(AbstractTypedGenerator.class);
+        final AbstractTypedGenerator<?> generator = spy(new GenericChild<>(Object.class));
         final Object mockResult = new Object();
         willReturn(mockResult).given(generator).randomValue();
         willReturn(true).given(generator).randomNull();
@@ -201,7 +211,7 @@ class AbstractTypedGeneratorTest {
      * Direct typed extension of {@code AbstractTypedGenerator} for
      * test purposes.
      */
-    private static class DirectChild
+    protected static class DirectChild
     extends AbstractTypedGenerator<String> {
         public static final String DEFAULT_VALUE = "defaultValue";
         public static final String RND_VALUE = "randomValue";
