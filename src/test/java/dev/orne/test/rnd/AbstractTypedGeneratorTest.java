@@ -167,13 +167,13 @@ class AbstractTypedGeneratorTest {
         final AbstractTypedGenerator<?> generator = spy(new GenericChild<>(Object.class));
         final Object mockResult = new Object();
         willReturn(mockResult).given(generator).randomValue();
-        willReturn(true).given(generator).randomNull();
+        willReturn(true).given(generator).randomNull(Object.class);
         assertNull(generator.nullableRandomValue());
-        then(generator).should(times(1)).randomNull();
+        then(generator).should(times(1)).randomNull(Object.class);
         then(generator).should(never()).randomValue();
-        willReturn(false).given(generator).randomNull();
+        willReturn(false).given(generator).randomNull(Object.class);
         assertSame(mockResult, generator.nullableRandomValue());
-        then(generator).should(times(2)).randomNull();
+        then(generator).should(times(2)).randomNull(Object.class);
         then(generator).should(times(1)).randomValue();
     }
 

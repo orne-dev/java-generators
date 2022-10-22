@@ -88,7 +88,7 @@ implements Generator {
             final @NotNull Class<T> type) {
         assertSupported(type);
         final T value;
-        if (randomNull()) {
+        if (randomNull(type)) {
             value = null;
         } else {
             value = randomValue(type);
@@ -121,11 +121,16 @@ implements Generator {
     /**
      * Determines if the value must be {@code null} based on the probability of
      * {@code null} values.
+     * <p>
+     * Overriding classes can use the type parameter to detect non nullable
+     * types (like primitives).
      * 
+     * @param type The requested value type
      * @return If the value must be {@code null}
      * @see #setNullProbability(float)
      */
-    public boolean randomNull() {
+    public boolean randomNull(
+            final @NotNull Class<?> type) {
         return RandomUtils.nextFloat(0, 1) < this.nullProbability;
     }
 }

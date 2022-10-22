@@ -136,7 +136,7 @@ implements TypedGenerator<T> {
     @Override
     public T nullableRandomValue() {
         final T value;
-        if (randomNull()) {
+        if (randomNull(this.valueType)) {
             value = null;
         } else {
             value = randomValue();

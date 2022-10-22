@@ -71,9 +71,9 @@ class AbstractGeneratorTest {
     void testRandomNull() {
         final AbstractGenerator generator = spy(AbstractGenerator.class);
         generator.setNullProbability(1f);
-        assertTrue(generator.randomNull());
+        assertTrue(generator.randomNull(Object.class));
         generator.setNullProbability(0f);
-        assertFalse(generator.randomNull());
+        assertFalse(generator.randomNull(Object.class));
     }
 
     /**
