@@ -1,7 +1,10 @@
 /**
  * Base package for random value generators system.
+ * <p>
+ * For usage see the {@code Generators} class javadoc.
  * 
  * @since 0.1
+ * @see Generators
  */
 package dev.orne.test.rnd;
 /*-

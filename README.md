@@ -16,14 +16,57 @@ Provides utilities for generation of random values.
 
 ## Features provided (or planned)
 
-- [ ] Identities
-- [ ] References
-- [ ] Javax Validation 2.1 support
-- [ ] Jakarta Validation 3.0 support
-- [ ] Jackson support
-- [ ] JAXB support
-- [ ] Spring Data Binding support
-- [ ] Apache Commons BeanUtils converters
+- [X] SPI generators discovery
+- [ ] Generators
+    - [ ] TypedGenerators
+    - [ ] ParametrizableGenerators
+    - [ ] ParametrizableTypedGenerators
+- [ ] Javax Validation 2.1 based parametrizable generators
+- [ ] Jakarta Validation 3.0 based parametrizable generators
+- [ ] Java primitives and wrapper types generators
+    - [ ] `java.lang.Boolean` generator
+    - [ ] `java.lang.Character` generator
+    - [ ] `java.lang.Byte` generator
+    - [ ] `java.lang.Short` generator
+    - [ ] `java.lang.Integer` generator
+    - [ ] `java.lang.Long` generator
+    - [ ] `java.lang.Float` generator
+    - [ ] `java.lang.Double` generator
+- [ ] `java.lang.Number` generator
+- [ ] `java.lang.String` and `java.lang.CharSequence` generator
+- [ ] Enumerations generator
+- [ ] `java.io.File` generator
+- [ ] `java.math.BigInteger` generator
+- [ ] `java.math.BigDecimal` generator
+- [ ] `java.nio.charset.Charset` generator
+- [ ] `java.nio.file.Path` generator
+- [ ] `java.util.Calendar` generator
+- [ ] `java.util.Currency` generator
+- [ ] `java.util.Date` generator
+- [ ] `java.util.Locale` generator
+- [ ] `java.util.TimeZone` generator
+- [ ] `java.util.URI` generator
+- [ ] `java.util.UUID` generator
+- [ ] `java.time` generators
+    - [ ] `java.time.Clock` generator
+    - [ ] `java.time.Duration` generator
+    - [ ] `java.time.Instant` generator
+    - [ ] `java.time.LocalDate` generator
+    - [ ] `java.time.LocalDateTime` generator
+    - [ ] `java.time.LocalTime` generator
+    - [ ] `java.time.MonthDay` generator
+    - [ ] `java.time.OffsetDateTime` generator
+    - [ ] `java.time.OffsetTime` generator
+    - [ ] `java.time.Period` generator
+    - [ ] `java.time.Year` generator
+    - [ ] `java.time.YearMonth` generator
+    - [ ] `java.time.ZonedDateTime` generator
+    - [ ] `java.time.ZoneId` generator
+    - [ ] `java.time.ZoneOffset` generator
+    - [ ] `java.time.chrono.Chronology` generator
+- [ ] Annotation based bean generator
+- [ ] Proxyed interface generator
+- [ ] Introspection based bean generator
 
 ## Usage and further information
 
@@ -38,11 +81,18 @@ The binaries can be obtained from [Maven Central][status.maven] with the
 </dependency>
 ```
 
+To generate random values of a supported type just use the `Generators` class
+static methods:
+
+```java
+String value = Generators.randomValue(String.class);
+```
+
 For further information refer to the [project Wiki][wiki]
 and [Maven Site][site].
 
-[site]: https://orne-dev.github.io/java-test-generators/
-[wiki]: https://github.com/orne-dev/java-test-generators/wiki
+[site]: https://orne-dev.github.io/java-generators/
+[wiki]: https://github.com/orne-dev/java-generators/wiki
 [status.license]: http://www.gnu.org/licenses/gpl-3.0.txt
 [status.license.badge]: https://img.shields.io/github/license/orne-dev/java-test-generators
 [status.maven]: https://search.maven.org/artifact/dev.orne.test/generators
