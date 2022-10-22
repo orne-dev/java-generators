@@ -158,9 +158,9 @@ class AbstractTypedGeneratorTest {
         final Object mockResult = new Object();
         willReturn(mockResult).given(generator).randomValue();
         willReturn(true).given(generator).randomNull();
+        assertNull(generator.nullableRandomValue());
         then(generator).should(times(1)).randomNull();
         then(generator).should(never()).randomValue();
-        assertNull(generator.nullableRandomValue());
         willReturn(false).given(generator).randomNull();
         assertSame(mockResult, generator.nullableRandomValue());
         then(generator).should(times(2)).randomNull();
