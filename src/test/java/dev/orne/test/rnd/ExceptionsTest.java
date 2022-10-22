@@ -37,6 +37,7 @@ import org.junit.jupiter.api.Test;
  * @since 0.1
  * @see GenerationException
  * @see UnsupportedValueTypeException
+ * @see GeneratorNotFoundException
  */
 @Tag("ut")
 class ExceptionsTest {
@@ -66,6 +67,17 @@ class ExceptionsTest {
         assertMessageException(new UnsupportedValueTypeException(TEST_MESSAGE));
         assertCauseException(new UnsupportedValueTypeException(TEST_CAUSE));
         assertFullException(new UnsupportedValueTypeException(TEST_MESSAGE, TEST_CAUSE));
+    }
+
+    /**
+     * Test for {@link GeneratorNotFoundException}.
+     */
+    @Test
+    void testGeneratorNotFoundException() {
+        assertEmptyException(new GeneratorNotFoundException());
+        assertMessageException(new GeneratorNotFoundException(TEST_MESSAGE));
+        assertCauseException(new GeneratorNotFoundException(TEST_CAUSE));
+        assertFullException(new GeneratorNotFoundException(TEST_MESSAGE, TEST_CAUSE));
     }
 
     /**

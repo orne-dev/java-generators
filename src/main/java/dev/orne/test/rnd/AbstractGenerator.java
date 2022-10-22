@@ -28,6 +28,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -144,6 +145,7 @@ implements Generator {
     public int hashCode() {
         return new HashCodeBuilder()
                 .append(getClass())
+                .append(this.nullProbability)
                 .build();
     }
 
@@ -154,7 +156,11 @@ implements Generator {
     public boolean equals(final Object obj) {
         if (obj == null) { return false; }
         if (obj == this) { return true; }
-        return obj.getClass() == getClass();
+        if (obj.getClass() != getClass()) { return false; }
+        final AbstractGenerator other = (AbstractGenerator) obj;
+        return new EqualsBuilder()
+                .append(this.nullProbability, other.nullProbability)
+                .build();
     }
 
     /**

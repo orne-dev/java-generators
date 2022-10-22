@@ -25,17 +25,17 @@ package dev.orne.test.rnd;
 import javax.validation.constraints.NotNull;
 
 /**
- * Mock implementation of {@code Generator}.
+ * Implementation of {@code Generator} for tests.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
  * @since 0.1
  */
-public class MockGenerator
+@Priority(TestGenerator.PRIORITY)
+public class TestGenerator
 extends AbstractGenerator {
 
-    /** Missing mock error message. */
-    private static final String NO_MOCK_ERR = "Mocking of calls expected";
+    public static final int PRIORITY = 100;
 
     /**
      * {@inheritDoc}
@@ -43,7 +43,7 @@ extends AbstractGenerator {
     @Override
     public boolean supports(
             final @NotNull Class<?> type) {
-        throw new AssertionError(NO_MOCK_ERR);
+        return Type.class.equals(type);
     }
 
     /**
@@ -52,16 +52,7 @@ extends AbstractGenerator {
     @Override
     public <T> @NotNull T defaultValue(
             final @NotNull Class<T> type) {
-        throw new AssertionError(NO_MOCK_ERR);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public <T> T nullableDefaultValue(
-            final @NotNull Class<T> type) {
-        throw new AssertionError(NO_MOCK_ERR);
+        return type.cast(new Type());
     }
 
     /**
@@ -70,15 +61,8 @@ extends AbstractGenerator {
     @Override
     public <T> @NotNull T randomValue(
             final @NotNull Class<T> type) {
-        throw new AssertionError(NO_MOCK_ERR);
+        return type.cast(new Type());
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public <T> T nullableRandomValue(
-            final @NotNull Class<T> type) {
-        throw new AssertionError(NO_MOCK_ERR);
-    }
+    public static class Type {}
 }
