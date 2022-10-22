@@ -115,7 +115,7 @@ class AbstractTypedGeneratorTest {
     void testDefaultValue_Unsupported() {
         final AbstractTypedGenerator<?> generator = spy(new GenericChild<>(Object.class));
         willReturn(false).given(generator).supports(Object.class);
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(UnsupportedValueTypeException.class, () -> {
             generator.defaultValue(Object.class);
         });
         then(generator).should().supports(Object.class);
@@ -152,7 +152,7 @@ class AbstractTypedGeneratorTest {
     void testRandomValue_Unsupported() {
         final AbstractTypedGenerator<?> generator = spy(new GenericChild<>(Object.class));
         willReturn(false).given(generator).supports(Object.class);
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(UnsupportedValueTypeException.class, () -> {
             generator.randomValue(Object.class);
         });
         then(generator).should().supports(Object.class);

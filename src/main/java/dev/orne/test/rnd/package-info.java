@@ -1,3 +1,8 @@
+/**
+ * Base package for random value generators system.
+ * 
+ * @since 0.1
+ */
 package dev.orne.test.rnd;
 /*-
  * #%L

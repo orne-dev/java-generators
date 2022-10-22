@@ -57,12 +57,12 @@ implements Generator {
      * {@link #nullableRandomValue(Class)}.
      * 
      * @param type The requested value type.
-     * @throws IllegalArgumentException If the specified type is not supported.
+     * @throws UnsupportedValueTypeException If the specified type is not supported.
      */
     protected void assertSupported(
             final @NotNull Class<?> type) {
         if (!supports(type)) {
-            throw new IllegalArgumentException(String.format(
+            throw new UnsupportedValueTypeException(String.format(
                     "Generators of type %s does not support generation of values of type %s",
                     getClass(),
                     type));

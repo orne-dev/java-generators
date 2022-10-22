@@ -52,7 +52,8 @@ public interface Generator {
      * @param <T> The requested value type.
      * @param type The requested value type.
      * @return The default value for the specified type.
-     * @throws IllegalArgumentException If the specified type is not supported.
+     * @throws UnsupportedValueTypeException If the specified type is not supported.
+     * @throws GenerationException If an error occurs generating the value
      */
     @NotNull <T> T defaultValue(@NotNull Class<T> type);
 
@@ -65,7 +66,8 @@ public interface Generator {
      * @param <T> The requested value type.
      * @param type The requested value type.
      * @return The nullable default value for the specified type.
-     * @throws IllegalArgumentException If the specified type is not supported.
+     * @throws UnsupportedValueTypeException If the specified type is not supported.
+     * @throws GenerationException If an error occurs generating the value
      */
     <T> T nullableDefaultValue(@NotNull Class<T> type);
 
@@ -75,7 +77,8 @@ public interface Generator {
      * @param <T> The requested value type.
      * @param type The requested value type.
      * @return A random value for the specified type.
-     * @throws IllegalArgumentException If the specified type is not supported.
+     * @throws UnsupportedValueTypeException If the specified type is not supported.
+     * @throws GenerationException If an error occurs generating the value
      */
     @NotNull <T> T randomValue(@NotNull Class<T> type);
 
@@ -89,7 +92,8 @@ public interface Generator {
      * @param <T> The requested value type.
      * @param type The requested value type.
      * @return A random nullable value for the specified type.
-     * @throws IllegalArgumentException If the specified type is not supported.
+     * @throws UnsupportedValueTypeException If the specified type is not supported.
+     * @throws GenerationException If an error occurs generating the value
      * @see #randomValue(Class)
      */
     <T> T nullableRandomValue(@NotNull Class<T> type);
