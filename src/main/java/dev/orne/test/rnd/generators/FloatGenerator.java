@@ -79,10 +79,7 @@ extends AbstractPrimitiveGenerator<Float> {
     public static float randomFloat() {
         int bits = IntegerGenerator.randomInt();
         // We ignore NaN values
-        while (((bits & FLOAT_INFINITY_MASK) == FLOAT_POSITIVE_INFINITY
-                    && bits != FLOAT_POSITIVE_INFINITY)
-                || ((bits & FLOAT_INFINITY_MASK) == FLOAT_NEGATIVE_INFINITY
-                    && bits != FLOAT_NEGATIVE_INFINITY)) {
+        while (isNaN(bits) && !isInfinity(bits)) {
             bits = IntegerGenerator.randomInt();
         }
         return Float.intBitsToFloat(bits);
@@ -97,10 +94,38 @@ extends AbstractPrimitiveGenerator<Float> {
     public static float randomFiniteFloat() {
         int bits = IntegerGenerator.randomInt();
         // We ignore NaN and infinite values
-        while ((bits & FLOAT_INFINITY_MASK) == FLOAT_POSITIVE_INFINITY
-                || (bits & FLOAT_INFINITY_MASK) == FLOAT_NEGATIVE_INFINITY) {
+        while (isNaN(bits)) {
             bits = IntegerGenerator.randomInt();
         }
         return Float.intBitsToFloat(bits);
+    }
+
+    /**
+     * Returns true if the bit representation of the float value results in
+     * a NaN. This includes both {@code Float.POSITIVE_INFINITY} and
+     * {@code Float.NEGATIVE_INFINITY}.
+     * 
+     * @param bits The bit representation of the float value
+     * @return If the bit representation results in a NaN
+     * @see Float#intBitsToFloat(int)
+     */
+    static boolean isNaN(
+            final int bits) {
+        return (bits & FLOAT_INFINITY_MASK) == FLOAT_POSITIVE_INFINITY
+                || (bits & FLOAT_INFINITY_MASK) == FLOAT_NEGATIVE_INFINITY;
+    }
+
+    /**
+     * Returns true if the bit representation of the float value results
+     * if {@code Float.POSITIVE_INFINITY} or {@code Float.NEGATIVE_INFINITY}.
+     * 
+     * @param bits The bit representation of the float value
+     * @return If the bit representation results in a infinty
+     * @see Float#intBitsToFloat(int)
+     */
+    static boolean isInfinity(
+            final int bits) {
+        return bits == FLOAT_POSITIVE_INFINITY
+                || bits == FLOAT_NEGATIVE_INFINITY;
     }
 }

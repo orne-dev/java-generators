@@ -6,3 +6,13 @@ dev.orne.test.rnd.generators.LongGenerator
 dev.orne.test.rnd.generators.FloatGenerator
 dev.orne.test.rnd.generators.DoubleGenerator
 dev.orne.test.rnd.generators.CharacterGenerator
+dev.orne.test.rnd.generators.StringGenerator
+dev.orne.test.rnd.generators.BigIntegerGenerator
+dev.orne.test.rnd.generators.BigDecimalGenerator
+dev.orne.test.rnd.generators.DateGenerator
+dev.orne.test.rnd.generators.LocaleGenerator
+dev.orne.test.rnd.generators.CharsetGenerator
+dev.orne.test.rnd.generators.CurrencyGenerator
+dev.orne.test.rnd.generators.TimeZoneGenerator
+dev.orne.test.rnd.generators.UUIDGenerator
+dev.orne.test.rnd.generators.EnumGenerator

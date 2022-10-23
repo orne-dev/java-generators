@@ -79,10 +79,7 @@ extends AbstractPrimitiveGenerator<Double> {
     public static double randomDouble() {
         long bits = LongGenerator.randomLong();
         // We ignore NaN values
-        while (((bits & DOUBLE_INFINITY_MASK) == DOUBLE_POSITIVE_INFINITY
-                    && bits != DOUBLE_POSITIVE_INFINITY)
-                || ((bits & DOUBLE_INFINITY_MASK) == DOUBLE_NEGATIVE_INFINITY
-                    && bits != DOUBLE_NEGATIVE_INFINITY)) {
+        while (isNaN(bits) && !isInfinity(bits)) {
             bits = LongGenerator.randomLong();
         }
         return Double.longBitsToDouble(bits);
@@ -97,10 +94,38 @@ extends AbstractPrimitiveGenerator<Double> {
     public static double randomFiniteDouble() {
         long bits = LongGenerator.randomLong();
         // We ignore NaN and infinite values
-        while ((bits & DOUBLE_INFINITY_MASK) == DOUBLE_POSITIVE_INFINITY
-                || (bits & DOUBLE_INFINITY_MASK) == DOUBLE_NEGATIVE_INFINITY) {
+        while (isNaN(bits)) {
             bits = LongGenerator.randomLong();
         }
         return Double.longBitsToDouble(bits);
+    }
+
+    /**
+     * Returns true if the bit representation of the double value results in
+     * a NaN. This includes both {@code Double.POSITIVE_INFINITY} and
+     * {@code Double.NEGATIVE_INFINITY}.
+     * 
+     * @param bits The bit representation of the double value
+     * @return If the bit representation results in a NaN
+     * @see Double#longBitsToDouble(long)
+     */
+    static boolean isNaN(
+            final long bits) {
+        return (bits & DOUBLE_INFINITY_MASK) == DOUBLE_POSITIVE_INFINITY
+                || (bits & DOUBLE_INFINITY_MASK) == DOUBLE_NEGATIVE_INFINITY;
+    }
+
+    /**
+     * Returns true if the bit representation of the double value results
+     * if {@code Double.POSITIVE_INFINITY} or {@code Double.NEGATIVE_INFINITY}.
+     * 
+     * @param bits The bit representation of the double value
+     * @return If the bit representation results in a infintyN
+     * @see Double#longBitsToDouble(long)
+     */
+    static boolean isInfinity(
+            final long bits) {
+        return bits == DOUBLE_POSITIVE_INFINITY
+                || bits == DOUBLE_NEGATIVE_INFINITY;
     }
 }

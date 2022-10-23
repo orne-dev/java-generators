@@ -17,3 +17,13 @@
     01. Added class `dev.orne.test.rnd.generators.IntegerGenerator`
     01. Added class `dev.orne.test.rnd.generators.LongGenerator`
     01. Added class `dev.orne.test.rnd.generators.CharacterGenerator`
+    01. Added class `dev.orne.test.rnd.generators.StringGenerator`
+    01. Added class `dev.orne.test.rnd.generators.BigIntegerGenerator`
+    01. Added class `dev.orne.test.rnd.generators.BigDecimalGenerator`
+    01. Added class `dev.orne.test.rnd.generators.DateGenerator`
+    01. Added class `dev.orne.test.rnd.generators.LocaleGenerator`
+    01. Added class `dev.orne.test.rnd.generators.CharsetGenerator`
+    01. Added class `dev.orne.test.rnd.generators.TimeZoneGenerator`
+    01. Added class `dev.orne.test.rnd.generators.CurrencyGenerator`
+    01. Added class `dev.orne.test.rnd.generators.UUIDGenerator`
+    01. Added class `dev.orne.test.rnd.generators.EnumGenerator`

@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;
 import java.util.HashSet;
 
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -92,12 +93,72 @@ class DoubleGeneratorTest {
     @Test
     void testRandomValue() {
         final DoubleGenerator generator = new DoubleGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
+        assertTimeoutPreemptively(Duration.ofSeconds(4), () -> {
             final HashSet<Double> results = new HashSet<>(); 
             // We just check that there is some result variety
-            while (results.size() < 100) {
+            while (results.size() < 1000) {
                 results.add(generator.randomValue());
             }
         });
+    }
+
+    /**
+     * Unit test for {@link DoubleGenerator#randomFiniteDouble()}
+     */
+    @Test
+    void testRandomFiniteDouble() {
+        assertTimeoutPreemptively(Duration.ofSeconds(4), () -> {
+            final HashSet<Double> results = new HashSet<>(); 
+            // We just check that there is some result variety
+            while (results.size() < 1000) {
+                final double value = DoubleGenerator.randomFiniteDouble();
+                assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(value)));
+                results.add(value);
+            }
+        });
+    }
+
+    /**
+     * Unit test for {@link DoubleGenerator#isNaN(int)}
+     */
+    @Test
+    void testIsNaN() {
+        assertFalse(DoubleGenerator.isNaN(Double.doubleToLongBits(RandomUtils.nextDouble())));
+        assertFalse(DoubleGenerator.isNaN(Double.doubleToLongBits(Double.MIN_VALUE)));
+        assertFalse(DoubleGenerator.isNaN(Double.doubleToLongBits(Double.MIN_NORMAL)));
+        assertFalse(DoubleGenerator.isNaN(Double.doubleToLongBits(Double.MAX_VALUE)));
+        assertTrue(DoubleGenerator.isNaN(Double.doubleToLongBits(Double.POSITIVE_INFINITY)));
+        assertTrue(DoubleGenerator.isNaN(Double.doubleToLongBits(Double.NEGATIVE_INFINITY)));
+        assertTrue(DoubleGenerator.isNaN(Double.doubleToLongBits(Double.NaN)));
+        assertTrue(DoubleGenerator.isNaN(
+                Double.doubleToLongBits(Double.POSITIVE_INFINITY) |
+                Double.doubleToLongBits(RandomUtils.nextDouble())
+        ));
+        assertTrue(DoubleGenerator.isNaN(
+                Double.doubleToLongBits(Double.NEGATIVE_INFINITY) |
+                Double.doubleToLongBits(RandomUtils.nextDouble())
+        ));
+    }
+
+    /**
+     * Unit test for {@link DoubleGenerator#isInfinity(int)}
+     */
+    @Test
+    void testIsInfinity() {
+        assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(RandomUtils.nextFloat())));
+        assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(Double.MIN_VALUE)));
+        assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(Double.MIN_NORMAL)));
+        assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(Double.MAX_VALUE)));
+        assertTrue(DoubleGenerator.isInfinity(Double.doubleToLongBits(Double.POSITIVE_INFINITY)));
+        assertTrue(DoubleGenerator.isInfinity(Double.doubleToLongBits(Double.NEGATIVE_INFINITY)));
+        assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(Double.NaN)));
+        assertFalse(DoubleGenerator.isInfinity(
+                Double.doubleToLongBits(Double.POSITIVE_INFINITY) |
+                Double.doubleToLongBits(RandomUtils.nextDouble())
+        ));
+        assertFalse(DoubleGenerator.isInfinity(
+                Double.doubleToLongBits(Double.NEGATIVE_INFINITY) |
+                Double.doubleToLongBits(RandomUtils.nextDouble())
+        ));
     }
 }

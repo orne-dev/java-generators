@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.Duration;
 import java.util.HashSet;
 
+import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -92,12 +93,72 @@ class FloatGeneratorTest {
     @Test
     void testRandomValue() {
         final FloatGenerator generator = new FloatGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
+        assertTimeoutPreemptively(Duration.ofSeconds(4), () -> {
             final HashSet<Float> results = new HashSet<>(); 
             // We just check that there is some result variety
-            while (results.size() < 100) {
+            while (results.size() < 1000) {
                 results.add(generator.randomValue());
             }
         });
+    }
+
+    /**
+     * Unit test for {@link FloatGenerator#randomFiniteFloat()}
+     */
+    @Test
+    void testRandomFiniteFloat() {
+        assertTimeoutPreemptively(Duration.ofSeconds(4), () -> {
+            final HashSet<Float> results = new HashSet<>(); 
+            // We just check that there is some result variety
+            while (results.size() < 1000) {
+                final float value = FloatGenerator.randomFiniteFloat();
+                assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(value)));
+                results.add(value);
+            }
+        });
+    }
+
+    /**
+     * Unit test for {@link FloatGenerator#isNaN(int)}
+     */
+    @Test
+    void testIsNaN() {
+        assertFalse(FloatGenerator.isNaN(Float.floatToIntBits(RandomUtils.nextFloat())));
+        assertFalse(FloatGenerator.isNaN(Float.floatToIntBits(Float.MIN_VALUE)));
+        assertFalse(FloatGenerator.isNaN(Float.floatToIntBits(Float.MIN_NORMAL)));
+        assertFalse(FloatGenerator.isNaN(Float.floatToIntBits(Float.MAX_VALUE)));
+        assertTrue(FloatGenerator.isNaN(Float.floatToIntBits(Float.POSITIVE_INFINITY)));
+        assertTrue(FloatGenerator.isNaN(Float.floatToIntBits(Float.NEGATIVE_INFINITY)));
+        assertTrue(FloatGenerator.isNaN(Float.floatToIntBits(Float.NaN)));
+        assertTrue(FloatGenerator.isNaN(
+                Float.floatToIntBits(Float.POSITIVE_INFINITY) |
+                Float.floatToIntBits(RandomUtils.nextFloat())
+        ));
+        assertTrue(FloatGenerator.isNaN(
+                Float.floatToIntBits(Float.NEGATIVE_INFINITY) |
+                Float.floatToIntBits(RandomUtils.nextFloat())
+        ));
+    }
+
+    /**
+     * Unit test for {@link FloatGenerator#isInfinity(int)}
+     */
+    @Test
+    void testIsInfinity() {
+        assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(RandomUtils.nextFloat())));
+        assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(Float.MIN_VALUE)));
+        assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(Float.MIN_NORMAL)));
+        assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(Float.MAX_VALUE)));
+        assertTrue(FloatGenerator.isInfinity(Float.floatToIntBits(Float.POSITIVE_INFINITY)));
+        assertTrue(FloatGenerator.isInfinity(Float.floatToIntBits(Float.NEGATIVE_INFINITY)));
+        assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(Float.NaN)));
+        assertFalse(FloatGenerator.isInfinity(
+                Float.floatToIntBits(Float.POSITIVE_INFINITY) |
+                Float.floatToIntBits(RandomUtils.nextFloat())
+        ));
+        assertFalse(FloatGenerator.isInfinity(
+                Float.floatToIntBits(Float.NEGATIVE_INFINITY) |
+                Float.floatToIntBits(RandomUtils.nextFloat())
+        ));
     }
 }

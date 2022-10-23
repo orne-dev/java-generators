@@ -41,22 +41,23 @@ Provides utilities for generation of random values.
     - [ ] `java.util.List` generator
     - [ ] `java.util.Map` generator
     - [ ] `java.util.Set` generator
+    - [ ] `java.util.Collection` generator
 - [ ] Common types generators
-    - [ ] `java.lang.Number` generator
-    - [ ] `java.lang.String` and `java.lang.CharSequence` generator
+    - [X] `java.lang.CharSequence` generator
+    - [X] `java.lang.Number` generator
+    - [X] `java.lang.String` generator
     - [ ] `java.io.File` generator
-    - [ ] `java.math.BigInteger` generator
-    - [ ] `java.math.BigDecimal` generator
-    - [ ] `java.nio.charset.Charset` generator
+    - [X] `java.math.BigInteger` generator
+    - [X] `java.math.BigDecimal` generator
+    - [X] `java.nio.charset.Charset` generator
     - [ ] `java.nio.file.Path` generator
     - [ ] `java.util.Calendar` generator
-    - [ ] `java.util.Collection` generator
-    - [ ] `java.util.Currency` generator
-    - [ ] `java.util.Date` generator
-    - [ ] `java.util.Locale` generator
-    - [ ] `java.util.TimeZone` generator
+    - [X] `java.util.Currency` generator
+    - [X] `java.util.Date` generator
+    - [X] `java.util.Locale` generator
+    - [X] `java.util.TimeZone` generator
     - [ ] `java.util.URI` generator
-    - [ ] `java.util.UUID` generator
+    - [X] `java.util.UUID` generator
 - [ ] `java.time` generators
     - [ ] `java.time.Clock` generator
     - [ ] `java.time.Duration` generator
@@ -75,7 +76,7 @@ Provides utilities for generation of random values.
     - [ ] `java.time.ZoneOffset` generator
     - [ ] `java.time.chrono.Chronology` generator
 - [ ] General generators
-    - [ ] Enumerations generator
+    - [X] Enumerations generator
     - [ ] Annotation based bean generator
     - [ ] Proxyed interface generator
     - [ ] Introspection based bean generator
