@@ -1,0 +1,8 @@
+dev.orne.test.rnd.generators.BooleanGenerator
+dev.orne.test.rnd.generators.ByteGenerator
+dev.orne.test.rnd.generators.ShortGenerator
+dev.orne.test.rnd.generators.IntegerGenerator
+dev.orne.test.rnd.generators.LongGenerator
+dev.orne.test.rnd.generators.FloatGenerator
+dev.orne.test.rnd.generators.DoubleGenerator
+dev.orne.test.rnd.generators.CharacterGenerator

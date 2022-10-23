@@ -50,6 +50,10 @@ public @interface Priority {
     public static final int DEFAULT = 0;
     /** The minimum priority. */
     public static final int MIN = Integer.MIN_VALUE;
+    /** The priority for built in native types generators. */
+    public static final int NATIVE_GENERATORS = -1000;
+    /** The priority for built in generic types generators. */
+    public static final int GENERIC_GENERATORS = -2000;
     /** The maximum priority. */
     public static final int MAX = Integer.MAX_VALUE;
 

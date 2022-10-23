@@ -65,7 +65,7 @@ class AbstractGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractGenerator#randomNull()}
+     * Unit test for {@link AbstractGenerator#randomNull(Class)}
      */
     @Test
     void testRandomNull() {

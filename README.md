@@ -17,36 +17,46 @@ Provides utilities for generation of random values.
 ## Features provided (or planned)
 
 - [X] SPI generators discovery
-- [ ] Generators
-    - [ ] TypedGenerators
-    - [ ] ParametrizableGenerators
-    - [ ] ParametrizableTypedGenerators
-- [ ] Javax Validation 2.1 based parametrizable generators
-- [ ] Jakarta Validation 3.0 based parametrizable generators
-- [ ] Java primitives and wrapper types generators
-    - [ ] `java.lang.Boolean` generator
-    - [ ] `java.lang.Character` generator
-    - [ ] `java.lang.Byte` generator
-    - [ ] `java.lang.Short` generator
-    - [ ] `java.lang.Integer` generator
-    - [ ] `java.lang.Long` generator
-    - [ ] `java.lang.Float` generator
-    - [ ] `java.lang.Double` generator
-- [ ] `java.lang.Number` generator
-- [ ] `java.lang.String` and `java.lang.CharSequence` generator
-- [ ] Enumerations generator
-- [ ] `java.io.File` generator
-- [ ] `java.math.BigInteger` generator
-- [ ] `java.math.BigDecimal` generator
-- [ ] `java.nio.charset.Charset` generator
-- [ ] `java.nio.file.Path` generator
-- [ ] `java.util.Calendar` generator
-- [ ] `java.util.Currency` generator
-- [ ] `java.util.Date` generator
-- [ ] `java.util.Locale` generator
-- [ ] `java.util.TimeZone` generator
-- [ ] `java.util.URI` generator
-- [ ] `java.util.UUID` generator
+    - [X] Annotation based generators ordering
+- [X] Generators
+    - [X] Typed generators
+    - [ ] Parameters based generators
+      - [ ] Java Validation 2.1 based parameters extractors
+          - [ ] `NotNull` extractor
+          - [ ] `Size` extractor
+          - [ ] `Min` extractor
+          - [ ] `Max` extractor
+      - [ ] Parameters based typed generators
+- [X] Primitives and wrapper types generators
+    - [X] `java.lang.Boolean` generator
+    - [X] `java.lang.Byte` generator
+    - [X] `java.lang.Short` generator
+    - [X] `java.lang.Integer` generator
+    - [X] `java.lang.Long` generator
+    - [X] `java.lang.Float` generator
+    - [X] `java.lang.Double` generator
+    - [X] `java.lang.Character` generator
+- [ ] Arrays and collections generators
+    - [ ] `java.lang.Array` generator
+    - [ ] `java.util.List` generator
+    - [ ] `java.util.Map` generator
+    - [ ] `java.util.Set` generator
+- [ ] Common types generators
+    - [ ] `java.lang.Number` generator
+    - [ ] `java.lang.String` and `java.lang.CharSequence` generator
+    - [ ] `java.io.File` generator
+    - [ ] `java.math.BigInteger` generator
+    - [ ] `java.math.BigDecimal` generator
+    - [ ] `java.nio.charset.Charset` generator
+    - [ ] `java.nio.file.Path` generator
+    - [ ] `java.util.Calendar` generator
+    - [ ] `java.util.Collection` generator
+    - [ ] `java.util.Currency` generator
+    - [ ] `java.util.Date` generator
+    - [ ] `java.util.Locale` generator
+    - [ ] `java.util.TimeZone` generator
+    - [ ] `java.util.URI` generator
+    - [ ] `java.util.UUID` generator
 - [ ] `java.time` generators
     - [ ] `java.time.Clock` generator
     - [ ] `java.time.Duration` generator
@@ -64,9 +74,11 @@ Provides utilities for generation of random values.
     - [ ] `java.time.ZoneId` generator
     - [ ] `java.time.ZoneOffset` generator
     - [ ] `java.time.chrono.Chronology` generator
-- [ ] Annotation based bean generator
-- [ ] Proxyed interface generator
-- [ ] Introspection based bean generator
+- [ ] General generators
+    - [ ] Enumerations generator
+    - [ ] Annotation based bean generator
+    - [ ] Proxyed interface generator
+    - [ ] Introspection based bean generator
 
 ## Usage and further information
 

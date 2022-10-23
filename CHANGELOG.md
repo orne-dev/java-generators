@@ -9,3 +9,11 @@
 01. :gift: Added class `dev.orne.test.rnd.AbstractTypedGenerator`
 01. :gift: Added exception `dev.orne.test.rnd.GeneratorNotFoundException`
 01. :gift: Added class `dev.orne.test.rnd.Generators`
+01. :gift: Added basic generators
+    01. Added class `dev.orne.test.rnd.generators.AbstractPrimitiveGenerator`
+    01. Added class `dev.orne.test.rnd.generators.BooleanGenerator`
+    01. Added class `dev.orne.test.rnd.generators.ByteGenerator`
+    01. Added class `dev.orne.test.rnd.generators.ShortGenerator`
+    01. Added class `dev.orne.test.rnd.generators.IntegerGenerator`
+    01. Added class `dev.orne.test.rnd.generators.LongGenerator`
+    01. Added class `dev.orne.test.rnd.generators.CharacterGenerator`

@@ -319,7 +319,7 @@ class GeneratorsTest {
      */
     @Test
     void testGetGeneratorInt() {
-        final Generator mockGenerator = spy(Generator.class);
+        final Generator mockGenerator = spy(MyGenerator.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         Generators.register(mockGenerator);
         final Map<Class<?>, Generator> cache = Generators.getCacheInt();
@@ -343,7 +343,7 @@ class GeneratorsTest {
      */
     @Test
     void testGetGenerator() {
-        final Generator mockGenerator = spy(Generator.class);
+        final Generator mockGenerator = spy(MyGenerator.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         Generators.register(mockGenerator);
         final Map<Class<?>, Generator> cache = Generators.getCacheInt();
@@ -366,18 +366,18 @@ class GeneratorsTest {
      */
     @Test
     void testSupports() {
-        final Generator mockGenerator = spy(Generator.class);
+        final Generator mockGenerator = spy(MyGenerator.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
         Generators.register(mockGenerator);
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).shouldHaveNoMoreInteractions();
         assertTrue(Generators.supports(MyType.class));
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).shouldHaveNoMoreInteractions();
         assertFalse(Generators.supports(MyMissingType.class));
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).should(times(1)).supports(MyMissingType.class);
         then(mockGenerator).shouldHaveNoMoreInteractions();
@@ -388,23 +388,23 @@ class GeneratorsTest {
      */
     @Test
     void testDefaultValue() {
-        final Generator mockGenerator = spy(Generator.class);
+        final Generator mockGenerator = spy(MyGenerator.class);
         final MyType mockValue = mock(MyType.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).defaultValue(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
         Generators.register(mockGenerator);
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).shouldHaveNoMoreInteractions();
         assertSame(mockValue, Generators.defaultValue(MyType.class));
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).should(times(1)).defaultValue(MyType.class);
         then(mockGenerator).shouldHaveNoMoreInteractions();
         assertThrows(GeneratorNotFoundException.class, () -> {
             Generators.defaultValue(MyMissingType.class);
         });
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).should(times(1)).defaultValue(MyType.class);
         then(mockGenerator).should(times(1)).supports(MyMissingType.class);
@@ -416,23 +416,23 @@ class GeneratorsTest {
      */
     @Test
     void testNullableDefaultValue() {
-        final Generator mockGenerator = spy(Generator.class);
+        final Generator mockGenerator = spy(MyGenerator.class);
         final MyType mockValue = mock(MyType.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).nullableDefaultValue(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
         Generators.register(mockGenerator);
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).shouldHaveNoMoreInteractions();
         assertSame(mockValue, Generators.nullableDefaultValue(MyType.class));
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).should(times(1)).nullableDefaultValue(MyType.class);
         then(mockGenerator).shouldHaveNoMoreInteractions();
         assertThrows(GeneratorNotFoundException.class, () -> {
             Generators.nullableDefaultValue(MyMissingType.class);
         });
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).should(times(1)).nullableDefaultValue(MyType.class);
         then(mockGenerator).should(times(1)).supports(MyMissingType.class);
@@ -444,23 +444,23 @@ class GeneratorsTest {
      */
     @Test
     void testRandomValue() {
-        final Generator mockGenerator = spy(Generator.class);
+        final Generator mockGenerator = spy(MyGenerator.class);
         final MyType mockValue = mock(MyType.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).randomValue(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
         Generators.register(mockGenerator);
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).shouldHaveNoMoreInteractions();
         assertSame(mockValue, Generators.randomValue(MyType.class));
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).should(times(1)).randomValue(MyType.class);
         then(mockGenerator).shouldHaveNoMoreInteractions();
         assertThrows(GeneratorNotFoundException.class, () -> {
             Generators.randomValue(MyMissingType.class);
         });
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).should(times(1)).randomValue(MyType.class);
         then(mockGenerator).should(times(1)).supports(MyMissingType.class);
@@ -472,23 +472,23 @@ class GeneratorsTest {
      */
     @Test
     void testNullableRandomValue() {
-        final Generator mockGenerator = spy(Generator.class);
+        final Generator mockGenerator = spy(MyGenerator.class);
         final MyType mockValue = mock(MyType.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).nullableRandomValue(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
         Generators.register(mockGenerator);
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).shouldHaveNoMoreInteractions();
         assertSame(mockValue, Generators.nullableRandomValue(MyType.class));
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).should(times(1)).nullableRandomValue(MyType.class);
         then(mockGenerator).shouldHaveNoMoreInteractions();
         assertThrows(GeneratorNotFoundException.class, () -> {
             Generators.nullableRandomValue(MyMissingType.class);
         });
-        then(mockGenerator).should(times(1)).getPriority();
+        then(mockGenerator).should(atLeastOnce()).getPriority();
         then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).should(times(1)).nullableRandomValue(MyType.class);
         then(mockGenerator).should(times(1)).supports(MyMissingType.class);
@@ -551,6 +551,8 @@ class GeneratorsTest {
         private MyMissingType() {}
     };
 
+    private interface MyGenerator
+    extends Generator {}
     @Priority(Priority.MAX)
     private static class ImportantGenerator
     extends MockGenerator {}
