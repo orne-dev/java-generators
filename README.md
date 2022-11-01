@@ -46,12 +46,12 @@ Provides utilities for generation of random values.
     - [X] `java.lang.CharSequence` generator
     - [X] `java.lang.Number` generator
     - [X] `java.lang.String` generator
-    - [ ] `java.io.File` generator
+    - [X] `java.io.File` generator
     - [X] `java.math.BigInteger` generator
     - [X] `java.math.BigDecimal` generator
     - [X] `java.nio.charset.Charset` generator
-    - [ ] `java.nio.file.Path` generator
-    - [ ] `java.util.Calendar` generator
+    - [X] `java.nio.file.Path` generator
+    - [X] `java.util.Calendar` generator
     - [X] `java.util.Currency` generator
     - [X] `java.util.Date` generator
     - [X] `java.util.Locale` generator
