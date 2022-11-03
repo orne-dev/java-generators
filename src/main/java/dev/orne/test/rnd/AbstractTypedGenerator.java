@@ -108,10 +108,11 @@ implements TypedGenerator<T> {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public @NotNull <V> V defaultValue(
             final @NotNull Class<V> type) {
         assertSupported(type);
-        return type.cast(defaultValue());
+        return (V) defaultValue();
     }
 
     /**
@@ -126,10 +127,11 @@ implements TypedGenerator<T> {
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public @NotNull <V> V randomValue(
             final @NotNull Class<V> type) {
         assertSupported(type);
-        return type.cast(randomValue());
+        return (V) randomValue();
     }
 
     /**

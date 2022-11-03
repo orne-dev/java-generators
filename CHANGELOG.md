@@ -30,3 +30,5 @@
     01. Added class `dev.orne.test.rnd.generators.EnumGenerator`
     01. Added class `dev.orne.test.rnd.generators.FileGenerator`
     01. Added class `dev.orne.test.rnd.generators.PathGenerator`
+01. :gift: Added collection generators
+    01. Added class `dev.orne.test.rnd.generators.ArrayGenerator`

@@ -37,7 +37,7 @@ Provides utilities for generation of random values.
     - [X] `java.lang.Double` generator
     - [X] `java.lang.Character` generator
 - [ ] Arrays and collections generators
-    - [ ] `java.lang.Array` generator
+    - [X] `java.lang.Array` generator
     - [ ] `java.util.List` generator
     - [ ] `java.util.Map` generator
     - [ ] `java.util.Set` generator

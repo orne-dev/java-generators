@@ -4,7 +4,7 @@ package dev.orne.test.rnd.generators;
  * #%L
  * Orne Test Generators
  * %%
- * Copyright (C) 2021 Orne Developments
+ * Copyright (C) 2022 Orne Developments
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -38,7 +38,7 @@ import dev.orne.test.rnd.Priority;
  * Unit tests for {@code FloatGenerator}.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
- * @version 1.0, 2021-10
+ * @version 1.0, 2022-10
  * @since 0.1
  * @see FloatGenerator
  */
