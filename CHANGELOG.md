@@ -26,6 +26,7 @@
     01. Added class `dev.orne.test.rnd.generators.TimeZoneGenerator`
     01. Added class `dev.orne.test.rnd.generators.CurrencyGenerator`
     01. Added class `dev.orne.test.rnd.generators.CalendarGenerator`
+    01. Added class `dev.orne.test.rnd.generators.URIGenerator`
     01. Added class `dev.orne.test.rnd.generators.UUIDGenerator`
     01. Added class `dev.orne.test.rnd.generators.EnumGenerator`
     01. Added class `dev.orne.test.rnd.generators.FileGenerator`

@@ -15,6 +15,7 @@ dev.orne.test.rnd.generators.CharsetGenerator
 dev.orne.test.rnd.generators.CurrencyGenerator
 dev.orne.test.rnd.generators.TimeZoneGenerator
 dev.orne.test.rnd.generators.CalendarGenerator
+dev.orne.test.rnd.generators.URIGenerator
 dev.orne.test.rnd.generators.UUIDGenerator
 dev.orne.test.rnd.generators.FileGenerator
 dev.orne.test.rnd.generators.PathGenerator
