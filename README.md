@@ -57,7 +57,7 @@ Provides utilities for generation of random values.
     - [X] `java.util.Locale` generator
     - [X] `java.util.TimeZone` generator
     - [X] `java.util.URI` generator
-    - [ ] `java.util.URL` generator
+    - [X] `java.util.URL` generator
     - [X] `java.util.UUID` generator
 - [ ] `java.time` generators
     - [ ] `java.time.Clock` generator

@@ -1103,7 +1103,7 @@ class URIGeneratorTest {
     private void  verifyAbsoluteURI(
             final URI uri) {
         assertNotNull(uri.getScheme());
-        assertNotNull(uri.getHost());
+        assertNotNull(uri.getAuthority());
         assertNotNull(uri.getPath());
         assertTrue(uri.getPath().startsWith("/"));
         assertTrue(uri.isAbsolute());
