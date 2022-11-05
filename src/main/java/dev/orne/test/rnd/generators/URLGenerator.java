@@ -40,7 +40,7 @@ import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Priority;
 
 /**
- * Generator of {@code UUID} values.
+ * Generator of {@code URL} values.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
@@ -103,7 +103,7 @@ extends AbstractTypedGenerator<URL> {
      * 
      * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
      * @version 1.0, 2022-11
-     * @since 0.1
+     * @since URLGenerator 1.0
      */
     protected static class NopStreamHandler
     extends URLStreamHandler {

@@ -37,11 +37,13 @@ import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Priority;
 
 /**
- * Generator of {@code UUID} values.
+ * Generator of {@code URI} values.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
+ * @see https://datatracker.ietf.org/doc/html/rfc2732
+ * @see https://datatracker.ietf.org/doc/html/rfc2373
  */
 @API(status=Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
