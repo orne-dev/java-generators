@@ -28,6 +28,8 @@ import static org.mockito.BDDMockito.*;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.URI;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.time.Duration;
@@ -90,6 +92,8 @@ class ArrayGeneratorTest {
         Date[].class,
         Locale[].class,
         TimeZone[].class,
+        URI[].class,
+        URL[].class,
         UUID[].class,
     };
 
