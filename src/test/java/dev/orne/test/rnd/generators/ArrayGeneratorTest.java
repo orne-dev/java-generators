@@ -32,7 +32,21 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
+import java.time.Clock;
 import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.Period;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.chrono.Chronology;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
@@ -95,6 +109,21 @@ class ArrayGeneratorTest {
         URI[].class,
         URL[].class,
         UUID[].class,
+        Chronology[].class,
+        Clock[].class,
+        Duration[].class,
+        Instant[].class,
+        LocalDate[].class,
+        LocalDateTime[].class,
+        LocalTime[].class,
+        OffsetDateTime[].class,
+        OffsetTime[].class,
+        Period[].class,
+        Year[].class,
+        YearMonth[].class,
+        ZonedDateTime[].class,
+        ZoneId[].class,
+        ZoneOffset[].class,
     };
 
     /**

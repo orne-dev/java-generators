@@ -59,23 +59,22 @@ Provides utilities for generation of random values.
     - [X] `java.util.URI` generator
     - [X] `java.util.URL` generator
     - [X] `java.util.UUID` generator
-- [ ] `java.time` generators
-    - [ ] `java.time.Clock` generator
-    - [ ] `java.time.Duration` generator
-    - [ ] `java.time.Instant` generator
-    - [ ] `java.time.LocalDate` generator
-    - [ ] `java.time.LocalDateTime` generator
-    - [ ] `java.time.LocalTime` generator
-    - [ ] `java.time.MonthDay` generator
-    - [ ] `java.time.OffsetDateTime` generator
-    - [ ] `java.time.OffsetTime` generator
-    - [ ] `java.time.Period` generator
-    - [ ] `java.time.Year` generator
-    - [ ] `java.time.YearMonth` generator
-    - [ ] `java.time.ZonedDateTime` generator
-    - [ ] `java.time.ZoneId` generator
-    - [ ] `java.time.ZoneOffset` generator
-    - [ ] `java.time.chrono.Chronology` generator
+    - [X] `java.time.Clock` generator
+    - [X] `java.time.Duration` generator
+    - [X] `java.time.Instant` generator
+    - [X] `java.time.LocalDate` generator
+    - [X] `java.time.LocalDateTime` generator
+    - [X] `java.time.LocalTime` generator
+    - [X] `java.time.MonthDay` generator
+    - [X] `java.time.OffsetDateTime` generator
+    - [X] `java.time.OffsetTime` generator
+    - [X] `java.time.Period` generator
+    - [X] `java.time.Year` generator
+    - [X] `java.time.YearMonth` generator
+    - [X] `java.time.ZonedDateTime` generator
+    - [X] `java.time.ZoneId` generator
+    - [X] `java.time.ZoneOffset` generator
+    - [X] `java.time.chrono.Chronology` generator
 - [ ] General generators
     - [X] Enumerations generator
     - [ ] Annotation based bean generator
