@@ -129,6 +129,7 @@ class ParametersExtractorsTest {
         assertNotNull(result);
         assertNotSame(result, ParametersExtractors.getSourceExtractorsInt());
         assertEquals(result, ParametersExtractors.getSourceExtractorsInt());
+        ParametersExtractors.reset();
         final Map<Class<?>, ParametersExtractor<?>> cache = ParametersExtractors.getCacheInt();
         assertNotNull(cache);
         assertTrue(cache.isEmpty());

@@ -127,8 +127,8 @@ extends AbstractGenerator {
      * Returns a random sized array of the specified component type allowing
      * {@code null} component values.
      * 
-     * @param <T> The requested component type.
-     * @param type The requested component type.
+     * @param componentType The requested component type.
+     * @param generator The generator to use for component values.
      * @return A random array of the specified component type.
      * @throws GenerationException If an error occurs generating the value
      */

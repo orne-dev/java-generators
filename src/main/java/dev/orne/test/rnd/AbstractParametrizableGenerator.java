@@ -22,8 +22,6 @@ package dev.orne.test.rnd;
  * #L%
  */
 
-import java.util.Collection;
-
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
@@ -231,7 +229,7 @@ implements ParametrizableGenerator {
      * @param parameters The generation parameters
      * @return A random nullable value for the specified type.
      * @throws IllegalArgumentException If the specified type is not supported.
-     * @see #randomValue(Class, Collection)
+     * @see #randomValue(Class, Parameters)
      */
     public <T> T nullableRandomValue(
             final @NotNull Class<T> type,
@@ -261,10 +259,9 @@ implements ParametrizableGenerator {
 
     /**
      * Creates a new instance of generation parameters with the values
-     * extracted from the specified constraints.
+     * extracted from the specified sources.
      * 
-     * @param constraints The validation constraints to extract the parameters
-     * values from
+     * @param sources The sources to extract the parameters values from
      * @return A new instance of generation parameters.
      */
     public @NotNull P createParams(
@@ -305,7 +302,6 @@ implements ParametrizableGenerator {
      * 
      * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
      * @version 1.0, 2022-11
-     * @param <P> The parameters type
      * @since AbstractParametrizableGenerator 1.0
      */
     public interface Parameters {

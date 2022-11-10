@@ -102,9 +102,9 @@ public final class Generators {
      * requested value type.
      */
     public static <T> T defaultValue(
-            final @NotNull Class<T> clazz) {
-        final Generator generator = getGeneratorInt(clazz);
-        return generator.defaultValue(clazz);
+            final @NotNull Class<T> type) {
+        final Generator generator = getGeneratorInt(type);
+        return generator.defaultValue(type);
     }
 
     /**
@@ -120,9 +120,9 @@ public final class Generators {
      * requested value type.
      */
     public static <T> T nullableDefaultValue(
-            final @NotNull Class<T> clazz) {
-        final Generator generator = getGeneratorInt(clazz);
-        return generator.nullableDefaultValue(clazz);
+            final @NotNull Class<T> type) {
+        final Generator generator = getGeneratorInt(type);
+        return generator.nullableDefaultValue(type);
     }
 
     /**
@@ -135,9 +135,9 @@ public final class Generators {
      * requested value type.
      */
     public static <T> T randomValue(
-            final @NotNull Class<T> clazz) {
-        final Generator generator = getGeneratorInt(clazz);
-        return generator.randomValue(clazz);
+            final @NotNull Class<T> type) {
+        final Generator generator = getGeneratorInt(type);
+        return generator.randomValue(type);
     }
 
     /**
@@ -155,9 +155,9 @@ public final class Generators {
      * @see #randomValue(Class)
      */
     public static <T> T nullableRandomValue(
-            final @NotNull Class<T> clazz) {
-        final Generator generator = getGeneratorInt(clazz);
-        return generator.nullableRandomValue(clazz);
+            final @NotNull Class<T> type) {
+        final Generator generator = getGeneratorInt(type);
+        return generator.nullableRandomValue(type);
     }
 
     /**
@@ -311,7 +311,7 @@ public final class Generators {
     /**
      * Adds the specified generators to the registered generators.
      * 
-     * @param generator The value generator to register
+     * @param generators The generators to register
      */
     public static void register(
             final @NotNull Collection<Generator> generators) {

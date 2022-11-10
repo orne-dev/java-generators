@@ -42,8 +42,8 @@ import dev.orne.test.rnd.Priority;
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
- * @see https://datatracker.ietf.org/doc/html/rfc2732
- * @see https://datatracker.ietf.org/doc/html/rfc2373
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc2732">RFC 2732</a>
+ * @see <a href="https://datatracker.ietf.org/doc/html/rfc2373">RFC 2373</a>
  */
 @API(status=Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
@@ -213,7 +213,7 @@ extends AbstractTypedGenerator<URI> {
     /**
      * Returns a random top domain label.
      * 
-     * @returns The top domain label
+     * @return The top domain label
      */
     protected static @NotNull String randomTopLabel() {
         final StringBuilder buffer = new StringBuilder();

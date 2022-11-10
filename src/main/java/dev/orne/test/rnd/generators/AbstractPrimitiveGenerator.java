@@ -65,7 +65,7 @@ extends AbstractTypedGenerator<T> {
     /**
      * Crates a new instance.
      * 
-     * @param valuesType The type of generated values
+     * @param valueType The type of generated values
      */
     protected AbstractPrimitiveGenerator(
             final @NotNull Class<T> valueType) {

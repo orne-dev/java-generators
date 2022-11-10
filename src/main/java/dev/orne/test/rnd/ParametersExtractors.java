@@ -205,7 +205,7 @@ public final class ParametersExtractors {
     /**
      * Sets the generation parameters source extractors filter.
      * 
-     * @param builder The generation parameters source extractors filter
+     * @param filter The generation parameters source extractors filter
      */
     public static void setFilter(
             final @NotNull SourceExtractorFilter filter) {

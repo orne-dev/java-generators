@@ -50,7 +50,7 @@ implements TypedGenerator<T> {
     /**
      * Crates a new instance.
      * 
-     * @param valuesType The type of generated values
+     * @param valueType The type of generated values
      */
     protected AbstractTypedGenerator(
             final @NotNull Class<T> valueType) {
