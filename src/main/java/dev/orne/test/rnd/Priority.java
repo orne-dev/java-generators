@@ -28,7 +28,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import java.util.Comparator;
 
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
@@ -51,17 +50,13 @@ public @interface Priority {
     /** The minimum priority. */
     public static final int MIN = Integer.MIN_VALUE;
     /** The priority for built in native types generators. */
+    public static final int ANNOTATION_GENERATORS = -500;
+    /** The priority for built in native types generators. */
     public static final int NATIVE_GENERATORS = -1000;
     /** The priority for built in generic types generators. */
     public static final int GENERIC_GENERATORS = -2000;
     /** The maximum priority. */
     public static final int MAX = Integer.MAX_VALUE;
-
-    /**
-     * The generator comparator by priority.
-     */
-    public static final Comparator<Generator> COMPARATOR =
-            Comparator.comparingInt(Generator::getPriority).reversed();
 
     /**
      * Returns the priority of the generator.

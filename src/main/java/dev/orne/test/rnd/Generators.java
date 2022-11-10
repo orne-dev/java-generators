@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -62,6 +63,11 @@ import org.apiguardian.api.API.Status;
 @API(status=Status.STABLE, since="0.1")
 public final class Generators {
 
+    /**
+     * The generator comparator by priority.
+     */
+    public static final Comparator<Generator> COMPARATOR =
+            Comparator.comparingInt(Generator::getPriority).reversed();
     /** The by class generator cache. */
     private static final Map<Class<?>, Generator> CACHE = new WeakHashMap<>();
     /** The registered generators. */
@@ -201,6 +207,88 @@ public final class Generators {
     }
 
     /**
+     * Returns a targeted generator for the specified bean property.
+     * <p>
+     * If a parametrizable generator has been registered for the specified type
+     * extracts the generation parameters from the property's validation
+     * constraints.
+     * 
+     * @param <T> The type of the generated values
+     * @param type The type of the property and the generated values
+     * @param beanType The bean type
+     * @param property The property of the bean
+     * @return A generator for the type of the specified property
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> @NotNull PropertyGenerator<T> forProperty(
+            final @NotNull Class<T> type,
+            final @NotNull Class<?> beanType,
+            final @NotNull String property) {
+        return new PropertyGenerator<>(type, beanType, property);
+    }
+
+    /**
+     * Returns a targeted generator for the specified method argument.
+     * <p>
+     * If a parametrizable generator has been registered for the specified type
+     * extracts the generation parameters from the arguments's validation
+     * constraints.
+     * 
+     * @param <T> The type of the generated values
+     * @param type The type of the argument and the generated values
+     * @param method The method
+     * @param argumentIndex The argument index
+     * @return A generator for the type of the specified method argument
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> @NotNull MethodArgumentGenerator<T> forArgument(
+            final @NotNull Class<T> type,
+            final @NotNull Method method,
+            final @NotNull int argumentIndex) {
+        return new MethodArgumentGenerator<>(type, method, argumentIndex);
+    }
+
+    /**
+     * Returns a targeted generator for the specified method return type.
+     * <p>
+     * If a parametrizable generator has been registered for the specified type
+     * extracts the generation parameters from the method's validation
+     * constraints.
+     * 
+     * @param <T> The type of the generated values
+     * @param type The type of the method return type and the generated values
+     * @param method The method
+     * @return A generator for the type of the specified method return type
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> @NotNull MethodReturnTypeGenerator<T> forReturnType(
+            final @NotNull Class<T> type,
+            final @NotNull Method method) {
+        return new MethodReturnTypeGenerator<>(type, method);
+    }
+
+    /**
+     * Returns a targeted generator for the specified constructor argument.
+     * <p>
+     * If a parametrizable generator has been registered for the specified type
+     * extracts the generation parameters from the arguments's validation
+     * constraints.
+     * 
+     * @param <T> The type of the generated values
+     * @param type The type of the argument and the generated values
+     * @param constructor The constructor
+     * @param argumentIndex The argument index
+     * @return A generator for the type of the specified constructor argument
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> @NotNull ConstructorArgumentGenerator<T> forArgument(
+            final @NotNull Class<T> type,
+            final @NotNull Constructor<?> constructor,
+            final @NotNull int argumentIndex) {
+        return new ConstructorArgumentGenerator<>(type, constructor, argumentIndex);
+    }
+
+    /**
      * Returns an unmodifiable list with the registered generators.
      * 
      * @return The registered generators
@@ -210,7 +298,7 @@ public final class Generators {
     }
 
     /**
-     * Adds the specified generator at the end of the registered generators.
+     * Adds the specified generators to the registered generators.
      * 
      * @param generators The generators to register
      */
@@ -221,7 +309,7 @@ public final class Generators {
     }
 
     /**
-     * Adds the specified generator at the end of the registered generators.
+     * Adds the specified generators to the registered generators.
      * 
      * @param generator The value generator to register
      */
@@ -232,13 +320,13 @@ public final class Generators {
         synchronized (Generators.class) {
             final List<Generator> intList = getGeneratorsInt();
             intList.addAll(generators);
-            Collections.sort(intList, Priority.COMPARATOR);
+            Collections.sort(intList, COMPARATOR);
             CACHE.clear();
         }
     }
 
     /**
-     * Removes the specified generator from the registered generators.
+     * Removes the specified generators from the registered generators.
      * 
      * @param generators The generators to remove
      */
@@ -249,7 +337,7 @@ public final class Generators {
     }
 
     /**
-     * Removes the specified generator from the registered generators.
+     * Removes the specified generators from the registered generators.
      * 
      * @param generators The generators to remove
      */
@@ -260,7 +348,7 @@ public final class Generators {
         synchronized (Generators.class) {
             final List<Generator> intList = getGeneratorsInt();
             intList.removeAll(generators);
-            Collections.sort(intList, Priority.COMPARATOR);
+            Collections.sort(intList, COMPARATOR);
             CACHE.clear();
         }
     }
@@ -288,7 +376,7 @@ public final class Generators {
             if (registeredGenerators == null) {
                 registeredGenerators = new ArrayList<>();
                 registeredGenerators.addAll(loadSpiGenerators());
-                Collections.sort(registeredGenerators, Priority.COMPARATOR);
+                Collections.sort(registeredGenerators, COMPARATOR);
             }
             return registeredGenerators;
         }
@@ -299,7 +387,7 @@ public final class Generators {
      * 
      * @return The internal by class generator cache
      */
-    public static @NotNull Map<Class<?>, Generator> getCacheInt() {
+    static @NotNull Map<Class<?>, Generator> getCacheInt() {
         return CACHE;
     }
 
@@ -323,6 +411,7 @@ public final class Generators {
     }
 
     /**
+     * Cache value for missing generators for a value type.
      * 
      * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
      * @version 1.0, 2022-10

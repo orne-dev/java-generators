@@ -20,13 +20,13 @@ Provides utilities for generation of random values.
     - [X] Annotation based generators ordering
 - [X] Generators
     - [X] Typed generators
-    - [ ] Parameters based generators
+    - [X] Parameters based generators
       - [ ] Java Validation 2.1 based parameters extractors
           - [ ] `NotNull` extractor
           - [ ] `Size` extractor
           - [ ] `Min` extractor
           - [ ] `Max` extractor
-      - [ ] Parameters based typed generators
+      - [X] Parameters based typed generators
 - [X] Primitives and wrapper types generators
     - [X] `java.lang.Boolean` generator
     - [X] `java.lang.Byte` generator

@@ -59,6 +59,29 @@ class GeneratorsTest {
     }
 
     /**
+     * Test for {@link Generators#COMPARATOR}.
+     */
+    @Test
+    void testComparator() {
+        final Generator importantGenerator = new ImportantGenerator();
+        final Generator defaultGenerator = new DefaultGenerator();
+        final Generator noAnnotationGenerator = new NoAnnotationGenerator();
+        final Generator fallbackGenerator = new FallbackGenerator();
+        final List<Generator> list = Arrays.asList(
+                defaultGenerator,
+                importantGenerator,
+                fallbackGenerator,
+                noAnnotationGenerator);
+        final List<Generator> expected = Arrays.asList(
+                importantGenerator,
+                defaultGenerator,
+                noAnnotationGenerator,
+                fallbackGenerator);
+        Collections.sort(list, Generators.COMPARATOR);
+        assertEquals(expected, list);
+    }
+
+    /**
      * Test for {@link Generators#loadSpiGenerators()}.
      */
     @Test
@@ -89,7 +112,7 @@ class GeneratorsTest {
         final List<Generator> result = Generators.getGeneratorsInt();
         assertNotNull(result);
         final List<Generator> expected = Generators.loadSpiGenerators();
-        Collections.sort(expected, Priority.COMPARATOR);
+        Collections.sort(expected, Generators.COMPARATOR);
         assertEquals(expected, result);
         final List<Generator> other = Generators.getGeneratorsInt();
         assertSame(result, other);
@@ -203,7 +226,7 @@ class GeneratorsTest {
         Generators.register(newGenerators);
         final List<Generator> expected = Generators.loadSpiGenerators();
         expected.addAll(Arrays.asList(newGenerators));
-        Collections.sort(expected, Priority.COMPARATOR);
+        Collections.sort(expected, Generators.COMPARATOR);
         assertEquals(expected, Generators.getGeneratorsInt());
         assertTrue(cache.isEmpty());
         assertThrows(NullPointerException.class, () -> {
@@ -237,7 +260,7 @@ class GeneratorsTest {
         Generators.register(newGenerators);
         final List<Generator> expected = Generators.loadSpiGenerators();
         expected.addAll(newGenerators);
-        Collections.sort(expected, Priority.COMPARATOR);
+        Collections.sort(expected, Generators.COMPARATOR);
         assertEquals(expected, Generators.getGeneratorsInt());
         assertTrue(cache.isEmpty());
         assertThrows(NullPointerException.class, () -> {
@@ -269,7 +292,7 @@ class GeneratorsTest {
         final List<Generator> expected = Generators.loadSpiGenerators();
         assertEquals(expected.size() - oldGenerators.length, Generators.getGeneratorsInt().size());
         expected.removeAll(Arrays.asList(oldGenerators));
-        Collections.sort(expected, Priority.COMPARATOR);
+        Collections.sort(expected, Generators.COMPARATOR);
         assertEquals(expected, Generators.getGeneratorsInt());
         assertTrue(cache.isEmpty());
         assertThrows(NullPointerException.class, () -> {
@@ -299,7 +322,7 @@ class GeneratorsTest {
         final List<Generator> expected = Generators.loadSpiGenerators();
         assertEquals(expected.size() - oldGenerators.size(), Generators.getGeneratorsInt().size());
         expected.removeAll(oldGenerators);
-        Collections.sort(expected, Priority.COMPARATOR);
+        Collections.sort(expected, Generators.COMPARATOR);
         assertEquals(expected, Generators.getGeneratorsInt());
         assertTrue(cache.isEmpty());
         assertThrows(NullPointerException.class, () -> {
@@ -545,12 +568,10 @@ class GeneratorsTest {
 
     private static class MyType {
         private MyType() {}
-    };
-
+    }
     private static class MyMissingType {
         private MyMissingType() {}
-    };
-
+    }
     private interface MyGenerator
     extends Generator {}
     @Priority(Priority.MAX)
