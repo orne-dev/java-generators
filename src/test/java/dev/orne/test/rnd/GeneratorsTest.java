@@ -342,7 +342,7 @@ class GeneratorsTest {
      */
     @Test
     void testGetGeneratorInt() {
-        final Generator mockGenerator = spy(MyGenerator.class);
+        final Generator mockGenerator = spy(Generator.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         Generators.register(mockGenerator);
         final Map<Class<?>, Generator> cache = Generators.getCacheInt();
@@ -366,13 +366,13 @@ class GeneratorsTest {
      */
     @Test
     void testGetGenerator() {
-        final Generator mockGenerator = spy(MyGenerator.class);
+        final Generator mockGenerator = spy(Generator.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         Generators.register(mockGenerator);
         final Map<Class<?>, Generator> cache = Generators.getCacheInt();
         assertNotNull(cache);
         assertTrue(cache.isEmpty());
-        final Generator result = Generators.getGeneratorInt(MyType.class);
+        final Generator result = Generators.getGenerator(MyType.class);
         assertNotNull(result);
         assertSame(mockGenerator, result);
         assertFalse(cache.isEmpty());
@@ -385,11 +385,42 @@ class GeneratorsTest {
     }
 
     /**
+     * Test for {@link Generators#getParameterizableGenerator(Class)}.
+     */
+    @Test
+    void testGetParameterizableGenerator() {
+        final ParameterizableGenerator mockParamsGenerator = spy(ParameterizableGenerator.class);
+        willReturn(true).given(mockParamsGenerator).supports(MyParameterizableType.class);
+        final Generator mockGenerator = spy(Generator.class);
+        willReturn(true).given(mockGenerator).supports(MyType.class);
+        Generators.register(mockParamsGenerator);
+        Generators.register(mockGenerator);
+        final Map<Class<?>, Generator> cache = Generators.getCacheInt();
+        assertNotNull(cache);
+        assertTrue(cache.isEmpty());
+        final Generator result = Generators.getParameterizableGenerator(MyParameterizableType.class);
+        assertNotNull(result);
+        assertSame(mockParamsGenerator, result);
+        assertFalse(cache.isEmpty());
+        assertEquals(1, cache.size());
+        assertEquals(result, cache.get(MyParameterizableType.class));
+        final Generator noParamsResult = Generators.getParameterizableGenerator(MyType.class);
+        assertNull(noParamsResult);
+        assertFalse(cache.isEmpty());
+        assertEquals(2, cache.size());
+        assertEquals(mockGenerator, cache.get(MyType.class));
+        final Generator missingResult = Generators.getParameterizableGenerator(MyMissingType.class);
+        assertNull(missingResult);
+        assertEquals(3, cache.size());
+        assertEquals(MissingGenerator.INSTANCE, cache.get(MyMissingType.class));
+    }
+
+    /**
      * Test for {@link Generators#supports(Class)}.
      */
     @Test
     void testSupports() {
-        final Generator mockGenerator = spy(MyGenerator.class);
+        final Generator mockGenerator = spy(Generator.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
         Generators.register(mockGenerator);
@@ -411,7 +442,7 @@ class GeneratorsTest {
      */
     @Test
     void testDefaultValue() {
-        final Generator mockGenerator = spy(MyGenerator.class);
+        final Generator mockGenerator = spy(Generator.class);
         final MyType mockValue = mock(MyType.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).defaultValue(MyType.class);
@@ -439,7 +470,7 @@ class GeneratorsTest {
      */
     @Test
     void testNullableDefaultValue() {
-        final Generator mockGenerator = spy(MyGenerator.class);
+        final Generator mockGenerator = spy(Generator.class);
         final MyType mockValue = mock(MyType.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).nullableDefaultValue(MyType.class);
@@ -467,7 +498,7 @@ class GeneratorsTest {
      */
     @Test
     void testRandomValue() {
-        final Generator mockGenerator = spy(MyGenerator.class);
+        final Generator mockGenerator = spy(Generator.class);
         final MyType mockValue = mock(MyType.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).randomValue(MyType.class);
@@ -495,7 +526,7 @@ class GeneratorsTest {
      */
     @Test
     void testNullableRandomValue() {
-        final Generator mockGenerator = spy(MyGenerator.class);
+        final Generator mockGenerator = spy(Generator.class);
         final MyType mockValue = mock(MyType.class);
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).nullableRandomValue(MyType.class);
@@ -515,6 +546,202 @@ class GeneratorsTest {
         then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).should(times(1)).nullableRandomValue(MyType.class);
         then(mockGenerator).should(times(1)).supports(MyMissingType.class);
+        then(mockGenerator).shouldHaveNoMoreInteractions();
+    }
+
+    /**
+     * Test for {@link Generators#defaultValue(Class, GenerationParameters)}.
+     */
+    @Test
+    void testDefaultValueParameterizable() {
+        final ParameterizableGenerator mockParamsGenerator = spy(ParameterizableGenerator.class);
+        final GenerationParameters params = spy(GenerationParameters.class);
+        final MyParameterizableType mockValue = mock(MyParameterizableType.class);
+        willReturn(true).given(mockParamsGenerator).supports(MyParameterizableType.class);
+        willReturn(mockValue).given(mockParamsGenerator).defaultValue(MyParameterizableType.class, params);
+        willReturn(false).given(mockParamsGenerator).supports(MyMissingType.class);
+        Generators.register(mockParamsGenerator);
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+        assertSame(mockValue, Generators.defaultValue(MyParameterizableType.class, params));
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).should(times(1)).supports(MyParameterizableType.class);
+        then(mockParamsGenerator).should(times(1)).defaultValue(MyParameterizableType.class, params);
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+        assertThrows(GeneratorNotFoundException.class, () -> {
+            Generators.defaultValue(MyMissingType.class, params);
+        });
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).should(times(1)).supports(MyParameterizableType.class);
+        then(mockParamsGenerator).should(times(1)).defaultValue(MyParameterizableType.class, params);
+        then(mockParamsGenerator).should(times(1)).supports(MyMissingType.class);
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+    }
+
+    /**
+     * Test for {@link Generators#defaultValue(Class, GenerationParameters)}.
+     */
+    @Test
+    void testDefaultValueNoParameterizable() {
+        final Generator mockGenerator = spy(Generator.class);
+        final GenerationParameters params = spy(GenerationParameters.class);
+        willReturn(true).given(mockGenerator).supports(MyType.class);
+        willReturn(false).given(mockGenerator).supports(MyMissingType.class);
+        Generators.register(mockGenerator);
+        then(mockGenerator).should(atLeastOnce()).getPriority();
+        then(mockGenerator).shouldHaveNoMoreInteractions();
+        assertThrows(GeneratorNotParameterizableException.class, () -> {
+            Generators.defaultValue(MyType.class, params);
+        });
+        then(mockGenerator).should(atLeastOnce()).getPriority();
+        then(mockGenerator).should(times(1)).supports(MyType.class);
+        then(mockGenerator).shouldHaveNoMoreInteractions();
+    }
+
+    /**
+     * Test for {@link Generators#nullableDefaultValue(Class, GenerationParameters)}.
+     */
+    @Test
+    void testNullableDefaultValueParameterizable() {
+        final ParameterizableGenerator mockParamsGenerator = spy(ParameterizableGenerator.class);
+        final GenerationParameters params = spy(GenerationParameters.class);
+        final MyParameterizableType mockValue = mock(MyParameterizableType.class);
+        willReturn(true).given(mockParamsGenerator).supports(MyParameterizableType.class);
+        willReturn(mockValue).given(mockParamsGenerator).nullableDefaultValue(MyParameterizableType.class, params);
+        willReturn(false).given(mockParamsGenerator).supports(MyMissingType.class);
+        Generators.register(mockParamsGenerator);
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+        assertSame(mockValue, Generators.nullableDefaultValue(MyParameterizableType.class, params));
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).should(times(1)).supports(MyParameterizableType.class);
+        then(mockParamsGenerator).should(times(1)).nullableDefaultValue(MyParameterizableType.class, params);
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+        assertThrows(GeneratorNotFoundException.class, () -> {
+            Generators.nullableDefaultValue(MyMissingType.class, params);
+        });
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).should(times(1)).supports(MyParameterizableType.class);
+        then(mockParamsGenerator).should(times(1)).nullableDefaultValue(MyParameterizableType.class, params);
+        then(mockParamsGenerator).should(times(1)).supports(MyMissingType.class);
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+    }
+
+    /**
+     * Test for {@link Generators#nullableDefaultValue(Class, GenerationParameters)}.
+     */
+    @Test
+    void testNullableDefaultValueNoParameterizable() {
+        final Generator mockGenerator = spy(Generator.class);
+        final GenerationParameters params = spy(GenerationParameters.class);
+        willReturn(true).given(mockGenerator).supports(MyType.class);
+        willReturn(false).given(mockGenerator).supports(MyMissingType.class);
+        Generators.register(mockGenerator);
+        then(mockGenerator).should(atLeastOnce()).getPriority();
+        then(mockGenerator).shouldHaveNoMoreInteractions();
+        assertThrows(GeneratorNotParameterizableException.class, () -> {
+            Generators.nullableDefaultValue(MyType.class, params);
+        });
+        then(mockGenerator).should(atLeastOnce()).getPriority();
+        then(mockGenerator).should(times(1)).supports(MyType.class);
+        then(mockGenerator).shouldHaveNoMoreInteractions();
+    }
+
+    /**
+     * Test for {@link Generators#randomValue(Class, GenerationParameters)}.
+     */
+    @Test
+    void testRandomValueParameterizable() {
+        final ParameterizableGenerator mockParamsGenerator = spy(ParameterizableGenerator.class);
+        final GenerationParameters params = spy(GenerationParameters.class);
+        final MyParameterizableType mockValue = mock(MyParameterizableType.class);
+        willReturn(true).given(mockParamsGenerator).supports(MyParameterizableType.class);
+        willReturn(mockValue).given(mockParamsGenerator).randomValue(MyParameterizableType.class, params);
+        willReturn(false).given(mockParamsGenerator).supports(MyMissingType.class);
+        Generators.register(mockParamsGenerator);
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+        assertSame(mockValue, Generators.randomValue(MyParameterizableType.class, params));
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).should(times(1)).supports(MyParameterizableType.class);
+        then(mockParamsGenerator).should(times(1)).randomValue(MyParameterizableType.class, params);
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+        assertThrows(GeneratorNotFoundException.class, () -> {
+            Generators.randomValue(MyMissingType.class, params);
+        });
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).should(times(1)).supports(MyParameterizableType.class);
+        then(mockParamsGenerator).should(times(1)).randomValue(MyParameterizableType.class, params);
+        then(mockParamsGenerator).should(times(1)).supports(MyMissingType.class);
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+    }
+
+    /**
+     * Test for {@link Generators#randomValue(Class, GenerationParameters)}.
+     */
+    @Test
+    void testRandomValueNoParameterizable() {
+        final Generator mockGenerator = spy(Generator.class);
+        final GenerationParameters params = spy(GenerationParameters.class);
+        willReturn(true).given(mockGenerator).supports(MyType.class);
+        willReturn(false).given(mockGenerator).supports(MyMissingType.class);
+        Generators.register(mockGenerator);
+        then(mockGenerator).should(atLeastOnce()).getPriority();
+        then(mockGenerator).shouldHaveNoMoreInteractions();
+        assertThrows(GeneratorNotParameterizableException.class, () -> {
+            Generators.randomValue(MyType.class, params);
+        });
+        then(mockGenerator).should(atLeastOnce()).getPriority();
+        then(mockGenerator).should(times(1)).supports(MyType.class);
+        then(mockGenerator).shouldHaveNoMoreInteractions();
+    }
+
+    /**
+     * Test for {@link Generators#nullableRandomValue(Class, GenerationParameters)}.
+     */
+    @Test
+    void testNullableRandomValueParameterizable() {
+        final ParameterizableGenerator mockParamsGenerator = spy(ParameterizableGenerator.class);
+        final GenerationParameters params = spy(GenerationParameters.class);
+        final MyParameterizableType mockValue = mock(MyParameterizableType.class);
+        willReturn(true).given(mockParamsGenerator).supports(MyParameterizableType.class);
+        willReturn(mockValue).given(mockParamsGenerator).nullableRandomValue(MyParameterizableType.class, params);
+        willReturn(false).given(mockParamsGenerator).supports(MyMissingType.class);
+        Generators.register(mockParamsGenerator);
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+        assertSame(mockValue, Generators.nullableRandomValue(MyParameterizableType.class, params));
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).should(times(1)).supports(MyParameterizableType.class);
+        then(mockParamsGenerator).should(times(1)).nullableRandomValue(MyParameterizableType.class, params);
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+        assertThrows(GeneratorNotFoundException.class, () -> {
+            Generators.nullableRandomValue(MyMissingType.class, params);
+        });
+        then(mockParamsGenerator).should(atLeastOnce()).getPriority();
+        then(mockParamsGenerator).should(times(1)).supports(MyParameterizableType.class);
+        then(mockParamsGenerator).should(times(1)).nullableRandomValue(MyParameterizableType.class, params);
+        then(mockParamsGenerator).should(times(1)).supports(MyMissingType.class);
+        then(mockParamsGenerator).shouldHaveNoMoreInteractions();
+    }
+
+    /**
+     * Test for {@link Generators#nullableRandomValue(Class, GenerationParameters)}.
+     */
+    @Test
+    void testNullableRandomValueNoParameterizable() {
+        final Generator mockGenerator = spy(Generator.class);
+        final GenerationParameters params = spy(GenerationParameters.class);
+        willReturn(true).given(mockGenerator).supports(MyType.class);
+        willReturn(false).given(mockGenerator).supports(MyMissingType.class);
+        Generators.register(mockGenerator);
+        then(mockGenerator).should(atLeastOnce()).getPriority();
+        then(mockGenerator).shouldHaveNoMoreInteractions();
+        assertThrows(GeneratorNotParameterizableException.class, () -> {
+            Generators.nullableRandomValue(MyType.class, params);
+        });
+        then(mockGenerator).should(atLeastOnce()).getPriority();
+        then(mockGenerator).should(times(1)).supports(MyType.class);
         then(mockGenerator).shouldHaveNoMoreInteractions();
     }
 
@@ -572,8 +799,9 @@ class GeneratorsTest {
     private static class MyMissingType {
         private MyMissingType() {}
     }
-    private interface MyGenerator
-    extends Generator {}
+    private static class MyParameterizableType {
+        private MyParameterizableType() {}
+    }
     @Priority(Priority.MAX)
     private static class ImportantGenerator
     extends MockGenerator {}

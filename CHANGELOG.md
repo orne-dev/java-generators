@@ -60,3 +60,4 @@
     01. Added class `dev.orne.test.rnd.ParametersExtractors`
     01. Added class `dev.orne.test.rnd.AbstractParameterizableGenerator`
     01. Added class `dev.orne.test.rnd.AbstractTypedParameterizableGenerator`
+    01. Added exception `dev.orne.test.rnd.GeneratorNotParameterizableException`

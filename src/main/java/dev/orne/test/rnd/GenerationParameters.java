@@ -85,6 +85,18 @@ public class GenerationParameters {
     }
 
     /**
+     * Sets if a {@code null} value is accepted.
+     * 
+     * @param nullable If a {@code null} value is accepted.
+     * @return This instance, for method chaining.
+     */
+    public @NotNull GenerationParameters withNullable(
+            final boolean nullable) {
+        setNullable(nullable);
+        return this;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

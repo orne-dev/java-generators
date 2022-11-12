@@ -38,6 +38,7 @@ import org.junit.jupiter.api.Test;
  * @see GenerationException
  * @see UnsupportedValueTypeException
  * @see GeneratorNotFoundException
+ * @see GeneratorNotParameterizableException
  */
 @Tag("ut")
 class ExceptionsTest {
@@ -78,6 +79,17 @@ class ExceptionsTest {
         assertMessageException(new GeneratorNotFoundException(TEST_MESSAGE));
         assertCauseException(new GeneratorNotFoundException(TEST_CAUSE));
         assertFullException(new GeneratorNotFoundException(TEST_MESSAGE, TEST_CAUSE));
+    }
+
+    /**
+     * Test for {@link GeneratorNotParameterizableException}.
+     */
+    @Test
+    void testGeneratorNotParameterizableException() {
+        assertEmptyException(new GeneratorNotParameterizableException());
+        assertMessageException(new GeneratorNotParameterizableException(TEST_MESSAGE));
+        assertCauseException(new GeneratorNotParameterizableException(TEST_CAUSE));
+        assertFullException(new GeneratorNotParameterizableException(TEST_MESSAGE, TEST_CAUSE));
     }
 
     /**

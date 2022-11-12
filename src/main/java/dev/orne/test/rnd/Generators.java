@@ -70,6 +70,10 @@ public final class Generators {
     /** The registered generators. */
     private static List<Generator> registeredGenerators;
 
+    /** The error message for non parameterizable generators. */
+    public static final String NOT_PARAM_GEN_ERR =
+            "Registered generator for type %s is not parameterizable";
+
     /**
      * Private constructor.
      */
@@ -95,13 +99,32 @@ public final class Generators {
      * @param <T> The requested value type.
      * @param type The requested value type.
      * @return The default value for the specified type.
-     * @throws GeneratorNotFoundException If no generator is supports the
+     * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
      */
     public static <T> T defaultValue(
             final @NotNull Class<T> type) {
         final Generator generator = getGeneratorInt(type);
         return generator.defaultValue(type);
+    }
+
+    /**
+     * Returns the default value for the specified type.
+     * 
+     * @param <T> The requested value type.
+     * @param type The requested value type.
+     * @param params The generation parameters.
+     * @return The default value for the specified type.
+     * @throws GeneratorNotFoundException If no generator supports the
+     * requested value type.
+     * @throws GeneratorNotParameterizableException If the generator registered
+     * for the requested value type is not parameterizable.
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> T defaultValue(
+            final @NotNull Class<T> type,
+            final @NotNull GenerationParameters params) {
+        return requireParameterizableGenerator(type).defaultValue(type, params);
     }
 
     /**
@@ -113,7 +136,7 @@ public final class Generators {
      * @param <T> The requested value type.
      * @param type The requested value type.
      * @return The nullable default value for the specified type.
-     * @throws GeneratorNotFoundException If no generator is supports the
+     * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
      */
     public static <T> T nullableDefaultValue(
@@ -123,18 +146,59 @@ public final class Generators {
     }
 
     /**
+     * Returns the default value for the specified type allowing {@code null}
+     * values.
+     * <p>
+     * This method should return {@code null} except for native types.
+     * 
+     * @param <T> The requested value type.
+     * @param type The requested value type.
+     * @param params The generation parameters.
+     * @return The nullable default value for the specified type.
+     * @throws GeneratorNotFoundException If no generator supports the
+     * requested value type.
+     * @throws GeneratorNotParameterizableException If the generator registered
+     * for the requested value type is not parameterizable.
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> T nullableDefaultValue(
+            final @NotNull Class<T> type,
+            final @NotNull GenerationParameters params) {
+        return requireParameterizableGenerator(type).nullableDefaultValue(type, params);
+    }
+
+    /**
      * Returns a random value of the specified type.
      * 
      * @param <T> The requested value type.
      * @param type The requested value type.
      * @return A random value for the specified type.
-     * @throws GeneratorNotFoundException If no generator is supports the
+     * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
      */
     public static <T> T randomValue(
             final @NotNull Class<T> type) {
         final Generator generator = getGeneratorInt(type);
         return generator.randomValue(type);
+    }
+
+    /**
+     * Returns a random value of the specified type.
+     * 
+     * @param <T> The requested value type.
+     * @param type The requested value type.
+     * @param params The generation parameters.
+     * @return A random value for the specified type.
+     * @throws GeneratorNotFoundException If no generator supports the
+     * requested value type.
+     * @throws GeneratorNotParameterizableException If the generator registered
+     * for the requested value type is not parameterizable.
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> T randomValue(
+            final @NotNull Class<T> type,
+            final @NotNull GenerationParameters params) {
+        return requireParameterizableGenerator(type).randomValue(type, params);
     }
 
     /**
@@ -147,7 +211,7 @@ public final class Generators {
      * @param <T> The requested value type.
      * @param type The requested value type.
      * @return A random nullable value for the specified type.
-     * @throws GeneratorNotFoundException If no generator is supports the
+     * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
      * @see #randomValue(Class)
      */
@@ -155,6 +219,30 @@ public final class Generators {
             final @NotNull Class<T> type) {
         final Generator generator = getGeneratorInt(type);
         return generator.nullableRandomValue(type);
+    }
+
+    /**
+     * Returns a random value of the specified type allowing {@code null}
+     * values.
+     * <p>
+     * The returned value has a probability of be {@code null} except for
+     * native types. If not {@code null} behaves as {@code randomValue()}.
+     * 
+     * @param <T> The requested value type.
+     * @param type The requested value type.
+     * @param params The generation parameters.
+     * @return A random nullable value for the specified type.
+     * @throws GeneratorNotFoundException If no generator supports the
+     * requested value type.
+     * @throws GeneratorNotParameterizableException If the generator registered
+     * for the requested value type is not parameterizable.
+     * @see #randomValue(Class)
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> T nullableRandomValue(
+            final @NotNull Class<T> type,
+            final @NotNull GenerationParameters params) {
+        return requireParameterizableGenerator(type).nullableRandomValue(type, params);
     }
 
     /**
@@ -171,6 +259,25 @@ public final class Generators {
     }
 
     /**
+     * Returns the parameterizable generator to use for the specified value
+     * type. If no generator supports the requested value type or the
+     * generator is not parameterizable returns {@code null}.
+     * 
+     * @param type The value type to generate
+     * @return The generator to use. Returns {@code null} is no one is
+     * suitable.
+     */
+    public static ParameterizableGenerator getParameterizableGenerator(
+            final @NotNull Class<?> type) {
+        final Generator result = getGenerator(type);
+        if (result instanceof ParameterizableGenerator) {
+            return (ParameterizableGenerator) result;
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Returns the generator to use for the specified value type.
      * 
      * @param type The value type to generate
@@ -180,6 +287,28 @@ public final class Generators {
     static @NotNull Generator getGeneratorInt(
             final @NotNull Class<?> type) {
         return CACHE.computeIfAbsent(type, Generators::findGenerator);
+    }
+
+    /**
+     * Return the parameterizable generator for the specified value type.
+     * 
+     * @param type The value type to generate
+     * @return The generator to use.
+     * @throws GeneratorNotFoundException If no generator supports the
+     * requested value type.
+     * @throws GeneratorNotParameterizableException If the registered generator
+     * is not parameterizable.
+     */
+    static @NotNull ParameterizableGenerator requireParameterizableGenerator(
+            final @NotNull Class<?> type) {
+        final Generator generator = getGeneratorInt(type);
+        if (generator == MissingGenerator.INSTANCE) {
+            throw new GeneratorNotFoundException(MissingGenerator.ERR_MSG);
+        } else if (!(generator instanceof ParameterizableGenerator)) {
+            throw new GeneratorNotParameterizableException(
+                    String.format(NOT_PARAM_GEN_ERR, type));
+        }
+        return (ParameterizableGenerator) generator;
     }
 
     /**
