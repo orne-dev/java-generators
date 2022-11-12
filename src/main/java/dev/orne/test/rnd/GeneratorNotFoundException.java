@@ -22,6 +22,9 @@ package dev.orne.test.rnd;
  * #L%
  */
 
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
 /**
  * Exception throw by {@code Generators} when value generation is requested but
  * no suitable generator is found for the required type.
@@ -30,6 +33,7 @@ package dev.orne.test.rnd;
  * @version 1.0, 2022-10
  * @since 0.1
  */
+@API(status=Status.STABLE, since="0.1")
 public class GeneratorNotFoundException
 extends GenerationException {
 

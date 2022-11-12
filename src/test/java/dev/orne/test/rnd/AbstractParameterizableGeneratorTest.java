@@ -36,18 +36,18 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
- * Unit tests for {@code AbstractParametrizableGenerator}.
+ * Unit tests for {@code AbstractParameterizableGenerator}.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
- * @see AbstractParametrizableGenerator
+ * @see AbstractParameterizableGenerator
  */
 @Tag("ut")
-class AbstractParametrizableGeneratorTest {
+class AbstractParameterizableGeneratorTest {
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#AbstractParametrizableGenerator()}
+     * Unit test for {@link AbstractParameterizableGenerator#AbstractParameterizableGenerator()}
      */
     @Test
     void testTypeInferred() {
@@ -56,7 +56,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#AbstractParametrizableGenerator()}
+     * Unit test for {@link AbstractParameterizableGenerator#AbstractParameterizableGenerator()}
      */
     @Test
     void testTypeInferred_MultipleLevels() {
@@ -65,7 +65,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#AbstractParametrizableGenerator()}
+     * Unit test for {@link AbstractParameterizableGenerator#AbstractParameterizableGenerator()}
      */
     @Test
     void testTypeInferred_Generic() {
@@ -75,7 +75,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#AbstractParametrizableGenerator(Class)}
+     * Unit test for {@link AbstractParameterizableGenerator#AbstractParameterizableGenerator(Class)}
      */
     @Test
     void testTypeConstructor() {
@@ -84,11 +84,11 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#getExtractor()}
+     * Unit test for {@link AbstractParameterizableGenerator#getExtractor()}
      */
     @Test
     void testGetExtractor() {
-        final AbstractParametrizableGenerator<?> generator = spy(new GenericChild<>(MyParams.class));
+        final AbstractParameterizableGenerator<?> generator = spy(new GenericChild<>(MyParams.class));
         final ParametersExtractor<MyParams> expected = ParametersExtractors.getExtractor(MyParams.class);
         assertSame(expected, generator.getExtractor());
         ParametersExtractors.reset();
@@ -98,24 +98,24 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#createEmptyParams()}
+     * Unit test for {@link AbstractParameterizableGenerator#createEmptyParams()}
      */
     @Test
     void testCreateEmptyParams() {
-        final AbstractParametrizableGenerator<?> generator = spy(new GenericChild<>(MyParamsImpl.class));
+        final AbstractParameterizableGenerator<?> generator = spy(new GenericChild<>(MyParams.class));
         assertNotNull(generator.createEmptyParams());
-        final AbstractParametrizableGenerator<?> ifaceParamsGen = spy(new GenericChild<>(MyParams.class));
-        assertThrows(IllegalArgumentException.class, () -> {
-            ifaceParamsGen.createEmptyParams();
-        });
-        final AbstractParametrizableGenerator<?> privateParamsGen = spy(new GenericChild<>(MyIllegalParamsImpl.class));
+        final AbstractParameterizableGenerator<?> privateParamsGen = spy(new GenericChild<>(MyPrivateParamsImpl.class));
         assertThrows(IllegalArgumentException.class, () -> {
             privateParamsGen.createEmptyParams();
+        });
+        final AbstractParameterizableGenerator<?> privateCtrParamsGen = spy(new GenericChild<>(MyIllegalParamsImpl.class));
+        assertThrows(IllegalArgumentException.class, () -> {
+            privateCtrParamsGen.createEmptyParams();
         });
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#createParams(Object...)}
+     * Unit test for {@link AbstractParameterizableGenerator#createParams(Object...)}
      */
     @Test
     void testCreateParams() {
@@ -140,7 +140,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#defaultValue(Class)}
+     * Unit test for {@link AbstractParameterizableGenerator#defaultValue(Class)}
      */
     @Test
     void testDefaultValue() {
@@ -160,7 +160,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#defaultValue(Class, Object...)}
+     * Unit test for {@link AbstractParameterizableGenerator#defaultValue(Class, Object...)}
      */
     @Test
     void testDefaultValueSources() {
@@ -187,7 +187,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#nullableDefaultValue(Class)}
+     * Unit test for {@link AbstractParameterizableGenerator#nullableDefaultValue(Class)}
      */
     @Test
     void testNullableDefaultValue() {
@@ -207,7 +207,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#nullableDefaultValue(Class, Object...)}
+     * Unit test for {@link AbstractParameterizableGenerator#nullableDefaultValue(Class, Object...)}
      */
     @Test
     void testNullableDefaultValueSources() {
@@ -234,7 +234,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#nullableDefaultValue(Class, AbstractParametrizableGenerator.Parameters)}
+     * Unit test for {@link AbstractParameterizableGenerator#nullableDefaultValue(Class, GenerationParameters)}
      */
     @ParameterizedTest
     @MethodSource("testNullableTests_Parameters")
@@ -257,7 +257,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#randomValue(Class)}
+     * Unit test for {@link AbstractParameterizableGenerator#randomValue(Class)}
      */
     @Test
     void testRandomValue() {
@@ -277,7 +277,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#randomValue(Class, Object...)}
+     * Unit test for {@link AbstractParameterizableGenerator#randomValue(Class, Object...)}
      */
     @Test
     void testRandomValueSources() {
@@ -304,7 +304,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#nullableRandomValue(Class)}
+     * Unit test for {@link AbstractParameterizableGenerator#nullableRandomValue(Class)}
      */
     @Test
     void testNullableRandomValue() {
@@ -324,7 +324,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#nullableRandomValue(Class, Object...)}
+     * Unit test for {@link AbstractParameterizableGenerator#nullableRandomValue(Class, Object...)}
      */
     @Test
     void testNullableRandomValueSources() {
@@ -351,7 +351,7 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#nullableRandomValue(Class, AbstractParametrizableGenerator.Parameters)}
+     * Unit test for {@link AbstractParameterizableGenerator#nullableRandomValue(Class, GenerationParameters)}
      */
     @ParameterizedTest
     @MethodSource("testNullableTests_Parameters")
@@ -387,9 +387,9 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractParametrizableGenerator#equals(Object)},
-     * {@link AbstractParametrizableGenerator#hashCode()} and
-     * {@link AbstractParametrizableGenerator#toString()}
+     * Unit test for {@link AbstractParameterizableGenerator#equals(Object)},
+     * {@link AbstractParameterizableGenerator#hashCode()} and
+     * {@link AbstractParameterizableGenerator#toString()}
      */
     @Test
     @SuppressWarnings("java:S5785")
@@ -404,35 +404,24 @@ class AbstractParametrizableGeneratorTest {
         assertEquals(generator.toString(), other.toString());
     }
 
-    private interface MyParams
-    extends AbstractParametrizableGenerator.Parameters {}
-    public static class MyParamsImpl
-    implements MyParams {
-        @Override
-        public boolean isNullable() {
-            return false;
-        }
-    }
+    protected static class MyParams
+    extends GenerationParameters {}
     private static class MyPrivateParamsImpl
-    implements MyParams {
-        @Override
-        public boolean isNullable() {
-            return false;
-        }
+    extends GenerationParameters {
     }
     private static class MyIllegalParamsImpl
-    extends MyPrivateParamsImpl {
+    extends GenerationParameters {
         private MyIllegalParamsImpl() {}
     }
     private interface MyType {}
 
     /**
-     * Generic extension of {@code AbstractParametrizableGenerator} for
+     * Generic extension of {@code AbstractParameterizableGenerator} for
      * test purposes.
      * @param <PT> The type of parameters
      */
-    private static class GenericChild<P extends AbstractParametrizableGenerator.Parameters>
-    extends AbstractParametrizableGenerator<P> {
+    private static class GenericChild<P extends GenerationParameters>
+    extends AbstractParameterizableGenerator<P> {
         public GenericChild() {
             super();
         }
@@ -469,11 +458,11 @@ class AbstractParametrizableGeneratorTest {
     }
 
     /**
-     * Direct typed extension of {@code AbstractParametrizableGenerator} for
+     * Direct typed extension of {@code AbstractParameterizableGenerator} for
      * test purposes.
      */
     protected static class DirectChild
-    extends AbstractParametrizableGenerator<MyParams> {
+    extends AbstractParameterizableGenerator<MyParams> {
         /**
          * {@inheritDoc}
          */

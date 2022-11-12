@@ -28,19 +28,22 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.TypeUtils;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
 
 /**
- * Abstract implementation of {@code ParametrizableGenerator}.
+ * Abstract implementation of {@code ParameterizableGenerator}.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <P> The parameters type
  * @since 0.1
  */
-public abstract class AbstractParametrizableGenerator<
-        P extends AbstractParametrizableGenerator.Parameters>
+@API(status=Status.EXPERIMENTAL, since="0.1")
+public abstract class AbstractParameterizableGenerator<
+        P extends GenerationParameters>
 extends AbstractGenerator
-implements ParametrizableGenerator {
+implements ParameterizableGenerator {
 
     /** The type of generation parameters. */
     private final @NotNull Class<P> parametersType;
@@ -50,7 +53,7 @@ implements ParametrizableGenerator {
      * 
      * @param paramsType The type of parameters
      */
-    protected AbstractParametrizableGenerator(
+    protected AbstractParameterizableGenerator(
             final @NotNull Class<P> paramsType) {
         super();
         this.parametersType = Validate.notNull(paramsType);
@@ -60,11 +63,11 @@ implements ParametrizableGenerator {
      * Crates a new instance.
      */
     @SuppressWarnings("unchecked")
-    protected AbstractParametrizableGenerator() {
+    protected AbstractParameterizableGenerator() {
         super();
         this.parametersType = (Class<P>) TypeUtils.unrollVariables(
-                TypeUtils.getTypeArguments(getClass(), AbstractParametrizableGenerator.class),
-                AbstractParametrizableGenerator.class.getTypeParameters()[0]);
+                TypeUtils.getTypeArguments(getClass(), AbstractParameterizableGenerator.class),
+                AbstractParameterizableGenerator.class.getTypeParameters()[0]);
         Validate.notNull(
                 this.parametersType,
                 "Cannot infer the type of parameters from class %s. Wrong implementation?",
@@ -229,7 +232,7 @@ implements ParametrizableGenerator {
      * @param parameters The generation parameters
      * @return A random nullable value for the specified type.
      * @throws IllegalArgumentException If the specified type is not supported.
-     * @see #randomValue(Class, Parameters)
+     * @see #randomValue(Class, GenerationParameters)
      */
     public <T> T nullableRandomValue(
             final @NotNull Class<T> type,
@@ -290,27 +293,10 @@ implements ParametrizableGenerator {
         if (obj == null) { return false; }
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
-        final AbstractParametrizableGenerator<?> other = (AbstractParametrizableGenerator<?>) obj;
+        final AbstractParameterizableGenerator<?> other = (AbstractParameterizableGenerator<?>) obj;
         return new EqualsBuilder()
                 .appendSuper(super.equals(obj))
                 .append(this.parametersType, other.parametersType)
                 .build();
-    }
-
-    /**
-     * Minimum interface for value generation parameters.
-     * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
-     * @version 1.0, 2022-11
-     * @since AbstractParametrizableGenerator 1.0
-     */
-    public interface Parameters {
-
-        /**
-         * Returns {@code true} if a {@code null} value is accepted.
-         * 
-         * @return If a {@code null} value is accepted.
-         */
-        boolean isNullable();
     }
 }

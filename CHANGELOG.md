@@ -50,12 +50,13 @@
 01. :gift: Added collection generators
     01. Added class `dev.orne.test.rnd.generators.ArrayGenerator`
 01. :gift: Added **experimental** generation parameters system
-    01. Added interface `dev.orne.test.rnd.ParametrizableGenerator`
-    01. Added interface `dev.orne.test.rnd.TypedParametrizableGenerator`
+    01. Added interface `dev.orne.test.rnd.GenerationParameters`
+    01. Added interface `dev.orne.test.rnd.ParameterizableGenerator`
+    01. Added interface `dev.orne.test.rnd.TypedParameterizableGenerator`
     01. Added interface `dev.orne.test.rnd.ParametersExtractor`
     01. Added interface `dev.orne.test.rnd.ParametersSourceExtractor`
     01. Added class `dev.orne.test.rnd.AbstractParametersSourceExtractor`
     01. Added class `dev.orne.test.rnd.DefaultParametersExtractor`
     01. Added class `dev.orne.test.rnd.ParametersExtractors`
-    01. Added class `dev.orne.test.rnd.AbstractParametrizableGenerator`
-    01. Added class `dev.orne.test.rnd.AbstractTypedParametrizableGenerator`
+    01. Added class `dev.orne.test.rnd.AbstractParameterizableGenerator`
+    01. Added class `dev.orne.test.rnd.AbstractTypedParameterizableGenerator`

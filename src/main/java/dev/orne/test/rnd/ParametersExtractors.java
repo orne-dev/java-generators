@@ -36,6 +36,8 @@ import java.util.ServiceLoader;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
 
 /**
  * Registry of generation parameters source extractors.
@@ -48,6 +50,7 @@ import org.apache.commons.lang3.Validate;
  * @version 1.0, 2022-11
  * @since 0.1
  */
+@API(status=Status.EXPERIMENTAL, since="0.1")
 public final class ParametersExtractors {
 
     /**

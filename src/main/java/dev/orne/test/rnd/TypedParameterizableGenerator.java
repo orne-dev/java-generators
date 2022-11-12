@@ -28,7 +28,7 @@ import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
 /**
- * Extension of {@code ParametrizableGenerator} for generators that
+ * Extension of {@code ParameterizableGenerator} for generators that
  * only provide one type of values.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
@@ -37,8 +37,8 @@ import org.apiguardian.api.API.Status;
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public interface TypedParametrizableGenerator<T>
-extends TypedGenerator<T>, ParametrizableGenerator {
+public interface TypedParameterizableGenerator<T>
+extends TypedGenerator<T>, ParameterizableGenerator {
 
     /**
      * Returns the default value of the supported type for the specified

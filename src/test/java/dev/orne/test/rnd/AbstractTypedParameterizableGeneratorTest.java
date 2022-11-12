@@ -38,21 +38,19 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import dev.orne.test.rnd.AbstractParametrizableGenerator.Parameters;
-
 /**
- * Unit tests for {@code AbstractTypedParametrizableGenerator}.
+ * Unit tests for {@code AbstractTypedParameterizableGenerator}.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
- * @see AbstractTypedParametrizableGenerator
+ * @see AbstractTypedParameterizableGenerator
  */
 @Tag("ut")
-class AbstractTypedParametrizableGeneratorTest {
+class AbstractTypedParameterizableGeneratorTest {
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#AbstractTypedParametrizableGenerator()}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#AbstractTypedParameterizableGenerator()}
      */
     @Test
     void testTypeInferred() {
@@ -62,7 +60,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#AbstractTypedParametrizableGenerator()}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#AbstractTypedParameterizableGenerator()}
      */
     @Test
     void testTypeInferred_MultipleLevels() {
@@ -72,7 +70,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#AbstractTypedParametrizableGenerator()}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#AbstractTypedParameterizableGenerator()}
      */
     @Test
     void testTypeInferred_Generic() {
@@ -82,7 +80,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#AbstractTypedParametrizableGenerator(Class)}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#AbstractTypedParameterizableGenerator(Class)}
      */
     @Test
     void testTypeConstructor() {
@@ -101,7 +99,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#supports(Class)}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#supports(Class)}
      */
     @Test
     void testSupports() {
@@ -115,7 +113,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#defaultValue()}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#defaultValue()}
      */
     @Test
     void testDefaultValue() {
@@ -135,7 +133,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#defaultValue(Object...)}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#defaultValue(Object...)}
      */
     @Test
     void testDefaultValueSources() {
@@ -162,7 +160,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#defaultValue(Class, Parameters)}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#defaultValue(Class, GenerationParameters)}
      */
     @Test
     void testDefaultValueTypeParams() {
@@ -177,7 +175,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#nullableDefaultValue()}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#nullableDefaultValue()}
      */
     @Test
     void testNullableDefaultValue() {
@@ -197,7 +195,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#nullableDefaultValue(Object...)}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#nullableDefaultValue(Object...)}
      */
     @Test
     void testNullableDefaultValueSources() {
@@ -224,7 +222,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#nullableDefaultValue(Parameters)}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#nullableDefaultValue(GenerationParameters)}
      */
     @ParameterizedTest
     @MethodSource("testNullableTests_Parameters")
@@ -246,7 +244,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#randomValue()}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#randomValue()}
      */
     @Test
     void testRandomValue() {
@@ -266,7 +264,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#randomValue(Object...)}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#randomValue(Object...)}
      */
     @Test
     void testRandomValueSources() {
@@ -293,7 +291,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#randomValue(Class, Parameters)}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#randomValue(Class, GenerationParameters)}
      */
     @Test
     void testRandomValueTypeParams() {
@@ -308,7 +306,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#nullableRandomValue()}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#nullableRandomValue()}
      */
     @Test
     void testNullableRandomValue() {
@@ -328,7 +326,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#nullableRandomValue(Object...)}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#nullableRandomValue(Object...)}
      */
     @Test
     void testNullableRandomValueSources() {
@@ -355,7 +353,7 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#nullableRandomValue(Parameters)}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#nullableRandomValue(GenerationParameters)}
      */
     @ParameterizedTest
     @MethodSource("testNullableTests_Parameters")
@@ -390,9 +388,9 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link AbstractTypedParametrizableGenerator#equals(Object)},
-     * {@link AbstractTypedParametrizableGenerator#hashCode()} and
-     * {@link AbstractTypedParametrizableGenerator#toString()}
+     * Unit test for {@link AbstractTypedParameterizableGenerator#equals(Object)},
+     * {@link AbstractTypedParameterizableGenerator#hashCode()} and
+     * {@link AbstractTypedParameterizableGenerator#toString()}
      */
     @Test
     @SuppressWarnings("java:S5785")
@@ -408,19 +406,19 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     private interface MyType {}
-    private interface MyParams
-    extends AbstractParametrizableGenerator.Parameters {}
+    private class MyParams
+    extends GenerationParameters {}
 
     /**
-     * Generic extension of {@code AbstractTypedParametrizableGenerator} for
+     * Generic extension of {@code AbstractTypedParameterizableGenerator} for
      * test purposes.
      * @param <T> The type of generated values
      * @param <P> The type of parameters
      */
     private static class GenericChild<
         T,
-        P extends AbstractTypedParametrizableGenerator.Parameters>
-    extends AbstractTypedParametrizableGenerator<T, P> {
+        P extends GenerationParameters>
+    extends AbstractTypedParameterizableGenerator<T, P> {
         public GenericChild() {
             super();
         }
@@ -442,11 +440,11 @@ class AbstractTypedParametrizableGeneratorTest {
     }
 
     /**
-     * Direct typed extension of {@code AbstractTypedParametrizableGenerator} for
+     * Direct typed extension of {@code AbstractTypedParameterizableGenerator} for
      * test purposes.
      */
     protected static class DirectChild
-    extends AbstractTypedParametrizableGenerator<MyType, MyParams> {
+    extends AbstractTypedParameterizableGenerator<MyType, MyParams> {
         @Override
         public @NotNull MyType defaultValue(
                 final @NotNull MyParams parameters) {

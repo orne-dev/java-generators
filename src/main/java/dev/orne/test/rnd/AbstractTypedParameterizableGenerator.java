@@ -28,9 +28,11 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.TypeUtils;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
 
 /**
- * Abstract implementation of {@code TypedParametrizableGenerator}.
+ * Abstract implementation of {@code TypedParameterizableGenerator}.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
@@ -38,11 +40,12 @@ import org.apache.commons.lang3.reflect.TypeUtils;
  * @param <P> The parameters type
  * @since 0.1
  */
-public abstract class AbstractTypedParametrizableGenerator<
+@API(status=Status.EXPERIMENTAL, since="0.1")
+public abstract class AbstractTypedParameterizableGenerator<
         T,
-        P extends AbstractParametrizableGenerator.Parameters>
-extends AbstractParametrizableGenerator<P>
-implements TypedParametrizableGenerator<T> {
+        P extends GenerationParameters>
+extends AbstractParameterizableGenerator<P>
+implements TypedParameterizableGenerator<T> {
 
     /** The type of generated values. */
     private final @NotNull Class<T> valueType;
@@ -53,7 +56,7 @@ implements TypedParametrizableGenerator<T> {
      * @param valueType The type of generated values
      * @param paramsType The type of parameters
      */
-    protected AbstractTypedParametrizableGenerator(
+    protected AbstractTypedParameterizableGenerator(
             final @NotNull Class<T> valueType,
             final @NotNull Class<P> paramsType) {
         super(paramsType);
@@ -64,11 +67,11 @@ implements TypedParametrizableGenerator<T> {
      * Crates a new instance.
      */
     @SuppressWarnings("unchecked")
-    protected AbstractTypedParametrizableGenerator() {
+    protected AbstractTypedParameterizableGenerator() {
         super();
         this.valueType = (Class<T>) TypeUtils.unrollVariables(
-                TypeUtils.getTypeArguments(getClass(), AbstractTypedParametrizableGenerator.class),
-                AbstractTypedParametrizableGenerator.class.getTypeParameters()[0]);
+                TypeUtils.getTypeArguments(getClass(), AbstractTypedParameterizableGenerator.class),
+                AbstractTypedParameterizableGenerator.class.getTypeParameters()[0]);
     }
 
     /**
@@ -260,7 +263,7 @@ implements TypedParametrizableGenerator<T> {
         if (obj == null) { return false; }
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
-        final AbstractTypedParametrizableGenerator<?, ?> other = (AbstractTypedParametrizableGenerator<?, ?>) obj;
+        final AbstractTypedParameterizableGenerator<?, ?> other = (AbstractTypedParameterizableGenerator<?, ?>) obj;
         return new EqualsBuilder()
                 .appendSuper(super.equals(obj))
                 .append(this.valueType, other.valueType)

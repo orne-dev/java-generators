@@ -35,7 +35,7 @@ import org.apiguardian.api.API.Status;
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public interface ParametrizableGenerator
+public interface ParameterizableGenerator
 extends Generator {
 
     /**
