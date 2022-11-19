@@ -22,86 +22,49 @@ package dev.orne.test.rnd;
  * #L%
  */
 
+import java.lang.reflect.Type;
+
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
 /**
- * Base class for value generation parameters.
+ * Generation parameters source that provides the declared type of the value
+ * to generate.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public class GenerationParameters {
+public class TypeDeclaration {
 
-    /** If a {@code null} value is accepted. */
-    private boolean nullable = true;
+    /** The value type. */
+    private final @NotNull Type type;
 
     /**
-     * Empty constructor.
+     * Creates a new instance.
+     * 
+     * @param type The value type.
      */
-    public GenerationParameters() {
+    public TypeDeclaration(
+            final @NotNull Type type) {
         super();
+        this.type = type;
     }
 
     /**
-     * Copy constructor.
+     * Returns the value type.
      * 
-     * @param copy The instance to copy.
+     * @return The value type.
      */
-    public GenerationParameters(
-            final @NotNull GenerationParameters copy) {
-        super();
-        Validate.notNull(copy);
-        this.nullable = copy.nullable;
-    }
-
-    /**
-     * Returns {@code true} if a {@code null} value is accepted.
-     * 
-     * @return If a {@code null} value is accepted.
-     */
-    public boolean isNullable() {
-        return this.nullable;
-    }
-
-    /**
-     * Sets if a {@code null} value is accepted.
-     * 
-     * @param nullable If a {@code null} value is accepted.
-     */
-    public void setNullable(
-            final boolean nullable) {
-        this.nullable = nullable;
-    }
-
-    /**
-     * Sets if a {@code null} value is accepted.
-     * 
-     * @param nullable If a {@code null} value is accepted.
-     * @return This instance, for method chaining.
-     */
-    public @NotNull GenerationParameters withNullable(
-            final boolean nullable) {
-        setNullable(nullable);
-        return this;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public @NotNull GenerationParameters clone() {
-        return new GenerationParameters(this);
+    public @NotNull Type getType() {
+        return this.type;
     }
 
     /**
@@ -110,7 +73,7 @@ public class GenerationParameters {
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-                .append(this.nullable)
+                .append(this.type)
                 .toHashCode();
     }
 
@@ -123,9 +86,9 @@ public class GenerationParameters {
         if (obj == null) { return false; }
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
-        final GenerationParameters other = (GenerationParameters) obj;
+        final TypeDeclaration other = (TypeDeclaration) obj;
         return new EqualsBuilder()
-                .append(this.nullable, other.nullable)
+                .append(this.type, other.type)
                 .build();
     }
 

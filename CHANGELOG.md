@@ -9,6 +9,21 @@
 01. :gift: Added class `dev.orne.test.rnd.AbstractTypedGenerator`
 01. :gift: Added exception `dev.orne.test.rnd.GeneratorNotFoundException`
 01. :gift: Added class `dev.orne.test.rnd.Generators`
+01. :gift: Added **experimental** generation parameters system
+    01. Added interface `dev.orne.test.rnd.GenerationParameters`
+    01. Added interface `dev.orne.test.rnd.ParameterizableGenerator`
+    01. Added interface `dev.orne.test.rnd.TypedParameterizableGenerator`
+    01. Added interface `dev.orne.test.rnd.ParametersExtractor`
+    01. Added interface `dev.orne.test.rnd.ParametersSourceExtractor`
+    01. Added class `dev.orne.test.rnd.AbstractParametersSourceExtractor`
+    01. Added class `dev.orne.test.rnd.DefaultParametersExtractor`
+    01. Added class `dev.orne.test.rnd.ParametersExtractors`
+    01. Added class `dev.orne.test.rnd.AbstractParameterizableGenerator`
+    01. Added class `dev.orne.test.rnd.AbstractTypedParameterizableGenerator`
+    01. Added exception `dev.orne.test.rnd.GeneratorNotParameterizableException`
+    01. Added generic classes generation support
+        01. Added class `dev.orne.test.rnd.GenericsGenerationParameters`
+        01. Added class `dev.orne.test.rnd.TypeDeclaration`
 01. :gift: Added basic generators
     01. Added class `dev.orne.test.rnd.generators.AbstractPrimitiveGenerator`
     01. Added class `dev.orne.test.rnd.generators.BooleanGenerator`
@@ -49,15 +64,3 @@
     01. Added class `dev.orne.test.rnd.generators.PathGenerator`
 01. :gift: Added collection generators
     01. Added class `dev.orne.test.rnd.generators.ArrayGenerator`
-01. :gift: Added **experimental** generation parameters system
-    01. Added interface `dev.orne.test.rnd.GenerationParameters`
-    01. Added interface `dev.orne.test.rnd.ParameterizableGenerator`
-    01. Added interface `dev.orne.test.rnd.TypedParameterizableGenerator`
-    01. Added interface `dev.orne.test.rnd.ParametersExtractor`
-    01. Added interface `dev.orne.test.rnd.ParametersSourceExtractor`
-    01. Added class `dev.orne.test.rnd.AbstractParametersSourceExtractor`
-    01. Added class `dev.orne.test.rnd.DefaultParametersExtractor`
-    01. Added class `dev.orne.test.rnd.ParametersExtractors`
-    01. Added class `dev.orne.test.rnd.AbstractParameterizableGenerator`
-    01. Added class `dev.orne.test.rnd.AbstractTypedParameterizableGenerator`
-    01. Added exception `dev.orne.test.rnd.GeneratorNotParameterizableException`

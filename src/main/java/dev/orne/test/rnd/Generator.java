@@ -108,4 +108,21 @@ public interface Generator {
         final Priority annot = type.getAnnotation(Priority.class);
         return annot == null ? Priority.DEFAULT : annot.value();
     }
+
+    /**
+     * Returns this generator as a parameterizable generator.
+     * <p>
+     * If the generator is not parameterizable throws an exception.
+     * 
+     * @return This generator as a parameterizable generator.
+     * @throws GeneratorNotParameterizableException If the generator
+     * is not parameterizable.
+     */
+    default @NotNull ParameterizableGenerator asParameterizable() {
+        if (!(this instanceof ParameterizableGenerator)) {
+            throw new GeneratorNotParameterizableException(
+                    String.format("Generator of type %s is not parameterizable", getClass()));
+        }
+        return (ParameterizableGenerator) this;
+    }
 }

@@ -59,6 +59,17 @@ class GenerationParametersTest {
     }
 
     /**
+     * Unit test for {@link GenerationParameters#withNullable(boolean)}.
+     */
+    @Test
+    void testWithNullable() {
+        final GenerationParameters params = new GenerationParameters();
+        final GenerationParameters result = params.withNullable(false);
+        assertSame(result, params);
+        assertFalse(params.isNullable());
+    }
+
+    /**
      * Unit test for {@link GenerationParameters#clone()}.
      */
     @Test

@@ -70,10 +70,6 @@ public final class Generators {
     /** The registered generators. */
     private static List<Generator> registeredGenerators;
 
-    /** The error message for non parameterizable generators. */
-    public static final String NOT_PARAM_GEN_ERR =
-            "Registered generator for type %s is not parameterizable";
-
     /**
      * Private constructor.
      */
@@ -123,7 +119,7 @@ public final class Generators {
     @API(status=Status.EXPERIMENTAL, since = "0.1")
     public static <T> T defaultValue(
             final @NotNull Class<T> type,
-            final @NotNull GenerationParameters params) {
+            final @NotNull Object... params) {
         return requireParameterizableGenerator(type).defaultValue(type, params);
     }
 
@@ -163,7 +159,7 @@ public final class Generators {
     @API(status=Status.EXPERIMENTAL, since = "0.1")
     public static <T> T nullableDefaultValue(
             final @NotNull Class<T> type,
-            final @NotNull GenerationParameters params) {
+            final @NotNull Object... params) {
         return requireParameterizableGenerator(type).nullableDefaultValue(type, params);
     }
 
@@ -197,7 +193,7 @@ public final class Generators {
     @API(status=Status.EXPERIMENTAL, since = "0.1")
     public static <T> T randomValue(
             final @NotNull Class<T> type,
-            final @NotNull GenerationParameters params) {
+            final @NotNull Object... params) {
         return requireParameterizableGenerator(type).randomValue(type, params);
     }
 
@@ -241,7 +237,7 @@ public final class Generators {
     @API(status=Status.EXPERIMENTAL, since = "0.1")
     public static <T> T nullableRandomValue(
             final @NotNull Class<T> type,
-            final @NotNull GenerationParameters params) {
+            final @NotNull Object... params) {
         return requireParameterizableGenerator(type).nullableRandomValue(type, params);
     }
 
@@ -304,11 +300,9 @@ public final class Generators {
         final Generator generator = getGeneratorInt(type);
         if (generator == MissingGenerator.INSTANCE) {
             throw new GeneratorNotFoundException(MissingGenerator.ERR_MSG);
-        } else if (!(generator instanceof ParameterizableGenerator)) {
-            throw new GeneratorNotParameterizableException(
-                    String.format(NOT_PARAM_GEN_ERR, type));
+        } else {
+            return generator.asParameterizable();
         }
-        return (ParameterizableGenerator) generator;
     }
 
     /**
