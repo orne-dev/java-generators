@@ -24,6 +24,14 @@
     01. Added generic classes generation support
         01. Added class `dev.orne.test.rnd.GenericsGenerationParameters`
         01. Added class `dev.orne.test.rnd.TypeDeclaration`
+    01. Added targeted generators system
+        01. Added interface `dev.orne.test.rnd.TargetedGenerator`
+        01. Added class `dev.orne.test.rnd.ConstraintIntrospector`
+        01. Added class `dev.orne.test.rnd.AbstractTargetedGenerator`
+        01. Added class `dev.orne.test.rnd.PropertyTypeGenerator`
+        01. Added class `dev.orne.test.rnd.MethodReturnTypeGenerator`
+        01. Added class `dev.orne.test.rnd.MethodParameterTypeGenerator`
+        01. Added class `dev.orne.test.rnd.ConstructorParameterTypeGenerator`
 01. :gift: Added basic generators
     01. Added class `dev.orne.test.rnd.generators.AbstractPrimitiveGenerator`
     01. Added class `dev.orne.test.rnd.generators.BooleanGenerator`

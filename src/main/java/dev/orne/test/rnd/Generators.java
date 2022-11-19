@@ -22,6 +22,8 @@ package dev.orne.test.rnd;
  * #L%
  */
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -250,6 +252,7 @@ public final class Generators {
      */
     public static Generator getGenerator(
             final @NotNull Class<?> type) {
+        Validate.notNull(type);
         final Generator result = getGeneratorInt(type);
         return result == MissingGenerator.INSTANCE ? null : result;
     }
@@ -324,6 +327,138 @@ public final class Generators {
             }
         }
         return result;
+    }
+
+    /**
+     * Returns a targeted generator for the specified bean property.
+     * <p>
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the property declaration.
+     * 
+     * @param <T> The type of the generated values
+     * @param beanType The bean type
+     * @param property The property of the bean
+     * @return A generator for the type of the specified property
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> @NotNull PropertyTypeGenerator<T> forProperty(
+            final @NotNull Class<?> beanType,
+            final @NotNull String property) {
+        return PropertyTypeGenerator.<T>targeting(beanType, property);
+    }
+
+    /**
+     * Returns a targeted generator for the specified method parameter.
+     * <p>
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the method declaration.
+     * 
+     * @param <T> The type of the generated values
+     * @param method The method
+     * @param parameterIndex The parameter index
+     * @return A generator for the type of the specified method parameter
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> @NotNull MethodParameterTypeGenerator<T> forParameter(
+            final @NotNull Method method,
+            final @NotNull int parameterIndex) {
+        return MethodParameterTypeGenerator.<T>targeting(method, parameterIndex);
+    }
+
+    /**
+     * Returns a targeted generator for the specified method parameter.
+     * <p>
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the method declaration.
+     * 
+     * @param <T> The type of the generated values
+     * @param cls The method's class
+     * @param method The method name
+     * @param parameterTypes The method parameter types
+     * @param parameterIndex The parameter index
+     * @return A generator for the type of the specified method parameter
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> @NotNull MethodParameterTypeGenerator<T> forParameter(
+            final @NotNull Class<?> cls,
+            final @NotNull String method,
+            final @NotNull Class<?>[] parameterTypes,
+            final @NotNull int parameterIndex) {
+        return MethodParameterTypeGenerator.<T>targeting(cls, method, parameterIndex, parameterTypes);
+    }
+
+    /**
+     * Returns a targeted generator for the specified method return type.
+     * <p>
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the method declaration.
+     * 
+     * @param <T> The type of the generated values
+     * @param method The method
+     * @return A generator for the type of the specified method return type
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> @NotNull MethodReturnTypeGenerator<T> forReturnType(
+            final @NotNull Method method) {
+        return MethodReturnTypeGenerator.<T>targeting(method);
+    }
+
+    /**
+     * Returns a targeted generator for the specified method return type.
+     * <p>
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the method declaration.
+     * 
+     * @param <T> The type of the generated values
+     * @param cls The method's class
+     * @param parameterTypes The method parameter types
+     * @param method The method name
+     * @return A generator for the type of the specified method return type
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> @NotNull MethodReturnTypeGenerator<T> forReturnType(
+            final @NotNull Class<?> cls,
+            final @NotNull String method,
+            final @NotNull Class<?>[] parameterTypes) {
+        return MethodReturnTypeGenerator.<T>targeting(cls, method, parameterTypes);
+    }
+
+    /**
+     * Returns a targeted generator for the specified constructor parameter.
+     * <p>
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the constructor declaration.
+     * 
+     * @param <T> The type of the generated values
+     * @param constructor The constructor
+     * @param parameterIndex The parameter index
+     * @return A generator for the type of the specified constructor parameter
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> @NotNull ConstructorParameterTypeGenerator<T> forParameter(
+            final @NotNull Constructor<?> constructor,
+            final @NotNull int parameterIndex) {
+        return ConstructorParameterTypeGenerator.<T>targeting(constructor, parameterIndex);
+    }
+
+    /**
+     * Returns a targeted generator for the specified constructor parameter.
+     * <p>
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the constructor declaration.
+     * 
+     * @param <T> The type of the generated values
+     * @param cls The class of the constructor
+     * @param parameterTypes The constructor parameter types
+     * @param parameterIndex The parameter index
+     * @return A generator for the type of the specified constructor parameter
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    public static <T> @NotNull ConstructorParameterTypeGenerator<T> forParameter(
+            final @NotNull Class<?> cls,
+            final @NotNull Class<?>[] parameterTypes,
+            final @NotNull int parameterIndex) {
+        return ConstructorParameterTypeGenerator.<T>targeting(cls, parameterIndex, parameterTypes);
     }
 
     /**

@@ -758,6 +758,105 @@ class GeneratorsTest {
     }
 
     /**
+     * Test for {@link Generators#forProperty(Class, String)}.
+     */
+    @Test
+    void testForProperty() {
+        final TargetedGenerator<?> result = Generators.forProperty(
+                ConstraintIntrospectorTest.TestType.class,
+                "prop0");
+        final TargetedGenerator<?> expected = PropertyTypeGenerator.targeting(
+                ConstraintIntrospectorTest.TestType.class,
+                "prop0");
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test for {@link Generators#forParameter(java.lang.reflect.Method, int)}.
+     */
+    @Test
+    void testForMethodParameter() {
+        final TargetedGenerator<?> result = Generators.forParameter(
+                ConstraintIntrospectorTest.TEST_METHOD, 1);
+        final TargetedGenerator<?> expected = MethodParameterTypeGenerator.targeting(
+                ConstraintIntrospectorTest.TEST_METHOD, 1);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test for {@link Generators#forParameter(Class, String, Class[], int)}.
+     */
+    @Test
+    void testForMethodParameterString() {
+        final TargetedGenerator<?> result = Generators.forParameter(
+                StringBuilder.class,
+                "append",
+                new Class<?>[] { String.class },
+                0);
+        final TargetedGenerator<?> expected = MethodParameterTypeGenerator.targeting(
+                StringBuilder.class,
+                "append",
+                0,
+                String.class);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test for {@link Generators#forReturnType(java.lang.reflect.Method)}.
+     */
+    @Test
+    void testForReturnType() {
+        final TargetedGenerator<?> result = Generators.forReturnType(
+                ConstraintIntrospectorTest.TEST_METHOD);
+        final TargetedGenerator<?> expected = MethodReturnTypeGenerator.targeting(
+                ConstraintIntrospectorTest.TEST_METHOD);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test for {@link Generators#forReturnType(Class, String)}.
+     */
+    @Test
+    void testForReturnTypeString() {
+        final TargetedGenerator<?> result = Generators.forReturnType(
+                StringBuilder.class,
+                "toString",
+                new Class<?>[0]);
+        final TargetedGenerator<?> expected = MethodReturnTypeGenerator.targeting(
+                StringBuilder.class,
+                "toString");
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test for {@link Generators#forParameter(java.lang.reflect.Constructor, int)}.
+     */
+    @Test
+    void testForConstructorParameter() {
+        final TargetedGenerator<?> result = Generators.forParameter(
+                ConstraintIntrospectorTest.PARAM_CONSTRUCTOR, 1);
+        final TargetedGenerator<?> expected = ConstructorParameterTypeGenerator.targeting(
+                ConstraintIntrospectorTest.PARAM_CONSTRUCTOR, 1);
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test for {@link Generators#forParameter(Class, Class[], int)}.
+     */
+    @Test
+    void testForConstructorParameterString() {
+        final TargetedGenerator<?> result = Generators.forParameter(
+                StringBuilder.class,
+                new Class<?>[] { String.class },
+                0);
+        final TargetedGenerator<?> expected = ConstructorParameterTypeGenerator.targeting(
+                StringBuilder.class,
+                0,
+                String.class);
+        assertEquals(expected, result);
+    }
+
+    /**
      * Test for {@link MissingGenerator#supports(Class)}.
      */
     @Test
