@@ -38,6 +38,15 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators.MissingGenerator;
+import dev.orne.test.rnd.params.ConstraintIntrospectionTestType;
+import dev.orne.test.rnd.params.ConstructorParameterTypeGenerator;
+import dev.orne.test.rnd.params.GenerationParameters;
+import dev.orne.test.rnd.params.GeneratorNotParameterizableException;
+import dev.orne.test.rnd.params.MethodParameterTypeGenerator;
+import dev.orne.test.rnd.params.MethodReturnTypeGenerator;
+import dev.orne.test.rnd.params.ParameterizableGenerator;
+import dev.orne.test.rnd.params.PropertyTypeGenerator;
+import dev.orne.test.rnd.params.TargetedGenerator;
 
 /**
  * Unit tests for {@code Generators}.
@@ -763,11 +772,11 @@ class GeneratorsTest {
     @Test
     void testForProperty() {
         final TargetedGenerator<?> result = Generators.forProperty(
-                ConstraintIntrospectorTest.TestType.class,
-                "prop0");
+                ConstraintIntrospectionTestType.class,
+                ConstraintIntrospectionTestType.PROP0_FIELD.getName());
         final TargetedGenerator<?> expected = PropertyTypeGenerator.targeting(
-                ConstraintIntrospectorTest.TestType.class,
-                "prop0");
+                ConstraintIntrospectionTestType.class,
+                ConstraintIntrospectionTestType.PROP0_FIELD.getName());
         assertEquals(expected, result);
     }
 
@@ -777,9 +786,9 @@ class GeneratorsTest {
     @Test
     void testForMethodParameter() {
         final TargetedGenerator<?> result = Generators.forParameter(
-                ConstraintIntrospectorTest.TEST_METHOD, 1);
+                ConstraintIntrospectionTestType.TEST_METHOD, 1);
         final TargetedGenerator<?> expected = MethodParameterTypeGenerator.targeting(
-                ConstraintIntrospectorTest.TEST_METHOD, 1);
+                ConstraintIntrospectionTestType.TEST_METHOD, 1);
         assertEquals(expected, result);
     }
 
@@ -807,9 +816,9 @@ class GeneratorsTest {
     @Test
     void testForReturnType() {
         final TargetedGenerator<?> result = Generators.forReturnType(
-                ConstraintIntrospectorTest.TEST_METHOD);
+                ConstraintIntrospectionTestType.TEST_METHOD);
         final TargetedGenerator<?> expected = MethodReturnTypeGenerator.targeting(
-                ConstraintIntrospectorTest.TEST_METHOD);
+                ConstraintIntrospectionTestType.TEST_METHOD);
         assertEquals(expected, result);
     }
 
@@ -834,9 +843,9 @@ class GeneratorsTest {
     @Test
     void testForConstructorParameter() {
         final TargetedGenerator<?> result = Generators.forParameter(
-                ConstraintIntrospectorTest.PARAM_CONSTRUCTOR, 1);
+                ConstraintIntrospectionTestType.PARAM_CONSTRUCTOR, 1);
         final TargetedGenerator<?> expected = ConstructorParameterTypeGenerator.targeting(
-                ConstraintIntrospectorTest.PARAM_CONSTRUCTOR, 1);
+                ConstraintIntrospectionTestType.PARAM_CONSTRUCTOR, 1);
         assertEquals(expected, result);
     }
 

@@ -1,0 +1,11 @@
+dev.orne.test.rnd.params.GenerationParametersExtractor
+dev.orne.test.rnd.params.NotNullConstraintExtractor
+dev.orne.test.rnd.params.SizeParametersExtractor
+dev.orne.test.rnd.params.SizeConstraintExtractor
+dev.orne.test.rnd.params.NumberParametersExtractor
+dev.orne.test.rnd.params.MaxConstraintExtractor
+dev.orne.test.rnd.params.MinConstraintExtractor
+dev.orne.test.rnd.params.PositiveConstraintExtractor
+dev.orne.test.rnd.params.PositiveOrZeroConstraintExtractor
+dev.orne.test.rnd.params.SimpleGenericParametersExtractor
+dev.orne.test.rnd.params.SimpleGenericParametersTypeExtractor

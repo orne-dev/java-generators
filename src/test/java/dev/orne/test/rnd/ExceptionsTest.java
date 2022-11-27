@@ -29,6 +29,8 @@ import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import dev.orne.test.rnd.params.GeneratorNotParameterizableException;
+
 /**
  * Unit tests for library exceptions.
  * 

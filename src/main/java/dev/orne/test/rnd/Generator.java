@@ -27,6 +27,9 @@ import javax.validation.constraints.NotNull;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
+import dev.orne.test.rnd.params.GeneratorNotParameterizableException;
+import dev.orne.test.rnd.params.ParameterizableGenerator;
+
 /**
  * Interface for random value generators.
  * 
