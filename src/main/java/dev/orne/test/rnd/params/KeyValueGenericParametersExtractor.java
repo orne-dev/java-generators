@@ -23,31 +23,39 @@ package dev.orne.test.rnd.params;
  */
 
 import java.lang.reflect.Type;
+
+import javax.validation.constraints.NotNull;
+
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
 /**
- * Interface for generation parameters of generic classes with a single
- * type parameter.
+ * Generation parameters extractor that copies parameters
+ * between {@code KeyValueGenericParameters} instances.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
- * @version 1.0, 2022-11
+ * @version 1.0, 2022-12
  * @since 0.1
+ * @see KeyValueGenericParameters
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public interface SimpleGenericParameters {
+public class KeyValueGenericParametersExtractor
+extends AbstractParametersSourceExtractor<KeyValueGenericParameters, KeyValueGenericParameters> {
 
     /**
-     * Returns the type parameter.
-     * 
-     * @return The type parameter
+     * {@inheritDoc}
      */
-    Type getType();
-
-    /**
-     * Sets the type parameter.
-     * 
-     * @param type the type parameter
-     */
-    void setType(Type type);
+    @Override
+    public void extractParameters(
+            final @NotNull KeyValueGenericParameters from,
+            final @NotNull KeyValueGenericParameters target) {
+        final Type keysType = from.getKeysType();
+        if (keysType != null) {
+            target.setKeysType(keysType);
+        }
+        final Type valuesType = from.getValuesType();
+        if (valuesType != null) {
+            target.setValuesType(valuesType);
+        }
+    }
 }

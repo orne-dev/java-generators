@@ -39,3 +39,4 @@ dev.orne.test.rnd.generators.EnumGenerator
 dev.orne.test.rnd.generators.ArrayGenerator
 dev.orne.test.rnd.generators.ListGenerator
 dev.orne.test.rnd.generators.SetGenerator
+dev.orne.test.rnd.generators.MapGenerator

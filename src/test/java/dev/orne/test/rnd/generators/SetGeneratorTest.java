@@ -24,8 +24,6 @@ package dev.orne.test.rnd.generators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.ParameterizedType;
 import java.time.Duration;
 import java.util.HashSet;
 import java.util.List;
@@ -34,7 +32,6 @@ import java.util.Set;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.apache.commons.lang3.reflect.TypeUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -135,27 +132,10 @@ class SetGeneratorTest {
     void testCreateParameters() {
         CollectionGenerationParameters.Builder builder = SetGenerator.createParameters();
         assertNotNull(builder);
-        assertThrows(NullPointerException.class, () -> {
-            builder.withElementsType((Class<?>) null);
-        });
-        assertThrows(NullPointerException.class, () -> {
-            builder.withElementsType((ParameterizedType) null);
-        });
-        assertThrows(NullPointerException.class, () -> {
-            builder.withElementsType((GenericArrayType) null);
-        });
-        CollectionGenerationParameters result = builder.withElementsType(Integer.class);
-        assertEquals(Integer.class, result.getType());
-        final ParameterizedType pType = TypeUtils.parameterize(Set.class, Long.class);
-        result = builder.withElementsType(pType);
-        assertEquals(pType, result.getType());
-        final GenericArrayType gaType = TypeUtils.genericArrayType(pType);
-        result = builder.withElementsType(gaType);
-        assertEquals(gaType, result.getType());
     }
 
     /**
-     * Unit test for {@link SetGenerator#defaultValue(Parameters)}
+     * Unit test for {@link SetGenerator#defaultValue(CollectionGenerationParameters)}
      */
     @Test
     void testDefaultValue() {
@@ -168,7 +148,7 @@ class SetGeneratorTest {
     }
 
     /**
-     * Unit test for {@link SetGenerator#nullableDefaultValue(Parameters)}
+     * Unit test for {@link SetGenerator#nullableDefaultValue(CollectionGenerationParameters)}
      */
     @Test
     void testNullableDefaultValue() {
@@ -196,7 +176,7 @@ class SetGeneratorTest {
     }
 
     /**
-     * Unit test for {@link SetGenerator#randomValue(Parameters)}
+     * Unit test for {@link SetGenerator#randomValue(CollectionGenerationParameters)}
      */
     @Test
     void testRandomValue() {
@@ -213,7 +193,7 @@ class SetGeneratorTest {
     }
 
     /**
-     * Unit test for {@link SetGenerator#nullableRandomValue(Parameters)}
+     * Unit test for {@link SetGenerator#nullableRandomValue(CollectionGenerationParameters)}
      */
     @Test
     void testNullableRandomValue() {

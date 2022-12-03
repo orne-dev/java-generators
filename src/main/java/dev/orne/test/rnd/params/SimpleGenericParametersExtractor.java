@@ -1,7 +1,5 @@
 package dev.orne.test.rnd.params;
 
-import java.lang.reflect.Type;
-
 /*-
  * #%L
  * Orne Test Generators
@@ -23,6 +21,8 @@ import java.lang.reflect.Type;
  * <http://www.gnu.org/licenses/lgpl-3.0.html>.
  * #L%
  */
+
+import java.lang.reflect.Type;
 
 import javax.validation.constraints.NotNull;
 

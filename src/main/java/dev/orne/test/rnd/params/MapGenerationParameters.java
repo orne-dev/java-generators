@@ -35,19 +35,21 @@ import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
 /**
- * Parameters for random {@code Collection} generation.
+ * Parameters for random {@code Map} generation.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public class CollectionGenerationParameters
+public class MapGenerationParameters
 extends GenerationParameters
-implements SimpleGenericParameters, SizeParameters {
+implements KeyValueGenericParameters, SizeParameters {
 
-    /** The components type. */
-    private Type type;
+    /** The keys type. */
+    private Type keysType;
+    /** The values type. */
+    private Type valuesType;
     /** The minimum size. */
     private int minSize = 0;
     /** The maximum size. */
@@ -56,7 +58,7 @@ implements SimpleGenericParameters, SizeParameters {
     /**
      * Creates a new instance.
      */
-    public CollectionGenerationParameters() {
+    public MapGenerationParameters() {
         super();
     }
 
@@ -65,11 +67,12 @@ implements SimpleGenericParameters, SizeParameters {
      * 
      * @param copy The instance to copy.
      */
-    public CollectionGenerationParameters(
+    public MapGenerationParameters(
             final @NotNull GenerationParameters copy) {
         super(copy);
-        if (copy instanceof SimpleGenericParameters) {
-            this.type = ((SimpleGenericParameters) copy).getType();
+        if (copy instanceof KeyValueGenericParameters) {
+            this.keysType = ((KeyValueGenericParameters) copy).getKeysType();
+            this.valuesType = ((KeyValueGenericParameters) copy).getValuesType();
         }
         if (copy instanceof SizeParameters) {
             this.minSize = ((SizeParameters) copy).getMinSize();
@@ -81,40 +84,75 @@ implements SimpleGenericParameters, SizeParameters {
      * {@inheritDoc}
      */
     @Override
-    public @NotNull CollectionGenerationParameters withNullable(
+    public @NotNull MapGenerationParameters withNullable(
             final boolean nullable) {
         setNullable(nullable);
         return this;
     }
 
     /**
-     * Returns the components type.
+     * Returns the keys type.
      * 
-     * @return The components type.
+     * @return The keys type.
      */
-    public Type getType() {
-        return this.type;
+    @Override
+    public Type getKeysType() {
+        return this.keysType;
     }
 
     /**
-     * Sets the components type.
+     * Sets the keys type.
      * 
-     * @param type The components type.
+     * @param type The keys type.
      */
-    public void setType(
+    @Override
+    public void setKeysType(
             final Type type) {
-        this.type = type;
+        this.keysType = type;
     }
 
     /**
-     * Sets the components type.
+     * Sets the keys type.
      * 
-     * @param type The components type.
+     * @param type The keys type.
      * @return This instance, for method chaining.
      */
-    public @NotNull CollectionGenerationParameters withType(
+    public @NotNull MapGenerationParameters withKeysType(
             final Type type) {
-        setType(type);
+        setKeysType(type);
+        return this;
+    }
+
+    /**
+     * Returns the values type.
+     * 
+     * @return The values type.
+     */
+    @Override
+    public Type getValuesType() {
+        return this.valuesType;
+    }
+
+    /**
+     * Sets the values type.
+     * 
+     * @param type The values type.
+     */
+    @Override
+    public void setValuesType(
+            final Type type) {
+        this.valuesType = type;
+    }
+
+    /**
+     * Sets the values type.
+     * 
+     * @param type The values type.
+     * @return This instance, for method chaining.
+     */
+    public @NotNull MapGenerationParameters withValuesType(
+            final Type type) {
+        setValuesType(type);
         return this;
     }
 
@@ -141,7 +179,7 @@ implements SimpleGenericParameters, SizeParameters {
      * @param value The minimum size.
      * @return This instance, for method chaining.
      */
-    public @NotNull CollectionGenerationParameters withMinSize(
+    public @NotNull MapGenerationParameters withMinSize(
             final int value) {
         setMinSize(value);
         return this;
@@ -170,7 +208,7 @@ implements SimpleGenericParameters, SizeParameters {
      * @param value The maximum size.
      * @return This instance, for method chaining.
      */
-    public @NotNull CollectionGenerationParameters withMaxSize(
+    public @NotNull MapGenerationParameters withMaxSize(
             final int value) {
         setMaxSize(value);
         return this;
@@ -180,8 +218,8 @@ implements SimpleGenericParameters, SizeParameters {
      * {@inheritDoc}
      */
     @Override
-    public CollectionGenerationParameters clone() {
-        return new CollectionGenerationParameters(this);
+    public MapGenerationParameters clone() {
+        return new MapGenerationParameters(this);
     }
 
     /**
@@ -191,7 +229,8 @@ implements SimpleGenericParameters, SizeParameters {
     public int hashCode() {
         return new HashCodeBuilder()
                 .appendSuper(super.hashCode())
-                .append(this.type)
+                .append(this.keysType)
+                .append(this.valuesType)
                 .append(this.minSize)
                 .append(this.maxSize)
                 .toHashCode();
@@ -206,10 +245,11 @@ implements SimpleGenericParameters, SizeParameters {
         if (obj == null) { return false; }
         if (obj == this) { return true; }
         if (obj.getClass() != getClass()) { return false; }
-        final CollectionGenerationParameters other = (CollectionGenerationParameters) obj;
+        final MapGenerationParameters other = (MapGenerationParameters) obj;
         return new EqualsBuilder()
                 .appendSuper(super.equals(obj))
-                .append(this.type, other.type)
+                .append(this.keysType, other.keysType)
+                .append(this.valuesType, other.valuesType)
                 .append(this.minSize, other.minSize)
                 .append(this.maxSize, other.maxSize)
                 .build();
@@ -235,33 +275,72 @@ implements SimpleGenericParameters, SizeParameters {
     public interface Builder {
 
         /**
-         * Creates a new instance of generation parameters with the specified
-         * class as list components type.
+         * Specifies the type of the map keys.
          * 
-         * @param type The list components type.
-         * @return The resulting generation parameters.
+         * @param type The type of the map keys.
+         * @return The next stage builder.
          */
-        @NotNull CollectionGenerationParameters withElementsType(
+        @NotNull ValuesBuilder withKeysType(
                 @NotNull Class<?> type);
 
         /**
          * Creates a new instance of generation parameters with the specified
          * parameterized type as list components type.
          * 
-         * @param type The list components type.
-         * @return The resulting generation parameters.
+         * @param type The type of the map keys.
+         * @return The next stage builder.
          */
-        @NotNull CollectionGenerationParameters withElementsType(
+        @NotNull ValuesBuilder withKeysType(
                 @NotNull ParameterizedType type);
 
         /**
          * Creates a new instance of generation parameters with the specified
          * generic array type as list components type.
          * 
-         * @param type The list components type.
+         * @param type The type of the map keys.
+         * @return The next stage builder.
+         */
+        @NotNull ValuesBuilder withKeysType(
+                @NotNull GenericArrayType type);
+    }
+
+    /**
+     * Interface for map generation parameters builder.
+     * 
+     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @version 1.0, 2022-12
+     * @since ListGenerationParameters 1.0
+     */
+    public interface ValuesBuilder {
+
+        /**
+         * Creates a new instance of generation parameters with the specified
+         * keys and values types.
+         * 
+         * @param type The type of the map values.
          * @return The resulting generation parameters.
          */
-        @NotNull CollectionGenerationParameters withElementsType(
+        @NotNull MapGenerationParameters withValuesType(
+                @NotNull Class<?> type);
+
+        /**
+         * Creates a new instance of generation parameters with the specified
+         * keys and values types.
+         * 
+         * @param type The type of the map values.
+         * @return The resulting generation parameters.
+         */
+        @NotNull MapGenerationParameters withValuesType(
+                @NotNull ParameterizedType type);
+
+        /**
+         * Creates a new instance of generation parameters with the specified
+         * keys and values types.
+         * 
+         * @param type The type of the map values.
+         * @return The resulting generation parameters.
+         */
+        @NotNull MapGenerationParameters withValuesType(
                 @NotNull GenericArrayType type);
     }
 
@@ -269,40 +348,81 @@ implements SimpleGenericParameters, SizeParameters {
      * Internal implementation of {@code Builder}.
      * 
      * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
-     * @version 1.0, 2022-12
+     * @version 1.0, 2022-11
      * @since ListGenerationParameters 1.0
      */
     protected static class BuilderImpl
-    implements Builder {
+    implements Builder, ValuesBuilder {
+
+        private Type keysType;
 
         /**
          * {@inheritDoc}
          */
         @Override
-        public @NotNull CollectionGenerationParameters withElementsType(
+        public @NotNull BuilderImpl withKeysType(
                 final @NotNull Class<?> type) {
             Validate.notNull(type);
-            return new CollectionGenerationParameters().withType(type);
+            this.keysType = type;
+            return this;
         }
 
         /**
          * {@inheritDoc}
          */
         @Override
-        public @NotNull CollectionGenerationParameters withElementsType(
-                final @NotNull GenericArrayType type) {
-            Validate.notNull(type);
-            return new CollectionGenerationParameters().withType(type);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public @NotNull CollectionGenerationParameters withElementsType(
+        public @NotNull BuilderImpl withKeysType(
                 final @NotNull ParameterizedType type) {
             Validate.notNull(type);
-            return new CollectionGenerationParameters().withType(type);
+            this.keysType = type;
+            return this;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public @NotNull BuilderImpl withKeysType(
+                final @NotNull GenericArrayType type) {
+            Validate.notNull(type);
+            this.keysType = type;
+            return this;
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public @NotNull MapGenerationParameters withValuesType(
+                final @NotNull Class<?> type) {
+            Validate.notNull(type);
+            return new MapGenerationParameters()
+                    .withKeysType(this.keysType)
+                    .withValuesType(type);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public @NotNull MapGenerationParameters withValuesType(
+                final @NotNull ParameterizedType type) {
+            Validate.notNull(type);
+            return new MapGenerationParameters()
+                    .withKeysType(this.keysType)
+                    .withValuesType(type);
+        }
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public @NotNull MapGenerationParameters withValuesType(
+                final @NotNull GenericArrayType type) {
+            Validate.notNull(type);
+            return new MapGenerationParameters()
+                    .withKeysType(this.keysType)
+                    .withValuesType(type);
         }
     }
 }

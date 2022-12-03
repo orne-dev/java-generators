@@ -22,11 +22,11 @@ Provides utilities for generation of random values.
     - [X] Typed generators
     - [X] Parameterizable generators
         - [X] Generic classes generation support 
-        - [ ] Java Validation 2.1 based parameters extractors
-            - [ ] `NotNull` extractor
-            - [ ] `Size` extractor
-            - [ ] `Min` extractor
-            - [ ] `Max` extractor
+        - [X] Java Validation 2.1 based parameters extractors
+            - [X] `NotNull` extractor
+            - [X] `Size` extractor
+            - [X] `Min` extractor
+            - [X] `Max` extractor
         - [X] Parameterizable typed generators
         - [X] Targeted generators
                 - [X] Property type generator
@@ -42,13 +42,13 @@ Provides utilities for generation of random values.
     - [X] `java.lang.Float` generator
     - [X] `java.lang.Double` generator
     - [X] `java.lang.Character` generator
-- [ ] Arrays and collections generators
+- [X] Arrays and collections generators
     - [X] `java.lang.Array` generator
     - [X] `java.util.Collection` generator
     - [X] `java.util.List` generator
     - [X] `java.util.Set` generator
-    - [ ] `java.util.Map` generator
-- [ ] Common types generators
+    - [X] `java.util.Map` generator
+- [X] Common types generators
     - [X] `java.lang.CharSequence` generator
     - [X] `java.lang.Number` generator
     - [X] `java.lang.String` generator

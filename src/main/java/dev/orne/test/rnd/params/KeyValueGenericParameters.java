@@ -27,27 +27,41 @@ import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
 /**
- * Interface for generation parameters of generic classes with a single
- * type parameter.
+ * Interface for generation parameters of generic classes with two
+ * type parameters for key and values.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
- * @version 1.0, 2022-11
+ * @version 1.0, 2022-12
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public interface SimpleGenericParameters {
+public interface KeyValueGenericParameters {
 
     /**
-     * Returns the type parameter.
+     * Returns the keys type parameter.
      * 
-     * @return The type parameter
+     * @return The keys type parameter
      */
-    Type getType();
+    Type getKeysType();
 
     /**
-     * Sets the type parameter.
+     * Sets the keys type parameter.
      * 
-     * @param type the type parameter
+     * @param type the keys type parameter
      */
-    void setType(Type type);
+    void setKeysType(Type type);
+
+    /**
+     * Returns the values type parameter.
+     * 
+     * @return The values type parameter
+     */
+    Type getValuesType();
+
+    /**
+     * Sets the values type parameter.
+     * 
+     * @param type the values type parameter
+     */
+    void setValuesType(Type type);
 }

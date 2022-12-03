@@ -32,17 +32,18 @@ import org.apiguardian.api.API.Status;
 
 /**
  * Generation parameters extractor that detects {@code TypeDeclaration}
- * parameter sources and sets {@code SimpleGenericParameters.type}.
+ * parameter sources and sets {@code KeyValueGenericParameters.keysType}
+ * and {@code KeyValueGenericParameters.valuesType}.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
- * @version 1.0, 2022-11
+ * @version 1.0, 2022-12
  * @since 0.1
  * @see TypeDeclaration
  * @see SimpleGenericParameters
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public class SimpleGenericParametersTypeExtractor
-extends AbstractParametersSourceExtractor<SimpleGenericParameters, TypeDeclaration> {
+public class KeyValueGenericParametersTypeExtractor
+extends AbstractParametersSourceExtractor<KeyValueGenericParameters, TypeDeclaration> {
 
     /**
      * {@inheritDoc}
@@ -50,12 +51,13 @@ extends AbstractParametersSourceExtractor<SimpleGenericParameters, TypeDeclarati
     @Override
     public void extractParameters(
             final @NotNull TypeDeclaration from,
-            final @NotNull SimpleGenericParameters target) {
+            final @NotNull KeyValueGenericParameters target) {
         Validate.notNull(from);
         Validate.notNull(target);
         Validate.isInstanceOf(ParameterizedType.class, from.getType());
         final ParameterizedType type = (ParameterizedType) from.getType();
-        Validate.isTrue(type.getActualTypeArguments().length == 1);
-        target.setType(type.getActualTypeArguments()[0]);
+        Validate.isTrue(type.getActualTypeArguments().length == 2);
+        target.setKeysType(type.getActualTypeArguments()[0]);
+        target.setValuesType(type.getActualTypeArguments()[1]);
     }
 }

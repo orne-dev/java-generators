@@ -9,3 +9,5 @@ dev.orne.test.rnd.params.PositiveConstraintExtractor
 dev.orne.test.rnd.params.PositiveOrZeroConstraintExtractor
 dev.orne.test.rnd.params.SimpleGenericParametersExtractor
 dev.orne.test.rnd.params.SimpleGenericParametersTypeExtractor
+dev.orne.test.rnd.params.KeyValueGenericParametersExtractor
+dev.orne.test.rnd.params.KeyValueGenericParametersTypeExtractor

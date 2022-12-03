@@ -24,19 +24,15 @@ package dev.orne.test.rnd.generators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.ParameterizedType;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.HashSet;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.apache.commons.lang3.reflect.TypeUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -141,27 +137,10 @@ class ListGeneratorTest {
     void testCreateParameters() {
         CollectionGenerationParameters.Builder builder = ListGenerator.createParameters();
         assertNotNull(builder);
-        assertThrows(NullPointerException.class, () -> {
-            builder.withElementsType((Class<?>) null);
-        });
-        assertThrows(NullPointerException.class, () -> {
-            builder.withElementsType((ParameterizedType) null);
-        });
-        assertThrows(NullPointerException.class, () -> {
-            builder.withElementsType((GenericArrayType) null);
-        });
-        CollectionGenerationParameters result = builder.withElementsType(Integer.class);
-        assertEquals(Integer.class, result.getType());
-        final ParameterizedType pType = TypeUtils.parameterize(Set.class, Long.class);
-        result = builder.withElementsType(pType);
-        assertEquals(pType, result.getType());
-        final GenericArrayType gaType = TypeUtils.genericArrayType(pType);
-        result = builder.withElementsType(gaType);
-        assertEquals(gaType, result.getType());
     }
 
     /**
-     * Unit test for {@link ListGenerator#defaultValue(Parameters)}
+     * Unit test for {@link ListGenerator#defaultValue(CollectionGenerationParameters)}
      */
     @Test
     void testDefaultValue() {
@@ -174,7 +153,7 @@ class ListGeneratorTest {
     }
 
     /**
-     * Unit test for {@link ListGenerator#defaultValue(Parameters)}
+     * Unit test for {@link ListGenerator#defaultValue(Class, CollectionGenerationParameters)}
      */
     @Test
     void testDefaultCollectionValue() {
@@ -187,7 +166,7 @@ class ListGeneratorTest {
     }
 
     /**
-     * Unit test for {@link ListGenerator#nullableDefaultValue(Parameters)}
+     * Unit test for {@link ListGenerator#nullableDefaultValue(CollectionGenerationParameters)}
      */
     @Test
     void testNullableDefaultValue() {
@@ -215,7 +194,7 @@ class ListGeneratorTest {
     }
 
     /**
-     * Unit test for {@link ListGenerator#nullableDefaultValue(Parameters)}
+     * Unit test for {@link ListGenerator#nullableDefaultValue(Class, CollectionGenerationParameters)}
      */
     @Test
     void testNullableDefaultCollectionValue() {
@@ -243,7 +222,7 @@ class ListGeneratorTest {
     }
 
     /**
-     * Unit test for {@link ListGenerator#randomValue(Parameters)}
+     * Unit test for {@link ListGenerator#randomValue(CollectionGenerationParameters)}
      */
     @Test
     void testRandomValue() {
@@ -260,7 +239,7 @@ class ListGeneratorTest {
     }
 
     /**
-     * Unit test for {@link ListGenerator#randomValue(Parameters)}
+     * Unit test for {@link ListGenerator#randomValue(Class, CollectionGenerationParameters)}
      */
     @Test
     void testRandomCollectionValue() {
@@ -277,7 +256,7 @@ class ListGeneratorTest {
     }
 
     /**
-     * Unit test for {@link ListGenerator#nullableRandomValue(Parameters)}
+     * Unit test for {@link ListGenerator#nullableRandomValue(CollectionGenerationParameters)}
      */
     @Test
     void testNullableRandomValue() {
@@ -383,7 +362,7 @@ class ListGeneratorTest {
     }
 
     /**
-     * Unit test for {@link ListGenerator#nullableRandomValue(Parameters)}
+     * Unit test for {@link ListGenerator#nullableRandomValue(Class, CollectionGenerationParameters)}
      */
     @Test
     void testNullableRandomCollectionValue() {

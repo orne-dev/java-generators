@@ -34,10 +34,13 @@
         01. Added class `dev.orne.test.rnd.params.SizeParametersExtractor`
         01. Added class `dev.orne.test.rnd.params.SizeConstraintExtractor`
     01. Added generic classes generation support
-        01. Added interface `dev.orne.test.rnd.params.SimpleGenericParameters`
         01. Added class `dev.orne.test.rnd.params.TypeDeclaration`
+        01. Added interface `dev.orne.test.rnd.params.SimpleGenericParameters`
         01. Added class `dev.orne.test.rnd.params.SimpleGenericParametersExtractor`
         01. Added class `dev.orne.test.rnd.params.SimpleGenericParametersTypeExtractor`
+        01. Added interface `dev.orne.test.rnd.params.KeyValueGenericParameters`
+        01. Added class `dev.orne.test.rnd.params.KeyValueGenericParametersExtractor`
+        01. Added class `dev.orne.test.rnd.params.KeyValueGenericParametersTypeExtractor`
     01. Added targeted generators system
         01. Added interface `dev.orne.test.rnd.params.TargetedGenerator`
         01. Added class `dev.orne.test.rnd.params.ConstraintIntrospector`
@@ -90,3 +93,5 @@
     01. Added class `dev.orne.test.rnd.params.CollectionGenerationParameters`
     01. Added class `dev.orne.test.rnd.generators.ListGenerator`
     01. Added class `dev.orne.test.rnd.generators.SetGenerator`
+    01. Added class `dev.orne.test.rnd.params.MapGenerationParameters`
+    01. Added class `dev.orne.test.rnd.generators.MapGenerator`
