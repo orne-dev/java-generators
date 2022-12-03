@@ -25,12 +25,16 @@ package dev.orne.test.rnd.generators;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
-import dev.orne.test.rnd.AbstractTypedGenerator;
+import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Priority;
+import dev.orne.test.rnd.params.AbstractTypedParameterizableGenerator;
+import dev.orne.test.rnd.params.StringGenerationParameters;
 
 /**
  * Generator of {@code String} and {@code CharSequence} values.
@@ -42,12 +46,14 @@ import dev.orne.test.rnd.Priority;
 @API(status=Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class StringGenerator
-extends AbstractTypedGenerator<String> {
+extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters> {
 
     /** The default value. */
     public static final String DEFAULT_VALUE = "";
-    /** The random value length. */
-    public static final int RANDOM_LENGTH = 10;
+    /** The minimum generated string length. */
+    public static final int MIN_SIZE = 1;
+    /** The maximum generated string length. */
+    public static final int MAX_SIZE = 40;
 
     /**
      * {@inheritDoc}
@@ -64,15 +70,66 @@ extends AbstractTypedGenerator<String> {
      * {@inheritDoc}
      */
     @Override
-    public @NotNull String defaultValue() {
-        return DEFAULT_VALUE;
+    public @NotNull String defaultValue(
+            final @NotNull StringGenerationParameters parameters) {
+        validateParameters(parameters);
+        return "";
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public @NotNull String randomValue() {
-        return RandomStringUtils.random(RANDOM_LENGTH);
+    public @NotNull String randomValue(
+            final @NotNull StringGenerationParameters parameters) {
+        validateParameters(parameters);
+        return randomString(parameters);
+    }
+
+    /**
+     * Validates that the parameters contain enough information to generate
+     * the values.
+     * 
+     * @param parameters The generation parameters.
+     */
+    protected void validateParameters(
+            final @NotNull StringGenerationParameters parameters) {
+        // No restrictions
+    }
+
+    /**
+     * Returns a random sized string.
+     * 
+     * @param parameters The generation parameters.
+     * @return A random string.
+     * @throws GenerationException If an error occurs generating the value
+     */
+    protected @NotNull String randomString(
+            final @NotNull StringGenerationParameters parameters) {
+        final int size = randomStringSize(parameters);
+        return RandomStringUtils.random(size);
+    }
+
+    /**
+     * Returns a random string length.
+     * 
+     * @param parameters The generation parameters.
+     * @return The string length.
+     */
+    protected int randomStringSize(
+            final @NotNull StringGenerationParameters parameters) {
+        return RandomUtils.nextInt(
+                NumberUtils.max(MIN_SIZE, parameters.getMinSize()),
+                NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);
+    }
+
+    /**
+     * Returns a new instance of generation parameters.
+     * 
+     * @return The generation parameters.
+     * @see StringGenerationParameters
+     */
+    public static @NotNull StringGenerationParameters createParameters() {
+        return new StringGenerationParameters();
     }
 }

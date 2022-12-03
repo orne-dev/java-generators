@@ -57,6 +57,7 @@
     01. Added class `dev.orne.test.rnd.generators.IntegerGenerator`
     01. Added class `dev.orne.test.rnd.generators.LongGenerator`
     01. Added class `dev.orne.test.rnd.generators.CharacterGenerator`
+    01. Added class `dev.orne.test.rnd.params.StringGenerationParameters`
     01. Added class `dev.orne.test.rnd.generators.StringGenerator`
     01. Added class `dev.orne.test.rnd.generators.BigIntegerGenerator`
     01. Added class `dev.orne.test.rnd.generators.BigDecimalGenerator`
