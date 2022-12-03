@@ -37,3 +37,5 @@ dev.orne.test.rnd.generators.ZoneOffsetGenerator
 dev.orne.test.rnd.generators.ChronologyGenerator
 dev.orne.test.rnd.generators.EnumGenerator
 dev.orne.test.rnd.generators.ArrayGenerator
+dev.orne.test.rnd.generators.ListGenerator
+dev.orne.test.rnd.generators.SetGenerator

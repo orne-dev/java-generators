@@ -64,7 +64,7 @@ extends BaseParametersSourceExtractorTest {
     void testSupportedParametersTypes() {
         assertSupportsParametersType(SizeParameters.class);
         assertSupportsParametersType(StringGenerationParameters.class);
-        assertSupportsParametersType(ListGenerationParameters.class);
+        assertSupportsParametersType(CollectionGenerationParameters.class);
     }
 
     /**

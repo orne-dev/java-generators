@@ -62,7 +62,7 @@ extends BaseParametersSourceExtractorTest {
     @Test
     void testSupportedParametersTypes() {
         assertSupportsParametersType(SizeParameters.class);
-        assertSupportsParametersType(ListGenerationParameters.class);
+        assertSupportsParametersType(CollectionGenerationParameters.class);
     }
 
     /**

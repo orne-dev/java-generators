@@ -85,4 +85,8 @@
     01. Added class `dev.orne.test.rnd.generators.FileGenerator`
     01. Added class `dev.orne.test.rnd.generators.PathGenerator`
 01. :gift: Added collection generators
+    01. Added class `dev.orne.test.rnd.generators.CollectionGeneratorUtils`
     01. Added class `dev.orne.test.rnd.generators.ArrayGenerator`
+    01. Added class `dev.orne.test.rnd.params.CollectionGenerationParameters`
+    01. Added class `dev.orne.test.rnd.generators.ListGenerator`
+    01. Added class `dev.orne.test.rnd.generators.SetGenerator`

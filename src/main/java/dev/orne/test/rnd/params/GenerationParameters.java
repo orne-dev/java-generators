@@ -62,7 +62,7 @@ public class GenerationParameters {
             final @NotNull GenerationParameters copy) {
         super();
         Validate.notNull(copy);
-        this.nullable = copy.nullable;
+        this.nullable = copy.isNullable();
     }
 
     /**

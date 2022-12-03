@@ -44,10 +44,10 @@ Provides utilities for generation of random values.
     - [X] `java.lang.Character` generator
 - [ ] Arrays and collections generators
     - [X] `java.lang.Array` generator
-    - [ ] `java.util.List` generator
+    - [X] `java.util.Collection` generator
+    - [X] `java.util.List` generator
+    - [X] `java.util.Set` generator
     - [ ] `java.util.Map` generator
-    - [ ] `java.util.Set` generator
-    - [ ] `java.util.Collection` generator
 - [ ] Common types generators
     - [X] `java.lang.CharSequence` generator
     - [X] `java.lang.Number` generator
