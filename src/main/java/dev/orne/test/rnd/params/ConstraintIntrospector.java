@@ -211,7 +211,7 @@ public final class ConstraintIntrospector {
      * Retrieves the constraint annotations of the specified constructor
      * parameter for the specified validation groups.
      * 
-     * @param method The target method.
+     * @param constructor The target constructor.
      * @param parameterIndex The parameter index.
      * @param groups The validation groups.
      * @return The constraint annotations of the specified constructor
@@ -229,7 +229,7 @@ public final class ConstraintIntrospector {
      * parameter for the specified validation groups.
      * 
      * @param validator The validator to use.
-     * @param method The target method.
+     * @param constructor The target constructor.
      * @param parameterIndex The parameter index.
      * @param groups The validation groups.
      * @return The constraint annotations of the specified constructor

@@ -123,11 +123,11 @@ extends AbstractTargetedGenerator<T> {
      * @return The created generator.
      */
     public static <T> dev.orne.test.rnd.params.ConstructorParameterTypeGenerator<T> targeting(
-            final @NotNull Class<?> beanType,
+            final @NotNull Class<?> cls,
             final int parameterIndex,
             final @NotNull Class<?>... parameterTypes) {
-        Validate.notNull(beanType);
-        final Constructor<?> ctr = ConstructorUtils.getAccessibleConstructor(beanType, parameterTypes);
+        Validate.notNull(cls);
+        final Constructor<?> ctr = ConstructorUtils.getAccessibleConstructor(cls, parameterTypes);
         if (ctr == null) {
             throw new GenerationException("Target constructor not found");
         }

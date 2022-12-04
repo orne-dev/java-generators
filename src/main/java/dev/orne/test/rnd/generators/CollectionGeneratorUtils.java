@@ -38,11 +38,10 @@ import dev.orne.test.rnd.params.GeneratorNotParameterizableException;
 import dev.orne.test.rnd.params.TypeDeclaration;
 
 /**
- * Abstract generator implementation for generic types.
+ * Utility class for generating components for generic types.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
- * @param <T> The primitive wrapper type
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
@@ -62,7 +61,6 @@ public final class CollectionGeneratorUtils {
     /**
      * Returns a random value of the specified type.
      * 
-     * @param <T> The requested value type.
      * @param type The requested value type.
      * @return A random value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
@@ -96,7 +94,6 @@ public final class CollectionGeneratorUtils {
      * The returned value has a probability of be {@code null} except for
      * native types. If not {@code null} behaves as {@code randomValue()}.
      * 
-     * @param <T> The requested value type.
      * @param type The requested value type.
      * @return A random nullable value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
