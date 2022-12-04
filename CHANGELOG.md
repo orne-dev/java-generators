@@ -49,6 +49,9 @@
         01. Added class `dev.orne.test.rnd.params.MethodReturnTypeGenerator`
         01. Added class `dev.orne.test.rnd.params.MethodParameterTypeGenerator`
         01. Added class `dev.orne.test.rnd.params.ConstructorParameterTypeGenerator`
+        01. Added class `dev.orne.test.rnd.params.ExecutableGenerator`
+        01. Added class `dev.orne.test.rnd.params.ConstructorGenerator`
+        01. Added class `dev.orne.test.rnd.params.FactoryMethodGenerator`
 01. :gift: Added built-in generators
     01. Added class `dev.orne.test.rnd.generators.AbstractPrimitiveGenerator`
     01. Added class `dev.orne.test.rnd.generators.BooleanGenerator`

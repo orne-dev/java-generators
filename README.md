@@ -29,10 +29,12 @@ Provides utilities for generation of random values.
             - [X] `Max` extractor
         - [X] Parameterizable typed generators
         - [X] Targeted generators
-                - [X] Property type generator
-                - [X] Method argument type generator
-                - [X] Method return type generator
-                - [X] Constructor argument type generator
+            - [X] Property type generator
+            - [X] Method argument type generator
+            - [X] Method return type generator
+            - [X] Constructor argument type generator
+            - [X] Constructor based generator
+            - [X] Factory method based generator
 - [X] Primitives and wrapper types generators
     - [X] `java.lang.Boolean` generator
     - [X] `java.lang.Byte` generator
