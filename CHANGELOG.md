@@ -99,3 +99,6 @@
     01. Added class `dev.orne.test.rnd.generators.SetGenerator`
     01. Added class `dev.orne.test.rnd.params.MapGenerationParameters`
     01. Added class `dev.orne.test.rnd.generators.MapGenerator`
+01. :gift: Added annotation based generation
+    01. Added annotation `dev.orne.test.rnd.GeneratorMethod`
+    01. Added class `dev.orne.test.rnd.generators.AnnotatedMethodGenerator`

@@ -85,7 +85,7 @@ Provides utilities for generation of random values.
     - [X] `java.time.chrono.Chronology` generator
 - [ ] General generators
     - [X] Enumerations generator
-    - [ ] Annotation based bean generator
+    - [X] Annotation based bean generator
     - [ ] Proxyed interface generator
     - [ ] Introspection based bean generator
 

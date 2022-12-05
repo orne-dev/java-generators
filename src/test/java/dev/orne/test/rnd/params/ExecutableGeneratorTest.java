@@ -190,9 +190,9 @@ class ExecutableGeneratorTest {
     }
 
     /**
-     * Unit test for {@link GenerationParameters#equals(Object)},
-     * {@link GenerationParameters#hashCode()} and
-     * {@link GenerationParameters#toString()}.
+     * Unit test for {@link ExecutableGenerator#equals(Object)},
+     * {@link ExecutableGenerator#hashCode()} and
+     * {@link ExecutableGenerator#toString()}.
      */
     @Test
     @SuppressWarnings({ "java:S5785" })
