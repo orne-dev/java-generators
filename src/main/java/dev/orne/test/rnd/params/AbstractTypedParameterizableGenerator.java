@@ -170,8 +170,7 @@ implements TypedParameterizableGenerator<T> {
             final @NotNull P parameters) {
         final T value;
         if (parameters instanceof NullableParameters
-                && ((NullableParameters) parameters).isNullable()
-                && randomNull(this.valueType)) {
+                && ((NullableParameters) parameters).isNullable()) {
             value = null;
         } else {
             value = defaultValue(parameters);

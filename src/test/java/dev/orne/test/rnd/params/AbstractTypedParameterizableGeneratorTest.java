@@ -246,7 +246,7 @@ class AbstractTypedParameterizableGeneratorTest {
         willReturn(randomNull).given(generator).randomNull(MyType.class);
         willReturn(expected).given(generator).defaultValue(params);
         final MyType result = generator.nullableDefaultValue(params);
-        if (paramsNullable && randomNull) {
+        if (paramsNullable) {
             assertNull(result);
         } else {
             assertSame(expected, result);

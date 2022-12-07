@@ -113,8 +113,30 @@ public final class GeneratorsTestUtils {
     }
 
     /**
+     * Assert that calling {@code Generators.randomValue(Class<?>, Object...)}
+     * for the specified type generates non null random values.
+     * 
+     * @param <T> The type of values to generate.
+     * @param type The type of values to generate.
+     * @param minValues The minimum different values to generate.
+     * @param timeout The test timeout, in seconds.
+     * @param params The generation parameters.
+     * @return The generated values.
+     */
+    public static <T> @NotNull Set<@NotNull T> assertRandomGeneration(
+            final @NotNull Class<T> type,
+            final int minValues,
+            final int timeout,
+            final Object... params) {
+        return assertRandomGeneration(
+                () -> Generators.randomValue(type, params),
+                minValues,
+                timeout);
+    }
+
+    /**
      * Assert that calling
-     * {@code ParameterizableGenerator.randomValue(Class<?>, Object... params)}
+     * {@code ParameterizableGenerator.randomValue(Class<?>, Object...)}
      * for the specified type generates non null random values.
      * 
      * @param <T> The type of values to generate.
@@ -139,7 +161,7 @@ public final class GeneratorsTestUtils {
 
     /**
      * Assert that calling
-     * {@code TypedParameterizableGenerator.randomValue(Object... params)}
+     * {@code TypedParameterizableGenerator.randomValue(Object...)}
      * generates non null random values.
      * 
      * @param <T> The type of values to generate
@@ -175,7 +197,7 @@ public final class GeneratorsTestUtils {
             final int minValues,
             final int timeout) {
         final HashSet<T> results = new HashSet<>();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
+        assertTimeoutPreemptively(Duration.ofSeconds(timeout), () -> {
             while (results.size() < minValues) {
                 final T result = supplier.get();
                 assertNotNull(result);
@@ -249,7 +271,31 @@ public final class GeneratorsTestUtils {
 
     /**
      * Assert that calling
-     * {@code Generator.nullableRandomValue(Class<?>, Object... params)}
+     * {@code Generators.nullableRandomValue(Class<?>, Object...)}
+     * for the specified type generates null and random values.
+     * 
+     * @param <T> The type of values to generate.
+     * @param generator The generator to use.
+     * @param type The type of values to generate.
+     * @param minValues The minimum different values to generate.
+     * @param timeout The test timeout, in seconds.
+     * @param params The generation parameters.
+     * @return The generated values.
+     */
+    public static <T> @NotNull Set<T> assertNullableRandomGeneration(
+            final @NotNull Class<T> type,
+            final int minValues,
+            final int timeout,
+            final Object... params) {
+        return assertNullableRandomGeneration(
+                () -> Generators.nullableRandomValue(type, params),
+                minValues,
+                timeout);
+    }
+
+    /**
+     * Assert that calling
+     * {@code Generator.nullableRandomValue(Class<?>, Object...)}
      * for the specified type generates null and random values.
      * 
      * @param <T> The type of values to generate.
@@ -274,7 +320,7 @@ public final class GeneratorsTestUtils {
 
     /**
      * Assert that calling
-     * {@code TypedGenerator.nullableRandomValue(Object... params)}
+     * {@code TypedGenerator.nullableRandomValue(Object...)}
      * generates null and random values.
      * 
      * @param <T> The type of values to generate.
@@ -310,7 +356,7 @@ public final class GeneratorsTestUtils {
             final int minValues,
             final int timeout) {
         final HashSet<T> results = new HashSet<>();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
+        assertTimeoutPreemptively(Duration.ofSeconds(timeout), () -> {
             boolean nullValues = false;
             while (results.size() < minValues && !nullValues) {
                 final T result = supplier.get();

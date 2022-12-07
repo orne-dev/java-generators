@@ -164,8 +164,7 @@ implements ParameterizableGenerator {
         assertSupported(type);
         final T value;
         if (parameters instanceof NullableParameters
-                && ((NullableParameters) parameters).isNullable()
-                && randomNull(type)) {
+                && ((NullableParameters) parameters).isNullable()) {
             value = null;
         } else {
             value = defaultValue(type, parameters);

@@ -58,7 +58,7 @@ extends AbstractTypedGenerator<URI> {
     private static final String ALPHA = LOWALPHA + UPALPHA;
     private static final String DIGIT = "0123456789";
     private static final String ALPHANUM = ALPHA + DIGIT;
-    private static final String RESERVED = ";/?:@&=+$,[]";
+    private static final String RESERVED = ";/?@&=+$,[]"; // Removed ':'
     private static final String MARK = "-_.!~*'()";
     private static final String UNRESERVED  = ALPHANUM + MARK;
     private static final String HEXDIG = DIGIT + "ABCDEF";
@@ -69,7 +69,7 @@ extends AbstractTypedGenerator<URI> {
     private static final String SCHEME_REST_C = ALPHANUM + "+-.";
     private static final int USERINFO_MIN_LENGTH = 0;
     private static final int USERINFO_MAX_LENGTH = 20;
-    private static final String UNESCAPED_USERINFO_C = UNRESERVED + ";:&=+$,";
+    private static final String UNESCAPED_USERINFO_C = UNRESERVED + ";&=+$,"; // Removed ':'
     private static final int DOMAIN_LABEL_MIN_LENGTH = 1;
     private static final int DOMAIN_LABEL_MAX_LENGTH = 20;
     private static final String DOMAIN_LABEL_MIDDLE_C = ALPHANUM + "-";
@@ -101,9 +101,9 @@ extends AbstractTypedGenerator<URI> {
     private static final float USERINFO_P = 0.2f;
     private static final int REG_NAME_MIN_LENGTH = 1;
     private static final int REG_NAME_MAX_LENGTH = 30;
-    private static final String UNESCAPED_REG_NAME_C = UNRESERVED + "$,;:@&=+";
+    private static final String UNESCAPED_REG_NAME_C = UNRESERVED + "$,;@&=+"; // Removed ':'
     private static final float SERVER_P = 0.9f;
-    private static final String UNESCAPED_PATH_C = UNRESERVED + ":@&=+$,";
+    private static final String UNESCAPED_PATH_C = UNRESERVED + "@&=+$,"; // Removed ':'
     private static final int PARAM_MIN_LENGTH = 1;
     private static final int PARAM_MAX_LENGTH = 10;
     private static final int SEGMENT_PATH_MIN_LENGTH = 1;

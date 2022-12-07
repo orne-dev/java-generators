@@ -32,7 +32,6 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.reflect.ConstructorUtils;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
@@ -127,8 +126,10 @@ extends AbstractTargetedGenerator<T> {
             final int parameterIndex,
             final @NotNull Class<?>... parameterTypes) {
         Validate.notNull(cls);
-        final Constructor<?> ctr = ConstructorUtils.getAccessibleConstructor(cls, parameterTypes);
-        if (ctr == null) {
+        Constructor<?> ctr;
+        try {
+            ctr = cls.getConstructor(parameterTypes);
+        } catch (NoSuchMethodException e) {
             throw new GenerationException("Target constructor not found");
         }
         return targeting(ctr, parameterIndex);
