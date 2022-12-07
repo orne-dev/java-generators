@@ -41,7 +41,13 @@ import org.apiguardian.api.API.Status;
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public interface NumberParameters {
+public interface NumberParameters
+extends GenerationParameters {
+
+    /** The default minimum value. */
+    public static final Number DEFAULT_MIN = Long.MIN_VALUE;
+    /** The default maximum value. */
+    public static final Number DEFAULT_MAX = Long.MAX_VALUE;
 
     /**
      * Returns the minimum (inclusive) value.
@@ -70,4 +76,31 @@ public interface NumberParameters {
      * @param value The maximum value.
      */
     void setMax(@NotNull Number value);
+
+    /**
+     * Interface for {@code NumberParameters} builders.
+     * 
+     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @version 1.0, 2022-12
+     * @since NullableParameters 1.0
+     */
+    interface Builder
+    extends NumberParameters {
+
+        /**
+         * Sets the minimum (inclusive) value.
+         * 
+         * @param value The minimum value.
+         * @return This instance, for method chaining.
+         */
+        @NotNull Builder withMin(@NotNull Number value);
+
+        /**
+         * Sets the maximum (inclusive) value.
+         * 
+         * @param value The maximum value.
+         * @return This instance, for method chaining.
+         */
+        @NotNull Builder withMax(@NotNull Number value);
+    }
 }

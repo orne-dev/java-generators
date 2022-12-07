@@ -24,14 +24,12 @@ package dev.orne.test.rnd.generators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.Duration;
-import java.util.HashSet;
-
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 
 /**
@@ -93,13 +91,7 @@ class DoubleGeneratorTest {
     @Test
     void testRandomValue() {
         final DoubleGenerator generator = new DoubleGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(4), () -> {
-            final HashSet<Double> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 1000) {
-                results.add(generator.randomValue());
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(generator, 1000, 4);
     }
 
     /**
@@ -107,15 +99,14 @@ class DoubleGeneratorTest {
      */
     @Test
     void testRandomFiniteDouble() {
-        assertTimeoutPreemptively(Duration.ofSeconds(4), () -> {
-            final HashSet<Double> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 1000) {
-                final double value = DoubleGenerator.randomFiniteDouble();
-                assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(value)));
-                results.add(value);
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(
+                () -> {
+                    final double value = DoubleGenerator.randomFiniteDouble();
+                    assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(value)));
+                    return value;
+                },
+                1000,
+                4);
     }
 
     /**

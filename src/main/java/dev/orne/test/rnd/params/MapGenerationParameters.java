@@ -22,13 +22,10 @@ package dev.orne.test.rnd.params;
  * #L%
  */
 
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
@@ -43,7 +40,7 @@ import org.apiguardian.api.API.Status;
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
 public class MapGenerationParameters
-extends GenerationParameters
+extends NullableParametersImpl
 implements KeyValueGenericParameters, SizeParameters {
 
     /** The keys type. */
@@ -51,9 +48,9 @@ implements KeyValueGenericParameters, SizeParameters {
     /** The values type. */
     private Type valuesType;
     /** The minimum size. */
-    private int minSize = 0;
+    private int minSize = SizeParameters.DEFAULT_MIN_SIZE;
     /** The maximum size. */
-    private int maxSize = Integer.MAX_VALUE;
+    private int maxSize = SizeParameters.DEFAULT_MAX_SIZE;
 
     /**
      * Creates a new instance.
@@ -253,176 +250,5 @@ implements KeyValueGenericParameters, SizeParameters {
                 .append(this.minSize, other.minSize)
                 .append(this.maxSize, other.maxSize)
                 .build();
-    }
-
-    /**
-     * Returns a new builder of generation parameters that ensures that
-     * the required properties are set.
-     * 
-     * @return The generation parameters builder.
-     */
-    public static @NotNull Builder builder() {
-        return new BuilderImpl();
-    }
-
-    /**
-     * Interface for list generation parameters builder.
-     * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
-     * @version 1.0, 2022-12
-     * @since ListGenerationParameters 1.0
-     */
-    public interface Builder {
-
-        /**
-         * Specifies the type of the map keys.
-         * 
-         * @param type The type of the map keys.
-         * @return The next stage builder.
-         */
-        @NotNull ValuesBuilder withKeysType(
-                @NotNull Class<?> type);
-
-        /**
-         * Creates a new instance of generation parameters with the specified
-         * parameterized type as list components type.
-         * 
-         * @param type The type of the map keys.
-         * @return The next stage builder.
-         */
-        @NotNull ValuesBuilder withKeysType(
-                @NotNull ParameterizedType type);
-
-        /**
-         * Creates a new instance of generation parameters with the specified
-         * generic array type as list components type.
-         * 
-         * @param type The type of the map keys.
-         * @return The next stage builder.
-         */
-        @NotNull ValuesBuilder withKeysType(
-                @NotNull GenericArrayType type);
-    }
-
-    /**
-     * Interface for map generation parameters builder.
-     * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
-     * @version 1.0, 2022-12
-     * @since ListGenerationParameters 1.0
-     */
-    public interface ValuesBuilder {
-
-        /**
-         * Creates a new instance of generation parameters with the specified
-         * keys and values types.
-         * 
-         * @param type The type of the map values.
-         * @return The resulting generation parameters.
-         */
-        @NotNull MapGenerationParameters withValuesType(
-                @NotNull Class<?> type);
-
-        /**
-         * Creates a new instance of generation parameters with the specified
-         * keys and values types.
-         * 
-         * @param type The type of the map values.
-         * @return The resulting generation parameters.
-         */
-        @NotNull MapGenerationParameters withValuesType(
-                @NotNull ParameterizedType type);
-
-        /**
-         * Creates a new instance of generation parameters with the specified
-         * keys and values types.
-         * 
-         * @param type The type of the map values.
-         * @return The resulting generation parameters.
-         */
-        @NotNull MapGenerationParameters withValuesType(
-                @NotNull GenericArrayType type);
-    }
-
-    /**
-     * Internal implementation of {@code Builder}.
-     * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
-     * @version 1.0, 2022-11
-     * @since ListGenerationParameters 1.0
-     */
-    protected static class BuilderImpl
-    implements Builder, ValuesBuilder {
-
-        private Type keysType;
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public @NotNull BuilderImpl withKeysType(
-                final @NotNull Class<?> type) {
-            Validate.notNull(type);
-            this.keysType = type;
-            return this;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public @NotNull BuilderImpl withKeysType(
-                final @NotNull ParameterizedType type) {
-            Validate.notNull(type);
-            this.keysType = type;
-            return this;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public @NotNull BuilderImpl withKeysType(
-                final @NotNull GenericArrayType type) {
-            Validate.notNull(type);
-            this.keysType = type;
-            return this;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public @NotNull MapGenerationParameters withValuesType(
-                final @NotNull Class<?> type) {
-            Validate.notNull(type);
-            return new MapGenerationParameters()
-                    .withKeysType(this.keysType)
-                    .withValuesType(type);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public @NotNull MapGenerationParameters withValuesType(
-                final @NotNull ParameterizedType type) {
-            Validate.notNull(type);
-            return new MapGenerationParameters()
-                    .withKeysType(this.keysType)
-                    .withValuesType(type);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public @NotNull MapGenerationParameters withValuesType(
-                final @NotNull GenericArrayType type) {
-            Validate.notNull(type);
-            return new MapGenerationParameters()
-                    .withKeysType(this.keysType)
-                    .withValuesType(type);
-        }
     }
 }

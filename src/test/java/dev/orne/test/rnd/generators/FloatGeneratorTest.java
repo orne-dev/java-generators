@@ -24,14 +24,12 @@ package dev.orne.test.rnd.generators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.Duration;
-import java.util.HashSet;
-
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 
 /**
@@ -93,13 +91,7 @@ class FloatGeneratorTest {
     @Test
     void testRandomValue() {
         final FloatGenerator generator = new FloatGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(4), () -> {
-            final HashSet<Float> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 1000) {
-                results.add(generator.randomValue());
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(generator, 1000, 4);
     }
 
     /**
@@ -107,15 +99,14 @@ class FloatGeneratorTest {
      */
     @Test
     void testRandomFiniteFloat() {
-        assertTimeoutPreemptively(Duration.ofSeconds(4), () -> {
-            final HashSet<Float> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 1000) {
-                final float value = FloatGenerator.randomFiniteFloat();
-                assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(value)));
-                results.add(value);
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(
+                () -> {
+                    final float value = FloatGenerator.randomFiniteFloat();
+                    assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(value)));
+                    return value;
+                },
+                1000,
+                4);
     }
 
     /**

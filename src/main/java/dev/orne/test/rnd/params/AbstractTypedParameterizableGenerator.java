@@ -169,7 +169,9 @@ implements TypedParameterizableGenerator<T> {
     public T nullableDefaultValue(
             final @NotNull P parameters) {
         final T value;
-        if (parameters.isNullable() && randomNull(this.valueType)) {
+        if (parameters instanceof NullableParameters
+                && ((NullableParameters) parameters).isNullable()
+                && randomNull(this.valueType)) {
             value = null;
         } else {
             value = defaultValue(parameters);
@@ -246,7 +248,9 @@ implements TypedParameterizableGenerator<T> {
     public T nullableRandomValue(
             final @NotNull P parameters) {
         final T value;
-        if (parameters.isNullable() && randomNull(this.valueType)) {
+        if (parameters instanceof NullableParameters
+                && ((NullableParameters) parameters).isNullable()
+                && randomNull(this.valueType)) {
             value = null;
         } else {
             value = randomValue(parameters);

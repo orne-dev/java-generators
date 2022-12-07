@@ -24,14 +24,13 @@ package dev.orne.test.rnd.generators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.Duration;
 import java.time.ZoneId;
-import java.util.HashSet;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 
 /**
@@ -89,12 +88,9 @@ class ZoneIdGeneratorTest {
     @Test
     void testRandomValue() {
         final ZoneIdGenerator generator = new ZoneIdGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<ZoneId> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < ZoneId.getAvailableZoneIds().size() / 2) {
-                results.add(generator.randomValue());
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(
+                generator,
+                ZoneId.getAvailableZoneIds().size() / 2,
+                2);
     }
 }

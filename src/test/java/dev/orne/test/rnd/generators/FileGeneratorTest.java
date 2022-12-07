@@ -25,13 +25,13 @@ package dev.orne.test.rnd.generators;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
-import java.time.Duration;
-import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 
 /**
@@ -206,15 +206,9 @@ class FileGeneratorTest {
     @Test
     void testRandomValue() {
         final FileGenerator generator = new FileGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<String> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 50) {
-                final File value = generator.randomValue();
-                assertNotNull(value);
-                assertFalse(value.isAbsolute());
-                results.add(value.getPath());
-            }
-        });
+        final Set<File> results = GeneratorsTestUtils.assertRandomGeneration(generator, 50, 2);
+        for (final File result : results) {
+            assertFalse(result.isAbsolute());
+        }
     }
 }

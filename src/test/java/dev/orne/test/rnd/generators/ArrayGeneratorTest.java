@@ -50,7 +50,6 @@ import java.time.chrono.Chronology;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -60,6 +59,7 @@ import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generator;
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 
 /**
@@ -247,14 +247,15 @@ class ArrayGeneratorTest {
         final ArrayGenerator generator = new ArrayGenerator();
         final int sizes = ArrayGenerator.MAX_SIZE - ArrayGenerator.MIN_SIZE;
         final Generator intGenerator = Generators.getGenerator(int.class);
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<Integer> results = new HashSet<>(); 
-            // We just check that arrays of different sizes are generated
-            while (results.size() < sizes) {
-                final int[] value = (int[]) generator.randomArray(int.class, intGenerator);
-                results.add(value.length);
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(
+                () -> {
+                    final Integer[] value = (Integer[]) generator.randomArray(
+                            Integer.class,
+                            intGenerator);
+                    return value.length;
+                },
+                sizes,
+                2);
     }
 
     /**
@@ -299,14 +300,15 @@ class ArrayGeneratorTest {
         final ArrayGenerator generator = new ArrayGenerator();
         final int sizes = ArrayGenerator.MAX_SIZE - ArrayGenerator.MIN_SIZE;
         final Generator intGenerator = Generators.getGenerator(Integer.class);
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<Integer> results = new HashSet<>(); 
-            // We just check that arrays of different sizes are generated
-            while (results.size() < sizes) {
-                final Integer[] value = (Integer[]) generator.randomNullablesArray(Integer.class, intGenerator);
-                results.add(value.length);
-            }
-        });
+        GeneratorsTestUtils.assertNullableRandomGeneration(
+                () -> {
+                    final Integer[] value = (Integer[]) generator.randomNullablesArray(
+                            Integer.class,
+                            intGenerator);
+                    return value.length;
+                },
+                sizes,
+                2);
     }
 
     /**

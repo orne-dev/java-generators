@@ -37,9 +37,10 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 import dev.orne.test.rnd.params.DefaultParametersExtractor;
-import dev.orne.test.rnd.params.GenerationParameters;
+import dev.orne.test.rnd.params.NullableParameters;
 import dev.orne.test.rnd.params.CollectionGenerationParameters;
 import dev.orne.test.rnd.params.ParametersExtractor;
 import dev.orne.test.rnd.params.ParametersSourceExtractor;
@@ -99,7 +100,7 @@ class ListGeneratorTest {
         assertExtractorPresent(extractors, TypeDeclaration.class);
         assertExtractorPresent(extractors, NotNull.class);
         assertExtractorPresent(extractors, Size.class);
-        assertExtractorPresent(extractors, GenerationParameters.class);
+        assertExtractorPresent(extractors, NullableParameters.class);
         assertExtractorPresent(extractors, SimpleGenericParameters.class);
         assertExtractorPresent(extractors, SizeParameters.class);
         assertExtractorPresent(extractors, CollectionGenerationParameters.class);
@@ -131,21 +132,12 @@ class ListGeneratorTest {
     }
 
     /**
-     * Unit test for {@link ListGenerator#createParameters()}
-     */
-    @Test
-    void testCreateParameters() {
-        CollectionGenerationParameters.Builder builder = ListGenerator.createParameters();
-        assertNotNull(builder);
-    }
-
-    /**
      * Unit test for {@link ListGenerator#defaultValue(CollectionGenerationParameters)}
      */
     @Test
     void testDefaultValue() {
-        final CollectionGenerationParameters params = ListGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final ListGenerator generator = new ListGenerator();
         final List<?> result = generator.defaultValue(params);
         assertNotNull(result);
@@ -157,8 +149,8 @@ class ListGeneratorTest {
      */
     @Test
     void testDefaultCollectionValue() {
-        final CollectionGenerationParameters params = ListGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final ListGenerator generator = new ListGenerator();
         final Collection<?> result = generator.defaultValue(Collection.class, params);
         assertNotNull(result);
@@ -170,8 +162,8 @@ class ListGeneratorTest {
      */
     @Test
     void testNullableDefaultValue() {
-        final CollectionGenerationParameters params = ListGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final ListGenerator generator = new ListGenerator();
         assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
             boolean nullList = false;
@@ -198,8 +190,8 @@ class ListGeneratorTest {
      */
     @Test
     void testNullableDefaultCollectionValue() {
-        final CollectionGenerationParameters params = ListGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final ListGenerator generator = new ListGenerator();
         assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
             boolean nullList = false;
@@ -226,16 +218,10 @@ class ListGeneratorTest {
      */
     @Test
     void testRandomValue() {
-        final CollectionGenerationParameters params = ListGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final ListGenerator generator = new ListGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<List<?>> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 100) {
-                results.add(generator.randomValue(params));
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(generator, 100, 2, params);
     }
 
     /**
@@ -243,16 +229,10 @@ class ListGeneratorTest {
      */
     @Test
     void testRandomCollectionValue() {
-        final CollectionGenerationParameters params = ListGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final ListGenerator generator = new ListGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<Collection<?>> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 100) {
-                results.add(generator.randomValue(Collection.class, params));
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(generator, Collection.class, 100, 2, params);
     }
 
     /**
@@ -260,8 +240,8 @@ class ListGeneratorTest {
      */
     @Test
     void testNullableRandomValue() {
-        final CollectionGenerationParameters params = ListGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final ListGenerator generator = new ListGenerator();
         assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
             final HashSet<List<?>> results = new HashSet<>(); 
@@ -313,8 +293,8 @@ class ListGeneratorTest {
      */
     @Test
     void testNullableRandomTypeValue() {
-        final CollectionGenerationParameters params = ListGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final ListGenerator generator = new ListGenerator();
         assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
             final HashSet<List<?>> results = new HashSet<>(); 
@@ -366,8 +346,8 @@ class ListGeneratorTest {
      */
     @Test
     void testNullableRandomCollectionValue() {
-        final CollectionGenerationParameters params = ListGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final ListGenerator generator = new ListGenerator();
         assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
             final HashSet<Collection<?>> results = new HashSet<>(); 

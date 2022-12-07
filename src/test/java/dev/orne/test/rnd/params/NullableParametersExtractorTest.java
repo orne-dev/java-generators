@@ -35,15 +35,15 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 /**
- * Unit tests for {@code GenerationParametersExtractor}.
+ * Unit tests for {@code NullableParametersExtractor}.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
- * @version 1.0, 2022-11
+ * @version 1.0, 2022-12
  * @since 0.1
- * @see GenerationParametersExtractor
+ * @see NullableParametersExtractor
  */
 @Tag("ut")
-class GenerationParametersExtractorTest
+class NullableParametersExtractorTest
 extends BaseParametersSourceExtractorTest {
 
     /**
@@ -51,8 +51,8 @@ extends BaseParametersSourceExtractorTest {
      * @return
      */
     @Override
-    protected @NotNull Class<GenerationParametersExtractor> getType() {
-        return GenerationParametersExtractor.class;
+    protected @NotNull Class<NullableParametersExtractor> getType() {
+        return NullableParametersExtractor.class;
     }
 
     /**
@@ -60,7 +60,7 @@ extends BaseParametersSourceExtractorTest {
      */
     @Test
     void testSupportedParametersTypes() {
-        assertSupportsParametersType(GenerationParameters.class);
+        assertSupportsParametersType(NullableParameters.class);
         assertSupportsParametersType(StringGenerationParameters.class);
         assertSupportsParametersType(CollectionGenerationParameters.class);
         assertSupportsParametersType(MapGenerationParameters.class);
@@ -71,20 +71,20 @@ extends BaseParametersSourceExtractorTest {
      */
     @Test
     void testSupportedSourceTypes() {
-        assertSupportsSourceType(GenerationParameters.class);
+        assertSupportsSourceType(NullableParameters.class);
     }
 
     /**
-     * Tests for {@link GenerationParametersExtractor#extractParameters(SimpleGenericParameters, SimpleGenericParameters)}.
+     * Tests for {@link NullableParametersExtractor#extractParameters(SimpleGenericParameters, SimpleGenericParameters)}.
      */
     @ParameterizedTest
     @MethodSource
     void testExtractParameters(
             final boolean paramsValue,
             final boolean sourceValue) {
-        final GenerationParametersExtractor extractor = new GenerationParametersExtractor();
-        final GenerationParameters source = mock(GenerationParameters.class);
-        final GenerationParameters params = mock(GenerationParameters.class);
+        final NullableParametersExtractor extractor = new NullableParametersExtractor();
+        final NullableParameters source = mock(NullableParameters.class);
+        final NullableParameters params = mock(NullableParameters.class);
         given(params.isNullable()).willReturn(paramsValue);
         given(source.isNullable()).willReturn(sourceValue);
         extractor.extractParameters(source, params);

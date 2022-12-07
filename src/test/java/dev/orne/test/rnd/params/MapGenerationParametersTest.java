@@ -25,13 +25,9 @@ package dev.orne.test.rnd.params;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Set;
 
 import org.apache.commons.lang3.RandomUtils;
-import org.apache.commons.lang3.reflect.TypeUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -52,7 +48,7 @@ class MapGenerationParametersTest {
     @Test
     void testEmptyConstructor() {
         final MapGenerationParameters params = new MapGenerationParameters();
-        assertTrue(params.isNullable());
+        assertEquals(NullableParameters.DEFAULT_NULLABLE, params.isNullable());
         assertNull(params.getKeysType());
         assertNull(params.getValuesType());
         assertEquals(0, params.getMinSize());
@@ -79,10 +75,9 @@ class MapGenerationParametersTest {
      */
     @Test
     void testCopyConstructor_GenerationParameters() {
-        final GenerationParameters copy = new GenerationParameters();
-        copy.setNullable(false);
+        final GenerationParameters copy = mock(GenerationParameters.class);
         final MapGenerationParameters params = new MapGenerationParameters(copy);
-        assertFalse(params.isNullable());
+        assertEquals(NullableParameters.DEFAULT_NULLABLE, params.isNullable());
         assertNull(params.getKeysType());
         assertNull(params.getValuesType());
         assertEquals(0, params.getMinSize());
@@ -93,16 +88,29 @@ class MapGenerationParametersTest {
      * Unit test for {@link MapGenerationParameters#MapGenerationParameters(GenerationParameters)}.
      */
     @Test
-    void testCopyConstructor_SimpleGenericParameters() {
-        final SimpleParams copy = mock(SimpleParams.class);
-        final boolean nullable = RandomUtils.nextBoolean();
+    void testCopyConstructor_NullableParameters() {
+        final NullableParameters copy = mock(NullableParameters.class);
+        given(copy.isNullable()).willReturn(!NullableParameters.DEFAULT_NULLABLE);
+        final MapGenerationParameters params = new MapGenerationParameters(copy);
+        assertEquals(!NullableParameters.DEFAULT_NULLABLE, params.isNullable());
+        assertNull(params.getKeysType());
+        assertNull(params.getValuesType());
+        assertEquals(0, params.getMinSize());
+        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
+    }
+
+    /**
+     * Unit test for {@link MapGenerationParameters#MapGenerationParameters(GenerationParameters)}.
+     */
+    @Test
+    void testCopyConstructor_KeyValueGenericParameters() {
+        final KeyValueGenericParameters copy = mock(KeyValueGenericParameters.class);
         final Type keysType = Integer.class;
         final Type valuesType = String.class;
-        given(copy.isNullable()).willReturn(nullable);
         given(copy.getKeysType()).willReturn(keysType);
         given(copy.getValuesType()).willReturn(valuesType);
         final MapGenerationParameters params = new MapGenerationParameters(copy);
-        assertEquals(nullable, params.isNullable());
+        assertEquals(NullableParameters.DEFAULT_NULLABLE, params.isNullable());
         assertEquals(keysType, params.getKeysType());
         assertEquals(valuesType, params.getValuesType());
         assertEquals(0, params.getMinSize());
@@ -114,15 +122,13 @@ class MapGenerationParametersTest {
      */
     @Test
     void testCopyConstructor_SizeParameters() {
-        final SizeParams copy = mock(SizeParams.class);
-        final boolean nullable = RandomUtils.nextBoolean();
+        final SizeParameters copy = mock(SizeParameters.class);
         final int minSize = RandomUtils.nextInt();
         final int maxSize = RandomUtils.nextInt();
-        given(copy.isNullable()).willReturn(nullable);
         given(copy.getMinSize()).willReturn(minSize);
         given(copy.getMaxSize()).willReturn(maxSize);
         final MapGenerationParameters params = new MapGenerationParameters(copy);
-        assertEquals(nullable, params.isNullable());
+        assertEquals(NullableParameters.DEFAULT_NULLABLE, params.isNullable());
         assertNull(params.getKeysType());
         assertNull(params.getValuesType());
         assertEquals(minSize, params.getMinSize());
@@ -135,9 +141,9 @@ class MapGenerationParametersTest {
     @Test
     void testWithNullable() {
         final MapGenerationParameters params = new MapGenerationParameters();
-        final MapGenerationParameters result = params.withNullable(false);
+        final MapGenerationParameters result = params.withNullable(!NullableParameters.DEFAULT_NULLABLE);
         assertSame(result, params);
-        assertFalse(params.isNullable());
+        assertEquals(!NullableParameters.DEFAULT_NULLABLE, params.isNullable());
     }
 
     /**
@@ -220,7 +226,7 @@ class MapGenerationParametersTest {
         assertTrue(params.equals(other));
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
-        other = new MapGenerationParameters().withNullable(false);
+        other = new MapGenerationParameters().withNullable(!NullableParameters.DEFAULT_NULLABLE);
         assertFalse(params.equals(other));
         other = new MapGenerationParameters().withKeysType(Integer.class);
         assertFalse(params.equals(other));
@@ -230,152 +236,5 @@ class MapGenerationParametersTest {
         assertFalse(params.equals(other));
         other = new MapGenerationParameters().withMaxSize(RandomUtils.nextInt());
         assertFalse(params.equals(other));
-    }
-
-    /**
-     * Unit test for {@link MapGenerationParameters#builder()}
-     * and {@link MapGenerationParameters.BuilderImpl#withKeysType(Class)}.
-     */
-    @Test
-    void testBuilder() {
-        final MapGenerationParameters.Builder builder = MapGenerationParameters.builder();
-        assertNotNull(builder);
-        final Class<?> type = String.class;
-        final MapGenerationParameters.ValuesBuilder builder2 = 
-                builder.withKeysType(type);
-        assertNotNull(builder2);
-        final MapGenerationParameters params = builder2.withValuesType(Integer.class);
-        assertNotNull(params);
-        assertTrue(params.isNullable());
-        assertEquals(type, params.getKeysType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
-    }
-
-    /**
-     * Unit test for {@link MapGenerationParameters#builder()}
-     * and {@link MapGenerationParameters.BuilderImpl#withKeysType(ParameterizedType)}.
-     */
-    @Test
-    void testBuilder_ParameterizedType() {
-        final MapGenerationParameters.Builder builder = MapGenerationParameters.builder();
-        assertNotNull(builder);
-        final ParameterizedType type = TypeUtils.parameterize(Set.class, String.class);
-        final MapGenerationParameters.ValuesBuilder builder2 = 
-                builder.withKeysType(type);
-        assertNotNull(builder2);
-        final MapGenerationParameters params = builder2.withValuesType(Integer.class);
-        assertNotNull(params);
-        assertTrue(params.isNullable());
-        assertEquals(type, params.getKeysType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
-    }
-
-    /**
-     * Unit test for {@link MapGenerationParameters#builder()}
-     * and {@link MapGenerationParameters.BuilderImpl#withKeysType(GenericArrayType)}.
-     */
-    @Test
-    void testBuilder_GenericArray() {
-        final MapGenerationParameters.Builder builder = MapGenerationParameters.builder();
-        assertNotNull(builder);
-        final GenericArrayType type = TypeUtils.genericArrayType(
-                TypeUtils.parameterize(Set.class, String.class));
-        final MapGenerationParameters.ValuesBuilder builder2 = 
-                builder.withKeysType(type);
-        assertNotNull(builder2);
-        final MapGenerationParameters params = builder2.withValuesType(Integer.class);
-        assertNotNull(params);
-        assertTrue(params.isNullable());
-        assertEquals(type, params.getKeysType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
-    }
-
-    /**
-     * Unit test for {@link MapGenerationParameters#builder()}
-     * and {@link MapGenerationParameters.BuilderImpl#withValuesType(Class)}.
-     */
-    @Test
-    void testValuesBuilder() {
-        final MapGenerationParameters.ValuesBuilder builder = MapGenerationParameters.builder()
-                .withKeysType(Integer.class);
-        final Class<?> type = String.class;
-        final MapGenerationParameters params = builder.withValuesType(type);
-        assertNotNull(params);
-        assertTrue(params.isNullable());
-        assertEquals(type, params.getValuesType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
-    }
-
-    /**
-     * Unit test for {@link MapGenerationParameters#builder()}
-     * and {@link MapGenerationParameters.BuilderImpl#withValuesType(ParameterizedType)}.
-     */
-    @Test
-    void testValuesBuilder_ParameterizedType() {
-        final MapGenerationParameters.ValuesBuilder builder = MapGenerationParameters.builder()
-                .withKeysType(Integer.class);
-        final ParameterizedType type = TypeUtils.parameterize(Set.class, String.class);
-        final MapGenerationParameters params = builder.withValuesType(type);
-        assertNotNull(params);
-        assertTrue(params.isNullable());
-        assertEquals(type, params.getValuesType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
-    }
-
-    /**
-     * Unit test for {@link MapGenerationParameters#builder()}
-     * and {@link MapGenerationParameters.BuilderImpl#withValuesType(GenericArrayType)}.
-     */
-    @Test
-    void testValuesBuilder_GenericArray() {
-        final MapGenerationParameters.ValuesBuilder builder = MapGenerationParameters.builder()
-                .withKeysType(Integer.class);
-        final GenericArrayType type = TypeUtils.genericArrayType(
-                TypeUtils.parameterize(Set.class, String.class));
-        final MapGenerationParameters params = builder.withValuesType(type);
-        assertNotNull(params);
-        assertTrue(params.isNullable());
-        assertEquals(type, params.getValuesType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
-    }
-
-    private static class SimpleParams
-    extends GenerationParameters
-    implements KeyValueGenericParameters {
-        @Override
-        public Type getKeysType() {
-            return null;
-        }
-        @Override
-        public void setKeysType(Type type) {}
-        @Override
-        public Type getValuesType() {
-            return null;
-        }
-        @Override
-        public void setValuesType(Type type) {}
-    }
-
-    private static class SizeParams
-    extends GenerationParameters
-    implements SizeParameters {
-        @Override
-        public int getMinSize() {
-            return 0;
-        }
-        @Override
-        public void setMinSize(int value) {}
-        @Override
-        public int getMaxSize() {
-            return 0;
-        }
-        @Override
-        public void setMaxSize(int value) {}
     }
 }

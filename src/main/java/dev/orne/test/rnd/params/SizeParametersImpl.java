@@ -24,22 +24,25 @@ package dev.orne.test.rnd.params;
 
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
 /**
- * Parameters for random {@code String} generation.
+ * The basic implementation of {@code SizeParameters}.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
- * @version 1.0, 2022-11
+ * @version 1.0, 2022-12
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public class StringGenerationParameters
-extends NullableParametersImpl
-implements SizeParameters {
+public class SizeParametersImpl
+implements SizeParameters,
+        SizeParameters.Builder {
 
     /** The minimum size. */
     private int minSize = SizeParameters.DEFAULT_MIN_SIZE;
@@ -47,9 +50,9 @@ implements SizeParameters {
     private int maxSize = SizeParameters.DEFAULT_MAX_SIZE;
 
     /**
-     * Creates a new instance.
+     * Empty constructor.
      */
-    public StringGenerationParameters() {
+    public SizeParametersImpl() {
         super();
     }
 
@@ -58,23 +61,15 @@ implements SizeParameters {
      * 
      * @param copy The instance to copy.
      */
-    public StringGenerationParameters(
+    public SizeParametersImpl(
             final @NotNull GenerationParameters copy) {
-        super(copy);
+        super();
+        Validate.notNull(copy);
         if (copy instanceof SizeParameters) {
-            this.minSize = ((SizeParameters) copy).getMinSize();
-            this.maxSize = ((SizeParameters) copy).getMaxSize();
+            final SizeParameters tcopy = (SizeParameters) copy;
+            this.minSize = tcopy.getMinSize();
+            this.maxSize = tcopy.getMaxSize();
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public @NotNull StringGenerationParameters withNullable(
-            final boolean nullable) {
-        setNullable(nullable);
-        return this;
     }
 
     /**
@@ -95,12 +90,10 @@ implements SizeParameters {
     }
 
     /**
-     * Sets the minimum size.
-     * 
-     * @param value The minimum size.
-     * @return This instance, for method chaining.
+     * {@inheritDoc}
      */
-    public @NotNull StringGenerationParameters withMinSize(
+    @Override
+    public @NotNull SizeParametersImpl withMinSize(
             final int value) {
         setMinSize(value);
         return this;
@@ -124,12 +117,10 @@ implements SizeParameters {
     }
 
     /**
-     * Sets the maximum size.
-     * 
-     * @param value The maximum size.
-     * @return This instance, for method chaining.
+     * {@inheritDoc}
      */
-    public @NotNull StringGenerationParameters withMaxSize(
+    @Override
+    public @NotNull SizeParametersImpl withMaxSize(
             final int value) {
         setMaxSize(value);
         return this;
@@ -139,36 +130,23 @@ implements SizeParameters {
      * {@inheritDoc}
      */
     @Override
-    public StringGenerationParameters clone() {
-        return new StringGenerationParameters(this);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public int hashCode() {
-        return new HashCodeBuilder()
-                .appendSuper(super.hashCode())
-                .append(this.minSize)
-                .append(this.maxSize)
-                .toHashCode();
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean equals(
-            final Object obj) {
-        if (obj == null) { return false; }
-        if (obj == this) { return true; }
-        if (obj.getClass() != getClass()) { return false; }
-        final StringGenerationParameters other = (StringGenerationParameters) obj;
-        return new EqualsBuilder()
-                .appendSuper(super.equals(obj))
-                .append(this.minSize, other.minSize)
-                .append(this.maxSize, other.maxSize)
-                .build();
+    public boolean equals(Object obj) {
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
     }
 }

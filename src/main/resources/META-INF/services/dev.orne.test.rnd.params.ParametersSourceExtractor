@@ -1,4 +1,4 @@
-dev.orne.test.rnd.params.GenerationParametersExtractor
+dev.orne.test.rnd.params.NullableParametersExtractor
 dev.orne.test.rnd.params.NotNullConstraintExtractor
 dev.orne.test.rnd.params.SizeParametersExtractor
 dev.orne.test.rnd.params.SizeConstraintExtractor

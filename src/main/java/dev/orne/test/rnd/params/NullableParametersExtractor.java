@@ -36,21 +36,21 @@ import org.apiguardian.api.API.Status;
  * are {@code true}.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
- * @version 1.0, 2022-11
+ * @version 1.0, 2022-12
  * @since 0.1
- * @see GenerationParameters
+ * @see NullableParameters
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public class GenerationParametersExtractor
-extends AbstractParametersSourceExtractor<GenerationParameters, GenerationParameters> {
+public class NullableParametersExtractor
+extends AbstractParametersSourceExtractor<NullableParameters, NullableParameters> {
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void extractParameters(
-            final @NotNull GenerationParameters from,
-            final @NotNull GenerationParameters target) {
+            final @NotNull NullableParameters from,
+            final @NotNull NullableParameters target) {
         target.setNullable(target.isNullable() && from.isNullable());
     }
 }

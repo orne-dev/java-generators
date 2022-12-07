@@ -27,13 +27,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.Duration;
-import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 
 /**
@@ -206,15 +206,9 @@ class PathGeneratorTest {
     @Test
     void testRandomValue() {
         final PathGenerator generator = new PathGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<Path> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 50) {
-                final Path value = generator.randomValue();
-                assertNotNull(value);
-                assertFalse(value.isAbsolute());
-                results.add(value);
-            }
-        });
+        final Set<Path> results = GeneratorsTestUtils.assertRandomGeneration(generator, 50, 2);
+        for (final Path result : results) {
+            assertFalse(result.isAbsolute());
+        }
     }
 }

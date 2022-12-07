@@ -25,13 +25,9 @@ package dev.orne.test.rnd.params;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.Set;
 
 import org.apache.commons.lang3.RandomUtils;
-import org.apache.commons.lang3.reflect.TypeUtils;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -52,10 +48,10 @@ class CollectionGenerationParametersTest {
     @Test
     void testEmptyConstructor() {
         final CollectionGenerationParameters params = new CollectionGenerationParameters();
-        assertTrue(params.isNullable());
+        assertEquals(NullableParameters.DEFAULT_NULLABLE, params.isNullable());
         assertNull(params.getType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
+        assertEquals(SizeParameters.DEFAULT_MIN_SIZE, params.getMinSize());
+        assertEquals(SizeParameters.DEFAULT_MAX_SIZE, params.getMaxSize());
     }
 
     /**
@@ -77,13 +73,27 @@ class CollectionGenerationParametersTest {
      */
     @Test
     void testCopyConstructor_GenerationParameters() {
-        final GenerationParameters copy = new GenerationParameters();
-        copy.setNullable(false);
+        final GenerationParameters copy = mock(GenerationParameters.class);
         final CollectionGenerationParameters params = new CollectionGenerationParameters(copy);
+        assertEquals(NullableParameters.DEFAULT_NULLABLE, params.isNullable());
+        assertNull(params.getType());
+        assertEquals(SizeParameters.DEFAULT_MIN_SIZE, params.getMinSize());
+        assertEquals(SizeParameters.DEFAULT_MAX_SIZE, params.getMaxSize());
+    }
+
+    /**
+     * Unit test for {@link CollectionGenerationParameters#CollectionGenerationParameters(GenerationParameters)}.
+     */
+    @Test
+    void testCopyConstructor_NullableParameters() {
+        final NullableParameters copy = mock(NullableParameters.class);
+        given(copy.isNullable()).willReturn(!NullableParameters.DEFAULT_NULLABLE);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters(copy);
+        assertEquals(!NullableParameters.DEFAULT_NULLABLE, params.isNullable());
         assertFalse(params.isNullable());
         assertNull(params.getType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
+        assertEquals(SizeParameters.DEFAULT_MIN_SIZE, params.getMinSize());
+        assertEquals(SizeParameters.DEFAULT_MAX_SIZE, params.getMaxSize());
     }
 
     /**
@@ -91,16 +101,14 @@ class CollectionGenerationParametersTest {
      */
     @Test
     void testCopyConstructor_SimpleGenericParameters() {
-        final SimpleParams copy = mock(SimpleParams.class);
-        final boolean nullable = RandomUtils.nextBoolean();
+        final SimpleGenericParameters copy = mock(SimpleGenericParameters.class);
         final Type type = String.class;
-        given(copy.isNullable()).willReturn(nullable);
         given(copy.getType()).willReturn(type);
         final CollectionGenerationParameters params = new CollectionGenerationParameters(copy);
-        assertEquals(nullable, params.isNullable());
+        assertTrue(params.isNullable());
         assertEquals(type, params.getType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
+        assertEquals(SizeParameters.DEFAULT_MIN_SIZE, params.getMinSize());
+        assertEquals(SizeParameters.DEFAULT_MAX_SIZE, params.getMaxSize());
     }
 
     /**
@@ -108,15 +116,13 @@ class CollectionGenerationParametersTest {
      */
     @Test
     void testCopyConstructor_SizeParameters() {
-        final SizeParams copy = mock(SizeParams.class);
-        final boolean nullable = RandomUtils.nextBoolean();
+        final SizeParameters copy = mock(SizeParameters.class);
         final int minSize = RandomUtils.nextInt();
         final int maxSize = RandomUtils.nextInt();
-        given(copy.isNullable()).willReturn(nullable);
         given(copy.getMinSize()).willReturn(minSize);
         given(copy.getMaxSize()).willReturn(maxSize);
         final CollectionGenerationParameters params = new CollectionGenerationParameters(copy);
-        assertEquals(nullable, params.isNullable());
+        assertTrue(params.isNullable());
         assertNull(params.getType());
         assertEquals(minSize, params.getMinSize());
         assertEquals(maxSize, params.getMaxSize());
@@ -128,9 +134,9 @@ class CollectionGenerationParametersTest {
     @Test
     void testWithNullable() {
         final CollectionGenerationParameters params = new CollectionGenerationParameters();
-        final CollectionGenerationParameters result = params.withNullable(false);
+        final CollectionGenerationParameters result = params.withNullable(!NullableParameters.DEFAULT_NULLABLE);
         assertSame(result, params);
-        assertFalse(params.isNullable());
+        assertEquals(!NullableParameters.DEFAULT_NULLABLE, params.isNullable());
     }
 
     /**
@@ -200,7 +206,7 @@ class CollectionGenerationParametersTest {
         assertTrue(params.equals(other));
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
-        other = new CollectionGenerationParameters().withNullable(false);
+        other = new CollectionGenerationParameters().withNullable(!NullableParameters.DEFAULT_NULLABLE);
         assertFalse(params.equals(other));
         other = new CollectionGenerationParameters().withType(String.class);
         assertFalse(params.equals(other));
@@ -208,85 +214,5 @@ class CollectionGenerationParametersTest {
         assertFalse(params.equals(other));
         other = new CollectionGenerationParameters().withMaxSize(RandomUtils.nextInt());
         assertFalse(params.equals(other));
-    }
-
-    /**
-     * Unit test for {@link CollectionGenerationParameters#builder()}
-     * and {@link CollectionGenerationParameters.BuilderImpl#withElementsType(Class)}.
-     */
-    @Test
-    void testBuilder() {
-        final CollectionGenerationParameters.Builder builder = CollectionGenerationParameters.builder();
-        assertNotNull(builder);
-        final Class<?> type = String.class;
-        final CollectionGenerationParameters params = builder.withElementsType(type);
-        assertNotNull(params);
-        assertTrue(params.isNullable());
-        assertEquals(type, params.getType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
-    }
-
-    /**
-     * Unit test for {@link CollectionGenerationParameters#builder()}
-     * and {@link CollectionGenerationParameters.BuilderImpl#withElementsType(ParameterizedType)}.
-     */
-    @Test
-    void testBuilder_ParameterizedType() {
-        final CollectionGenerationParameters.Builder builder = CollectionGenerationParameters.builder();
-        assertNotNull(builder);
-        final ParameterizedType type = TypeUtils.parameterize(Set.class, String.class);
-        final CollectionGenerationParameters params = builder.withElementsType(type);
-        assertNotNull(params);
-        assertTrue(params.isNullable());
-        assertEquals(type, params.getType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
-    }
-
-    /**
-     * Unit test for {@link CollectionGenerationParameters#builder()}
-     * and {@link CollectionGenerationParameters.BuilderImpl#withElementsType(GenericArrayType)}.
-     */
-    @Test
-    void testBuilder_GenericArray() {
-        final CollectionGenerationParameters.Builder builder = CollectionGenerationParameters.builder();
-        assertNotNull(builder);
-        final GenericArrayType type = TypeUtils.genericArrayType(
-                TypeUtils.parameterize(Set.class, String.class));
-        final CollectionGenerationParameters params = builder.withElementsType(type);
-        assertNotNull(params);
-        assertTrue(params.isNullable());
-        assertEquals(type, params.getType());
-        assertEquals(0, params.getMinSize());
-        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
-    }
-
-    private static class SimpleParams
-    extends GenerationParameters
-    implements SimpleGenericParameters {
-        @Override
-        public Type getType() {
-            return null;
-        }
-        @Override
-        public void setType(Type type) {}
-    }
-
-    private static class SizeParams
-    extends GenerationParameters
-    implements SizeParameters {
-        @Override
-        public int getMinSize() {
-            return 0;
-        }
-        @Override
-        public void setMinSize(int value) {}
-        @Override
-        public int getMaxSize() {
-            return 0;
-        }
-        @Override
-        public void setMaxSize(int value) {}
     }
 }

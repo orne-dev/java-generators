@@ -238,8 +238,9 @@ class AbstractTypedParameterizableGeneratorTest {
     void testNullableDefaultValueParams(
             final boolean paramsNullable,
             final boolean randomNull) {
-        final DirectChild generator = spy(new DirectChild());
-        final MyParams params = mock(MyParams.class);
+        final GenericChild<MyType, MyNullableParams> generator =
+                spy(new GenericChild<>(MyType.class, MyNullableParams.class));
+        final MyNullableParams params = mock(MyNullableParams.class);
         willReturn(paramsNullable).given(params).isNullable();
         final MyType expected = mock(MyType.class);
         willReturn(randomNull).given(generator).randomNull(MyType.class);
@@ -369,8 +370,9 @@ class AbstractTypedParameterizableGeneratorTest {
     void testNullableRandomValueParams(
             final boolean paramsNullable,
             final boolean randomNull) {
-        final DirectChild generator = spy(new DirectChild());
-        final MyParams params = mock(MyParams.class);
+        final GenericChild<MyType, MyNullableParams> generator =
+                spy(new GenericChild<>(MyType.class, MyNullableParams.class));
+        final MyNullableParams params = mock(MyNullableParams.class);
         willReturn(paramsNullable).given(params).isNullable();
         final MyType expected = mock(MyType.class);
         willReturn(randomNull).given(generator).randomNull(MyType.class);
@@ -416,7 +418,9 @@ class AbstractTypedParameterizableGeneratorTest {
 
     private interface MyType {}
     private class MyParams
-    extends GenerationParameters {}
+    implements GenerationParameters {}
+    private class MyNullableParams
+    extends NullableParametersImpl {}
 
     /**
      * Generic extension of {@code AbstractTypedParameterizableGenerator} for

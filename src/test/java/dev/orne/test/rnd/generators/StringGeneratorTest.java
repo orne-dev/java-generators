@@ -25,12 +25,13 @@ package dev.orne.test.rnd.generators;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.Duration;
-import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 import dev.orne.test.rnd.params.StringGenerationParameters;
 
@@ -122,28 +123,26 @@ class StringGeneratorTest {
     void testRandomValue() {
         final StringGenerationParameters params = StringGenerator.createParameters();
         final StringGenerator generator = new StringGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<String> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 100) {
-                final String value = generator.randomValue(params);
-                assertTrue(StringGenerator.MIN_SIZE <= value.length());
-                assertTrue(StringGenerator.MAX_SIZE >= value.length());
-                results.add(value);
-            }
-        });
+        Set<String> results = GeneratorsTestUtils.assertRandomGeneration(
+                generator,
+                100,
+                2,
+                params);
+        for (final String result : results) {
+            assertTrue(StringGenerator.MIN_SIZE <= result.length());
+            assertTrue(StringGenerator.MAX_SIZE >= result.length());
+        }
         params.setMinSize(10);
         params.setMaxSize(20);
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<String> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 100) {
-                final String value = generator.randomValue(params);
-                assertTrue(params.getMinSize() <= value.length());
-                assertTrue(params.getMaxSize() >= value.length());
-                results.add(value);
-            }
-        });
+        results = GeneratorsTestUtils.assertRandomGeneration(
+                generator,
+                100,
+                2,
+                params);
+        for (final String result : results) {
+            assertTrue(params.getMinSize() <= result.length());
+            assertTrue(params.getMaxSize() >= result.length());
+        }
     }
 
     /**
@@ -153,40 +152,26 @@ class StringGeneratorTest {
     void testNullableRandomValue() {
         final StringGenerationParameters params = StringGenerator.createParameters();
         final StringGenerator generator = new StringGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<String> results = new HashSet<>();
-            boolean nullValues = false;
-            // We just check that there is some result variety
-            while (results.size() < 100) {
-                final String value = generator.nullableRandomValue(params);
-                if (value == null) {
-                    nullValues = true;
-                } else {
-                    assertTrue(StringGenerator.MIN_SIZE <= value.length());
-                    assertTrue(StringGenerator.MAX_SIZE >= value.length());
-                    results.add(value);
-                }
-            }
-            assertTrue(nullValues);
-        });
+        Set<String> results = GeneratorsTestUtils.assertNullableRandomGeneration(
+                generator,
+                100,
+                2,
+                params);
+        for (final String result : results) {
+            assertTrue(StringGenerator.MIN_SIZE <= result.length());
+            assertTrue(StringGenerator.MAX_SIZE >= result.length());
+        }
         params.setNullable(false);
         params.setMinSize(10);
         params.setMaxSize(20);
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<String> results = new HashSet<>(); 
-            boolean nullValues = false;
-            // We just check that there is some result variety
-            while (results.size() < 100) {
-                final String value = generator.nullableRandomValue(params);
-                if (value == null) {
-                    nullValues = true;
-                } else {
-                    assertTrue(params.getMinSize() <= value.length());
-                    assertTrue(params.getMaxSize() >= value.length());
-                    results.add(value);
-                }
-            }
-            assertFalse(nullValues);
-        });
+        results = GeneratorsTestUtils.assertRandomGeneration(
+                generator,
+                100,
+                2,
+                params);
+        for (final String result : results) {
+            assertTrue(params.getMinSize() <= result.length());
+            assertTrue(params.getMaxSize() >= result.length());
+        }
     }
 }

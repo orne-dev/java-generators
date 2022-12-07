@@ -24,13 +24,11 @@ package dev.orne.test.rnd.generators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.Duration;
-import java.util.EnumSet;
-
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 import dev.orne.test.rnd.UnsupportedValueTypeException;
 
@@ -105,13 +103,11 @@ class EnumGeneratorTest {
         assertThrows(UnsupportedValueTypeException.class, () -> {
             generator.randomValue(EmptyEnum.class);
         });
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final EnumSet<TestEnum> results = EnumSet.noneOf(TestEnum.class); 
-            // We check that returns all the possible values
-            while (results.size() < TestEnum.values().length) {
-                results.add(generator.randomValue(TestEnum.class));
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(
+                generator,
+                TestEnum.class,
+                TestEnum.values().length,
+                2);
     }
 
     /**
@@ -129,13 +125,10 @@ class EnumGeneratorTest {
         assertThrows(IllegalArgumentException.class, () -> {
             EnumGenerator.randomEnumValue(EmptyEnum.class);
         });
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final EnumSet<TestEnum> results = EnumSet.noneOf(TestEnum.class); 
-            // We check that returns all the possible values
-            while (results.size() < TestEnum.values().length) {
-                results.add(EnumGenerator.randomEnumValue(TestEnum.class));
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(
+                () -> EnumGenerator.randomEnumValue(TestEnum.class),
+                TestEnum.values().length,
+                2);
     }
 
     private static enum EmptyEnum {}

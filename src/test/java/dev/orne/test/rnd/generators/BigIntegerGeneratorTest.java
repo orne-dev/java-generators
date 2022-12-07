@@ -25,13 +25,12 @@ package dev.orne.test.rnd.generators;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.math.BigInteger;
-import java.time.Duration;
-import java.util.HashSet;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 
 /**
@@ -89,12 +88,6 @@ class BigIntegerGeneratorTest {
     @Test
     void testRandomValue() {
         final BigIntegerGenerator generator = new BigIntegerGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<BigInteger> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 100) {
-                results.add(generator.randomValue());
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(generator, 100, 2);
     }
 }

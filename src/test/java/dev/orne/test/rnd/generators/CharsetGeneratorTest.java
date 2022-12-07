@@ -25,13 +25,12 @@ package dev.orne.test.rnd.generators;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.charset.Charset;
-import java.time.Duration;
-import java.util.HashSet;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 
 /**
@@ -89,12 +88,9 @@ class CharsetGeneratorTest {
     @Test
     void testRandomValue() {
         final CharsetGenerator generator = new CharsetGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<Charset> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < (Charset.availableCharsets().size() / 2)) {
-                results.add(generator.randomValue());
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(
+                generator,
+                Charset.availableCharsets().size() / 2,
+                2);
     }
 }

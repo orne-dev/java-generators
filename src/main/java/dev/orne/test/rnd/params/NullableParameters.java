@@ -28,74 +28,51 @@ import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
 /**
- * Interface for generation parameters that support sizing
- * parameters.
+ * Interface for generation parameters for value types that can be {@code null}.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
- * @version 1.0, 2022-11
+ * @version 1.0, 2022-12
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public interface SizeParameters
+public interface NullableParameters
 extends GenerationParameters {
 
-    /** The default minimum size. */
-    public static final int DEFAULT_MIN_SIZE = 0;
-    /** The default maximum size. */
-    public static final int DEFAULT_MAX_SIZE = Integer.MAX_VALUE;
+    /** If a {@code null} value is accepted by default. */
+    public static final boolean DEFAULT_NULLABLE = true;
 
     /**
-     * Returns the minimum size.
+     * Returns {@code true} if a {@code null} value is accepted.
      * 
-     * @return The minimum size.
+     * @return If a {@code null} value is accepted.
      */
-    int getMinSize();
+    boolean isNullable();
 
     /**
-     * Sets the minimum size.
+     * Sets if a {@code null} value is accepted.
      * 
-     * @param value The minimum size.
+     * @param nullable If a {@code null} value is accepted.
      */
-    void setMinSize(int value);
+    void setNullable(
+            boolean nullable);
 
     /**
-     * Returns the maximum size.
-     * 
-     * @return The maximum size.
-     */
-    int getMaxSize();
-
-    /**
-     * Sets the maximum size.
-     * 
-     * @param value The maximum size.
-     */
-    void setMaxSize(int value);
-
-    /**
-     * Interface for {@code NumberParameters} builders.
+     * Interface for {@code NullableParameters} builders.
      * 
      * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
      * @version 1.0, 2022-12
-     * @since SizeParameters 1.0
+     * @since NullableParameters 1.0
      */
     interface Builder
-    extends SizeParameters {
+    extends NullableParameters {
 
         /**
-         * Sets the minimum size.
+         * Sets if a {@code null} value is accepted.
          * 
-         * @param value The minimum size.
+         * @param nullable If a {@code null} value is accepted.
          * @return This instance, for method chaining.
          */
-        @NotNull Builder withMinSize(int value);
-
-        /**
-         * Sets the maximum size.
-         * 
-         * @param value The maximum size.
-         * @return This instance, for method chaining.
-         */
-        @NotNull Builder withMaxSize(int value);
+        @NotNull Builder withNullable(
+                boolean nullable);
     }
 }

@@ -24,16 +24,14 @@ package dev.orne.test.rnd.generators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.nio.charset.Charset;
-import java.time.Duration;
 import java.util.Currency;
-import java.util.HashSet;
 import java.util.Locale;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 
 /**
@@ -91,12 +89,9 @@ class CurrencyGeneratorTest {
     @Test
     void testRandomValue() {
         final CurrencyGenerator generator = new CurrencyGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<Currency> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < (Charset.availableCharsets().size() / 2)) {
-                results.add(generator.randomValue());
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(
+                generator,
+                Currency.getAvailableCurrencies().size() / 2,
+                2);
     }
 }

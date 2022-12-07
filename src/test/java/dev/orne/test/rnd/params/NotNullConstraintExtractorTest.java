@@ -55,7 +55,7 @@ extends BaseParametersSourceExtractorTest {
      */
     @Test
     void testSupportedParametersTypes() {
-        assertSupportsParametersType(GenerationParameters.class);
+        assertSupportsParametersType(NullableParameters.class);
         assertSupportsParametersType(StringGenerationParameters.class);
         assertSupportsParametersType(CollectionGenerationParameters.class);
         assertSupportsParametersType(MapGenerationParameters.class);
@@ -76,7 +76,7 @@ extends BaseParametersSourceExtractorTest {
     void testExtractParameters() {
         final NotNullConstraintExtractor extractor = new NotNullConstraintExtractor();
         final NotNull source = mock(NotNull.class);
-        final GenerationParameters params = mock(GenerationParameters.class);
+        final NullableParameters params = mock(NullableParameters.class);
         extractor.extractParameters(source, params);
         then(params).should().setNullable(false);
     }

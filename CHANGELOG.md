@@ -10,9 +10,13 @@
 01. :gift: Added exception `dev.orne.test.rnd.GeneratorNotFoundException`
 01. :gift: Added class `dev.orne.test.rnd.Generators`
 01. :gift: Added **experimental** generation parameters system
-    01. Added class `dev.orne.test.rnd.params.GenerationParameters`
+    01. Added interface `dev.orne.test.rnd.params.GenerationParameters`
+    01. Added interface `dev.orne.test.rnd.params.NullableParameters`
+    01. Added class `dev.orne.test.rnd.params.NullableParametersImpl`
     01. Added interface `dev.orne.test.rnd.params.NumberParameters`
+    01. Added class `dev.orne.test.rnd.params.NumberParametersImpl`
     01. Added interface `dev.orne.test.rnd.params.SizeParameters`
+    01. Added class `dev.orne.test.rnd.params.SizeParametersImpl`
     01. Added interface `dev.orne.test.rnd.params.ParameterizableGenerator`
     01. Added interface `dev.orne.test.rnd.params.TypedParameterizableGenerator`
     01. Added interface `dev.orne.test.rnd.params.ParametersExtractor`
@@ -24,7 +28,7 @@
     01. Added class `dev.orne.test.rnd.params.AbstractTypedParameterizableGenerator`
     01. Added exception `dev.orne.test.rnd.params.GeneratorNotParameterizableException`
     01. Added built-in parameter source extractors
-        01. Added class `dev.orne.test.rnd.params.GenerationParametersExtractor`
+        01. Added class `dev.orne.test.rnd.params.NullableParametersExtractor`
         01. Added class `dev.orne.test.rnd.params.NotNullConstraintExtractor`
         01. Added class `dev.orne.test.rnd.params.NumberParametersExtractor`
         01. Added class `dev.orne.test.rnd.params.MinConstraintExtractor`
@@ -36,9 +40,11 @@
     01. Added generic classes generation support
         01. Added class `dev.orne.test.rnd.params.TypeDeclaration`
         01. Added interface `dev.orne.test.rnd.params.SimpleGenericParameters`
+        01. Added class `dev.orne.test.rnd.params.SimpleGenericParametersImpl`
         01. Added class `dev.orne.test.rnd.params.SimpleGenericParametersExtractor`
         01. Added class `dev.orne.test.rnd.params.SimpleGenericParametersTypeExtractor`
         01. Added interface `dev.orne.test.rnd.params.KeyValueGenericParameters`
+        01. Added class `dev.orne.test.rnd.params.KeyValueGenericParametersImpl`
         01. Added class `dev.orne.test.rnd.params.KeyValueGenericParametersExtractor`
         01. Added class `dev.orne.test.rnd.params.KeyValueGenericParametersTypeExtractor`
     01. Added targeted generators system

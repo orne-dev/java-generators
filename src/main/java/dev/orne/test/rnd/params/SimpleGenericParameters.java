@@ -22,7 +22,12 @@ package dev.orne.test.rnd.params;
  * #L%
  */
 
+import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+
+import javax.validation.constraints.NotNull;
+
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
@@ -35,7 +40,8 @@ import org.apiguardian.api.API.Status;
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public interface SimpleGenericParameters {
+public interface SimpleGenericParameters
+extends GenerationParameters {
 
     /**
      * Returns the type parameter.
@@ -50,4 +56,44 @@ public interface SimpleGenericParameters {
      * @param type the type parameter
      */
     void setType(Type type);
+
+    /**
+     * Interface for {@code SimpleGenericParameters} builders.
+     * 
+     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @version 1.0, 2022-12
+     * @since SimpleGenericParameters 1.0
+     */
+    public interface Builder {
+
+        /**
+         * Creates a new instance of generation parameters with the specified
+         * class as list components type.
+         * 
+         * @param type The list components type.
+         * @return The resulting generation parameters.
+         */
+        @NotNull SimpleGenericParameters withElementsType(
+                @NotNull Class<?> type);
+
+        /**
+         * Creates a new instance of generation parameters with the specified
+         * parameterized type as list components type.
+         * 
+         * @param type The list components type.
+         * @return The resulting generation parameters.
+         */
+        @NotNull SimpleGenericParameters withElementsType(
+                @NotNull ParameterizedType type);
+
+        /**
+         * Creates a new instance of generation parameters with the specified
+         * generic array type as list components type.
+         * 
+         * @param type The list components type.
+         * @return The resulting generation parameters.
+         */
+        @NotNull SimpleGenericParameters withElementsType(
+                @NotNull GenericArrayType type);
+    }
 }

@@ -36,11 +36,12 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 import dev.orne.test.rnd.params.DefaultParametersExtractor;
-import dev.orne.test.rnd.params.GenerationParameters;
 import dev.orne.test.rnd.params.KeyValueGenericParameters;
 import dev.orne.test.rnd.params.MapGenerationParameters;
+import dev.orne.test.rnd.params.NullableParameters;
 import dev.orne.test.rnd.params.ParametersExtractor;
 import dev.orne.test.rnd.params.ParametersSourceExtractor;
 import dev.orne.test.rnd.params.SizeParameters;
@@ -96,7 +97,7 @@ class MapGeneratorTest {
         assertExtractorPresent(extractors, TypeDeclaration.class);
         assertExtractorPresent(extractors, NotNull.class);
         assertExtractorPresent(extractors, Size.class);
-        assertExtractorPresent(extractors, GenerationParameters.class);
+        assertExtractorPresent(extractors, NullableParameters.class);
         assertExtractorPresent(extractors, KeyValueGenericParameters.class);
         assertExtractorPresent(extractors, SizeParameters.class);
         assertExtractorPresent(extractors, MapGenerationParameters.class);
@@ -126,22 +127,13 @@ class MapGeneratorTest {
     }
 
     /**
-     * Unit test for {@link MapGenerator#createParameters()}
-     */
-    @Test
-    void testCreateParameters() {
-        MapGenerationParameters.Builder builder = MapGenerator.createParameters();
-        assertNotNull(builder);
-    }
-
-    /**
      * Unit test for {@link MapGenerator#defaultValue(MapGenerationParameters)}
      */
     @Test
     void testDefaultValue() {
-        final MapGenerationParameters params = MapGenerator.createParameters()
-                .withKeysType(Integer.class)
-                .withValuesType(String.class);
+        final MapGenerationParameters params = new MapGenerationParameters();
+        params.setKeysType(Integer.class);
+        params.setValuesType(String.class);
         final MapGenerator generator = new MapGenerator();
         final Map<?, ?> result = generator.defaultValue(params);
         assertNotNull(result);
@@ -153,9 +145,9 @@ class MapGeneratorTest {
      */
     @Test
     void testNullableDefaultValue() {
-        final MapGenerationParameters params = MapGenerator.createParameters()
-                .withKeysType(Integer.class)
-                .withValuesType(String.class);
+        final MapGenerationParameters params = new MapGenerationParameters();
+        params.setKeysType(Integer.class);
+        params.setValuesType(String.class);
         final MapGenerator generator = new MapGenerator();
         assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
             boolean nullList = false;
@@ -182,17 +174,11 @@ class MapGeneratorTest {
      */
     @Test
     void testRandomValue() {
-        final MapGenerationParameters params = MapGenerator.createParameters()
-                .withKeysType(Integer.class)
-                .withValuesType(String.class);
+        final MapGenerationParameters params = new MapGenerationParameters();
+        params.setKeysType(Integer.class);
+        params.setValuesType(String.class);
         final MapGenerator generator = new MapGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<Map<?, ?>> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 100) {
-                results.add(generator.randomValue(params));
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(generator, 100, 2, params);
     }
 
     /**
@@ -200,9 +186,9 @@ class MapGeneratorTest {
      */
     @Test
     void testNullableRandomValue() {
-        final MapGenerationParameters params = MapGenerator.createParameters()
-                .withKeysType(Integer.class)
-                .withValuesType(String.class);
+        final MapGenerationParameters params = new MapGenerationParameters();
+        params.setKeysType(Integer.class);
+        params.setValuesType(String.class);
         final MapGenerator generator = new MapGenerator();
         assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
             final HashSet<Map<?, ?>> results = new HashSet<>(); 
@@ -264,9 +250,9 @@ class MapGeneratorTest {
      */
     @Test
     void testNullableRandomTypeValue() {
-        final MapGenerationParameters params = MapGenerator.createParameters()
-                .withKeysType(Integer.class)
-                .withValuesType(String.class);
+        final MapGenerationParameters params = new MapGenerationParameters();
+        params.setKeysType(Integer.class);
+        params.setValuesType(String.class);
         final MapGenerator generator = new MapGenerator();
         assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
             final HashSet<Map<?, ?>> results = new HashSet<>(); 

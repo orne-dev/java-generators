@@ -51,10 +51,10 @@ import dev.orne.test.rnd.params.CollectionGenerationParameters;
 public class SetGenerator
 extends AbstractTypedParameterizableGenerator<Set<?>, CollectionGenerationParameters> {
 
-    /** The minimum generated array size. */
-    public static final int MIN_SIZE = 1;
-    /** The maximum generated array size. */
-    public static final int MAX_SIZE = 10;
+    /** The minimum generated set size. */
+    public static final int MIN_SIZE = 0;
+    /** The maximum generated set size. */
+    public static final int MAX_SIZE = 100;
 
     /**
      * {@inheritDoc}
@@ -168,16 +168,5 @@ extends AbstractTypedParameterizableGenerator<Set<?>, CollectionGenerationParame
         return RandomUtils.nextInt(
                 NumberUtils.max(MIN_SIZE, parameters.getMinSize()),
                 NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);
-    }
-
-    /**
-     * Returns a new builder of generation parameters that ensures that
-     * the required properties are set.
-     * 
-     * @return The generation parameters builder.
-     * @see CollectionGenerationParameters#builder()
-     */
-    public static @NotNull CollectionGenerationParameters.Builder createParameters() {
-        return CollectionGenerationParameters.builder();
     }
 }

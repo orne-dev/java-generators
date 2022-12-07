@@ -36,9 +36,10 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 import dev.orne.test.rnd.params.DefaultParametersExtractor;
-import dev.orne.test.rnd.params.GenerationParameters;
+import dev.orne.test.rnd.params.NullableParameters;
 import dev.orne.test.rnd.params.CollectionGenerationParameters;
 import dev.orne.test.rnd.params.ParametersExtractor;
 import dev.orne.test.rnd.params.ParametersSourceExtractor;
@@ -96,7 +97,7 @@ class SetGeneratorTest {
         assertExtractorPresent(extractors, TypeDeclaration.class);
         assertExtractorPresent(extractors, NotNull.class);
         assertExtractorPresent(extractors, Size.class);
-        assertExtractorPresent(extractors, GenerationParameters.class);
+        assertExtractorPresent(extractors, NullableParameters.class);
         assertExtractorPresent(extractors, SimpleGenericParameters.class);
         assertExtractorPresent(extractors, SizeParameters.class);
         assertExtractorPresent(extractors, CollectionGenerationParameters.class);
@@ -126,21 +127,12 @@ class SetGeneratorTest {
     }
 
     /**
-     * Unit test for {@link SetGenerator#createParameters()}
-     */
-    @Test
-    void testCreateParameters() {
-        CollectionGenerationParameters.Builder builder = SetGenerator.createParameters();
-        assertNotNull(builder);
-    }
-
-    /**
      * Unit test for {@link SetGenerator#defaultValue(CollectionGenerationParameters)}
      */
     @Test
     void testDefaultValue() {
-        final CollectionGenerationParameters params = SetGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final SetGenerator generator = new SetGenerator();
         final Set<?> result = generator.defaultValue(params);
         assertNotNull(result);
@@ -152,8 +144,8 @@ class SetGeneratorTest {
      */
     @Test
     void testNullableDefaultValue() {
-        final CollectionGenerationParameters params = SetGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final SetGenerator generator = new SetGenerator();
         assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
             boolean nullList = false;
@@ -180,16 +172,10 @@ class SetGeneratorTest {
      */
     @Test
     void testRandomValue() {
-        final CollectionGenerationParameters params = SetGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final SetGenerator generator = new SetGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<Set<?>> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 100) {
-                results.add(generator.randomValue(params));
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(generator, 100, 2, params);
     }
 
     /**
@@ -197,8 +183,8 @@ class SetGeneratorTest {
      */
     @Test
     void testNullableRandomValue() {
-        final CollectionGenerationParameters params = SetGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final SetGenerator generator = new SetGenerator();
         assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
             final HashSet<Set<?>> results = new HashSet<>(); 
@@ -250,8 +236,8 @@ class SetGeneratorTest {
      */
     @Test
     void testNullableRandomTypeValue() {
-        final CollectionGenerationParameters params = SetGenerator.createParameters()
-                .withElementsType(Integer.class);
+        final CollectionGenerationParameters params = new CollectionGenerationParameters();
+        params.setType(Integer.class);
         final SetGenerator generator = new SetGenerator();
         assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
             final HashSet<Set<?>> results = new HashSet<>(); 

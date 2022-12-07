@@ -54,7 +54,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
     /** The minimum generated array size. */
     public static final int MIN_SIZE = 1;
     /** The maximum generated array size. */
-    public static final int MAX_SIZE = 10;
+    public static final int MAX_SIZE = 100;
 
     /**
      * {@inheritDoc}
@@ -175,16 +175,5 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
         return RandomUtils.nextInt(
                 NumberUtils.max(MIN_SIZE, parameters.getMinSize()),
                 NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);
-    }
-
-    /**
-     * Returns a new builder of generation parameters that ensures that
-     * the required properties are set.
-     * 
-     * @return The generation parameters builder.
-     * @see MapGenerationParameters#builder()
-     */
-    public static @NotNull MapGenerationParameters.Builder createParameters() {
-        return MapGenerationParameters.builder();
     }
 }

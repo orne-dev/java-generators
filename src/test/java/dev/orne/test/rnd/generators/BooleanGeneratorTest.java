@@ -24,12 +24,11 @@ package dev.orne.test.rnd.generators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.Duration;
-
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 
 /**
@@ -91,17 +90,6 @@ class BooleanGeneratorTest {
     @Test
     void testRandomValue() {
         final BooleanGenerator generator = new BooleanGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            boolean trueResult = false;
-            boolean falseResult = false;
-            while (!trueResult && !falseResult) {
-                final Boolean result = generator.randomValue();
-                if (result) {
-                    trueResult = true;
-                } else {
-                    falseResult = true;
-                }
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(generator, 2, 2);
     }
 }

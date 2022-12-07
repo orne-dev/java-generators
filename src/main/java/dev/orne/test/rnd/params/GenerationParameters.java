@@ -24,12 +24,6 @@ package dev.orne.test.rnd.params;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
@@ -41,99 +35,50 @@ import org.apiguardian.api.API.Status;
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
-public class GenerationParameters {
-
-    /** If a {@code null} value is accepted. */
-    private boolean nullable = true;
+public interface GenerationParameters {
 
     /**
-     * Empty constructor.
-     */
-    public GenerationParameters() {
-        super();
-    }
-
-    /**
-     * Copy constructor.
+     * Creates a new builder of {@code NullableParameters}.
      * 
-     * @param copy The instance to copy.
+     * @return The {@code NullableParameters} builder.
      */
-    public GenerationParameters(
-            final @NotNull GenerationParameters copy) {
-        super();
-        Validate.notNull(copy);
-        this.nullable = copy.isNullable();
+    public static @NotNull NullableParameters.Builder forNullables() {
+        return new NullableParametersImpl();
     }
 
     /**
-     * Returns {@code true} if a {@code null} value is accepted.
+     * Creates a new builder of {@code NumberParameters}.
      * 
-     * @return If a {@code null} value is accepted.
+     * @return The instance of {@code NumberParameters} builder.
      */
-    public boolean isNullable() {
-        return this.nullable;
+    public static @NotNull NumberParameters.Builder forNumbers() {
+        return new NumberParametersImpl();
     }
 
     /**
-     * Sets if a {@code null} value is accepted.
+     * Creates a new builder of {@code SizeParameters}.
      * 
-     * @param nullable If a {@code null} value is accepted.
+     * @return The instance of {@code SizeParameters} builder.
      */
-    public void setNullable(
-            final boolean nullable) {
-        this.nullable = nullable;
+    public static @NotNull SizeParameters.Builder forSizes() {
+        return new SizeParametersImpl();
     }
 
     /**
-     * Sets if a {@code null} value is accepted.
+     * Creates a new builder of {@code SimpleGenericParameters}.
      * 
-     * @param nullable If a {@code null} value is accepted.
-     * @return This instance, for method chaining.
+     * @return The instance of {@code SimpleGenericParameters} builder.
      */
-    public @NotNull GenerationParameters withNullable(
-            final boolean nullable) {
-        setNullable(nullable);
-        return this;
+    public static @NotNull SimpleGenericParameters.Builder forSimpleGenerics() {
+        return new SimpleGenericParametersImpl();
     }
 
     /**
-     * {@inheritDoc}
+     * Creates a new builder of {@code KeyValueGenericParameters}.
+     * 
+     * @return The instance of {@code KeyValueGenericParameters} builder.
      */
-    @Override
-    public @NotNull GenerationParameters clone() {
-        return new GenerationParameters(this);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder()
-                .append(this.nullable)
-                .toHashCode();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean equals(
-            final Object obj) {
-        if (obj == null) { return false; }
-        if (obj == this) { return true; }
-        if (obj.getClass() != getClass()) { return false; }
-        final GenerationParameters other = (GenerationParameters) obj;
-        return new EqualsBuilder()
-                .append(this.nullable, other.nullable)
-                .build();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    public static @NotNull KeyValueGenericParameters.KeysTypeBuilder forKeyValueGenerics() {
+        return new KeyValueGenericParametersImpl();
     }
 }

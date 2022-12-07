@@ -22,13 +22,10 @@ package dev.orne.test.rnd.params;
  * #L%
  */
 
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
@@ -43,15 +40,15 @@ import org.apiguardian.api.API.Status;
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
 public class CollectionGenerationParameters
-extends GenerationParameters
+extends NullableParametersImpl
 implements SimpleGenericParameters, SizeParameters {
 
     /** The components type. */
     private Type type;
     /** The minimum size. */
-    private int minSize = 0;
+    private int minSize = SizeParameters.DEFAULT_MIN_SIZE;
     /** The maximum size. */
-    private int maxSize = Integer.MAX_VALUE;
+    private int maxSize = SizeParameters.DEFAULT_MAX_SIZE;
 
     /**
      * Creates a new instance.
@@ -213,96 +210,5 @@ implements SimpleGenericParameters, SizeParameters {
                 .append(this.minSize, other.minSize)
                 .append(this.maxSize, other.maxSize)
                 .build();
-    }
-
-    /**
-     * Returns a new builder of generation parameters that ensures that
-     * the required properties are set.
-     * 
-     * @return The generation parameters builder.
-     */
-    public static @NotNull Builder builder() {
-        return new BuilderImpl();
-    }
-
-    /**
-     * Interface for list generation parameters builder.
-     * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
-     * @version 1.0, 2022-12
-     * @since ListGenerationParameters 1.0
-     */
-    public interface Builder {
-
-        /**
-         * Creates a new instance of generation parameters with the specified
-         * class as list components type.
-         * 
-         * @param type The list components type.
-         * @return The resulting generation parameters.
-         */
-        @NotNull CollectionGenerationParameters withElementsType(
-                @NotNull Class<?> type);
-
-        /**
-         * Creates a new instance of generation parameters with the specified
-         * parameterized type as list components type.
-         * 
-         * @param type The list components type.
-         * @return The resulting generation parameters.
-         */
-        @NotNull CollectionGenerationParameters withElementsType(
-                @NotNull ParameterizedType type);
-
-        /**
-         * Creates a new instance of generation parameters with the specified
-         * generic array type as list components type.
-         * 
-         * @param type The list components type.
-         * @return The resulting generation parameters.
-         */
-        @NotNull CollectionGenerationParameters withElementsType(
-                @NotNull GenericArrayType type);
-    }
-
-    /**
-     * Internal implementation of {@code Builder}.
-     * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
-     * @version 1.0, 2022-12
-     * @since ListGenerationParameters 1.0
-     */
-    protected static class BuilderImpl
-    implements Builder {
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public @NotNull CollectionGenerationParameters withElementsType(
-                final @NotNull Class<?> type) {
-            Validate.notNull(type);
-            return new CollectionGenerationParameters().withType(type);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public @NotNull CollectionGenerationParameters withElementsType(
-                final @NotNull GenericArrayType type) {
-            Validate.notNull(type);
-            return new CollectionGenerationParameters().withType(type);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public @NotNull CollectionGenerationParameters withElementsType(
-                final @NotNull ParameterizedType type) {
-            Validate.notNull(type);
-            return new CollectionGenerationParameters().withType(type);
-        }
     }
 }

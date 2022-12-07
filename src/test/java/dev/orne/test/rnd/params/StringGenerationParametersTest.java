@@ -69,8 +69,20 @@ class StringGenerationParametersTest {
      */
     @Test
     void testCopyConstructor_GenerationParameters() {
-        final GenerationParameters copy = new GenerationParameters();
-        copy.setNullable(false);
+        final GenerationParameters copy = mock(GenerationParameters.class);
+        final StringGenerationParameters params = new StringGenerationParameters(copy);
+        assertTrue(params.isNullable());
+        assertEquals(0, params.getMinSize());
+        assertEquals(Integer.MAX_VALUE, params.getMaxSize());
+    }
+
+    /**
+     * Unit test for {@link StringGenerationParameters#StringGenerationParameters(GenerationParameters)}.
+     */
+    @Test
+    void testCopyConstructor_NullableParameters() {
+        final NullableParameters copy = mock(NullableParameters.class);
+        given(copy.isNullable()).willReturn(false);
         final StringGenerationParameters params = new StringGenerationParameters(copy);
         assertFalse(params.isNullable());
         assertEquals(0, params.getMinSize());
@@ -82,15 +94,13 @@ class StringGenerationParametersTest {
      */
     @Test
     void testCopyConstructor_SizeParameters() {
-        final SizeParams copy = mock(SizeParams.class);
-        final boolean nullable = RandomUtils.nextBoolean();
+        final SizeParameters copy = mock(SizeParameters.class);
         final int minSize = RandomUtils.nextInt();
         final int maxSize = RandomUtils.nextInt();
-        given(copy.isNullable()).willReturn(nullable);
         given(copy.getMinSize()).willReturn(minSize);
         given(copy.getMaxSize()).willReturn(maxSize);
         final StringGenerationParameters params = new StringGenerationParameters(copy);
-        assertEquals(nullable, params.isNullable());
+        assertTrue(params.isNullable());
         assertEquals(minSize, params.getMinSize());
         assertEquals(maxSize, params.getMaxSize());
     }
@@ -166,22 +176,5 @@ class StringGenerationParametersTest {
         assertFalse(params.equals(other));
         other = new StringGenerationParameters().withMaxSize(RandomUtils.nextInt());
         assertFalse(params.equals(other));
-    }
-
-    private static class SizeParams
-    extends GenerationParameters
-    implements SizeParameters {
-        @Override
-        public int getMinSize() {
-            return 0;
-        }
-        @Override
-        public void setMinSize(int value) {}
-        @Override
-        public int getMaxSize() {
-            return 0;
-        }
-        @Override
-        public void setMaxSize(int value) {}
     }
 }

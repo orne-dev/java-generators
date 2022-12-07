@@ -39,65 +39,47 @@ import org.junit.jupiter.api.Test;
 class GenerationParametersTest {
 
     /**
-     * Unit test for {@link GenerationParameters#GenerationParameters()}.
+     * Unit test for {@link GenerationParameters#forNullables()}.
      */
     @Test
-    void testEmptyConstructor() {
-        final GenerationParameters params = new GenerationParameters();
-        assertTrue(params.isNullable());
+    void testForNullables() {
+        final NullableParameters.Builder params = GenerationParameters.forNullables();
+        assertEquals(new NullableParametersImpl(), params);
     }
 
     /**
-     * Unit test for {@link GenerationParameters#GenerationParameters()}.
+     * Unit test for {@link GenerationParameters#forNumbers()}.
      */
     @Test
-    void testCopyConstructor() {
-        final GenerationParameters copy = new GenerationParameters();
-        copy.setNullable(false);
-        final GenerationParameters params = new GenerationParameters(copy);
-        assertFalse(params.isNullable());
+    void testForNumbers() {
+        final NumberParameters.Builder params = GenerationParameters.forNumbers();
+        assertEquals(new NumberParametersImpl(), params);
     }
 
     /**
-     * Unit test for {@link GenerationParameters#withNullable(boolean)}.
+     * Unit test for {@link GenerationParameters#forSizes()}.
      */
     @Test
-    void testWithNullable() {
-        final GenerationParameters params = new GenerationParameters();
-        final GenerationParameters result = params.withNullable(false);
-        assertSame(result, params);
-        assertFalse(params.isNullable());
+    void testForSizes() {
+        final SizeParameters.Builder params = GenerationParameters.forSizes();
+        assertEquals(new SizeParametersImpl(), params);
     }
 
     /**
-     * Unit test for {@link GenerationParameters#clone()}.
+     * Unit test for {@link GenerationParameters#forSimpleGenerics()}.
      */
     @Test
-    void testClone() {
-        final GenerationParameters params = new GenerationParameters();
-        params.setNullable(false);
-        final GenerationParameters result = params.clone();
-        assertNotSame(params, result);
-        assertEquals(params, result);
+    void testForSimpleGenerics() {
+        final SimpleGenericParameters.Builder params = GenerationParameters.forSimpleGenerics();
+        assertEquals(new SimpleGenericParametersImpl(), params);
     }
 
     /**
-     * Unit test for {@link GenerationParameters#equals(Object)},
-     * {@link GenerationParameters#hashCode()} and
-     * {@link GenerationParameters#toString()}.
+     * Unit test for {@link GenerationParameters#forKeyValueGenerics()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
-    void testEqualsHashCodeToString() {
-        final GenerationParameters params = new GenerationParameters();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
-        final GenerationParameters other = new GenerationParameters();
-        assertTrue(params.equals(other));
-        assertEquals(params.hashCode(), other.hashCode());
-        assertEquals(params.toString(), other.toString());
-        other.setNullable(false);
-        assertFalse(params.equals(other));
+    void testForKeyValueGenerics() {
+        final KeyValueGenericParameters.KeysTypeBuilder params = GenerationParameters.forKeyValueGenerics();
+        assertEquals(new KeyValueGenericParametersImpl(), params);
     }
 }

@@ -241,8 +241,8 @@ class AbstractParameterizableGeneratorTest {
     void testNullableDefaultValueParams(
             final boolean paramsNullable,
             final boolean randomNull) {
-        final DirectChild generator = spy(new DirectChild());
-        final MyParams params = mock(MyParams.class);
+        final GenericChild<MyNullableParams> generator = spy(new GenericChild<>(MyNullableParams.class));
+        final MyNullableParams params = mock(MyNullableParams.class);
         willReturn(paramsNullable).given(params).isNullable();
         final MyType expected = mock(MyType.class);
         willReturn(true).given(generator).supports(MyType.class);
@@ -358,8 +358,8 @@ class AbstractParameterizableGeneratorTest {
     void testNullableRandomValueParams(
             final boolean paramsNullable,
             final boolean randomNull) {
-        final DirectChild generator = spy(new DirectChild());
-        final MyParams params = mock(MyParams.class);
+        final GenericChild<MyNullableParams> generator = spy(new GenericChild<>(MyNullableParams.class));
+        final MyNullableParams params = mock(MyNullableParams.class);
         willReturn(paramsNullable).given(params).isNullable();
         final MyType expected = mock(MyType.class);
         willReturn(true).given(generator).supports(MyType.class);
@@ -405,12 +405,13 @@ class AbstractParameterizableGeneratorTest {
     }
 
     protected static class MyParams
-    extends GenerationParameters {}
+    implements GenerationParameters {}
+    protected static class MyNullableParams
+    extends NullableParametersImpl {}
     private static class MyPrivateParamsImpl
-    extends GenerationParameters {
-    }
+    implements GenerationParameters {}
     private static class MyIllegalParamsImpl
-    extends GenerationParameters {
+    implements GenerationParameters {
         private MyIllegalParamsImpl() {}
     }
     private interface MyType {}

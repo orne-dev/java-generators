@@ -24,16 +24,15 @@ package dev.orne.test.rnd.generators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashSet;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.GeneratorsTestUtils;
 import dev.orne.test.rnd.Priority;
 
 /**
@@ -95,12 +94,6 @@ class LocalDateTimeGeneratorTest {
     @Test
     void testRandomValue() {
         final LocalDateTimeGenerator generator = new LocalDateTimeGenerator();
-        assertTimeoutPreemptively(Duration.ofSeconds(2), () -> {
-            final HashSet<LocalDateTime> results = new HashSet<>(); 
-            // We just check that there is some result variety
-            while (results.size() < 200) {
-                results.add(generator.randomValue());
-            }
-        });
+        GeneratorsTestUtils.assertRandomGeneration(generator, 200, 2);
     }
 }

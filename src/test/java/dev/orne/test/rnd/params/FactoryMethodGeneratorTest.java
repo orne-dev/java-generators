@@ -24,7 +24,6 @@ package dev.orne.test.rnd.params;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.mock;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;

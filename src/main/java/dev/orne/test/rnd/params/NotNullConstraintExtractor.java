@@ -38,7 +38,7 @@ import org.apiguardian.api.API.Status;
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
 public class NotNullConstraintExtractor
-extends AbstractParametersSourceExtractor<GenerationParameters, NotNull> {
+extends AbstractParametersSourceExtractor<NullableParameters, NotNull> {
 
     /**
      * {@inheritDoc}
@@ -46,7 +46,7 @@ extends AbstractParametersSourceExtractor<GenerationParameters, NotNull> {
     @Override
     public void extractParameters(
             final @NotNull NotNull from,
-            final @NotNull GenerationParameters target) {
+            final @NotNull NullableParameters target) {
         target.setNullable(false);
     }
 }
