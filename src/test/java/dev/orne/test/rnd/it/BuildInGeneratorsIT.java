@@ -40,6 +40,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.MonthDay;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.Period;
@@ -668,6 +669,20 @@ class BuildInGeneratorsIT {
         assertNull(result);
         GeneratorsTestUtils.assertRandomGeneration(Month.class, 12, 2);
         GeneratorsTestUtils.assertNullableRandomGeneration(Month.class, 12, 2);
+    }
+
+    /**
+     * Test for {@code MonthDay} generation.
+     */
+    @Test
+    void testMonthDayGeneration() {
+        MonthDay result;
+        result = Generators.defaultValue(MonthDay.class);
+        assertEquals(MonthDay.of(1, 1), result);
+        result = Generators.nullableDefaultValue(MonthDay.class);
+        assertNull(result);
+        GeneratorsTestUtils.assertRandomGeneration(MonthDay.class, 100, 2);
+        GeneratorsTestUtils.assertNullableRandomGeneration(MonthDay.class, 100, 2);
     }
 
     /**

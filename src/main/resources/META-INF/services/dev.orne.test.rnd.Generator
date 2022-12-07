@@ -23,6 +23,7 @@ dev.orne.test.rnd.generators.PathGenerator
 dev.orne.test.rnd.generators.ClockGenerator
 dev.orne.test.rnd.generators.DurationGenerator
 dev.orne.test.rnd.generators.InstantGenerator
+dev.orne.test.rnd.generators.MonthDayGenerator
 dev.orne.test.rnd.generators.LocalDateGenerator
 dev.orne.test.rnd.generators.LocalDateTimeGenerator
 dev.orne.test.rnd.generators.LocalTimeGenerator

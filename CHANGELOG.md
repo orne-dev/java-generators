@@ -86,6 +86,7 @@
     01. Added class `dev.orne.test.rnd.generators.LocalDateGenerator`
     01. Added class `dev.orne.test.rnd.generators.LocalDateTimeGenerator`
     01. Added class `dev.orne.test.rnd.generators.LocalTimeGenerator`
+    01. Added class `dev.orne.test.rnd.generators.MonthDayGenerator`
     01. Added class `dev.orne.test.rnd.generators.OffsetDateTimeGenerator`
     01. Added class `dev.orne.test.rnd.generators.OffsetTimeGenerator`
     01. Added class `dev.orne.test.rnd.generators.PeriodGenerator`
