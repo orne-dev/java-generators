@@ -34,6 +34,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 /**
  * Unit tests for {@code AbstractParameterizableGenerator}.
@@ -237,6 +238,23 @@ class AbstractParameterizableGeneratorTest {
      * Unit test for {@link AbstractParameterizableGenerator#nullableDefaultValue(Class, GenerationParameters)}
      */
     @ParameterizedTest
+    @ValueSource(booleans = { true, false })
+    void testNullableDefaultValueGenericParams(
+            final boolean randomNull) {
+        final GenericChild<MyParams> generator = spy(new GenericChild<>(MyParams.class));
+        final MyParams params = mock(MyParams.class);
+        final MyType expected = mock(MyType.class);
+        willReturn(true).given(generator).supports(MyType.class);
+        willReturn(randomNull).given(generator).randomNull(MyType.class);
+        willReturn(expected).given(generator).defaultValue(MyType.class, params);
+        final MyType result = generator.nullableDefaultValue(MyType.class, params);
+        assertNull(result);
+    }
+
+    /**
+     * Unit test for {@link AbstractParameterizableGenerator#nullableDefaultValue(Class, GenerationParameters)}
+     */
+    @ParameterizedTest
     @MethodSource("testNullableTests_Parameters")
     void testNullableDefaultValueParams(
             final boolean paramsNullable,
@@ -347,6 +365,27 @@ class AbstractParameterizableGeneratorTest {
         then(expected).shouldHaveNoInteractions();
         for (int i = 0; i < sources.length; i++) {
             then(sources[i]).shouldHaveNoInteractions();
+        }
+    }
+
+    /**
+     * Unit test for {@link AbstractParameterizableGenerator#nullableRandomValue(Class, GenerationParameters)}
+     */
+    @ParameterizedTest
+    @ValueSource(booleans = { true, false })
+    void testNullableRandomValueGenericParams(
+            final boolean randomNull) {
+        final GenericChild<MyParams> generator = spy(new GenericChild<>(MyParams.class));
+        final MyParams params = mock(MyParams.class);
+        final MyType expected = mock(MyType.class);
+        willReturn(true).given(generator).supports(MyType.class);
+        willReturn(randomNull).given(generator).randomNull(MyType.class);
+        willReturn(expected).given(generator).randomValue(MyType.class, params);
+        final MyType result = generator.nullableRandomValue(MyType.class, params);
+        if (randomNull) {
+            assertNull(result);
+        } else {
+            assertSame(expected, result);
         }
     }
 

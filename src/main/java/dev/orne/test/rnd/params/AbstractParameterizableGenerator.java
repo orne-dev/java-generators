@@ -163,8 +163,9 @@ implements ParameterizableGenerator {
             final @NotNull P parameters) {
         assertSupported(type);
         final T value;
-        if (parameters instanceof NullableParameters
-                && ((NullableParameters) parameters).isNullable()) {
+        final boolean nullsAllowed = !(parameters instanceof NullableParameters)
+                || ((NullableParameters) parameters).isNullable();
+        if (nullsAllowed) {
             value = null;
         } else {
             value = defaultValue(type, parameters);
@@ -242,9 +243,9 @@ implements ParameterizableGenerator {
             final @NotNull P parameters) {
         assertSupported(type);
         final T value;
-        if (parameters instanceof NullableParameters
-                && ((NullableParameters) parameters).isNullable()
-                && randomNull(type)) {
+        final boolean nullsAllowed = !(parameters instanceof NullableParameters)
+                || ((NullableParameters) parameters).isNullable();
+        if (nullsAllowed && randomNull(type)) {
             value = null;
         } else {
             value = randomValue(type, parameters);
