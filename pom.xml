@@ -18,7 +18,7 @@
   <name>Orne Test Generators</name>
   <description>Orne random value generator for tests</description>
   <inceptionYear>2021</inceptionYear>
-  <url>https://orne-dev.github.io/java-test-generators/</url>
+  <url>https://orne-dev.github.io/java-generators/</url>
 
   <licenses>
     <license>
@@ -34,6 +34,13 @@
       <url>https://github.com/ihernaez</url>
     </developer>
   </developers>
+
+  <scm>
+    <url>https://github.com/orne-dev/java-generators/tree/master</url>
+    <connection>scm:git:git://github.com/orne-dev/java-generators.git</connection>
+    <developerConnection>scm:git:ssh://github.com:orne-dev/java-generators.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
   <properties>
     <java.version>8</java.version>
@@ -123,22 +130,5 @@
       </plugins>
     </pluginManagement>
   </build>
-
-  <scm>
-    <connection>scm:git:https://github.com/orne-dev/java-test-generators.git</connection>
-    <developerConnection>scm:git:ssh://github.com:orne-dev/java-test-generators.git</developerConnection>
-    <url>https://github.com/orne-dev/java-test-generators/</url>
-  </scm>
-  <issueManagement>
-    <system>GitHub Issues</system>
-    <url>http://github.com/orne-dev/java-test-generators/issues</url>
-  </issueManagement>
-  <distributionManagement>
-    <site>
-      <id>github</id>
-      <name>Github Project Pages</name>
-      <url>${project.scm.connection}</url>
-    </site>
-  </distributionManagement>
 
 </project>
