@@ -195,22 +195,6 @@ class MapGenerationParametersTest {
     }
 
     /**
-     * Unit test for {@link MapGenerationParameters#clone()}.
-     */
-    @Test
-    void testClone() {
-        final MapGenerationParameters params = new MapGenerationParameters();
-        params.setNullable(false);
-        params.setKeysType(Integer.class);
-        params.setValuesType(String.class);
-        params.setMinSize(RandomUtils.nextInt());
-        params.setMaxSize(RandomUtils.nextInt());
-        final MapGenerationParameters result = params.clone();
-        assertNotSame(params, result);
-        assertEquals(params, result);
-    }
-
-    /**
      * Unit test for {@link MapGenerationParameters#equals(Object)},
      * {@link MapGenerationParameters#hashCode()} and
      * {@link MapGenerationParameters#toString()}.

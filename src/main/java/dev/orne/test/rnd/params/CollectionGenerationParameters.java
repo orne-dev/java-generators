@@ -177,14 +177,6 @@ implements SimpleGenericParameters, SizeParameters {
      * {@inheritDoc}
      */
     @Override
-    public CollectionGenerationParameters clone() {
-        return new CollectionGenerationParameters(this);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public int hashCode() {
         return new HashCodeBuilder()
                 .appendSuper(super.hashCode())
