@@ -55,6 +55,9 @@
     <glassfish.jakarta.el.version>3.0.3</glassfish.jakarta.el.version>
 
     <sonar.projectKey>orne-dev_java-generators</sonar.projectKey>
+    <ut.coverage.xmlReport>${ut.coverage.reportDir}/jacoco.xml</ut.coverage.xmlReport>
+    <it.coverage.xmlReport>${it.coverage.reportDir}/jacoco.xml</it.coverage.xmlReport>
+    <sonar.coverage.jacoco.xmlReportPaths>${ut.coverage.xmlReport},${it.coverage.xmlReport}</sonar.coverage.jacoco.xmlReportPaths>
   </properties>
 
   <dependencies>
