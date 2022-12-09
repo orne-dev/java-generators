@@ -127,6 +127,7 @@ extends AbstractTypedParameterizableGenerator<Set<?>, CollectionGenerationParame
      * @return A random set for the specified component type.
      * @throws GenerationException If an error occurs generating the value
      */
+    @SuppressWarnings("java:S1452")
     protected @NotNull Set<?> randomSet(
             final @NotNull CollectionGenerationParameters parameters) {
         final int size = randomSetSize(parameters);
@@ -146,6 +147,7 @@ extends AbstractTypedParameterizableGenerator<Set<?>, CollectionGenerationParame
      * @return A random set of the specified component type.
      * @throws GenerationException If an error occurs generating the value
      */
+    @SuppressWarnings("java:S1452")
     protected Set<?> randomNullablesSet(
             final @NotNull CollectionGenerationParameters parameters) {
         final int size = randomSetSize(parameters);

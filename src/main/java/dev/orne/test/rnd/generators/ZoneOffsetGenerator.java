@@ -60,7 +60,7 @@ extends AbstractTypedGenerator<ZoneOffset> {
     public @NotNull ZoneOffset randomValue() {
         final long seconds = RandomUtils.nextLong(
                 0,
-                ZoneOffset.MAX.getTotalSeconds() - ZoneOffset.MIN.getTotalSeconds())
+                (long) ZoneOffset.MAX.getTotalSeconds() - (long) ZoneOffset.MIN.getTotalSeconds())
                 + ZoneOffset.MIN.getTotalSeconds();
         return ZoneOffset.ofTotalSeconds((int) seconds);
     }
