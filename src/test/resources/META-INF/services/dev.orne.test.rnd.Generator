@@ -1,0 +1,4 @@
+dev.orne.test.rnd.TestGenerator
+dev.orne.test.rnd.TestTypedGenerator
+dev.orne.test.rnd.it.EnumCustomGenerator
+dev.orne.test.rnd.it.CustomBasicGenerator
