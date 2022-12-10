@@ -49,6 +49,7 @@ import dev.orne.test.rnd.Generators;
 class ExecutableGeneratorTest {
 
     private static final Method EXECUTABLE;
+    private static final Method OTHER_EXECUTABLE;
 
     static {
         try {
@@ -56,6 +57,8 @@ class ExecutableGeneratorTest {
                     "factory",
                     String.class,
                     Integer.class);
+            OTHER_EXECUTABLE = MyType.class.getDeclaredMethod(
+                    "otherFactory");
         } catch (Exception e) {
             final AssertionError error = new AssertionError();
             error.initCause(e);
@@ -214,7 +217,7 @@ class ExecutableGeneratorTest {
         final Class<?> type = MyType.class; 
         final Class<?> otherType = OtherType.class; 
         final Executable executable = EXECUTABLE;
-        final Executable otherExecutable = mock(Executable.class);
+        final Executable otherExecutable = OTHER_EXECUTABLE;
         final TargetedGenerator<?>[] paramGenerators = new TargetedGenerator[] {
                 mock(TargetedGenerator.class),
                 mock(TargetedGenerator.class)
@@ -258,6 +261,9 @@ class ExecutableGeneratorTest {
         public MyType() {}
         public MyType(String value0, Integer value1) {}
         public static MyType factory(String value0, Integer value1) {
+            return new MyType();
+        }
+        public static MyType otherFactory() {
             return new MyType();
         }
     }
