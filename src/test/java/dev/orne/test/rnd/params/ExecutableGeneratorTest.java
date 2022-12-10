@@ -37,7 +37,6 @@ import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.Generators;
 
-
 /**
  * Unit tests for {@code ExecutableGenerator}.
  * 
@@ -49,13 +48,31 @@ import dev.orne.test.rnd.Generators;
 @Tag("ut")
 class ExecutableGeneratorTest {
 
+    private static final Method EXECUTABLE;
+    private static final Method OTHER_EXECUTABLE;
+
+    static {
+        try {
+            EXECUTABLE = MyType.class.getDeclaredMethod(
+                    "factory",
+                    String.class,
+                    Integer.class);
+            OTHER_EXECUTABLE = MyType.class.getDeclaredMethod(
+                    "otherFactory");
+        } catch (Exception e) {
+            final AssertionError error = new AssertionError();
+            error.initCause(e);
+            throw error;
+        }
+    }
+
     /**
      * Unit test for {@link ExecutableGenerator#ExecutableGenerator(Class, Executable, TargetedGenerator[])}
      */
     @Test
     void testConstructor() {
         final Class<?> type = MyType.class; 
-        final Executable executable = mock(Executable.class);
+        final Executable executable = EXECUTABLE;
         final TargetedGenerator<?>[] paramGenerators = new TargetedGenerator[] {
                 mock(TargetedGenerator.class),
                 mock(TargetedGenerator.class)
@@ -135,7 +152,7 @@ class ExecutableGeneratorTest {
     @Test
     void testDefaultValue() {
         final Class<?> type = MyType.class; 
-        final Executable executable = mock(Executable.class);
+        final Executable executable = EXECUTABLE;
         final TargetedGenerator<?>[] paramGenerators = new TargetedGenerator[] {
                 mock(TargetedGenerator.class),
                 mock(TargetedGenerator.class)
@@ -165,7 +182,7 @@ class ExecutableGeneratorTest {
     @Test
     void testRandomValue() {
         final Class<?> type = MyType.class; 
-        final Executable executable = mock(Executable.class);
+        final Executable executable = EXECUTABLE;
         final TargetedGenerator<?>[] paramGenerators = new TargetedGenerator[] {
                 mock(TargetedGenerator.class),
                 mock(TargetedGenerator.class)
@@ -199,8 +216,8 @@ class ExecutableGeneratorTest {
     void testEqualsHashCodeToString() {
         final Class<?> type = MyType.class; 
         final Class<?> otherType = OtherType.class; 
-        final Executable executable = mock(Executable.class);
-        final Executable otherExecutable = mock(Executable.class);
+        final Executable executable = EXECUTABLE;
+        final Executable otherExecutable = OTHER_EXECUTABLE;
         final TargetedGenerator<?>[] paramGenerators = new TargetedGenerator[] {
                 mock(TargetedGenerator.class),
                 mock(TargetedGenerator.class)
@@ -244,6 +261,9 @@ class ExecutableGeneratorTest {
         public MyType() {}
         public MyType(String value0, Integer value1) {}
         public static MyType factory(String value0, Integer value1) {
+            return new MyType();
+        }
+        public static MyType otherFactory() {
             return new MyType();
         }
     }

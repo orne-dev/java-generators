@@ -141,20 +141,6 @@ class StringGenerationParametersTest {
     }
 
     /**
-     * Unit test for {@link StringGenerationParameters#clone()}.
-     */
-    @Test
-    void testClone() {
-        final StringGenerationParameters params = new StringGenerationParameters();
-        params.setNullable(false);
-        params.setMinSize(RandomUtils.nextInt());
-        params.setMaxSize(RandomUtils.nextInt());
-        final StringGenerationParameters result = params.clone();
-        assertNotSame(params, result);
-        assertEquals(params, result);
-    }
-
-    /**
      * Unit test for {@link StringGenerationParameters#equals(Object)},
      * {@link StringGenerationParameters#hashCode()} and
      * {@link StringGenerationParameters#toString()}.

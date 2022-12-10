@@ -265,6 +265,7 @@ public final class ParametersExtractors {
      * @return The source extractors that accept the specified parameters typet,
      * in priority order
      */
+    @SuppressWarnings("java:S1452")
     static <P> @NotNull List<ParametersSourceExtractor<? super P, ?>> filterSourceExtractors(
             final @NotNull List<ParametersSourceExtractor<?, ?>> extractors,
             final @NotNull Class<P> parametersType) {
@@ -350,6 +351,7 @@ public final class ParametersExtractors {
          * @param parametersType The target parameter type
          * @return The source extractors to use, in priority order
          */
+        @SuppressWarnings("java:S1452")
         <P> @NotNull List<ParametersSourceExtractor<? super P, ?>> findSuitable(
                 @NotNull List<ParametersSourceExtractor<?, ?>> extractors,
                 @NotNull Class<P> parametersType);

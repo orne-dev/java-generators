@@ -128,6 +128,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
      * @return A random map for the specified keys and values types.
      * @throws GenerationException If an error occurs generating the value
      */
+    @SuppressWarnings("java:S1452")
     protected @NotNull Map<?, ?> randomMap(
             final @NotNull MapGenerationParameters parameters) {
         final int size = randomSetSize(parameters);
@@ -150,6 +151,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
      * @return A random map of the specified keys and values types.
      * @throws GenerationException If an error occurs generating the value
      */
+    @SuppressWarnings("java:S1452")
     protected Map<?, ?> randomNullablesMap(
             final @NotNull MapGenerationParameters parameters) {
         final int size = randomSetSize(parameters);

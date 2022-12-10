@@ -176,21 +176,6 @@ class CollectionGenerationParametersTest {
     }
 
     /**
-     * Unit test for {@link CollectionGenerationParameters#clone()}.
-     */
-    @Test
-    void testClone() {
-        final CollectionGenerationParameters params = new CollectionGenerationParameters();
-        params.setNullable(false);
-        params.setType(String.class);
-        params.setMinSize(RandomUtils.nextInt());
-        params.setMaxSize(RandomUtils.nextInt());
-        final CollectionGenerationParameters result = params.clone();
-        assertNotSame(params, result);
-        assertEquals(params, result);
-    }
-
-    /**
      * Unit test for {@link CollectionGenerationParameters#equals(Object)},
      * {@link CollectionGenerationParameters#hashCode()} and
      * {@link CollectionGenerationParameters#toString()}.

@@ -139,14 +139,6 @@ implements SizeParameters {
      * {@inheritDoc}
      */
     @Override
-    public StringGenerationParameters clone() {
-        return new StringGenerationParameters(this);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public int hashCode() {
         return new HashCodeBuilder()
                 .appendSuper(super.hashCode())

@@ -26,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
@@ -178,36 +179,9 @@ class ArrayGeneratorTest {
     @Test
     void testDefaultValue() {
         final ArrayGenerator generator = new ArrayGenerator();
-        assertArrayEquals(new boolean[0], generator.defaultValue(boolean[].class));
-        assertArrayEquals(new byte[0], generator.defaultValue(byte[].class));
-        assertArrayEquals(new short[0], generator.defaultValue(short[].class));
-        assertArrayEquals(new int[0], generator.defaultValue(int[].class));
-        assertArrayEquals(new long[0], generator.defaultValue(long[].class));
-        assertArrayEquals(new float[0], generator.defaultValue(float[].class));
-        assertArrayEquals(new double[0], generator.defaultValue(double[].class));
-        assertArrayEquals(new char[0], generator.defaultValue(char[].class));
-        assertArrayEquals(new Boolean[0], generator.defaultValue(Boolean[].class));
-        assertArrayEquals(new Byte[0], generator.defaultValue(Byte[].class));
-        assertArrayEquals(new Short[0], generator.defaultValue(Short[].class));
-        assertArrayEquals(new Integer[0], generator.defaultValue(Integer[].class));
-        assertArrayEquals(new Long[0], generator.defaultValue(Long[].class));
-        assertArrayEquals(new Float[0], generator.defaultValue(Float[].class));
-        assertArrayEquals(new Double[0], generator.defaultValue(Double[].class));
-        assertArrayEquals(new Character[0], generator.defaultValue(Character[].class));
-        assertArrayEquals(new CharSequence[0], generator.defaultValue(CharSequence[].class));
-        assertArrayEquals(new Number[0], generator.defaultValue(Number[].class));
-        assertArrayEquals(new String[0], generator.defaultValue(String[].class));
-        assertArrayEquals(new File[0], generator.defaultValue(File[].class));
-        assertArrayEquals(new BigInteger[0], generator.defaultValue(BigInteger[].class));
-        assertArrayEquals(new BigDecimal[0], generator.defaultValue(BigDecimal[].class));
-        assertArrayEquals(new Charset[0], generator.defaultValue(Charset[].class));
-        assertArrayEquals(new Path[0], generator.defaultValue(Path[].class));
-        assertArrayEquals(new Calendar[0], generator.defaultValue(Calendar[].class));
-        assertArrayEquals(new Currency[0], generator.defaultValue(Currency[].class));
-        assertArrayEquals(new Date[0], generator.defaultValue(Date[].class));
-        assertArrayEquals(new Locale[0], generator.defaultValue(Locale[].class));
-        assertArrayEquals(new TimeZone[0], generator.defaultValue(TimeZone[].class));
-        assertArrayEquals(new UUID[0], generator.defaultValue(UUID[].class));
+        for (final Class<?> supportedType : SUPPORTED_TYPES) {
+            assertEquals(0, Array.getLength(generator.defaultValue(supportedType)));
+        }
     }
 
     /**

@@ -215,14 +215,6 @@ implements KeyValueGenericParameters, SizeParameters {
      * {@inheritDoc}
      */
     @Override
-    public MapGenerationParameters clone() {
-        return new MapGenerationParameters(this);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public int hashCode() {
         return new HashCodeBuilder()
                 .appendSuper(super.hashCode())

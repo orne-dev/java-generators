@@ -541,8 +541,8 @@ class BuildInGeneratorsIT {
         result = Generators.nullableDefaultValue(URL.class);
         assertNull(result);
         // Slow generation
-        GeneratorsTestUtils.assertRandomGeneration(URL.class, 10, 2);
-        GeneratorsTestUtils.assertNullableRandomGeneration(URL.class, 10, 2);
+        GeneratorsTestUtils.assertRandomGeneration(URL.class, 10, 4);
+        GeneratorsTestUtils.assertNullableRandomGeneration(URL.class, 10, 4);
     }
 
     /**

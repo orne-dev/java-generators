@@ -260,8 +260,8 @@ implements ParameterizableGenerator {
      */
     public @NotNull P createEmptyParams() {
         try {
-            return getParametersType().newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
+            return getParametersType().getDeclaredConstructor().newInstance();
+        } catch (final Exception e ) {
             throw new IllegalArgumentException("The parameters type has not default constructor. Override createEmptyParams().", e);
         }
     }
