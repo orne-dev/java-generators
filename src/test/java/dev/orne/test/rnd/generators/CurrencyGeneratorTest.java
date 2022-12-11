@@ -25,7 +25,6 @@ package dev.orne.test.rnd.generators;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Currency;
-import java.util.Locale;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -80,7 +79,7 @@ class CurrencyGeneratorTest {
     @Test
     void testDefaultValue() {
         final CurrencyGenerator generator = new CurrencyGenerator();
-        assertEquals(Currency.getInstance(Locale.getDefault()), generator.defaultValue());
+        assertEquals(CurrencyGenerator.DEFAULT, generator.defaultValue());
     }
 
     /**

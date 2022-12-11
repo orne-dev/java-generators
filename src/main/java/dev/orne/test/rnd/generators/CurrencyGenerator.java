@@ -40,7 +40,7 @@ import dev.orne.test.rnd.Priority;
  * Generator of {@code Currency} values.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
- * @version 1.0, 2022-10
+ * @version 2.0, 2022-10
  * @since 0.1
  */
 @API(status=Status.STABLE, since="0.1")
@@ -51,13 +51,25 @@ extends AbstractTypedGenerator<Currency> {
     /** The available currencies. */
     private static final List<Currency> CURRENCIES = new ArrayList<>(
             Currency.getAvailableCurrencies());
+    /** The default currency. */
+    public static final Currency DEFAULT;
+
+    static {
+        Currency defaultValue;
+        try {
+            defaultValue = Currency.getInstance(Locale.getDefault());
+        } catch (IllegalArgumentException e) {
+            defaultValue = Currency.getInstance("EUR");
+        }
+        DEFAULT = defaultValue;
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Currency defaultValue() {
-        return Currency.getInstance(Locale.getDefault());
+        return DEFAULT;
     }
 
     /**
