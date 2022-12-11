@@ -1,3 +1,10 @@
+# :package: 0.1.1
+
+01. :bug: Fixed `CurrencyGenerator` default value.
+
+    Default locale may have not country code.
+    Use "EUR" as default value in such cases.
+
 # :package: 0.1.0
 
 01. :gift: Added exception `dev.orne.test.rnd.GenerationException`
