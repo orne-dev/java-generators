@@ -102,7 +102,7 @@ The binaries can be obtained from [Maven Central][status.maven] with the
 <dependency>
   <groupId>dev.orne.test</groupId>
   <artifactId>generators</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 
