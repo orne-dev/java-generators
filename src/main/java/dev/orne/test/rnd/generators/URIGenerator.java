@@ -94,7 +94,7 @@ extends AbstractTypedGenerator<URI> {
     private static final float HOSTNAME_P = 0.8f;
     private static final float IP4_P = 0.5f;
     private static final int PORT_MIN = 1;
-    private static final int PORT_MAX = 999999;
+    private static final int PORT_MAX = 65535;
     private static final float PORT_P = 0.2f;
     private static final char PORT_PREFIX = ':';
     private static final char USERINFO_SUFFIX = '@';

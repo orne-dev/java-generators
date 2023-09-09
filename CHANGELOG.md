@@ -1,3 +1,7 @@
+# :package: 0.1.2
+
+01. :bug: Fixed `URIGenerator` maximum port number (65535).
+
 # :package: 0.1.1
 
 01. :bug: Fixed `CurrencyGenerator` default value.
