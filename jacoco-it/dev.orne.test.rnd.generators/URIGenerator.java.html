@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>URIGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">URIGenerator.java</span></div><h1>URIGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2022 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+import dev.orne.test.rnd.AbstractTypedGenerator;
+import dev.orne.test.rnd.GenerationException;
+import dev.orne.test.rnd.Priority;
+
+/**
+ * Generator of {@code URI} values.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2022-11
+ * @since 0.1
+ * @see &lt;a href=&quot;https://datatracker.ietf.org/doc/html/rfc2732&quot;&gt;RFC 2732&lt;/a&gt;
+ * @see &lt;a href=&quot;https://datatracker.ietf.org/doc/html/rfc2373&quot;&gt;RFC 2373&lt;/a&gt;
+ */
+@API(status=Status.STABLE, since=&quot;0.1&quot;)
+@Priority(Priority.NATIVE_GENERATORS)
+<span class="fc" id="L50">public class URIGenerator</span>
+extends AbstractTypedGenerator&lt;URI&gt; {
+
+    /** The default value. */
+<span class="fc" id="L54">    public static final URI DEFAULT_VALUE = URI.create(&quot;/&quot;);</span>
+    
+    private static final String LOWALPHA = &quot;abcdefghijklmnopqrstuvwxyz&quot;;
+    private static final String UPALPHA = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;
+    private static final String ALPHA = LOWALPHA + UPALPHA;
+    private static final String DIGIT = &quot;0123456789&quot;;
+    private static final String ALPHANUM = ALPHA + DIGIT;
+    private static final String RESERVED = &quot;;/?@&amp;=+$,[]&quot;; // Removed ':'
+    private static final String MARK = &quot;-_.!~*'()&quot;;
+    private static final String UNRESERVED  = ALPHANUM + MARK;
+    private static final String HEXDIG = DIGIT + &quot;ABCDEF&quot;;
+    private static final float ESCAPED_CHAR_P = 0.05f;
+    private static final String UNESCAPED_URIC = RESERVED + UNRESERVED;
+    private static final int SCHEME_MIN_LENGTH = 1;
+    private static final int SCHEME_MAX_LENGTH = 10;
+    private static final String SCHEME_REST_C = ALPHANUM + &quot;+-.&quot;;
+    private static final int USERINFO_MIN_LENGTH = 0;
+    private static final int USERINFO_MAX_LENGTH = 20;
+    private static final String UNESCAPED_USERINFO_C = UNRESERVED + &quot;;&amp;=+$,&quot;; // Removed ':'
+    private static final int DOMAIN_LABEL_MIN_LENGTH = 1;
+    private static final int DOMAIN_LABEL_MAX_LENGTH = 20;
+    private static final String DOMAIN_LABEL_MIDDLE_C = ALPHANUM + &quot;-&quot;;
+    private static final int TOP_LABEL_MIN_LENGTH = 1;
+    private static final int TOP_LABEL_MAX_LENGTH = 5;
+    private static final String TOP_LABEL_MIDDLE_C = ALPHANUM + &quot;-&quot;;
+    private static final int HOSTNAME_MIN_DOMAIN_LEVELS = 1;
+    private static final int HOSTNAME_MAX_DOMAIN_LEVELS = 5;
+    private static final char DOMAIN_LABEL_SEPARATOR = '.';
+    private static final float TOP_LABEL_SUFFIX_P = 0.01f;
+    private static final char TOP_LABEL_SUFFIX = '.';
+    private static final int IP4_ADDRESS_MIN_NUM = 0;
+    private static final int IP4_ADDRESS_MAX_NUM = 255;
+    private static final int IP6_PIECE_MIN_LENGTH = 1;
+    private static final int IP6_PIECE_MAX_LENGTH = 4;
+    private static final int IP6_ADDRESS_MIN_LENGTH = 0;
+    private static final int IP6_ADDRESS_MAX_LENGTH = 8;
+    private static final float IP6_ABRV_P = 0.3f;
+    private static final char IP6_ADDRESS_SEPARATOR = ':';
+    private static final char IP6_ADDRESS_PREFIX = '[';
+    private static final char IP6_ADDRESS_SUFFIX = ']';
+    private static final float HOSTNAME_P = 0.8f;
+    private static final float IP4_P = 0.5f;
+    private static final int PORT_MIN = 1;
+    private static final int PORT_MAX = 65535;
+    private static final float PORT_P = 0.2f;
+    private static final char PORT_PREFIX = ':';
+    private static final char USERINFO_SUFFIX = '@';
+    private static final float USERINFO_P = 0.2f;
+    private static final int REG_NAME_MIN_LENGTH = 1;
+    private static final int REG_NAME_MAX_LENGTH = 30;
+    private static final String UNESCAPED_REG_NAME_C = UNRESERVED + &quot;$,;@&amp;=+&quot;; // Removed ':'
+    private static final float SERVER_P = 0.9f;
+    private static final String UNESCAPED_PATH_C = UNRESERVED + &quot;@&amp;=+$,&quot;; // Removed ':'
+    private static final int PARAM_MIN_LENGTH = 1;
+    private static final int PARAM_MAX_LENGTH = 10;
+    private static final int SEGMENT_PATH_MIN_LENGTH = 1;
+    private static final int SEGMENT_PATH_MAX_LENGTH = 20;
+    private static final float SEGMENT_PARAM_P = 0.1f;
+    private static final char SEGMENT_PARAM_SEPARATOR = ';';
+    private static final int PATH_SEGMENTS_MIN_SEGMENTS = 0;
+    private static final int PATH_SEGMENTS_MAX_SEGMENTS = 10;
+    private static final char PATH_SEGMENTS_SEPARATOR = '/';
+    private static final char ABSOLUTE_PATH_PREFIX = '/';
+    private static final int QUERY_MIN_LENGTH = 1;
+    private static final int QUERY_MAX_LENGTH = 50;
+    private static final float QUERY_P = 0.5f;
+    private static final float PATH_ABSOLUTE_P = 0.8f;
+    private static final int FRAGMENT_MIN_LENGTH = 1;
+    private static final int FRAGMENT_MAX_LENGTH = 20;
+    private static final String UNESCAPED_RELATIVE_SEGMENT_C = UNRESERVED + &quot;;@&amp;=+$,&quot;;
+    private static final int RELATIVE_SEGMENT_MIN_LENGTH = 1;
+    private static final int RELATIVE_SEGMENT_MAX_LENGTH = 20;
+    private static final float RELATIVE_PATH_ABSOLUTE_PATH_P = 0.6f;
+    private static final float FRAGMENT_P = 0.2f;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull URI defaultValue() {
+<span class="fc" id="L134">        return DEFAULT_VALUE;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull URI randomValue() {
+<span class="fc" id="L142">        return randomURI();</span>
+    }
+
+    /**
+     * Returns a random scheme.
+     * 
+     * @return The random scheme
+     */
+    public static @NotNull String randomScheme() {
+<span class="fc" id="L151">        final int length = RandomUtils.nextInt(</span>
+                SCHEME_MIN_LENGTH,
+                SCHEME_MAX_LENGTH + 1);
+<span class="fc" id="L154">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L155">        buffer.append(RandomStringUtils.randomAlphabetic(1));</span>
+<span class="fc" id="L156">        buffer.append(RandomStringUtils.random(length - 1, SCHEME_REST_C));</span>
+<span class="fc" id="L157">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random user info part of an URI.
+     * 
+     * @return The random user info
+     */
+    public static @NotNull String randomUserInfo() {
+<span class="fc" id="L166">        final int length = RandomUtils.nextInt(</span>
+                USERINFO_MIN_LENGTH,
+                USERINFO_MAX_LENGTH + 1);
+<span class="fc" id="L169">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        for (int i = 0; i &lt; length; i++) {</span>
+<span class="fc bfc" id="L171" title="All 2 branches covered.">            if (RandomUtils.nextFloat(0, 1) &lt; ESCAPED_CHAR_P) {</span>
+<span class="fc" id="L172">                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));</span>
+            } else {
+<span class="fc" id="L174">                buffer.append(RandomStringUtils.random(1, UNESCAPED_USERINFO_C));</span>
+            }
+        }
+<span class="fc" id="L177">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random optional user info part of an URI.
+     * 
+     * @return The random user info, or {@code null}
+     */
+    public static String randomOptionalUserInfo() {
+<span class="fc bfc" id="L186" title="All 2 branches covered.">        if (RandomUtils.nextFloat(0, 1) &lt; USERINFO_P) {</span>
+<span class="fc" id="L187">            return randomUserInfo();</span>
+        } else {
+<span class="fc" id="L189">            return null;</span>
+        }
+    }
+
+    /**
+     * Returns a random non top domain label.
+     * 
+     * @return The non top domain label
+     */
+    protected static @NotNull String randomDomainLabel() {
+<span class="fc" id="L199">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L200">        final int length = RandomUtils.nextInt(</span>
+                DOMAIN_LABEL_MIN_LENGTH,
+                DOMAIN_LABEL_MAX_LENGTH + 1);
+<span class="fc" id="L203">        buffer.append(RandomStringUtils.randomAlphanumeric(1));</span>
+<span class="fc bfc" id="L204" title="All 2 branches covered.">        if (length &gt; 1) {</span>
+<span class="fc bfc" id="L205" title="All 2 branches covered.">            if (length &gt; 2) {</span>
+<span class="fc" id="L206">                buffer.append(RandomStringUtils.random(length - 2, DOMAIN_LABEL_MIDDLE_C));</span>
+            }
+<span class="fc" id="L208">            buffer.append(RandomStringUtils.randomAlphanumeric(1));</span>
+        }
+<span class="fc" id="L210">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random top domain label.
+     * 
+     * @return The top domain label
+     */
+    protected static @NotNull String randomTopLabel() {
+<span class="fc" id="L219">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L220">        final int length = RandomUtils.nextInt(</span>
+                TOP_LABEL_MIN_LENGTH,
+                TOP_LABEL_MAX_LENGTH + 1);
+<span class="fc" id="L223">        buffer.append(RandomStringUtils.randomAlphabetic(1));</span>
+<span class="fc bfc" id="L224" title="All 2 branches covered.">        if (length &gt; 1) {</span>
+<span class="fc bfc" id="L225" title="All 2 branches covered.">            if (length &gt; 2) {</span>
+<span class="fc" id="L226">                buffer.append(RandomStringUtils.random(length - 2, TOP_LABEL_MIDDLE_C));</span>
+            }
+<span class="fc" id="L228">            buffer.append(RandomStringUtils.randomAlphanumeric(1));</span>
+        }
+<span class="fc" id="L230">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random host name.
+     * 
+     * @return The host name
+     */
+    public static @NotNull String randomHostName() {
+<span class="fc" id="L239">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L240">        final int domainLevels = RandomUtils.nextInt(</span>
+                HOSTNAME_MIN_DOMAIN_LEVELS,
+                HOSTNAME_MAX_DOMAIN_LEVELS + 1);
+<span class="fc bfc" id="L243" title="All 2 branches covered.">        for (int i = 0; i &lt; domainLevels; i++) {</span>
+<span class="fc" id="L244">            buffer.append(randomDomainLabel()).append(DOMAIN_LABEL_SEPARATOR);</span>
+        }
+<span class="fc" id="L246">        buffer.append(randomTopLabel());</span>
+<span class="pc bpc" id="L247" title="1 of 2 branches missed.">        if (RandomUtils.nextFloat(0, 1) &lt; TOP_LABEL_SUFFIX_P) {</span>
+<span class="nc" id="L248">            buffer.append(TOP_LABEL_SUFFIX);</span>
+        }
+<span class="fc" id="L250">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random IP4 address.
+     * 
+     * @return The IP4 address
+     */
+    public static @NotNull String randomIp4Address() {
+<span class="fc" id="L259">        return String.format(</span>
+                &quot;%d.%d.%d.%d&quot;,
+<span class="fc" id="L261">                RandomUtils.nextInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1),</span>
+<span class="fc" id="L262">                RandomUtils.nextInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1),</span>
+<span class="fc" id="L263">                RandomUtils.nextInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1),</span>
+<span class="fc" id="L264">                RandomUtils.nextInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1));</span>
+    }
+
+    /**
+     * Returns a random IP6 address piece.
+     * 
+     * @return The random IP6 address piece
+     */
+    protected static @NotNull String randomIp6Piece() {
+<span class="fc" id="L273">        final int length = RandomUtils.nextInt(</span>
+                IP6_PIECE_MIN_LENGTH,
+                IP6_PIECE_MAX_LENGTH + 1);
+<span class="fc" id="L276">        return RandomStringUtils.random(length, HEXDIG);</span>
+    }
+
+    /**
+     * Returns a random full IP6 address.
+     * 
+     * @return The full IP6 address
+     */
+    public static @NotNull String randomFullIp6Address() {
+<span class="fc" id="L285">        return String.format(</span>
+                &quot;%s:%s:%s:%s:%s:%s:%s:%s&quot;,
+<span class="fc" id="L287">                randomIp6Piece(),</span>
+<span class="fc" id="L288">                randomIp6Piece(),</span>
+<span class="fc" id="L289">                randomIp6Piece(),</span>
+<span class="fc" id="L290">                randomIp6Piece(),</span>
+<span class="fc" id="L291">                randomIp6Piece(),</span>
+<span class="fc" id="L292">                randomIp6Piece(),</span>
+<span class="fc" id="L293">                randomIp6Piece(),</span>
+<span class="fc" id="L294">                randomIp6Piece());</span>
+    }
+
+    /**
+     * Returns a random abbreviated IP6 address.
+     * 
+     * @return The abbreviated IP6 address
+     */
+    public static @NotNull String randomAbbreviatedIp6Address() {
+<span class="fc" id="L303">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L304">        final int pieces = RandomUtils.nextInt(</span>
+                IP6_ADDRESS_MIN_LENGTH,
+                IP6_ADDRESS_MAX_LENGTH);
+<span class="pc bpc" id="L307" title="1 of 2 branches missed.">        if (pieces == 0) {</span>
+<span class="nc" id="L308">            buffer.append(IP6_ADDRESS_SEPARATOR)</span>
+<span class="nc" id="L309">                    .append(IP6_ADDRESS_SEPARATOR);</span>
+        } else {
+<span class="fc" id="L311">            final int prePieces = RandomUtils.nextInt(0, pieces + 1);</span>
+<span class="fc bfc" id="L312" title="All 2 branches covered.">            if (prePieces &gt; 0) {</span>
+<span class="fc" id="L313">                buffer.append(randomIp6Piece());</span>
+<span class="fc bfc" id="L314" title="All 2 branches covered.">                for (int i = 1 ; i &lt; prePieces; i++) {</span>
+<span class="fc" id="L315">                    buffer.append(IP6_ADDRESS_SEPARATOR).append(randomIp6Piece());</span>
+                }
+            }
+<span class="fc" id="L318">            buffer.append(IP6_ADDRESS_SEPARATOR);</span>
+<span class="fc" id="L319">            final int postPieces = pieces - prePieces;</span>
+<span class="fc bfc" id="L320" title="All 2 branches covered.">            if (postPieces == 0) {</span>
+<span class="fc" id="L321">                buffer.append(IP6_ADDRESS_SEPARATOR);</span>
+            } else {
+<span class="fc bfc" id="L323" title="All 2 branches covered.">                for (int i = 0 ; i &lt; postPieces; i++) {</span>
+<span class="fc" id="L324">                    buffer.append(IP6_ADDRESS_SEPARATOR).append(randomIp6Piece());</span>
+                }
+            }
+        }
+<span class="fc" id="L328">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random IP6 address.
+     * 
+     * @return The IP6 address
+     */
+    public static @NotNull String randomIp6Address() {
+<span class="fc bfc" id="L337" title="All 2 branches covered.">        if (RandomUtils.nextFloat(0, 1) &lt; IP6_ABRV_P) {</span>
+<span class="fc" id="L338">            return randomAbbreviatedIp6Address();</span>
+        } else {
+<span class="fc" id="L340">            return randomFullIp6Address();</span>
+        }
+    }
+
+    /**
+     * Returns a random host.
+     * 
+     * @return The host part
+     */
+    public static @NotNull String randomHost() {
+<span class="fc bfc" id="L350" title="All 2 branches covered.">        if (RandomUtils.nextFloat(0, 1) &lt; HOSTNAME_P) {</span>
+<span class="fc" id="L351">            return randomHostName();</span>
+<span class="fc bfc" id="L352" title="All 2 branches covered.">        } else if (RandomUtils.nextFloat(0, 1) &lt; IP4_P) {</span>
+<span class="fc" id="L353">            return randomIp4Address();</span>
+        } else {
+<span class="fc" id="L355">            return IP6_ADDRESS_PREFIX + randomIp6Address() + IP6_ADDRESS_SUFFIX;</span>
+        }
+    }
+
+    /**
+     * Returns a random port.
+     * 
+     * @return The port
+     */
+    public static int randomPort() {
+<span class="fc" id="L365">        return RandomUtils.nextInt(PORT_MIN, PORT_MAX + 1);</span>
+    }
+
+    /**
+     * Returns a random optional port.
+     * 
+     * @return The port, or {@code -1}
+     */
+    public static int randomOptionalPort() {
+<span class="fc bfc" id="L374" title="All 2 branches covered.">        if (RandomUtils.nextFloat(0, 1) &lt; PORT_P) {</span>
+<span class="fc" id="L375">            return randomPort();</span>
+        } else {
+<span class="fc" id="L377">            return -1;</span>
+        }
+    }
+
+    /**
+     * Returns a random server authority part.
+     * 
+     * @return The server authority part
+     */
+    public static @NotNull String randomServerAuthority() {
+<span class="fc" id="L387">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L388">        final String userInfo = randomOptionalUserInfo();</span>
+<span class="fc" id="L389">        final String host = randomHost();</span>
+<span class="fc" id="L390">        final int port = randomOptionalPort();</span>
+<span class="fc bfc" id="L391" title="All 2 branches covered.">        if (userInfo != null) {</span>
+<span class="fc" id="L392">            buffer.append(userInfo).append(USERINFO_SUFFIX);</span>
+        }
+<span class="fc" id="L394">        buffer.append(host);</span>
+<span class="fc bfc" id="L395" title="All 2 branches covered.">        if (port != -1) {</span>
+<span class="fc" id="L396">            buffer.append(PORT_PREFIX).append(port);</span>
+        }
+<span class="fc" id="L398">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random registry based named authority part.
+     * 
+     * @return The registry based named authority part
+     */
+    public static @NotNull String randomRegistryBasedNamedAuthority() {
+<span class="fc" id="L407">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L408">        final int length = RandomUtils.nextInt(</span>
+                REG_NAME_MIN_LENGTH,
+                REG_NAME_MAX_LENGTH + 1);
+<span class="fc bfc" id="L411" title="All 2 branches covered.">        for (int i = 0; i &lt; length; i++) {</span>
+<span class="fc bfc" id="L412" title="All 2 branches covered.">            if (RandomUtils.nextFloat(0, 1) &lt; ESCAPED_CHAR_P) {</span>
+<span class="fc" id="L413">                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));</span>
+            } else {
+<span class="fc" id="L415">                buffer.append(RandomStringUtils.random(1, UNESCAPED_REG_NAME_C));</span>
+            }
+        }
+<span class="fc" id="L418">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random authority part.
+     * 
+     * @return The authority part
+     */
+    public static @NotNull String randomAuthority() {
+<span class="fc bfc" id="L427" title="All 2 branches covered.">        if (RandomUtils.nextFloat(0, 1) &lt; SERVER_P) {</span>
+<span class="fc" id="L428">            return randomServerAuthority();</span>
+        } else {
+<span class="fc" id="L430">            return randomRegistryBasedNamedAuthority();</span>
+        }
+    }
+
+    /**
+     * Returns a random path segment.
+     * 
+     * @return The path segment
+     */
+    protected static @NotNull String randomPathSegment() {
+<span class="fc" id="L440">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L441">        final int length = RandomUtils.nextInt(</span>
+                SEGMENT_PATH_MIN_LENGTH,
+                SEGMENT_PATH_MAX_LENGTH + 1);
+<span class="fc" id="L444">        buffer.append(RandomStringUtils.randomAlphabetic(1));</span>
+<span class="fc bfc" id="L445" title="All 2 branches covered.">        for (int i = 1; i &lt; length; i++) {</span>
+<span class="fc bfc" id="L446" title="All 2 branches covered.">            if (RandomUtils.nextFloat(0, 1) &lt; ESCAPED_CHAR_P) {</span>
+<span class="fc" id="L447">                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));</span>
+            } else {
+<span class="fc" id="L449">                buffer.append(RandomStringUtils.random(1, UNESCAPED_PATH_C));</span>
+            }
+        }
+<span class="fc bfc" id="L452" title="All 2 branches covered.">        if (RandomUtils.nextFloat(0, 1) &lt; SEGMENT_PARAM_P) {</span>
+<span class="fc" id="L453">            buffer.append(SEGMENT_PARAM_SEPARATOR);</span>
+<span class="fc" id="L454">            final int paramLength = RandomUtils.nextInt(</span>
+                    PARAM_MIN_LENGTH,
+                    PARAM_MAX_LENGTH + 1);
+<span class="fc bfc" id="L457" title="All 2 branches covered.">            for (int i = 0; i &lt; paramLength; i++) {</span>
+<span class="fc bfc" id="L458" title="All 2 branches covered.">                if (RandomUtils.nextFloat(0, 1) &lt; ESCAPED_CHAR_P) {</span>
+<span class="fc" id="L459">                    buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));</span>
+                } else {
+<span class="fc" id="L461">                    buffer.append(RandomStringUtils.random(1, UNESCAPED_PATH_C));</span>
+                }
+            }
+        }
+<span class="fc" id="L465">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random absolute path.
+     * 
+     * @return The absolute path
+     */
+    public static @NotNull String randomAbsolutePath() {
+<span class="fc" id="L474">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L475">        buffer.append(ABSOLUTE_PATH_PREFIX);</span>
+<span class="fc" id="L476">        final int length = RandomUtils.nextInt(</span>
+                PATH_SEGMENTS_MIN_SEGMENTS,
+                PATH_SEGMENTS_MAX_SEGMENTS + 1);
+<span class="fc bfc" id="L479" title="All 2 branches covered.">        if (length &gt; 0) {</span>
+<span class="fc" id="L480">            buffer.append(randomPathSegment());</span>
+<span class="fc bfc" id="L481" title="All 2 branches covered.">            for (int i = 1; i &lt; length; i++) {</span>
+<span class="fc" id="L482">                buffer.append(PATH_SEGMENTS_SEPARATOR).append(randomPathSegment());</span>
+            }
+        }
+<span class="fc" id="L485">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random relative path.
+     * 
+     * @return The relative path
+     */
+    public static @NotNull String randomRelativePath() {
+<span class="fc" id="L494">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L495">        final int length = RandomUtils.nextInt(</span>
+                RELATIVE_SEGMENT_MIN_LENGTH,
+                RELATIVE_SEGMENT_MAX_LENGTH + 1);
+<span class="fc bfc" id="L498" title="All 2 branches covered.">        for (int i = 0; i &lt; length; i++) {</span>
+<span class="fc bfc" id="L499" title="All 2 branches covered.">            if (RandomUtils.nextFloat(0, 1) &lt; ESCAPED_CHAR_P) {</span>
+<span class="fc" id="L500">                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));</span>
+            } else {
+<span class="fc" id="L502">                buffer.append(RandomStringUtils.random(1, UNESCAPED_RELATIVE_SEGMENT_C));</span>
+            }
+        }
+<span class="fc bfc" id="L505" title="All 2 branches covered.">        if (RandomUtils.nextFloat(0, 1) &lt; RELATIVE_PATH_ABSOLUTE_PATH_P) {</span>
+<span class="fc" id="L506">            buffer.append(randomAbsolutePath());</span>
+        }
+<span class="fc" id="L508">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random path part of an URI.
+     * The path can be relative or absolute.
+     * 
+     * @return The path part
+     */
+    public static @NotNull String randomPath() {
+<span class="nc bnc" id="L518" title="All 2 branches missed.">        if (RandomUtils.nextFloat(0, 1) &lt; PATH_ABSOLUTE_P) {</span>
+<span class="nc" id="L519">            return randomAbsolutePath();</span>
+        } else {
+<span class="nc" id="L521">            return randomRelativePath();</span>
+        }
+    }
+
+    /**
+     * Returns a random query part of an URI.
+     * 
+     * @return The query part
+     */
+    public static @NotNull String randomQuery() {
+<span class="fc" id="L531">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L532">        final int length = RandomUtils.nextInt(</span>
+                QUERY_MIN_LENGTH,
+                QUERY_MAX_LENGTH + 1);
+<span class="fc bfc" id="L535" title="All 2 branches covered.">        for (int i = 0; i &lt; length; i++) {</span>
+<span class="fc bfc" id="L536" title="All 2 branches covered.">            if (RandomUtils.nextFloat(0, 1) &lt; ESCAPED_CHAR_P) {</span>
+<span class="fc" id="L537">                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));</span>
+            } else {
+<span class="fc" id="L539">                buffer.append(RandomStringUtils.random(1, UNESCAPED_URIC));</span>
+            }
+        }
+<span class="fc" id="L542">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random optional query part of an URI.
+     * 
+     * @return The query part, or {@code null}
+     */
+    public static String randomOptionalQuery() {
+<span class="fc bfc" id="L551" title="All 2 branches covered.">        if (RandomUtils.nextFloat(0, 1) &lt; QUERY_P) {</span>
+<span class="fc" id="L552">            return randomQuery();</span>
+        } else {
+<span class="fc" id="L554">            return null;</span>
+        }
+    }
+
+    /**
+     * Returns a random fragment part of an URI.
+     * 
+     * @return The fragment part
+     */
+    public static @NotNull String randomFragment() {
+<span class="fc" id="L564">        final StringBuilder buffer = new StringBuilder();</span>
+<span class="fc" id="L565">        final int length = RandomUtils.nextInt(</span>
+                FRAGMENT_MIN_LENGTH,
+                FRAGMENT_MAX_LENGTH + 1);
+<span class="fc bfc" id="L568" title="All 2 branches covered.">        for (int i = 0; i &lt; length; i++) {</span>
+<span class="fc bfc" id="L569" title="All 2 branches covered.">            if (RandomUtils.nextFloat(0, 1) &lt; ESCAPED_CHAR_P) {</span>
+<span class="fc" id="L570">                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));</span>
+            } else {
+<span class="fc" id="L572">                buffer.append(RandomStringUtils.random(1, UNESCAPED_URIC));</span>
+            }
+        }
+<span class="fc" id="L575">        return buffer.toString();</span>
+    }
+
+    /**
+     * Returns a random optional fragment part of an URI.
+     * 
+     * @return The fragment part, or {@code null}
+     */
+    public static String randomOptionalFragment() {
+<span class="fc bfc" id="L584" title="All 2 branches covered.">        if (RandomUtils.nextFloat(0, 1) &lt; FRAGMENT_P) {</span>
+<span class="fc" id="L585">            return randomFragment();</span>
+        } else {
+<span class="fc" id="L587">            return null;</span>
+        }
+    }
+
+    /**
+     * Returns a random absolute URI.
+     * 
+     * @return The absolute URI
+     */
+    public static @NotNull URI randomRelativeURI() {
+        final String path;
+<span class="fc bfc" id="L598" title="All 2 branches covered.">        if (RandomUtils.nextFloat(0, 1) &lt; PATH_ABSOLUTE_P) {</span>
+<span class="fc" id="L599">            path = randomAbsolutePath();</span>
+        } else {
+<span class="fc" id="L601">            path = randomRelativePath();</span>
+        }
+        try {
+<span class="fc" id="L604">            return new URI(</span>
+                    null,
+                    null,
+                    path,
+<span class="fc" id="L608">                    randomOptionalQuery(),</span>
+<span class="fc" id="L609">                    randomOptionalFragment());</span>
+<span class="nc" id="L610">        } catch (final URISyntaxException e) {</span>
+<span class="nc" id="L611">            throw new GenerationException(&quot;Error generating URI&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Returns a random absolute URI.
+     * 
+     * @return The absolute URI
+     */
+    public static @NotNull URI randomAbsoluteURI() {
+        try {
+<span class="fc" id="L622">            return new URI(</span>
+<span class="fc" id="L623">                    randomScheme(),</span>
+<span class="fc" id="L624">                    randomAuthority(),</span>
+<span class="fc" id="L625">                    randomAbsolutePath(),</span>
+<span class="fc" id="L626">                    randomOptionalQuery(),</span>
+<span class="fc" id="L627">                    randomOptionalFragment());</span>
+<span class="nc" id="L628">        } catch (final URISyntaxException e) {</span>
+<span class="nc" id="L629">            throw new GenerationException(&quot;Error generating URI&quot;, e);</span>
+        }
+    }
+
+    /**
+     * Returns a random URI (absolute or not).
+     * 
+     * @return The URI
+     */
+    public static @NotNull URI randomURI() {
+<span class="fc bfc" id="L639" title="All 2 branches covered.">        if (RandomUtils.nextFloat(0, 1) &lt; PATH_ABSOLUTE_P) {</span>
+<span class="fc" id="L640">            return randomAbsoluteURI();</span>
+        } else {
+<span class="fc" id="L642">            return randomRelativeURI();</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

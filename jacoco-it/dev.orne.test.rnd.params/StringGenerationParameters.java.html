@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StringGenerationParameters.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">StringGenerationParameters.java</span></div><h1>StringGenerationParameters.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2022 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+/**
+ * Parameters for random {@code String} generation.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2022-11
+ * @since 0.1
+ */
+@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+public class StringGenerationParameters
+extends NullableParametersImpl
+implements SizeParameters {
+
+    /** The minimum size. */
+<span class="pc" id="L45">    private int minSize = SizeParameters.DEFAULT_MIN_SIZE;</span>
+    /** The maximum size. */
+<span class="pc" id="L47">    private int maxSize = SizeParameters.DEFAULT_MAX_SIZE;</span>
+
+    /**
+     * Creates a new instance.
+     */
+    public StringGenerationParameters() {
+<span class="fc" id="L53">        super();</span>
+<span class="fc" id="L54">    }</span>
+
+    /**
+     * Copy constructor.
+     * 
+     * @param copy The instance to copy.
+     */
+    public StringGenerationParameters(
+            final @NotNull GenerationParameters copy) {
+<span class="nc" id="L63">        super(copy);</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (copy instanceof SizeParameters) {</span>
+<span class="nc" id="L65">            this.minSize = ((SizeParameters) copy).getMinSize();</span>
+<span class="nc" id="L66">            this.maxSize = ((SizeParameters) copy).getMaxSize();</span>
+        }
+<span class="nc" id="L68">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull StringGenerationParameters withNullable(
+            final boolean nullable) {
+<span class="nc" id="L76">        setNullable(nullable);</span>
+<span class="nc" id="L77">        return this;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getMinSize() {
+<span class="fc" id="L85">        return this.minSize;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setMinSize(
+            final int value) {
+<span class="fc" id="L94">        this.minSize = value;</span>
+<span class="fc" id="L95">    }</span>
+
+    /**
+     * Sets the minimum size.
+     * 
+     * @param value The minimum size.
+     * @return This instance, for method chaining.
+     */
+    public @NotNull StringGenerationParameters withMinSize(
+            final int value) {
+<span class="nc" id="L105">        setMinSize(value);</span>
+<span class="nc" id="L106">        return this;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getMaxSize() {
+<span class="fc" id="L114">        return this.maxSize;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setMaxSize(
+            final int value) {
+<span class="fc" id="L123">        this.maxSize = value;</span>
+<span class="fc" id="L124">    }</span>
+
+    /**
+     * Sets the maximum size.
+     * 
+     * @param value The maximum size.
+     * @return This instance, for method chaining.
+     */
+    public @NotNull StringGenerationParameters withMaxSize(
+            final int value) {
+<span class="nc" id="L134">        setMaxSize(value);</span>
+<span class="nc" id="L135">        return this;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L143">        return new HashCodeBuilder()</span>
+<span class="nc" id="L144">                .appendSuper(super.hashCode())</span>
+<span class="nc" id="L145">                .append(this.minSize)</span>
+<span class="nc" id="L146">                .append(this.maxSize)</span>
+<span class="nc" id="L147">                .toHashCode();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(
+            final Object obj) {
+<span class="nc bnc" id="L156" title="All 2 branches missed.">        if (obj == null) { return false; }</span>
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if (obj == this) { return true; }</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">        if (obj.getClass() != getClass()) { return false; }</span>
+<span class="nc" id="L159">        final StringGenerationParameters other = (StringGenerationParameters) obj;</span>
+<span class="nc" id="L160">        return new EqualsBuilder()</span>
+<span class="nc" id="L161">                .appendSuper(super.equals(obj))</span>
+<span class="nc" id="L162">                .append(this.minSize, other.minSize)</span>
+<span class="nc" id="L163">                .append(this.maxSize, other.maxSize)</span>
+<span class="nc" id="L164">                .build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

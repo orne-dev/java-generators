@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ParametersExtractors.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">ParametersExtractors.java</span></div><h1>ParametersExtractors.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2022 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.ServiceLoader;
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.Validate;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+import dev.orne.test.rnd.Generators;
+
+/**
+ * Registry of generation parameters source extractors.
+ * &lt;p&gt;
+ * Registers extractors declared in
+ * {@code /META-INF/services/dev.orne.test.rnd.params.ParametersSourceExtractor}
+ * SPI files in the class path.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2022-11
+ * @since 0.1
+ */
+@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+public final class ParametersExtractors {
+
+    /**
+     * The parameter source extractors comparator by priority.
+     */
+    @SuppressWarnings(&quot;rawtypes&quot;)
+<span class="fc" id="L62">    public static final Comparator&lt;ParametersSourceExtractor&gt; COMPARATOR =</span>
+<span class="fc" id="L63">            Collections.reverseOrder(Comparator.comparingInt(ParametersSourceExtractor::getPriority));</span>
+    /**
+     * The default parameters source extractors filter.
+     * &lt;p&gt;
+     * Default filter returns all the registered generation parameters source
+     * extractors that accept parameters of the specified type
+     */
+<span class="fc" id="L70">    public static final SourceExtractorFilter DEFAULT_FILTER =</span>
+            ParametersExtractors::filterSourceExtractors;
+    /**
+     * The default parameters extractor builder.
+     * &lt;p&gt;
+     * Default builder creates a instance of {@code DefaultParametersExtractor}.
+     * 
+     * @see DefaultParametersExtractor
+     */
+<span class="fc" id="L79">    public static final ExtractorBuilder DEFAULT_BUILDER =</span>
+            DefaultParametersExtractor::new;
+
+    /** The parameter extractors cache by parameters type. */
+<span class="fc" id="L83">    private static final Map&lt;Class&lt;?&gt;, ParametersExtractor&lt;?&gt;&gt; CACHE =</span>
+            new HashMap&lt;&gt;();
+    /** The registered generation parameters source extractors. */
+    private static List&lt;ParametersSourceExtractor&lt;?, ?&gt;&gt; registeredSourceExtractors;
+    /** The generation parameters source extractors filter. */
+<span class="fc" id="L88">    private static SourceExtractorFilter filter = DEFAULT_FILTER;</span>
+    /** The parameters extractor builder. */
+<span class="fc" id="L90">    private static ExtractorBuilder builder = DEFAULT_BUILDER;</span>
+
+    /**
+     * Private constructor.
+     */
+    private ParametersExtractors() {
+        // Utility class
+    }
+
+    /**
+     * Returns an unmodifiable list with the registered parameter source
+     * extractors.
+     * 
+     * @return The registered parameter source extractors
+     */
+    @SuppressWarnings(&quot;java:S1452&quot;)
+    public static @NotNull List&lt;ParametersSourceExtractor&lt;?, ?&gt;&gt; getRegisteredSourceExtractors() {
+<span class="fc" id="L107">        return Collections.unmodifiableList(getSourceExtractorsInt());</span>
+    }
+
+    /**
+     * Adds the specified parameter source extractors to the registered
+     * extractors.
+     * 
+     * @param extractors The parameter source extractors to register
+     */
+    public static void register(
+            final @NotNull ParametersSourceExtractor&lt;?, ?&gt;... extractors) {
+<span class="fc" id="L118">        Validate.notNull(extractors);</span>
+<span class="fc" id="L119">        register(Arrays.asList(extractors));</span>
+<span class="fc" id="L120">    }</span>
+
+    /**
+     * Adds the specified parameter source extractors to the registered
+     * extractors.
+     * 
+     * @param extractors The parameter source extractors to register
+     */
+    public static void register(
+            final @NotNull Collection&lt;ParametersSourceExtractor&lt;?, ?&gt;&gt; extractors) {
+<span class="fc" id="L130">        Validate.notNull(extractors);</span>
+<span class="fc" id="L131">        Validate.noNullElements(extractors);</span>
+<span class="fc" id="L132">        synchronized (Generators.class) {</span>
+<span class="fc" id="L133">            final List&lt;ParametersSourceExtractor&lt;?, ?&gt;&gt; intList = getSourceExtractorsInt();</span>
+<span class="fc" id="L134">            intList.addAll(extractors);</span>
+<span class="fc" id="L135">            Collections.sort(intList, COMPARATOR);</span>
+<span class="fc" id="L136">            CACHE.clear();</span>
+<span class="fc" id="L137">        }</span>
+<span class="fc" id="L138">    }</span>
+
+    /**
+     * Removes the specified parameter source extractors from the registered
+     * extractors.
+     * 
+     * @param extractors The parameter source extractors to remove
+     */
+    public static void remove(
+            final @NotNull ParametersSourceExtractor&lt;?, ?&gt;... extractors) {
+<span class="fc" id="L148">        Validate.notNull(extractors);</span>
+<span class="fc" id="L149">        remove(Arrays.asList(extractors));</span>
+<span class="fc" id="L150">    }</span>
+
+    /**
+     * Removes the specified parameter source extractors from the registered
+     * extractors.
+     * 
+     * @param extractors The parameter source extractors to remove
+     */
+    public static void remove(
+            final @NotNull Collection&lt;ParametersSourceExtractor&lt;?, ?&gt;&gt; extractors) {
+<span class="fc" id="L160">        Validate.notNull(extractors);</span>
+<span class="fc" id="L161">        Validate.noNullElements(extractors);</span>
+<span class="fc" id="L162">        synchronized (Generators.class) {</span>
+<span class="fc" id="L163">            final List&lt;ParametersSourceExtractor&lt;?, ?&gt;&gt; intList = getSourceExtractorsInt();</span>
+<span class="fc" id="L164">            intList.removeAll(extractors);</span>
+<span class="fc" id="L165">            Collections.sort(intList, COMPARATOR);</span>
+<span class="fc" id="L166">            CACHE.clear();</span>
+<span class="fc" id="L167">        }</span>
+<span class="fc" id="L168">    }</span>
+
+    /**
+     * Resets the loaded and cached extractors. Next call will regenerate the
+     * parameter source extractors list (including SPI extractor) and restart
+     * parameter extractors caching.
+     */
+    public static void reset() {
+<span class="fc" id="L176">        synchronized (Generators.class) {</span>
+<span class="fc" id="L177">            registeredSourceExtractors = null;</span>
+<span class="fc" id="L178">            CACHE.clear();</span>
+<span class="fc" id="L179">        }</span>
+<span class="fc" id="L180">    }</span>
+
+    /**
+     * Returns a generation parameters extractor for the specified parameters
+     * type.
+     * &lt;p&gt;
+     * The extractor will contain all parameter source extractors suitable for
+     * the given parameters type.
+     * 
+     * @param &lt;P&gt; The target parameters type
+     * @param parametersType The target parameters type
+     * @return The parameters extractor for the target parameters type
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public static &lt;P&gt; dev.orne.test.rnd.params.ParametersExtractor&lt;P&gt; getExtractor(
+            final @NotNull Class&lt;P&gt; parametersType) {
+<span class="fc" id="L196">        return (ParametersExtractor&lt;P&gt;) CACHE.computeIfAbsent(</span>
+                parametersType,
+                ParametersExtractors::createExtractor);
+    }
+
+    /**
+     * Returns the generation parameters source extractors filter.
+     * 
+     * @return The generation parameters source extractors filter
+     */
+    public static @NotNull SourceExtractorFilter getFilter() {
+<span class="fc" id="L207">        return ParametersExtractors.filter;</span>
+    }
+
+    /**
+     * Sets the generation parameters source extractors filter.
+     * 
+     * @param filter The generation parameters source extractors filter
+     */
+    public static void setFilter(
+            final @NotNull SourceExtractorFilter filter) {
+<span class="fc" id="L217">        ParametersExtractors.filter = Validate.notNull(filter);</span>
+<span class="fc" id="L218">        reset();</span>
+<span class="fc" id="L219">    }</span>
+
+    /**
+     * Returns the parameters extractor builder.
+     * 
+     * @return The parameters extractor builder
+     */
+    public static @NotNull ExtractorBuilder getBuilder() {
+<span class="fc" id="L227">        return ParametersExtractors.builder;</span>
+    }
+
+    /**
+     * Sets the parameters extractor builder.
+     * 
+     * @param builder The parameters extractor builder
+     */
+    public static void setBuilder(
+            final @NotNull ExtractorBuilder builder) {
+<span class="fc" id="L237">        ParametersExtractors.builder = Validate.notNull(builder);</span>
+<span class="fc" id="L238">        reset();</span>
+<span class="fc" id="L239">    }</span>
+
+    /**
+     * Creates a new parameter extractors with all the parameter source
+     * extractors suitable for the given parameters type.
+     * 
+     * @param &lt;P&gt; The target parameters type
+     * @param parametersType The target parameters type
+     * @return The parameters extractor for the target parameters type
+     */
+    static &lt;P&gt; dev.orne.test.rnd.params.ParametersExtractor&lt;P&gt; createExtractor(
+            final @NotNull Class&lt;P&gt; parametersType) {
+<span class="fc" id="L251">        final List&lt;ParametersSourceExtractor&lt;? super P, ?&gt;&gt; extractors =</span>
+<span class="fc" id="L252">                filter.findSuitable(</span>
+<span class="fc" id="L253">                        getRegisteredSourceExtractors(),</span>
+                        parametersType);
+<span class="fc" id="L255">        return builder.create(extractors);</span>
+    }
+
+    /**
+     * Returns all the registered generation parameters source extractors that
+     * accept parameters of the specified type.
+     * 
+     * @param &lt;P&gt; The target parameter type
+     * @param extractors The registered source extractors, in priority order
+     * @param parametersType The target parameter type
+     * @return The source extractors that accept the specified parameters typet,
+     * in priority order
+     */
+    @SuppressWarnings(&quot;java:S1452&quot;)
+    static &lt;P&gt; @NotNull List&lt;ParametersSourceExtractor&lt;? super P, ?&gt;&gt; filterSourceExtractors(
+            final @NotNull List&lt;ParametersSourceExtractor&lt;?, ?&gt;&gt; extractors,
+            final @NotNull Class&lt;P&gt; parametersType) {
+<span class="fc" id="L272">        final List&lt;ParametersSourceExtractor&lt;? super P, ?&gt;&gt; result =</span>
+                new ArrayList&lt;&gt;();
+<span class="fc bfc" id="L274" title="All 2 branches covered.">        for (final ParametersSourceExtractor&lt;?, ?&gt; sourceExtractor : extractors) {</span>
+<span class="fc bfc" id="L275" title="All 2 branches covered.">            if (sourceExtractor.getParametersType().isAssignableFrom(parametersType)) {</span>
+                @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L277">                final ParametersSourceExtractor&lt;? super P, ?&gt; tExtractor =</span>
+                        (ParametersSourceExtractor&lt;? super P, ?&gt;) sourceExtractor;
+<span class="fc" id="L279">                result.add(tExtractor);</span>
+            }
+<span class="fc" id="L281">        }</span>
+<span class="fc" id="L282">        return result;</span>
+    }
+
+    /**
+     * Returns a modifiable list with the registered parameter source
+     * extractors.
+     * If extractors has not been loaded loads the default extractors,
+     * including extractors registered through SPI.
+     * 
+     * @return The registered parameter source extractors
+     */
+    @SuppressWarnings(&quot;java:S1452&quot;)
+    static @NotNull List&lt;ParametersSourceExtractor&lt;?, ?&gt;&gt; getSourceExtractorsInt() {
+<span class="fc" id="L295">        synchronized (ParametersExtractors.class) {</span>
+<span class="fc bfc" id="L296" title="All 2 branches covered.">            if (registeredSourceExtractors == null) {</span>
+<span class="fc" id="L297">                registeredSourceExtractors = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L298">                registeredSourceExtractors.addAll(loadSpiExtractors());</span>
+<span class="fc" id="L299">                Collections.sort(registeredSourceExtractors, COMPARATOR);</span>
+            }
+<span class="fc" id="L301">            return registeredSourceExtractors;</span>
+        }
+    }
+
+    /**
+     * Returns the internal by type parameters extractor cache.
+     * 
+     * @return The internal by type parameters extractor cache
+     */
+    @SuppressWarnings(&quot;java:S1452&quot;)
+    static @NotNull Map&lt;Class&lt;?&gt;, ParametersExtractor&lt;?&gt;&gt; getCacheInt() {
+<span class="fc" id="L312">        return CACHE;</span>
+    }
+
+    /**
+     * Loads the parameter source extractors declared through SPI for interface
+     * {@code dev.orne.test.rnd.ParametersSourceExtractor}
+     * 
+     * @return The SPI declared parameter source extractors
+     * @see ServiceLoader
+     */
+    @SuppressWarnings({ &quot;rawtypes&quot;, &quot;java:S1452&quot; })
+    static @NotNull List&lt;ParametersSourceExtractor&lt;?, ?&gt;&gt; loadSpiExtractors() {
+<span class="fc" id="L324">        final List&lt;ParametersSourceExtractor&lt;?, ?&gt;&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L325">        final ServiceLoader&lt;ParametersSourceExtractor&gt; loader =</span>
+<span class="fc" id="L326">                ServiceLoader.load(ParametersSourceExtractor.class);</span>
+<span class="fc" id="L327">        final Iterator&lt;ParametersSourceExtractor&gt; it = loader.iterator();</span>
+<span class="fc bfc" id="L328" title="All 2 branches covered.">        while (it.hasNext()) {</span>
+<span class="fc" id="L329">            final ParametersSourceExtractor&lt;?, ?&gt; generator = it.next();</span>
+<span class="fc" id="L330">            result.add(generator);</span>
+<span class="fc" id="L331">        }</span>
+<span class="fc" id="L332">        return result;</span>
+    }
+
+    /**
+     * Functional interface for generation parameters source extractors filter.
+     * 
+     * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+     * @version 1.0, 2022-11
+     * @since ParametersExtractors 1.0
+     */
+    @FunctionalInterface
+    public interface SourceExtractorFilter {
+
+        /**
+         * Returns the generation parameters source extractors to be used when
+         * extracting parameters of the specified type.
+         * 
+         * @param &lt;P&gt; The target parameter type
+         * @param extractors The registered source extractors, in priority order
+         * @param parametersType The target parameter type
+         * @return The source extractors to use, in priority order
+         */
+        @SuppressWarnings(&quot;java:S1452&quot;)
+        &lt;P&gt; @NotNull List&lt;ParametersSourceExtractor&lt;? super P, ?&gt;&gt; findSuitable(
+                @NotNull List&lt;ParametersSourceExtractor&lt;?, ?&gt;&gt; extractors,
+                @NotNull Class&lt;P&gt; parametersType);
+    }
+
+    /**
+     * Functional interface for parameters extractor builder.
+     * 
+     * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+     * @version 1.0, 2022-11
+     * @since ParametersExtractors 1.0
+     */
+    @FunctionalInterface
+    public interface ExtractorBuilder {
+
+        /**
+         * Creates a new parameters extractor from the specified suitable
+         * parameter source extractors.
+         * 
+         * @param &lt;P&gt; The parameters type
+         * @param sourceExtractors The suitable parameter source extractors,
+         * in priority order
+         * @return The created parameters extractor
+         */
+        &lt;P&gt; dev.orne.test.rnd.params.ParametersExtractor&lt;P&gt; create(
+                @NotNull Collection&lt;ParametersSourceExtractor&lt;? super P, ?&gt;&gt; sourceExtractors);
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

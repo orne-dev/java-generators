@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractTargetedGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">AbstractTargetedGenerator.java</span></div><h1>AbstractTargetedGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2022 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+import dev.orne.test.rnd.Generator;
+import dev.orne.test.rnd.Generators;
+
+/**
+ * Abstract implementation of {@code TargetedGenerator}.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2022-11
+ * @param &lt;T&gt; The type of generated values
+ * @since 0.1
+ */
+@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+public abstract class AbstractTargetedGenerator&lt;T&gt;
+implements TargetedGenerator&lt;T&gt; {
+
+    /** The type of generated values. */
+    private final @NotNull Class&lt;T&gt; valueType;
+    /** The generator for the type of the target. */
+    private final @NotNull Generator generator;
+
+    /**
+     * Creates a new instance.
+     * 
+     * @param valueType The type of generated values.
+     */
+    protected AbstractTargetedGenerator(
+            final @NotNull Class&lt;T&gt; valueType) {
+<span class="fc" id="L66">        this(valueType, Generators.getGenerator(valueType));</span>
+<span class="fc" id="L67">    }</span>
+
+    /**
+     * Creates a new instance.
+     * 
+     * @param valueType The type of generated values.
+     * @param generator The generator to use.
+     */
+    protected AbstractTargetedGenerator(
+            final @NotNull Class&lt;T&gt; valueType,
+            final @NotNull Generator generator) {
+<span class="fc" id="L78">        super();</span>
+<span class="fc" id="L79">        this.valueType = Validate.notNull(valueType);</span>
+<span class="fc" id="L80">        this.generator = Validate.notNull(generator);</span>
+<span class="fc" id="L81">        Validate.isTrue(generator.supports(valueType));</span>
+<span class="fc" id="L82">    }</span>
+
+    /**
+     * Returns the type of generated values.
+     * 
+     * @return The type of generated values.
+     */
+    public @NotNull Class&lt;T&gt; getValueType() {
+<span class="fc" id="L90">        return this.valueType;</span>
+    }
+
+    /**
+     * Returns the declared type of the target.
+     * 
+     * @return The declared type of the target.
+     */
+    public abstract Type getDeclaredType();
+
+    /**
+     * Returns the generator to use.
+     * 
+     * @return The generator to use.
+     */
+    protected @NotNull Generator getGenerator() {
+<span class="nc" id="L106">        return this.generator;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull T defaultValue(
+            final @NotNull Class&lt;?&gt;... groups) {
+        final T result;
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (this.generator instanceof ParameterizableGenerator) {</span>
+<span class="fc" id="L117">            result = ((ParameterizableGenerator) this.generator).defaultValue(</span>
+<span class="fc" id="L118">                    getValueType(),</span>
+<span class="fc" id="L119">                    getParameterSources(groups));</span>
+            
+        } else {
+<span class="nc" id="L122">            result = this.generator.defaultValue(getValueType());</span>
+        }
+<span class="fc" id="L124">        return result;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T nullableDefaultValue(
+            final @NotNull Class&lt;?&gt;... groups) {
+        final T result;
+<span class="fc bfc" id="L134" title="All 2 branches covered.">        if (this.generator instanceof ParameterizableGenerator) {</span>
+<span class="fc" id="L135">            result = ((ParameterizableGenerator) this.generator).nullableDefaultValue(</span>
+<span class="fc" id="L136">                    getValueType(),</span>
+<span class="fc" id="L137">                    getParameterSources(groups));</span>
+            
+        } else {
+<span class="fc" id="L140">            result = this.generator.nullableDefaultValue(getValueType());</span>
+        }
+<span class="fc" id="L142">        return result;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull T randomValue(
+            final @NotNull Class&lt;?&gt;... groups) {
+        final T result;
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">        if (this.generator instanceof ParameterizableGenerator) {</span>
+<span class="fc" id="L153">            result = ((ParameterizableGenerator) this.generator).randomValue(</span>
+<span class="fc" id="L154">                    getValueType(),</span>
+<span class="fc" id="L155">                    getParameterSources(groups));</span>
+            
+        } else {
+<span class="nc" id="L158">            result = this.generator.randomValue(getValueType());</span>
+        }
+<span class="fc" id="L160">        return result;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T nullableRandomValue(
+            final @NotNull Class&lt;?&gt;... groups) {
+        final T result;
+<span class="fc bfc" id="L170" title="All 2 branches covered.">        if (this.generator instanceof ParameterizableGenerator) {</span>
+<span class="fc" id="L171">            result = ((ParameterizableGenerator) this.generator).nullableRandomValue(</span>
+<span class="fc" id="L172">                    getValueType(),</span>
+<span class="fc" id="L173">                    getParameterSources(groups));</span>
+            
+        } else {
+<span class="fc" id="L176">            result = this.generator.nullableRandomValue(getValueType());</span>
+        }
+<span class="fc" id="L178">        return result;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull Object[] getParameterSources(
+            @NotNull Class&lt;?&gt;... groups) {
+<span class="fc" id="L187">        final List&lt;Object&gt; list = getParameterSourceList(groups);</span>
+<span class="fc" id="L188">        return list.toArray(new Object[list.size()]);</span>
+    }
+
+    /**
+     * Returns the generation parameter sources to be used.
+     * &lt;p&gt;
+     * The specified validation groups will be used to retrieve the constraints
+     * to use as sources.
+     * 
+     * @param groups The validation groups .
+     * @return The generation parameter sources
+     */
+    protected @NotNull List&lt;Object&gt; getParameterSourceList(
+            @NotNull Class&lt;?&gt;... groups) {
+<span class="fc" id="L202">        final List&lt;Object&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L203">        final Type declaredType = getDeclaredType();</span>
+<span class="pc bpc" id="L204" title="1 of 2 branches missed.">        if (declaredType != null) {</span>
+<span class="fc" id="L205">            result.add(new TypeDeclaration(declaredType));</span>
+        }
+<span class="fc" id="L207">        result.addAll(getTargetConstraints(groups));</span>
+<span class="fc" id="L208">        return result;</span>
+    }
+
+    /**
+     * Returns the constraints of the target for the specified validation
+     * groups.
+     * 
+     * @param groups The validation groups to use when extracting the
+     * constraints of the target
+     * @return The constraints of the target
+     */
+    protected abstract @NotNull Collection&lt;Annotation&gt; getTargetConstraints(
+            @NotNull Class&lt;?&gt;... groups);
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L227">        return new HashCodeBuilder()</span>
+<span class="nc" id="L228">                .append(getClass())</span>
+<span class="nc" id="L229">                .append(this.valueType)</span>
+<span class="nc" id="L230">                .append(this.generator)</span>
+<span class="nc" id="L231">                .build();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+<span class="nc bnc" id="L239" title="All 2 branches missed.">        if (obj == null) { return false; }</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">        if (obj == this) { return true; }</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">        if (obj.getClass() != getClass()) { return false; }</span>
+<span class="nc" id="L242">        final AbstractTargetedGenerator&lt;?&gt; other = (AbstractTargetedGenerator&lt;?&gt;) obj;</span>
+<span class="nc" id="L243">        return new EqualsBuilder()</span>
+<span class="nc" id="L244">                .append(this.valueType, other.valueType)</span>
+<span class="nc" id="L245">                .append(this.generator, other.generator)</span>
+<span class="nc" id="L246">                .build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConstructorParameterTypeGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">ConstructorParameterTypeGenerator.java</span></div><h1>ConstructorParameterTypeGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2021 - 2022 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Type;
+import java.util.Collection;
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+import dev.orne.test.rnd.GenerationException;
+import dev.orne.test.rnd.Generator;
+
+/**
+ * Implementation of {@code TargetedGenerator} that generates random values
+ * of the target constructor parameter type.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2022-11
+ * @param &lt;T&gt; The type of generated values
+ * @since 0.1
+ */
+@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+public class ConstructorParameterTypeGenerator&lt;T&gt;
+extends AbstractTargetedGenerator&lt;T&gt; {
+
+    /** The target constructor. */
+    private final @NotNull Constructor&lt;?&gt; constructor;
+    /** The target constructor parameter index. */
+    private final int parameterIndex;
+
+    /**
+     * Creates a new instance.
+     * 
+     * @param valueType The type of generated values.
+     * @param constructor The target constructor
+     * @param parameterIndex The target constructor parameter index.
+     */
+    protected ConstructorParameterTypeGenerator(
+            @NotNull Class&lt;T&gt; valueType,
+            @NotNull Constructor&lt;?&gt; constructor,
+            int parameterIndex) {
+<span class="fc" id="L70">        super(valueType);</span>
+<span class="fc" id="L71">        this.constructor = Validate.notNull(constructor);</span>
+<span class="fc" id="L72">        this.parameterIndex = parameterIndex;</span>
+<span class="fc" id="L73">        Validate.validIndex(constructor.getParameterTypes(), parameterIndex);</span>
+<span class="fc" id="L74">    }</span>
+
+    /**
+     * Creates a new instance.
+     * 
+     * @param valueType The type of generated values.
+     * @param constructor The target constructor
+     * @param parameterIndex The target constructor parameter index.
+     * @param generator The generator to use.
+     */
+    protected ConstructorParameterTypeGenerator(
+            @NotNull Class&lt;T&gt; valueType,
+            @NotNull Constructor&lt;?&gt; constructor,
+            int parameterIndex,
+            @NotNull Generator generator) {
+<span class="nc" id="L89">        super(valueType, generator);</span>
+<span class="nc" id="L90">        this.constructor = Validate.notNull(constructor);</span>
+<span class="nc" id="L91">        this.parameterIndex = parameterIndex;</span>
+<span class="nc" id="L92">        Validate.validIndex(constructor.getParameterTypes(), parameterIndex);</span>
+<span class="nc" id="L93">    }</span>
+
+    /**
+     * Creates a new generator targeting the specified constructor parameter
+     * type.
+     * 
+     * @param &lt;T&gt; The type of generated values.
+     * @param constructor The target constructor
+     * @param parameterIndex The target constructor parameter index.
+     * @return The created generator.
+     */
+    public static &lt;T&gt; dev.orne.test.rnd.params.ConstructorParameterTypeGenerator&lt;T&gt; targeting(
+            final @NotNull Constructor&lt;?&gt; constructor,
+            final int parameterIndex) {
+<span class="fc" id="L107">        Validate.notNull(constructor);</span>
+<span class="fc" id="L108">        Validate.validIndex(constructor.getParameterTypes(), parameterIndex);</span>
+        @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L110">        final Class&lt;T&gt; targetType = (Class&lt;T&gt;) constructor.getParameterTypes()[parameterIndex];</span>
+<span class="fc" id="L111">        return new ConstructorParameterTypeGenerator&lt;&gt;(targetType, constructor, parameterIndex);</span>
+    }
+
+    /**
+     * Creates a new generator targeting the specified constructor parameter
+     * type.
+     * 
+     * @param &lt;T&gt; The type of generated values.
+     * @param cls The class containing the constructor.
+     * @param parameterIndex The target parameter index.
+     * @param parameterTypes The method parameter types.
+     * @return The created generator.
+     */
+    public static &lt;T&gt; dev.orne.test.rnd.params.ConstructorParameterTypeGenerator&lt;T&gt; targeting(
+            final @NotNull Class&lt;?&gt; cls,
+            final int parameterIndex,
+            final @NotNull Class&lt;?&gt;... parameterTypes) {
+<span class="fc" id="L128">        Validate.notNull(cls);</span>
+        Constructor&lt;?&gt; ctr;
+        try {
+<span class="fc" id="L131">            ctr = cls.getConstructor(parameterTypes);</span>
+<span class="nc" id="L132">        } catch (NoSuchMethodException e) {</span>
+<span class="nc" id="L133">            throw new GenerationException(&quot;Target constructor not found&quot;);</span>
+<span class="fc" id="L134">        }</span>
+<span class="fc" id="L135">        return targeting(ctr, parameterIndex);</span>
+    }
+
+    /**
+     * Returns the target constructor.
+     * 
+     * @return The target constructor.
+     */
+    @SuppressWarnings(&quot;java:S1452&quot;)
+    public @NotNull Constructor&lt;?&gt; getConstructor() {
+<span class="nc" id="L145">        return this.constructor;</span>
+    }
+
+    /**
+     * Returns the target constructor parameter index.
+     * 
+     * @return The target constructor parameter index.
+     */
+    public int getParameterIndex() {
+<span class="nc" id="L154">        return this.parameterIndex;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Type getDeclaredType() {
+<span class="fc" id="L162">        return this.constructor.getGenericParameterTypes()[this.parameterIndex];</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected @NotNull Collection&lt;Annotation&gt; getTargetConstraints(
+            final @NotNull Class&lt;?&gt;... groups) {
+<span class="fc" id="L171">        return ConstraintIntrospector.findConstructorParameterConstrains(</span>
+                this.constructor,
+                this.parameterIndex,
+                groups);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L182">        return new HashCodeBuilder()</span>
+<span class="nc" id="L183">                .appendSuper(super.hashCode())</span>
+<span class="nc" id="L184">                .append(this.constructor)</span>
+<span class="nc" id="L185">                .append(this.parameterIndex)</span>
+<span class="nc" id="L186">                .build();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+<span class="nc bnc" id="L194" title="All 2 branches missed.">        if (obj == null) { return false; }</span>
+<span class="nc bnc" id="L195" title="All 2 branches missed.">        if (obj == this) { return true; }</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">        if (obj.getClass() != getClass()) { return false; }</span>
+<span class="nc" id="L197">        final ConstructorParameterTypeGenerator&lt;?&gt; other = (ConstructorParameterTypeGenerator&lt;?&gt;) obj;</span>
+<span class="nc" id="L198">        return new EqualsBuilder()</span>
+<span class="nc" id="L199">                .appendSuper(super.equals(obj))</span>
+<span class="nc" id="L200">                .append(this.constructor, other.constructor)</span>
+<span class="nc" id="L201">                .append(this.parameterIndex, other.parameterIndex)</span>
+<span class="nc" id="L202">                .build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

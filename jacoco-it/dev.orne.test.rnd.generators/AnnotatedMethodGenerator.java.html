@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AnnotatedMethodGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">AnnotatedMethodGenerator.java</span></div><h1>AnnotatedMethodGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2022 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.WeakHashMap;
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import dev.orne.test.rnd.Generator;
+import dev.orne.test.rnd.GeneratorMethod;
+import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.Priority;
+import dev.orne.test.rnd.UnsupportedValueTypeException;
+import dev.orne.test.rnd.params.ExecutableGenerator;
+
+/**
+ * Generator of beans annotated with {@code Currency}.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2022-12
+ * @since 0.1
+ */
+@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@Priority(Priority.ANNOTATION_GENERATORS)
+<span class="fc" id="L55">public class AnnotatedMethodGenerator</span>
+implements Generator {
+
+    /** The class logger. */
+<span class="fc" id="L59">    private static final Logger LOG = LoggerFactory.getLogger(AnnotatedMethodGenerator.class);</span>
+
+    /** Required modifiers for instance generation constructors. */
+    private static final int GENERATOR_CONSTRUCTOR_MODIFIERS =
+            Modifier.PUBLIC;
+    /** Required modifiers for instance generation methods. */
+    private static final int GENERATOR_METHOD_MODIFIERS =
+            Modifier.STATIC | Modifier.PUBLIC;
+    /** Informational message for misconfigured identity types. */
+    private static final String HELP_MISCONFIGURED =
+            &quot;Class '{}' generation is misconfigured.&quot;
+            + &quot; See GeneratorMethod javadoc for correct bean generation configuration.&quot;
+            + &quot; No further generation attempts will succed.&quot;;
+    /** Error message for wrong generation constructor modifiers. */
+    private static final String ERR_GENERATOR_CONSTRUCTOR_MODIFIERS =
+            &quot;Invalid modifiers in annotated class generation constructor '{}' for type '{}'.&quot;
+            + &quot; Method must be public.&quot;;
+    /** Error message for wrong generation method modifiers. */
+    private static final String ERR_GENERATOR_METHOD_MODIFIERS =
+            &quot;Invalid modifiers in annotated class generation method '{}' for type '{}'.&quot;
+            + &quot; Method must be public and static.&quot;;
+    /** Error message for wrong generation method return type. */
+    private static final String ERR_GENERATOR_METHOD_RETURN_TYPE =
+            &quot;Invalid return type in annotated class generation method '{}' for type '{}'.&quot;
+            + &quot; Method must return an instance of the class.&quot;;
+
+    /** The cache of discovered annotated generators. */
+<span class="fc" id="L86">    private final WeakHashMap&lt;Class&lt;?&gt;, Generator&gt; cache =</span>
+            new WeakHashMap&lt;&gt;();
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean supports(
+            final @NotNull Class&lt;?&gt; type) {
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        return getAnnotatedGenerator(type) != null;</span>
+    }
+
+    /**
+     * Verifies that the specified type is supported by this instance.
+     * If test fails throws an {@code IllegalArgumentException} exception
+     * as documented in {@link #defaultValue(Class)},
+     * {@link #nullableDefaultValue(Class)}, {@link #randomValue(Class)} and
+     * {@link #nullableRandomValue(Class)}.
+     * 
+     * @param type The requested value type.
+     * @throws UnsupportedValueTypeException If the specified type is not supported.
+     */
+    protected void assertSupported(
+            final @NotNull Class&lt;?&gt; type) {
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        if (!supports(type)) {</span>
+<span class="nc" id="L111">            throw new UnsupportedValueTypeException(String.format(</span>
+                    &quot;Generators of type %s does not support generation of values of type %s&quot;,
+<span class="nc" id="L113">                    getClass(),</span>
+                    type));
+        }
+<span class="fc" id="L116">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public &lt;T&gt; @NotNull T defaultValue(
+            final @NotNull Class&lt;T&gt; type) {
+<span class="fc" id="L124">        assertSupported(type);</span>
+<span class="fc" id="L125">        return getAnnotatedGenerator(type).defaultValue(type);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T nullableDefaultValue(
+            final @NotNull Class&lt;T&gt; type) {
+<span class="fc" id="L131">        assertSupported(type);</span>
+<span class="fc" id="L132">        return getAnnotatedGenerator(type).nullableDefaultValue(type);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public &lt;T&gt; @NotNull T randomValue(
+            final @NotNull Class&lt;T&gt; type) {
+<span class="fc" id="L141">        assertSupported(type);</span>
+<span class="fc" id="L142">        return getAnnotatedGenerator(type).randomValue(type);</span>
+    }
+
+    @Override
+    public &lt;T&gt; T nullableRandomValue(
+            final @NotNull Class&lt;T&gt; type) {
+<span class="fc" id="L148">        assertSupported(type);</span>
+<span class="fc" id="L149">        return getAnnotatedGenerator(type).nullableRandomValue(type);</span>
+    }
+
+    /**
+     * Returns annotated generator to be used to create random instances of
+     * the specified target class.
+     * &lt;p&gt;
+     * This method caches the generator (found or not) for further calls.
+     * 
+     * @param targetType The target class
+     * @return The found annotated generator, or {@code null}
+     */
+    protected Generator getAnnotatedGenerator(
+            final @NotNull Class&lt;?&gt; targetType) {
+<span class="fc" id="L163">        Validate.notNull(targetType);</span>
+        Generator generator;
+<span class="fc" id="L165">        synchronized (this.cache) {</span>
+<span class="fc" id="L166">            generator = this.cache.computeIfAbsent(targetType, this::discoverAnnotatedGenerator);</span>
+<span class="fc" id="L167">        }</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (generator == Generators.MissingGenerator.INSTANCE) {</span>
+<span class="fc" id="L169">            generator = null;</span>
+        }
+<span class="fc" id="L171">        return generator;</span>
+    }
+
+    /**
+     * Clears the cache of discovered generators.
+     */
+    protected void clearCache() {
+<span class="nc" id="L178">        synchronized (this.cache) {</span>
+<span class="nc" id="L179">            this.cache.clear();</span>
+<span class="nc" id="L180">        }</span>
+<span class="nc" id="L181">    }</span>
+
+    /**
+     * Removes the cache of discovered generator for the specified class.
+     * 
+     * @param targetType The target class
+     */
+    protected void clearCache(
+            final @NotNull Class&lt;?&gt; targetType) {
+<span class="nc" id="L190">        synchronized (this.cache) {</span>
+<span class="nc" id="L191">            this.cache.remove(targetType);</span>
+<span class="nc" id="L192">        }</span>
+<span class="nc" id="L193">    }</span>
+
+    /**
+     * Finds a constructor or static method annotated with
+     * {@code GeneratorMethod} in the specified target class.
+     * 
+     * @param targetType The target class
+     * @return The found annotated generator, or {@code null}
+     */
+    protected @NotNull Generator discoverAnnotatedGenerator(
+            final @NotNull Class&lt;?&gt; targetType) {
+<span class="fc" id="L204">        Generator generator = null;</span>
+        try {
+<span class="fc" id="L206">            generator = findDeclaredConstructor(targetType);</span>
+<span class="fc bfc" id="L207" title="All 2 branches covered.">            if (generator == null) {</span>
+<span class="fc" id="L208">                generator = findDeclaredMethod(targetType);</span>
+            }
+<span class="nc" id="L210">        } catch (final RuntimeException re) {</span>
+<span class="nc" id="L211">            LOG.warn(HELP_MISCONFIGURED, targetType);</span>
+<span class="fc" id="L212">        }</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">        if (generator == null) {</span>
+<span class="fc" id="L214">            generator = Generators.MissingGenerator.INSTANCE;</span>
+        }
+<span class="fc" id="L216">        return generator;</span>
+    }
+
+    /**
+     * Finds a constructor annotated with {@code GeneratorMethod} in the
+     * specified target class.
+     * The method must be public and return an instance of the class.
+     * 
+     * @param &lt;T&gt; The target class
+     * @param targetType The target class
+     * @return The found annotated generator, or {@code null}
+     */
+    protected &lt;T&gt; ExecutableGenerator&lt;T&gt; findDeclaredConstructor(
+            final @NotNull Class&lt;T&gt; targetType) {
+<span class="fc" id="L230">        Validate.notNull(targetType);</span>
+<span class="fc" id="L231">        ExecutableGenerator&lt;T&gt; generator = null;</span>
+<span class="fc bfc" id="L232" title="All 2 branches covered.">        for (final Constructor&lt;?&gt; ctr : targetType.getDeclaredConstructors()) {</span>
+<span class="fc bfc" id="L233" title="All 2 branches covered.">            if (ctr.isAnnotationPresent(GeneratorMethod.class)) {</span>
+<span class="pc bpc" id="L234" title="1 of 2 branches missed.">                if ((ctr.getModifiers() &amp; GENERATOR_CONSTRUCTOR_MODIFIERS) != GENERATOR_CONSTRUCTOR_MODIFIERS) {</span>
+<span class="nc" id="L235">                    LOG.warn(ERR_GENERATOR_CONSTRUCTOR_MODIFIERS,</span>
+                            ctr,
+                            targetType);
+                } else {
+                    @SuppressWarnings(&quot;unchecked&quot;)
+<span class="fc" id="L240">                    final Constructor&lt;T&gt; tCtr = (Constructor&lt;T&gt;) ctr;</span>
+<span class="fc" id="L241">                    generator = ExecutableGenerator.of(tCtr);</span>
+                }
+<span class="fc" id="L243">                break;</span>
+            }
+        }
+<span class="fc" id="L246">        return generator;</span>
+    }
+
+    /**
+     * Finds a method annotated with {@code GeneratorMethod} in the
+     * specified target class.
+     * The method must be public, static and return an instance of the class.
+     * 
+     * @param &lt;T&gt; The target class
+     * @param targetType The target class
+     * @return The found annotated generator, or {@code null}
+     */
+    protected &lt;T&gt; ExecutableGenerator&lt;T&gt; findDeclaredMethod(
+            final @NotNull Class&lt;T&gt; targetType) {
+<span class="fc" id="L260">        Validate.notNull(targetType);</span>
+<span class="fc" id="L261">        ExecutableGenerator&lt;T&gt; generator = null;</span>
+<span class="fc bfc" id="L262" title="All 2 branches covered.">        for (final Method method : targetType.getDeclaredMethods()) {</span>
+<span class="fc bfc" id="L263" title="All 2 branches covered.">            if (method.isAnnotationPresent(GeneratorMethod.class)) {</span>
+<span class="pc bpc" id="L264" title="1 of 2 branches missed.">                if ((method.getModifiers() &amp; GENERATOR_METHOD_MODIFIERS) != GENERATOR_METHOD_MODIFIERS) {</span>
+<span class="nc" id="L265">                    LOG.warn(ERR_GENERATOR_METHOD_MODIFIERS,</span>
+                            method,
+                            targetType);
+<span class="pc bpc" id="L268" title="1 of 2 branches missed.">                } else if (!(targetType.isAssignableFrom(method.getReturnType()))) {</span>
+<span class="nc" id="L269">                    LOG.warn(ERR_GENERATOR_METHOD_RETURN_TYPE,</span>
+                            method,
+                            targetType);
+                } else {
+<span class="fc" id="L273">                    generator = ExecutableGenerator.of(targetType, method);</span>
+                }
+<span class="fc" id="L275">                break;</span>
+            }
+        }
+<span class="fc" id="L278">        return generator;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L286">        return new HashCodeBuilder()</span>
+<span class="nc" id="L287">                .append(getClass())</span>
+<span class="nc" id="L288">                .build();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+<span class="nc bnc" id="L296" title="All 2 branches missed.">        if (obj == null) { return false; }</span>
+<span class="nc bnc" id="L297" title="All 2 branches missed.">        if (obj == this) { return true; }</span>
+        // Ignore cache
+<span class="nc bnc" id="L299" title="All 2 branches missed.">        return obj.getClass() == getClass();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd</a> &gt; <span class="el_source">AbstractGenerator.java</span></div><h1>AbstractGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2021 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+/**
+ * Abstract basic implementation of {@code Generator}.
+ * Provides basic implementations for common methods.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2021-03
+ * @since 0.1
+ */
+@API(status=Status.STABLE, since=&quot;0.1&quot;)
+<span class="fc" id="L47">public abstract class AbstractGenerator</span>
+implements Generator {
+
+    /** The default probability of {@code null} values. */
+    public static final float DEFAULT_NULL_PROBABILITY = 0.3f;
+
+    /** The probability of {@code null} values. */
+<span class="fc" id="L54">    private float nullProbability = DEFAULT_NULL_PROBABILITY;</span>
+
+    /**
+     * Verifies that the specified type is supported by this instance.
+     * If test fails throws an {@code IllegalArgumentException} exception
+     * as documented in {@link #defaultValue(Class)},
+     * {@link #nullableDefaultValue(Class)}, {@link #randomValue(Class)} and
+     * {@link #nullableRandomValue(Class)}.
+     * 
+     * @param type The requested value type.
+     * @throws UnsupportedValueTypeException If the specified type is not supported.
+     */
+    protected void assertSupported(
+            final @NotNull Class&lt;?&gt; type) {
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        if (!supports(type)) {</span>
+<span class="nc" id="L69">            throw new UnsupportedValueTypeException(String.format(</span>
+                    &quot;Generators of type %s does not support generation of values of type %s&quot;,
+<span class="nc" id="L71">                    getClass(),</span>
+                    type));
+        }
+<span class="fc" id="L74">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public &lt;T&gt; T nullableDefaultValue(
+            final @NotNull Class&lt;T&gt; type) {
+<span class="fc" id="L82">        assertSupported(type);</span>
+<span class="fc" id="L83">        return null;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     * @see #setNullProbability(float)
+     */
+    @Override
+    public &lt;T&gt; T nullableRandomValue(
+            final @NotNull Class&lt;T&gt; type) {
+<span class="fc" id="L93">        assertSupported(type);</span>
+        final T value;
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (randomNull(type)) {</span>
+<span class="fc" id="L96">            value = null;</span>
+        } else {
+<span class="fc" id="L98">            value = randomValue(type);</span>
+        }
+<span class="fc" id="L100">        return value;</span>
+    }
+
+    /**
+     * Returns the probability of {@code null} value in
+     * {@link #nullableRandomValue(Class)}.
+     * 
+     * @return The probability of {@code null} values.
+     */
+    public @Min(0) @Max(1) float getNullProbability() {
+<span class="nc" id="L110">        return this.nullProbability;</span>
+    }
+
+    /**
+     * Sets the probability of {@code null} value in
+     * {@link #nullableRandomValue(Class)}.
+     * 
+     * @param prob The probability of {@code null} values.
+     */
+    public void setNullProbability(
+            final @Min(0) @Max(1) float prob) {
+<span class="nc" id="L121">        Validate.inclusiveBetween(0, 1, prob);</span>
+<span class="nc" id="L122">        this.nullProbability = prob;</span>
+<span class="nc" id="L123">    }</span>
+
+    /**
+     * Determines if the value must be {@code null} based on the probability of
+     * {@code null} values.
+     * &lt;p&gt;
+     * Overriding classes can use the type parameter to detect non nullable
+     * types (like primitives).
+     * 
+     * @param type The requested value type
+     * @return If the value must be {@code null}
+     * @see #setNullProbability(float)
+     */
+    public boolean randomNull(
+            final @NotNull Class&lt;?&gt; type) {
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        return RandomUtils.nextFloat(0, 1) &lt; this.nullProbability;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+<span class="nc" id="L146">        return new HashCodeBuilder()</span>
+<span class="nc" id="L147">                .append(getClass())</span>
+<span class="nc" id="L148">                .append(this.nullProbability)</span>
+<span class="nc" id="L149">                .build();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if (obj == null) { return false; }</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">        if (obj == this) { return true; }</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">        if (obj.getClass() != getClass()) { return false; }</span>
+<span class="nc" id="L160">        final AbstractGenerator other = (AbstractGenerator) obj;</span>
+<span class="nc" id="L161">        return new EqualsBuilder()</span>
+<span class="nc" id="L162">                .append(this.nullProbability, other.nullProbability)</span>
+<span class="nc" id="L163">                .build();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+<span class="nc" id="L171">        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

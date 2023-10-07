@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PathGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">PathGenerator.java</span></div><h1>PathGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2022 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+import dev.orne.test.rnd.AbstractTypedGenerator;
+import dev.orne.test.rnd.Priority;
+
+/**
+ * Generator of {@code Path} values.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2022-10
+ * @since 0.1
+ */
+@API(status=Status.STABLE, since=&quot;0.1&quot;)
+@Priority(Priority.NATIVE_GENERATORS)
+<span class="fc" id="L48">public class PathGenerator</span>
+extends AbstractTypedGenerator&lt;Path&gt; {
+
+    /** System property for working directory path. */
+    public static final String WORKING_DIR_PROP = &quot;user.dir&quot;;
+    /** System property for user home directory path. */
+    public static final String USER_DIR_PROP = &quot;user.home&quot;;
+    /** System property for temporary files directory path. */
+    public static final String TMP_DIR_PROP = &quot;java.io.tmpdir&quot;;
+    /** The default file system separator. */
+<span class="fc" id="L58">    public static final String SEPARATOR = FileSystems.getDefault().getSeparator();</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull Path defaultValue() {
+<span class="fc" id="L65">        return workingDir();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull Path randomValue() {
+<span class="fc" id="L73">        return Paths.get(randomPath());</span>
+    }
+
+    /**
+     * Returns the current working directory.
+     * 
+     * @return The current working directory
+     */
+    public static @NotNull Path workingDir() {
+<span class="fc" id="L82">        return Paths.get(workingPath());</span>
+    }
+
+    /**
+     * Returns the current working directory path.
+     * 
+     * @return The current working directory path
+     */
+    public static @NotNull String workingPath() {
+<span class="fc" id="L91">        return removeLastSeparator(System.getProperty(WORKING_DIR_PROP));</span>
+    }
+
+    /**
+     * Returns the current user's home directory.
+     * 
+     * @return The current user's home directory
+     */
+    public static @NotNull Path userDir() {
+<span class="fc" id="L100">        return Paths.get(userPath());</span>
+    }
+
+    /**
+     * Returns the current user's home directory path.
+     * 
+     * @return The current user's home directory path
+     */
+    public static @NotNull String userPath() {
+<span class="fc" id="L109">        return removeLastSeparator(System.getProperty(USER_DIR_PROP));</span>
+        
+    }
+
+    /**
+     * Returns the default temporary file directory.
+     * 
+     * @return The default temporary file directory
+     */
+    public static @NotNull Path tmpDir() {
+<span class="fc" id="L119">        return Paths.get(tmpPath());</span>
+    }
+
+    /**
+     * Returns the default temporary file directory path.
+     * 
+     * @return The default temporary file directory path
+     */
+    public static @NotNull String tmpPath() {
+<span class="fc" id="L128">        return removeLastSeparator(System.getProperty(TMP_DIR_PROP));</span>
+    }
+
+    /**
+     * Generate a random path.
+     * 
+     * @return The generated random path
+     */
+    public static @NotNull String randomPath() {
+<span class="fc" id="L137">        final int segments = RandomUtils.nextInt(1, 5);</span>
+<span class="fc" id="L138">        final StringBuilder path = new StringBuilder()</span>
+<span class="fc" id="L139">                .append(randomPathSegment());</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">        for (int i = 1; i &lt; segments; i++) {</span>
+<span class="fc" id="L141">            path.append(SEPARATOR)</span>
+<span class="fc" id="L142">                .append(randomPathSegment());</span>
+        }
+<span class="fc" id="L144">        return path.toString();</span>
+    }
+
+    /**
+     * Generate a random path segment.
+     * 
+     * @return The generated random path
+     */
+    public static @NotNull String randomPathSegment() {
+<span class="fc" id="L153">        return RandomStringUtils.randomAlphanumeric(5);</span>
+    }
+
+    /**
+     * Removes the last file path separator from the path if exists.
+     * &lt;p&gt;
+     * In some environments some paths end with separator while other
+     * paths don't. This methods removes de incoherence.
+     * 
+     * @param path The path
+     * @return The path without trailing separator
+     */
+    protected static @NotNull String removeLastSeparator(
+            final @NotNull String path) {
+        final String result;
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (path.endsWith(SEPARATOR)) {</span>
+<span class="fc" id="L169">            result = path.substring(0, path.length() - SEPARATOR.length());</span>
+        } else {
+<span class="fc" id="L171">            result = path;</span>
+        }
+<span class="fc" id="L173">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DoubleGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">DoubleGenerator.java</span></div><h1>DoubleGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2022 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import javax.validation.constraints.NotNull;
+
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+import dev.orne.test.rnd.Priority;
+
+/**
+ * Generator of {@code double} and {@code Double} values.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2022-10
+ * @since 0.1
+ */
+@API(status=Status.STABLE, since=&quot;0.1&quot;)
+@Priority(Priority.NATIVE_GENERATORS)
+<span class="fc" id="L41">public class DoubleGenerator</span>
+extends AbstractPrimitiveGenerator&lt;Double&gt; {
+
+    /** The default value. */
+    public static final double DEFAULT_VALUE = 0;
+
+    /** The bit mask for infinity (NaN) values of double. */
+<span class="fc" id="L48">    private static final long DOUBLE_INFINITY_MASK =</span>
+<span class="fc" id="L49">            Double.doubleToLongBits(Double.NEGATIVE_INFINITY);</span>
+    /** The bits of double positive infinity. */
+<span class="fc" id="L51">    private static final long DOUBLE_POSITIVE_INFINITY =</span>
+<span class="fc" id="L52">            Double.doubleToLongBits(Double.POSITIVE_INFINITY);</span>
+    /** The bits of double negative infinity. */
+<span class="fc" id="L54">    private static final long DOUBLE_NEGATIVE_INFINITY =</span>
+<span class="fc" id="L55">            Double.doubleToLongBits(Double.NEGATIVE_INFINITY);</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull Double defaultValue() {
+<span class="fc" id="L62">        return DEFAULT_VALUE;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull Double randomValue() {
+<span class="fc" id="L70">        return randomDouble();</span>
+    }
+
+    /**
+     * Generates a random {@code double} between {@code Double.NEGATIVE_INFINITY}
+     * and {@code Double.POSITIVE_INFINITY} both included.
+     * 
+     * @return A random {@code double} value
+     */
+    public static double randomDouble() {
+<span class="fc" id="L80">        long bits = LongGenerator.randomLong();</span>
+        // We ignore NaN values
+<span class="pc bpc" id="L82" title="1 of 4 branches missed.">        while (isNaN(bits) &amp;&amp; !isInfinity(bits)) {</span>
+<span class="fc" id="L83">            bits = LongGenerator.randomLong();</span>
+        }
+<span class="fc" id="L85">        return Double.longBitsToDouble(bits);</span>
+    }
+
+    /**
+     * Generates a random {@code double} between {@code Double.NEGATIVE_INFINITY}
+     * and {@code Double.POSITIVE_INFINITY} both excluded.
+     * 
+     * @return A random {@code double} value
+     */
+    public static double randomFiniteDouble() {
+<span class="fc" id="L95">        long bits = LongGenerator.randomLong();</span>
+        // We ignore NaN and infinite values
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        while (isNaN(bits)) {</span>
+<span class="nc" id="L98">            bits = LongGenerator.randomLong();</span>
+        }
+<span class="fc" id="L100">        return Double.longBitsToDouble(bits);</span>
+    }
+
+    /**
+     * Returns true if the bit representation of the double value results in
+     * a NaN. This includes both {@code Double.POSITIVE_INFINITY} and
+     * {@code Double.NEGATIVE_INFINITY}.
+     * 
+     * @param bits The bit representation of the double value
+     * @return If the bit representation results in a NaN
+     * @see Double#longBitsToDouble(long)
+     */
+    static boolean isNaN(
+            final long bits) {
+<span class="fc bfc" id="L114" title="All 4 branches covered.">        return (bits &amp; DOUBLE_INFINITY_MASK) == DOUBLE_POSITIVE_INFINITY</span>
+                || (bits &amp; DOUBLE_INFINITY_MASK) == DOUBLE_NEGATIVE_INFINITY;
+    }
+
+    /**
+     * Returns true if the bit representation of the double value results
+     * if {@code Double.POSITIVE_INFINITY} or {@code Double.NEGATIVE_INFINITY}.
+     * 
+     * @param bits The bit representation of the double value
+     * @return If the bit representation results in a infintyN
+     * @see Double#longBitsToDouble(long)
+     */
+    static boolean isInfinity(
+            final long bits) {
+<span class="fc bfc" id="L128" title="All 4 branches covered.">        return bits == DOUBLE_POSITIVE_INFINITY</span>
+                || bits == DOUBLE_NEGATIVE_INFINITY;
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

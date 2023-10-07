@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractTypedGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd</a> &gt; <span class="el_source">AbstractTypedGenerator.java</span></div><h1>AbstractTypedGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2021 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.reflect.TypeUtils;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+/**
+ * Abstract implementation of {@code TypedGenerator}.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2021-03
+ * @param &lt;T&gt; The type of generated values
+ * @since 0.1
+ */
+@API(status=Status.STABLE, since=&quot;0.1&quot;)
+public abstract class AbstractTypedGenerator&lt;T&gt;
+extends AbstractGenerator
+implements TypedGenerator&lt;T&gt; {
+
+    /** The type of generated values. */
+    private final @NotNull Class&lt;T&gt; valueType;
+
+    /**
+     * Crates a new instance.
+     * 
+     * @param valueType The type of generated values
+     */
+    protected AbstractTypedGenerator(
+            final @NotNull Class&lt;T&gt; valueType) {
+<span class="fc" id="L57">        super();</span>
+<span class="fc" id="L58">        this.valueType = Validate.notNull(valueType);</span>
+<span class="fc" id="L59">    }</span>
+
+    /**
+     * Crates a new instance.
+     * &lt;p&gt;
+     * Infers generated values type from the generic type arguments of this
+     * instance class.
+     * The class must extend {@code AbstractTypedGenerator} specifying the
+     * generic types.
+     * &lt;p&gt;
+     * Example:
+     * &lt;pre&gt;
+     * class MyGenerator
+     * extends AbstractTypedGenerator{@literal &lt;}MyValues{@literal &gt;} {
+     *     ...
+     * }
+     * &lt;/pre&gt;
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    protected AbstractTypedGenerator() {
+<span class="fc" id="L79">        super();</span>
+<span class="fc" id="L80">        this.valueType = (Class&lt;T&gt;) TypeUtils.unrollVariables(</span>
+<span class="fc" id="L81">                TypeUtils.getTypeArguments(getClass(), AbstractTypedGenerator.class),</span>
+<span class="fc" id="L82">                AbstractTypedGenerator.class.getTypeParameters()[0]);</span>
+<span class="fc" id="L83">        Validate.notNull(</span>
+                this.valueType,
+                &quot;Cannot infer the type of generated values from class %s. Wrong implementation?&quot;,
+<span class="fc" id="L86">                getClass());</span>
+<span class="fc" id="L87">    }</span>
+
+    /**
+     * Returns the type of generated values.
+     * 
+     * @return The type of generated values
+     */
+    public Class&lt;T&gt; getValueType() {
+<span class="fc" id="L95">        return this.valueType;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean supports(
+            final @NotNull Class&lt;?&gt; type) {
+<span class="fc" id="L104">        return Validate.notNull(type).equals(this.valueType);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public @NotNull &lt;V&gt; V defaultValue(
+            final @NotNull Class&lt;V&gt; type) {
+<span class="fc" id="L114">        assertSupported(type);</span>
+<span class="fc" id="L115">        return (V) defaultValue();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T nullableDefaultValue() {
+<span class="fc" id="L123">        return null;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @SuppressWarnings(&quot;unchecked&quot;)
+    public @NotNull &lt;V&gt; V randomValue(
+            final @NotNull Class&lt;V&gt; type) {
+<span class="fc" id="L133">        assertSupported(type);</span>
+<span class="fc" id="L134">        return (V) randomValue();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public T nullableRandomValue() {
+        final T value;
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        if (randomNull(this.valueType)) {</span>
+<span class="fc" id="L144">            value = null;</span>
+        } else {
+<span class="fc" id="L146">            value = randomValue();</span>
+        }
+<span class="fc" id="L148">        return value;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+<span class="fc" id="L156">        return new HashCodeBuilder()</span>
+<span class="fc" id="L157">                .appendSuper(super.hashCode())</span>
+<span class="fc" id="L158">                .append(this.valueType)</span>
+<span class="fc" id="L159">                .build();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        if (obj == null) { return false; }</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (obj == this) { return true; }</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">        if (obj.getClass() != getClass()) { return false; }</span>
+<span class="fc" id="L170">        final AbstractTypedGenerator&lt;?&gt; other = (AbstractTypedGenerator&lt;?&gt;) obj;</span>
+<span class="fc" id="L171">        return new EqualsBuilder()</span>
+<span class="fc" id="L172">                .appendSuper(super.equals(obj))</span>
+<span class="fc" id="L173">                .append(this.valueType, other.valueType)</span>
+<span class="fc" id="L174">                .build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

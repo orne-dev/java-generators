@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CharsetGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">CharsetGenerator.java</span></div><h1>CharsetGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2022 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.RandomUtils;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+import dev.orne.test.rnd.AbstractTypedGenerator;
+import dev.orne.test.rnd.Priority;
+
+/**
+ * Generator of {@code Charset} values.
+ * By default generates only values that can encode.
+ * Use {@link #randomDecodeOnlyValue()} for values without encoding support.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.1, 2023-10
+ * @since 0.1
+ */
+@API(status=Status.STABLE, since=&quot;0.1&quot;)
+@Priority(Priority.NATIVE_GENERATORS)
+<span class="fc" id="L50">public class CharsetGenerator</span>
+extends AbstractTypedGenerator&lt;Charset&gt; {
+
+    /** The supported charsets with encoding capability. */
+    private static final List&lt;Charset&gt; CHARSETS;
+    /** The supported charsets without encoding capability. */
+    private static final List&lt;Charset&gt; DECODE_ONLY_CHARSETS;
+    static {
+        final Collection&lt;Charset&gt; availables =
+<span class="fc" id="L59">                Charset.availableCharsets().values();</span>
+<span class="fc" id="L60">        CHARSETS = new ArrayList&lt;&gt;(availables.size());</span>
+<span class="fc" id="L61">        DECODE_ONLY_CHARSETS = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        for (final Charset available : availables) {</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">            if (available.canEncode()) {</span>
+<span class="fc" id="L64">                CHARSETS.add(available);</span>
+            } else {
+<span class="fc" id="L66">                DECODE_ONLY_CHARSETS.add(available);</span>
+            }
+<span class="fc" id="L68">        }</span>
+<span class="fc" id="L69">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull Charset defaultValue() {
+<span class="fc" id="L76">        return Charset.defaultCharset();</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull Charset randomValue() {
+<span class="fc" id="L84">        final int index = RandomUtils.nextInt(0, CHARSETS.size());</span>
+<span class="fc" id="L85">        return CHARSETS.get(index);</span>
+    }
+
+    /**
+     * Generate a random {@code Charset} that does not support encoding.
+     * 
+     * @return A random {@code Charset} that does not support encoding.
+     */
+    public @NotNull Charset randomDecodeOnlyValue() {
+<span class="nc" id="L94">        final int index = RandomUtils.nextInt(0, DECODE_ONLY_CHARSETS.size());</span>
+<span class="nc" id="L95">        return DECODE_ONLY_CHARSETS.get(index);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

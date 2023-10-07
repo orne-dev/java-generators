@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ArrayGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">ArrayGenerator.java</span></div><h1>ArrayGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2022 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import java.lang.reflect.Array;
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.RandomUtils;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+import dev.orne.test.rnd.AbstractGenerator;
+import dev.orne.test.rnd.GenerationException;
+import dev.orne.test.rnd.Generator;
+import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.Priority;
+
+/**
+ * Generator of array values.
+ * Requires supported component type generation in {@code Generators}.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2022-11
+ * @since 0.1
+ */
+@API(status=Status.STABLE, since=&quot;0.1&quot;)
+@Priority(Priority.GENERIC_GENERATORS)
+<span class="fc" id="L49">public class ArrayGenerator</span>
+extends AbstractGenerator {
+
+    /** The minimum generated array size. */
+    public static final int MIN_SIZE = 1;
+    /** The maximum generated array size. */
+    public static final int MAX_SIZE = 10;
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean supports(
+            final @NotNull Class&lt;?&gt; type) {
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        return type.isArray() &amp;&amp;</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">                Generators.supports(type.getComponentType());</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public &lt;T&gt; @NotNull T defaultValue(
+            final @NotNull Class&lt;T&gt; type) {
+<span class="fc" id="L73">        assertSupported(type);</span>
+<span class="fc" id="L74">        return type.cast(Array.newInstance(type.getComponentType(), 0));</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public &lt;T&gt; @NotNull T randomValue(
+            final @NotNull Class&lt;T&gt; type) {
+<span class="fc" id="L83">        assertSupported(type);</span>
+<span class="fc" id="L84">        final Class&lt;?&gt; componentType = type.getComponentType();</span>
+<span class="fc" id="L85">        final Generator generator = Generators.getGenerator(componentType);</span>
+<span class="fc" id="L86">        return type.cast(randomArray(componentType, generator));</span>
+    }
+
+    /**
+     * Returns a random sized array of the specified component type.
+     * 
+     * @param componentType The requested component type.
+     * @param generator The generator to use to generate the array values.
+     * @return A random array for the specified component type.
+     * @throws GenerationException If an error occurs generating the value
+     */
+    protected @NotNull Object randomArray(
+            final @NotNull Class&lt;?&gt; componentType,
+            final @NotNull Generator generator) {
+<span class="fc" id="L100">        final int size = RandomUtils.nextInt(MIN_SIZE, MAX_SIZE);</span>
+<span class="fc" id="L101">        final Object result = Array.newInstance(componentType, size);</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i++) {</span>
+<span class="fc" id="L103">            Array.set(result, i, generator.randomValue(componentType));</span>
+        }
+<span class="fc" id="L105">        return result;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public &lt;T&gt; T nullableRandomValue(
+            final @NotNull Class&lt;T&gt; type) {
+<span class="fc" id="L114">        assertSupported(type);</span>
+        final T value;
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (randomNull(type)) {</span>
+<span class="fc" id="L117">            value = null;</span>
+        } else {
+<span class="nc" id="L119">            final Class&lt;?&gt; componentType = type.getComponentType();</span>
+<span class="nc" id="L120">            final Generator generator = Generators.getGenerator(componentType);</span>
+<span class="nc" id="L121">            value = type.cast(randomNullablesArray(componentType, generator));</span>
+        }
+<span class="fc" id="L123">        return value;</span>
+    }
+
+    /**
+     * Returns a random sized array of the specified component type allowing
+     * {@code null} component values.
+     * 
+     * @param componentType The requested component type.
+     * @param generator The generator to use for component values.
+     * @return A random array of the specified component type.
+     * @throws GenerationException If an error occurs generating the value
+     */
+    protected Object randomNullablesArray(
+            final @NotNull Class&lt;?&gt; componentType,
+            final @NotNull Generator generator) {
+<span class="nc" id="L138">        final int size = RandomUtils.nextInt(MIN_SIZE, MAX_SIZE);</span>
+<span class="nc" id="L139">        final Object result = Array.newInstance(componentType, size);</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        for (int i = 0; i &lt; size; i++) {</span>
+<span class="nc" id="L141">            Array.set(result, i, generator.nullableRandomValue(componentType));</span>
+        }
+<span class="nc" id="L143">        return result;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

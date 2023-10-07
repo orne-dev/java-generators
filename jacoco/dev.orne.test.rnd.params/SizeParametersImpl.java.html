@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SizeParametersImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">SizeParametersImpl.java</span></div><h1>SizeParametersImpl.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2022 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apiguardian.api.API;
+import org.apiguardian.api.API.Status;
+
+/**
+ * The basic implementation of {@code SizeParameters}.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2022-12
+ * @since 0.1
+ */
+@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+public class SizeParametersImpl
+implements SizeParameters,
+        SizeParameters.Builder {
+
+    /** The minimum size. */
+<span class="fc" id="L48">    private int minSize = SizeParameters.DEFAULT_MIN_SIZE;</span>
+    /** The maximum size. */
+<span class="fc" id="L50">    private int maxSize = SizeParameters.DEFAULT_MAX_SIZE;</span>
+
+    /**
+     * Empty constructor.
+     */
+    public SizeParametersImpl() {
+<span class="fc" id="L56">        super();</span>
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * Copy constructor.
+     * 
+     * @param copy The instance to copy.
+     */
+    public SizeParametersImpl(
+            final @NotNull GenerationParameters copy) {
+<span class="fc" id="L66">        super();</span>
+<span class="fc" id="L67">        Validate.notNull(copy);</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (copy instanceof SizeParameters) {</span>
+<span class="fc" id="L69">            final SizeParameters tcopy = (SizeParameters) copy;</span>
+<span class="fc" id="L70">            this.minSize = tcopy.getMinSize();</span>
+<span class="fc" id="L71">            this.maxSize = tcopy.getMaxSize();</span>
+        }
+<span class="fc" id="L73">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getMinSize() {
+<span class="fc" id="L80">        return this.minSize;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setMinSize(
+            final int value) {
+<span class="fc" id="L89">        this.minSize = value;</span>
+<span class="fc" id="L90">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull SizeParametersImpl withMinSize(
+            final int value) {
+<span class="fc" id="L98">        setMinSize(value);</span>
+<span class="fc" id="L99">        return this;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getMaxSize() {
+<span class="fc" id="L107">        return this.maxSize;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setMaxSize(
+            final int value) {
+<span class="fc" id="L116">        this.maxSize = value;</span>
+<span class="fc" id="L117">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public @NotNull SizeParametersImpl withMaxSize(
+            final int value) {
+<span class="fc" id="L125">        setMaxSize(value);</span>
+<span class="fc" id="L126">        return this;</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+<span class="fc" id="L134">        return HashCodeBuilder.reflectionHashCode(this);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+<span class="fc" id="L142">        return EqualsBuilder.reflectionEquals(this, obj);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+<span class="fc" id="L150">        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
