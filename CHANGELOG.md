@@ -1,3 +1,12 @@
+# :package: 0.1.3
+
+01. :bug: Improved `CharsetGenerator`.
+
+    Prevent generation of charsets that don't support encoding.
+    Causes unexpected random errors in multiple tests.
+    If a test must validate the code behavior with decode-only charsets use
+    `CharsetGenerator.randomDecodeOnlyValue()`.
+
 # :package: 0.1.2
 
 01. :bug: Fixed `URIGenerator` maximum port number (65535).
