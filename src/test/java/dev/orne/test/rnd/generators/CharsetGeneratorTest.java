@@ -25,6 +25,7 @@ package dev.orne.test.rnd.generators;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.charset.Charset;
+import java.util.Set;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -88,9 +89,31 @@ class CharsetGeneratorTest {
     @Test
     void testRandomValue() {
         final CharsetGenerator generator = new CharsetGenerator();
-        GeneratorsTestUtils.assertRandomGeneration(
+        final Set<Charset> results = GeneratorsTestUtils.assertRandomGeneration(
                 generator,
                 Charset.availableCharsets().size() / 2,
                 2);
+        for (final Charset result : results) {
+            assertTrue(
+                    result::canEncode,
+                    () -> String.format("Unenexpected value without encoding support.", result));
+        }
+    }
+
+    /**
+     * Unit test for {@link CharsetGenerator#randomDecodeOnlyValue()}
+     */
+    @Test
+    void testRandomDecodeOnlyValue() {
+        final CharsetGenerator generator = new CharsetGenerator();
+        final Set<Charset> results = GeneratorsTestUtils.assertRandomGeneration(
+                generator::randomDecodeOnlyValue,
+                1,
+                1);
+        for (final Charset result : results) {
+            assertFalse(
+                    result::canEncode,
+                    () -> String.format("Unenexpected value with encoding support.", result));
+        }
     }
 }
