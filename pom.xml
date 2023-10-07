@@ -6,7 +6,7 @@
   <parent>
     <groupId>dev.orne</groupId>
     <artifactId>java-root-pom</artifactId>
-    <version>0.5.2</version>
+    <version>0.6.0</version>
     <relativePath />
   </parent>
 
@@ -23,7 +23,7 @@
   <licenses>
     <license>
       <name>GNU Lesser General Public License (LGPL) version 3.0</name>
-      <url>http://www.gnu.org/licenses/lgpl-3.0.txt</url>
+      <url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -34,13 +34,6 @@
       <url>https://github.com/ihernaez</url>
     </developer>
   </developers>
-
-  <scm>
-    <url>https://github.com/orne-dev/java-generators/tree/master</url>
-    <connection>scm:git:git://github.com/orne-dev/java-generators.git</connection>
-    <developerConnection>scm:git:ssh://github.com:orne-dev/java-generators.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
 
   <properties>
     <java.version>8</java.version>
@@ -54,6 +47,7 @@
     <hibernate.validation.version>6.1.5.Final</hibernate.validation.version>
     <glassfish.jakarta.el.version>3.0.3</glassfish.jakarta.el.version>
 
+    <github.project.id>java-generators</github.project.id>
     <sonar.projectKey>orne-dev_java-generators</sonar.projectKey>
   </properties>
 
@@ -133,5 +127,18 @@
       </plugins>
     </pluginManagement>
   </build>
+
+  <scm>
+    <connection>${github.scm.connection}</connection>
+    <developerConnection>${github.scm.connection.dev}</developerConnection>
+    <url>${github.scm.url}</url>
+  </scm>
+  <distributionManagement>
+    <site>
+      <id>github</id>
+      <name>Github Project Pages</name>
+      <url>${project.url}</url>
+    </site>
+  </distributionManagement>
 
 </project>
