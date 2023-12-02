@@ -35,6 +35,7 @@ import org.junit.jupiter.api.Test;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.Priority;
 import dev.orne.test.rnd.params.ParameterizableGenerator;
 import dev.orne.test.rnd.params.TypeDeclaration;
 
@@ -67,6 +68,8 @@ class CollectionGeneratorUtilsTest {
         final TypeDeclaration params = new TypeDeclaration(parameterizedType);
         final MyType mockValue = mock(MyType.class);
         final MyGenericType<?> mockGenericValue = mock(MyGenericType.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willReturn(mockGenerator).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).randomValue(MyType.class);
         willReturn(true).given(mockGenerator).supports(MyGenericType.class);
@@ -93,6 +96,8 @@ class CollectionGeneratorUtilsTest {
         final TypeDeclaration params = new TypeDeclaration(parameterizedType);
         final MyType mockValue = mock(MyType.class);
         final MyGenericType<?> mockGenericValue = mock(MyGenericType.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willReturn(mockGenerator).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).nullableRandomValue(MyType.class);
         willReturn(true).given(mockGenerator).supports(MyGenericType.class);
