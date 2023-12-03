@@ -44,6 +44,7 @@ import dev.orne.test.rnd.params.GenerationParameters;
 import dev.orne.test.rnd.params.GeneratorNotParameterizableException;
 import dev.orne.test.rnd.params.MethodParameterTypeGenerator;
 import dev.orne.test.rnd.params.MethodReturnTypeGenerator;
+import dev.orne.test.rnd.params.ParameterTypeGenerator;
 import dev.orne.test.rnd.params.ParameterizableGenerator;
 import dev.orne.test.rnd.params.PropertyTypeGenerator;
 import dev.orne.test.rnd.params.TargetedGenerator;
@@ -800,6 +801,33 @@ class GeneratorsTest {
     }
 
     /**
+     * Test for {@link Generators#forField(Field)}.
+     */
+    @Test
+    void testForField() {
+        final TargetedGenerator<?> result = Generators.forField(
+                ConstraintIntrospectionTestType.PROP0_FIELD);
+        final TargetedGenerator<?> expected = PropertyTypeGenerator.targeting(
+                ConstraintIntrospectionTestType.class,
+                ConstraintIntrospectionTestType.PROP0_FIELD.getName());
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test for {@link Generators#forField(Class, Field)}.
+     */
+    @Test
+    void testForField_Class() {
+        final TargetedGenerator<?> result = Generators.forField(
+                ConstraintIntrospectionTestType.class,
+                ConstraintIntrospectionTestType.PROP0_FIELD);
+        final TargetedGenerator<?> expected = PropertyTypeGenerator.targeting(
+                ConstraintIntrospectionTestType.class,
+                ConstraintIntrospectionTestType.PROP0_FIELD.getName());
+        assertEquals(expected, result);
+    }
+
+    /**
      * Test for {@link Generators#forProperty(Class, String)}.
      */
     @Test
@@ -810,6 +838,18 @@ class GeneratorsTest {
         final TargetedGenerator<?> expected = PropertyTypeGenerator.targeting(
                 ConstraintIntrospectionTestType.class,
                 ConstraintIntrospectionTestType.PROP0_FIELD.getName());
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test for {@link Generators#forParameter(java.lang.reflect.Parameter)}.
+     */
+    @Test
+    void testForParameter() {
+        final TargetedGenerator<?> result = Generators.forParameter(
+                ConstraintIntrospectionTestType.TEST_METHOD_PARAM_1);
+        final TargetedGenerator<?> expected = ParameterTypeGenerator.targeting(
+                ConstraintIntrospectionTestType.TEST_METHOD_PARAM_1);
         assertEquals(expected, result);
     }
 

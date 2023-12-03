@@ -36,6 +36,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -65,7 +66,13 @@ public class ConstraintIntrospectionTestType {
     public static final Method PROP0_GETTER_METHOD;
     public static final Method PROP1_GETTER_METHOD;
     public static final Method TEST_METHOD;
+    public static final Parameter TEST_METHOD_PARAM_0;
+    public static final Parameter TEST_METHOD_PARAM_1;
+    public static final Parameter TEST_METHOD_PARAM_2;
     public static final Method STATIC_METHOD;
+    public static final Parameter STATIC_METHOD_PARAM_0;
+    public static final Parameter STATIC_METHOD_PARAM_1;
+    public static final Parameter STATIC_METHOD_PARAM_2;
 
     static {
         try {
@@ -108,12 +115,18 @@ public class ConstraintIntrospectionTestType {
                 String.class,
                 String.class,
                 String.class);
+        TEST_METHOD_PARAM_0 = TEST_METHOD.getParameters()[0];
+        TEST_METHOD_PARAM_1 = TEST_METHOD.getParameters()[1];
+        TEST_METHOD_PARAM_2 = TEST_METHOD.getParameters()[2];
         STATIC_METHOD = MethodUtils.getMatchingMethod(
                 ConstraintIntrospectionTestType.class,
                 "staticMethod",
                 String.class,
                 String.class,
                 String.class);
+        STATIC_METHOD_PARAM_0 = STATIC_METHOD.getParameters()[0];
+        STATIC_METHOD_PARAM_1 = STATIC_METHOD.getParameters()[1];
+        STATIC_METHOD_PARAM_2 = STATIC_METHOD.getParameters()[2];
     }
 
     @NotNull
