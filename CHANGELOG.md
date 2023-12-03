@@ -7,6 +7,9 @@
     01. :gift: Added method `Generators.forField(Field)`
     01. :gift: Added method `Generators.forField(Class, Field)`
     01. :gift: Added method `forParameter(Parameter)`
+01. :gift: Added **experimental** JUnit 5 (Jupiter) random value injection extension
+    01. Added annotation `dev.orne.test.rnd.junit.Random`
+    01. Added class `dev.orne.test.rnd.junit.RandomValueExtension`
 
 # :package: 0.1.3
 

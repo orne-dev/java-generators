@@ -92,6 +92,8 @@ unimplemented):
     - [X] Annotated method based bean generator
     - [ ] Annotated properties based bean generator
     - [ ] Introspection based bean generator
+- [X] JUnit 5 extension
+    - [X] Annotation based test values generation
 
 ## Usage
 
