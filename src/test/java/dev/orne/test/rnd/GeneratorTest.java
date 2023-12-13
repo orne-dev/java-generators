@@ -57,8 +57,9 @@ class GeneratorTest {
      */
     @Test
     void testAsParameterizable() {
+        final Generator nonParameterizableGenerator = new DefaultTestGenerator();
         assertThrows(GeneratorNotParameterizableException.class, () -> {
-            new DefaultTestGenerator().asParameterizable();
+            nonParameterizableGenerator.asParameterizable();
         });
         final ParameterizableTestGenerator pGenerator = new ParameterizableTestGenerator();
         assertSame(pGenerator, pGenerator.asParameterizable());

@@ -172,6 +172,9 @@ public final class ConstraintIntrospector {
                 break;
             }
         }
+        if (paramDesc == null) {
+            return Collections.emptySet();
+        }
         return extractAnnotations(
                 paramDesc.findConstraints(),
                 groups);
