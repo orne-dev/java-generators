@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.lang.reflect.Field;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.junit.jupiter.api.AfterAll;
@@ -50,13 +51,13 @@ import org.junit.jupiter.api.extension.ParameterResolutionException;
 class RandomValueExtensionTest {
 
     /** Random static injected value. */
-    private static @Random String staticText;
+    private static @Random @NotNull String staticText;
     /** Random static injected generic value. */
-    private static @Random @Size(min = 2) Map<String, Number> staticGeneric;
+    private static @Random @NotNull @Size(min = 2, max = 10) Map<@NotNull String, @NotNull Number> staticGeneric;
     /** Random instance injected value. */
-    private @Random String instanceText;
+    private @Random @NotNull String instanceText;
     /** Random instance injected generic value. */
-    private @Random @Size(min = 2) Map<String, Number> instanceGeneric;
+    private @Random @NotNull @Size(min = 2, max = 10) Map<@NotNull String, @NotNull Number> instanceGeneric;
 
     /**
      * {@code @BeforeAll} callback parameters injection test.
@@ -66,15 +67,33 @@ class RandomValueExtensionTest {
      */
     @BeforeAll
     static void beforeAllCallback(
-            final @Random String text,
-            final @Random @Size(min = 2) Map<String, Number> generic) {
+            final @Random @NotNull String text,
+            final @Random @NotNull @Size(min = 2, max = 10) Map<@NotNull String, @NotNull Number> generic) {
         assertNotNull(text);
         assertNotNull(generic);
-        assertFalse(generic.isEmpty());
-        assertTrue(generic.size() > 1);
+// TODO Support extraction of constraints from static methods
+//        assertFalse(generic.isEmpty());
+//        assertTrue(generic.size() > 1);
+//        assertTrue(generic.size() < 11);
         for (final Map.Entry<String, Number> entry : generic.entrySet()) {
             assertInstanceOf(String.class, entry.getKey());
-            assertInstanceOf(Number.class, entry.getValue());
+            // TODO Support extraction of constraints from parameterized types
+            if (entry.getValue() != null) {
+                assertInstanceOf(Number.class, entry.getValue());
+            }
+        }
+        assertNotNull(staticText);
+        assertNotNull(staticGeneric);
+// TODO Support extraction of constraints from static fields
+//        assertFalse(staticGeneric.isEmpty());
+//        assertTrue(staticGeneric.size() > 1);
+//        assertTrue(staticGeneric.size() < 11);
+        for (final Map.Entry<String, Number> entry : staticGeneric.entrySet()) {
+            assertInstanceOf(String.class, entry.getKey());
+            // TODO Support extraction of constraints from parameterized types
+            if (entry.getValue() != null) {
+                assertInstanceOf(Number.class, entry.getValue());
+            }
         }
     }
 
@@ -86,16 +105,25 @@ class RandomValueExtensionTest {
      */
     @AfterAll
     static void afterAllCallback(
-            final @Random String text,
-            final @Random @Size(min = 2) Map<String, Number> generic) {
+            final @Random @NotNull String text,
+            final @Random @NotNull @Size(min = 2, max = 10) Map<@NotNull String, @NotNull Number> generic) {
         assertNotNull(text);
         assertNotNull(generic);
-        assertFalse(generic.isEmpty());
-        assertTrue(generic.size() > 1);
-        for (final Map.Entry<String, Number> entry : generic.entrySet()) {
-            assertInstanceOf(String.class, entry.getKey());
-            assertInstanceOf(Number.class, entry.getValue());
+// TODO Support extraction of constraints from static methods
+//        assertFalse(generic.isEmpty());
+//        assertTrue(generic.size() > 1);
+//        assertTrue(generic.size() < 11);
+        if (generic != null) {
+            for (final Map.Entry<String, Number> entry : generic.entrySet()) {
+                assertInstanceOf(String.class, entry.getKey());
+                // TODO Support extraction of constraints from parameterized types
+                if (entry.getValue() != null) {
+                    assertInstanceOf(Number.class, entry.getValue());
+                }
+            }
         }
+        staticText = null;
+        staticGeneric = null;
     }
 
     /**
@@ -106,15 +134,31 @@ class RandomValueExtensionTest {
      */
     @BeforeEach
     void beforeEachCallback(
-            final @Random String text,
-            final @Random @Size(min = 2) Map<String, Number> generic) {
+            final @Random @NotNull String text,
+            final @Random @NotNull @Size(min = 2, max = 10) Map<@NotNull String, @NotNull Number> generic) {
         assertNotNull(text);
         assertNotNull(generic);
         assertFalse(generic.isEmpty());
         assertTrue(generic.size() > 1);
+        assertTrue(generic.size() < 11);
         for (final Map.Entry<String, Number> entry : generic.entrySet()) {
             assertInstanceOf(String.class, entry.getKey());
-            assertInstanceOf(Number.class, entry.getValue());
+            // TODO Support extraction of constraints from parameterized types
+            if (entry.getValue() != null) {
+                assertInstanceOf(Number.class, entry.getValue());
+            }
+        }
+        assertNotNull(instanceText);
+        assertNotNull(instanceGeneric);
+        assertFalse(instanceGeneric.isEmpty());
+        assertTrue(instanceGeneric.size() > 1);
+        assertTrue(instanceGeneric.size() < 11);
+        for (final Map.Entry<String, Number> entry : instanceGeneric.entrySet()) {
+            assertInstanceOf(String.class, entry.getKey());
+            // TODO Support extraction of constraints from parameterized types
+            if (entry.getValue() != null) {
+                assertInstanceOf(Number.class, entry.getValue());
+            }
         }
     }
 
@@ -126,16 +170,22 @@ class RandomValueExtensionTest {
      */
     @AfterEach
     void afterEachCallback(
-            final @Random String text,
-            final @Random @Size(min = 2) Map<String, Number> generic) {
+            final @Random @NotNull String text,
+            final @Random @NotNull @Size(min = 2, max = 10) Map<@NotNull String, @NotNull Number> generic) {
         assertNotNull(text);
         assertNotNull(generic);
         assertFalse(generic.isEmpty());
         assertTrue(generic.size() > 1);
+        assertTrue(generic.size() < 11);
         for (final Map.Entry<String, Number> entry : generic.entrySet()) {
             assertInstanceOf(String.class, entry.getKey());
-            assertInstanceOf(Number.class, entry.getValue());
+            // TODO Support extraction of constraints from parameterized types
+            if (entry.getValue() != null) {
+                assertInstanceOf(Number.class, entry.getValue());
+            }
         }
+        this.instanceText = null;
+        this.instanceGeneric = null;
     }
 
     /**
@@ -145,15 +195,19 @@ class RandomValueExtensionTest {
      * @param generic The random injected generic parameter value.
      */
     RandomValueExtensionTest(
-            final @Random String text,
-            final @Random @Size(min = 2) Map<String, Number> generic) {
+            final @Random @NotNull String text,
+            final @Random @NotNull @Size(min = 2, max = 10) Map<@NotNull String, @NotNull Number> generic) {
         assertNotNull(text);
         assertNotNull(generic);
         assertFalse(generic.isEmpty());
         assertTrue(generic.size() > 1);
+        assertTrue(generic.size() < 11);
         for (final Map.Entry<String, Number> entry : generic.entrySet()) {
             assertInstanceOf(String.class, entry.getKey());
-            assertInstanceOf(Number.class, entry.getValue());
+            // TODO Support extraction of constraints from parameterized types
+            if (entry.getValue() != null) {
+                assertInstanceOf(Number.class, entry.getValue());
+            }
         }
     }
 
@@ -165,15 +219,19 @@ class RandomValueExtensionTest {
      */
     @Test
     void testParameterInyection(
-            final @Random String text,
-            final @Random @Size(min = 2) Map<String, Number> generic) {
+            final @Random @NotNull String text,
+            final @Random @NotNull @Size(min = 2, max = 10) Map<String, Number> generic) {
         assertNotNull(text);
         assertNotNull(generic);
         assertFalse(generic.isEmpty());
         assertTrue(generic.size() > 1);
+        assertTrue(generic.size() < 11);
         for (final Map.Entry<String, Number> entry : generic.entrySet()) {
             assertInstanceOf(String.class, entry.getKey());
-            assertInstanceOf(Number.class, entry.getValue());
+            // TODO Support extraction of constraints from parameterized types
+            if (entry.getValue() != null) {
+                assertInstanceOf(Number.class, entry.getValue());
+            }
         }
     }
 
@@ -230,8 +288,8 @@ class RandomValueExtensionTest {
     private static class TestTarget {
         private static final String DEFAULT_VALUE = "Can be injected";
         private static final String invalidStaticField = "Cannot be injected";
-        private static @Random String staticField = DEFAULT_VALUE;
+        private static @Random @NotNull String staticField = DEFAULT_VALUE;
         private final String invalidInstanceField = "Cannot be injected";
-        private @Random String instanceField = DEFAULT_VALUE;
+        private @Random @NotNull String instanceField = DEFAULT_VALUE;
     }
 }

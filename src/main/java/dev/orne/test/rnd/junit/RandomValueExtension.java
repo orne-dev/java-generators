@@ -1,6 +1,7 @@
 package dev.orne.test.rnd.junit;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Parameter;
 
 /*-
  * #%L
@@ -37,6 +38,7 @@ import org.junit.platform.commons.support.ModifierSupport;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.params.ParameterTypeGenerator;
 
 /**
  * JUnit Jupiter extension for automatic random value injection.
@@ -104,9 +106,15 @@ implements BeforeAllCallback, BeforeEachCallback, ParameterResolver {
             final @NotNull ParameterContext parameterContext,
             final @NotNull ExtensionContext extensionContext)
     throws ParameterResolutionException {
-        final Random annot = parameterContext.getParameter().getAnnotation(Random.class);
-        return Generators.forParameter(parameterContext.getParameter())
-                .randomValue(annot.groups());
+        final Parameter param = parameterContext.getParameter();
+        final Random annot = param.getAnnotation(Random.class);
+        final ParameterTypeGenerator<?> generator = Generators.forParameter(parameterContext.getParameter());
+        // TODO Support extraction of constraints from static methods
+        if (ModifierSupport.isStatic(param.getDeclaringExecutable())) {
+            return generator.randomValue(annot.groups());
+        } else {
+            return generator.nullableRandomValue(annot.groups());
+        }
     }
 
     /**
@@ -140,7 +148,12 @@ implements BeforeAllCallback, BeforeEachCallback, ParameterResolver {
             final @NotNull Class<?> testClass,
             final @NotNull Field field) {
         final Random annot = field.getAnnotation(Random.class);
-        return Generators.forField(testClass, field).randomValue(annot.groups());
+        // TODO Support extraction of constraints from static methods
+        if (ModifierSupport.isStatic(field)) {
+            return Generators.forField(testClass, field).randomValue(annot.groups());
+        } else {
+            return Generators.forField(testClass, field).nullableRandomValue(annot.groups());
+        }
     }
 
     /**
