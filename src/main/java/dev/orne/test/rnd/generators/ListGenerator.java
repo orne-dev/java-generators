@@ -58,6 +58,13 @@ extends AbstractTypedParameterizableGenerator<List<?>, CollectionGenerationParam
     public static final int MAX_SIZE = 100;
 
     /**
+     * Creates a new instance.
+     */
+    public ListGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

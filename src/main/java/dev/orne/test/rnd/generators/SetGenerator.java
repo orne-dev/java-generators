@@ -57,6 +57,13 @@ extends AbstractTypedParameterizableGenerator<Set<?>, CollectionGenerationParame
     public static final int MAX_SIZE = 100;
 
     /**
+     * Creates a new instance.
+     */
+    public SetGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -55,6 +55,13 @@ public class RandomValueExtension
 implements BeforeAllCallback, BeforeEachCallback, ParameterResolver {
 
     /**
+     * Creates a new instance.
+     */
+    public RandomValueExtension() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      * <p>
      * Injects static fields annotated with {@code @Random} with random
@@ -162,6 +169,7 @@ implements BeforeAllCallback, BeforeEachCallback, ParameterResolver {
      * @param testClass The test class.
      * @param field The target field.
      * @param testInstance The test instance, if any.
+     * @param value The random value.
      * @throws ParameterResolutionException If an error occurs injecting the
      * field value.
      */

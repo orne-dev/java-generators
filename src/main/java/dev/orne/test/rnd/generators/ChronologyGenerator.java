@@ -53,6 +53,13 @@ extends AbstractTypedGenerator<Chronology> {
             Chronology.getAvailableChronologies());
 
     /**
+     * Creates a new instance.
+     */
+    public ChronologyGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -46,6 +46,13 @@ public class PeriodGenerator
 extends AbstractTypedGenerator<Period> {
 
     /**
+     * Creates a new instance.
+     */
+    public PeriodGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -46,6 +46,13 @@ public abstract class BaseParametersSourceExtractorTest {
     protected abstract @NotNull Class<? extends ParametersSourceExtractor<?, ?>> getType();
 
     /**
+     * Creates a new instance.
+     */
+    protected BaseParametersSourceExtractorTest() {
+        super();
+    }
+
+    /**
      * Tests that a public default constructor exists.
      */
     @Test

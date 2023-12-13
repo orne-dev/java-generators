@@ -48,6 +48,13 @@ public class OffsetTimeGenerator
 extends AbstractTypedGenerator<OffsetTime> {
 
     /**
+     * Creates a new instance.
+     */
+    public OffsetTimeGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

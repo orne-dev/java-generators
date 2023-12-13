@@ -49,6 +49,13 @@ extends AbstractTypedGenerator<BigDecimal> {
     public static final BigDecimal DEFAULT_VALUE = BigDecimal.ZERO;
 
     /**
+     * Creates a new instance.
+     */
+    public BigDecimalGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

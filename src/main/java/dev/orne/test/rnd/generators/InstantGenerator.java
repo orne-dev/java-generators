@@ -46,6 +46,13 @@ public class InstantGenerator
 extends AbstractTypedGenerator<Instant> {
 
     /**
+     * Creates a new instance.
+     */
+    public InstantGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -56,6 +56,13 @@ extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters
     public static final int MAX_SIZE = 40;
 
     /**
+     * Creates a new instance.
+     */
+    public StringGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

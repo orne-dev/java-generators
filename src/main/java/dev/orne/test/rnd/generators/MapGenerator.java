@@ -57,6 +57,13 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
     public static final int MAX_SIZE = 100;
 
     /**
+     * Creates a new instance.
+     */
+    public MapGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

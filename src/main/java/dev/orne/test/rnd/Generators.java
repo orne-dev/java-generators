@@ -121,7 +121,7 @@ public final class Generators {
      * 
      * @param <T> The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return The default value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
@@ -161,7 +161,7 @@ public final class Generators {
      * 
      * @param <T> The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return The nullable default value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
@@ -195,7 +195,7 @@ public final class Generators {
      * 
      * @param <T> The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return A random value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
@@ -238,7 +238,7 @@ public final class Generators {
      * 
      * @param <T> The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return A random nullable value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.

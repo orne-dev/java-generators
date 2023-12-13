@@ -275,7 +275,6 @@ public final class GeneratorsTestUtils {
      * for the specified type generates null and random values.
      * 
      * @param <T> The type of values to generate.
-     * @param generator The generator to use.
      * @param type The type of values to generate.
      * @param minValues The minimum different values to generate.
      * @param timeout The test timeout, in seconds.

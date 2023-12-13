@@ -46,6 +46,8 @@ public @interface Random {
     /**
      * The validation groups to use when extracting the constraints of the
      * random value.
+     * 
+     * @return The validation groups.
      */
     Class<?>[] groups() default {};
 }

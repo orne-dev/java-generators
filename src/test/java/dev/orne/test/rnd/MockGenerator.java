@@ -38,6 +38,13 @@ extends AbstractGenerator {
     private static final String NO_MOCK_ERR = "Mocking of calls expected";
 
     /**
+     * Creates a new instance.
+     */
+    public MockGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

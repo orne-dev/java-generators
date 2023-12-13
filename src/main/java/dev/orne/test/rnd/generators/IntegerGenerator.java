@@ -46,6 +46,13 @@ extends AbstractPrimitiveGenerator<Integer> {
     public static final int DEFAULT_VALUE = 0;
 
     /**
+     * Creates a new instance.
+     */
+    public IntegerGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

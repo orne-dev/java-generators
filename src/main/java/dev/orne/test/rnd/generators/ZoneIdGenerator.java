@@ -52,6 +52,13 @@ extends AbstractTypedGenerator<ZoneId> {
             ZoneId.getAvailableZoneIds());
 
     /**
+     * Creates a new instance.
+     */
+    public ZoneIdGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

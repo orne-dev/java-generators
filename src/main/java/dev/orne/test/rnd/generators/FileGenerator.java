@@ -54,6 +54,13 @@ extends AbstractTypedGenerator<File> {
     public static final String TMP_DIR_PROP = "java.io.tmpdir";
 
     /**
+     * Creates a new instance.
+     */
+    public FileGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

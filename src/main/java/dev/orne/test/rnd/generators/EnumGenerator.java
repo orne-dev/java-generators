@@ -47,6 +47,13 @@ public class EnumGenerator
 extends AbstractGenerator {
 
     /**
+     * Creates a new instance.
+     */
+    public EnumGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

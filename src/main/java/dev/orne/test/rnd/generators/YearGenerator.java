@@ -46,6 +46,13 @@ public class YearGenerator
 extends AbstractTypedGenerator<Year> {
 
     /**
+     * Creates a new instance.
+     */
+    public YearGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

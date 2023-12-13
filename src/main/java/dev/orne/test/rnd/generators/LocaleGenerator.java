@@ -49,6 +49,13 @@ extends AbstractTypedGenerator<Locale> {
     private static final Locale[] LOCALES = Locale.getAvailableLocales();
 
     /**
+     * Creates a new instance.
+     */
+    public LocaleGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -48,6 +48,13 @@ public class MonthDayGenerator
 extends AbstractTypedGenerator<MonthDay> {
 
     /**
+     * Creates a new instance.
+     */
+    public MonthDayGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

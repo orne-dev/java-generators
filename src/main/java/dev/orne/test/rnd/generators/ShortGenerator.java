@@ -45,6 +45,13 @@ extends AbstractPrimitiveGenerator<Short> {
     public static final short DEFAULT_VALUE = 0;
 
     /**
+     * Creates a new instance.
+     */
+    public ShortGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -46,6 +46,13 @@ public class LocalTimeGenerator
 extends AbstractTypedGenerator<LocalTime> {
 
     /**
+     * Creates a new instance.
+     */
+    public LocalTimeGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

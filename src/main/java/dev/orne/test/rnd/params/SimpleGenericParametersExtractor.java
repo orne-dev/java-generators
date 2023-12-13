@@ -43,6 +43,13 @@ public class SimpleGenericParametersExtractor
 extends AbstractParametersSourceExtractor<SimpleGenericParameters, SimpleGenericParameters> {
 
     /**
+     * Creates a new instance.
+     */
+    public SimpleGenericParametersExtractor() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

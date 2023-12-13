@@ -47,6 +47,13 @@ public class ClockGenerator
 extends AbstractTypedGenerator<Clock> {
 
     /**
+     * Creates a new instance.
+     */
+    public ClockGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

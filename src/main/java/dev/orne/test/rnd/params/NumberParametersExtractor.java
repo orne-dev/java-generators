@@ -46,6 +46,13 @@ public class NumberParametersExtractor
 extends AbstractParametersSourceExtractor<NumberParameters, NumberParameters> {
 
     /**
+     * Creates a new instance.
+     */
+    public NumberParametersExtractor() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

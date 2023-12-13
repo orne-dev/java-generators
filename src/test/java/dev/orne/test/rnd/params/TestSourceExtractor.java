@@ -37,6 +37,13 @@ extends AbstractParametersSourceExtractor<
         TestSourceExtractor.Source> {
 
     /**
+     * Creates a new instance.
+     */
+    public TestSourceExtractor() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -46,10 +53,29 @@ extends AbstractParametersSourceExtractor<
         target.setValue(from.getValue());
     }
 
+    /**
+     * Test parameters type.
+     */
     public static interface Params {
+
+        /**
+         * Sets the test parameter value.
+         * 
+         * @param value The test parameter value.
+         */
         void setValue(String value);
     }
+
+    /**
+     * Test parameters source type.
+     */
     public static interface Source {
+
+        /**
+         * Returns the test parameter value.
+         * 
+         * @return The test parameter value.
+         */
         String getValue();
     }
 }

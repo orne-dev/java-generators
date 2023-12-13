@@ -55,6 +55,13 @@ extends AbstractGenerator {
     public static final int MAX_SIZE = 10;
 
     /**
+     * Creates a new instance.
+     */
+    public ArrayGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

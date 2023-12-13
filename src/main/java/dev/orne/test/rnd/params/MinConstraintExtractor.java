@@ -47,6 +47,13 @@ public class MinConstraintExtractor
 extends AbstractParametersSourceExtractor<NumberParameters, Min> {
 
     /**
+     * Creates a new instance.
+     */
+    public MinConstraintExtractor() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

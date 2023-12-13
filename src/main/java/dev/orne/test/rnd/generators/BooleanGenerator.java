@@ -46,6 +46,13 @@ extends AbstractPrimitiveGenerator<Boolean> {
     public static final boolean DEFAULT_VALUE = false;
 
     /**
+     * Creates a new instance.
+     */
+    public BooleanGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

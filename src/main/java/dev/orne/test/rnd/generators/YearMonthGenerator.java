@@ -48,6 +48,13 @@ public class YearMonthGenerator
 extends AbstractTypedGenerator<YearMonth> {
 
     /**
+     * Creates a new instance.
+     */
+    public YearMonthGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
