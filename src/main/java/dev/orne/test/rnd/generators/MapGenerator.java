@@ -131,7 +131,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
     @SuppressWarnings("java:S1452")
     protected @NotNull Map<?, ?> randomMap(
             final @NotNull MapGenerationParameters parameters) {
-        final int size = randomSetSize(parameters);
+        final int size = randomSize(parameters);
         final Map<Object, Object> result = new HashMap<>(size);
         for (int i = 0; i < size; i++) {
             result.put(
@@ -154,7 +154,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
     @SuppressWarnings("java:S1452")
     protected Map<?, ?> randomNullablesMap(
             final @NotNull MapGenerationParameters parameters) {
-        final int size = randomSetSize(parameters);
+        final int size = randomSize(parameters);
         final Map<Object, Object> result = new HashMap<>(size);
         for (int i = 0; i < size; i++) {
             result.put(
@@ -172,7 +172,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
      * @param parameters The generation parameters.
      * @return The map size.
      */
-    protected int randomSetSize(
+    protected int randomSize(
             final @NotNull MapGenerationParameters parameters) {
         return RandomUtils.nextInt(
                 NumberUtils.max(MIN_SIZE, parameters.getMinSize()),

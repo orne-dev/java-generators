@@ -106,7 +106,7 @@ extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters
      */
     protected @NotNull String randomString(
             final @NotNull StringGenerationParameters parameters) {
-        final int size = randomStringSize(parameters);
+        final int size = randomSize(parameters);
         return RandomStringUtils.random(size);
     }
 
@@ -116,7 +116,7 @@ extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters
      * @param parameters The generation parameters.
      * @return The string length.
      */
-    protected int randomStringSize(
+    protected int randomSize(
             final @NotNull StringGenerationParameters parameters) {
         return RandomUtils.nextInt(
                 NumberUtils.max(MIN_SIZE, parameters.getMinSize()),

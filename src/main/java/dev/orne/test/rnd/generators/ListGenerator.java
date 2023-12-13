@@ -139,7 +139,7 @@ extends AbstractTypedParameterizableGenerator<List<?>, CollectionGenerationParam
     @SuppressWarnings("java:S1452")
     protected @NotNull List<?> randomList(
             final @NotNull CollectionGenerationParameters parameters) {
-        final int size = randomListSize(parameters);
+        final int size = randomSize(parameters);
         final List<Object> result = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             result.add(CollectionGeneratorUtils.randomComponent(
@@ -159,7 +159,7 @@ extends AbstractTypedParameterizableGenerator<List<?>, CollectionGenerationParam
     @SuppressWarnings("java:S1452")
     protected List<?> randomNullablesList(
             final @NotNull CollectionGenerationParameters parameters) {
-        final int size = randomListSize(parameters);
+        final int size = randomSize(parameters);
         final List<Object> result = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             result.add(CollectionGeneratorUtils.nullableRandomComponent(
@@ -174,7 +174,7 @@ extends AbstractTypedParameterizableGenerator<List<?>, CollectionGenerationParam
      * @param parameters The generation parameters.
      * @return The list size.
      */
-    protected int randomListSize(
+    protected int randomSize(
             final @NotNull CollectionGenerationParameters parameters) {
         return RandomUtils.nextInt(
                 NumberUtils.max(MIN_SIZE, parameters.getMinSize()),
