@@ -1,0 +1,147 @@
+#set($H2 = '##')
+
+Testing oriented random value generators.
+
+# Usage
+
+The library can be used in two usage scenarios.
+
+$H2 [Random values generation for testing purposes](./testing.html)
+
+To use random value generation in project tests add the dependency in test scope to the project.
+
+```xml
+<project ...>
+...
+  <dependency>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>${project.artifactId}</artifactId>
+    <version>${project.version}</version>
+    <scope>test</scope>
+  </dependency>
+...
+</project>
+```
+
+*Warning: The library uses pseudorandom number generators (PRNGs) and must not be used for security-sensitive tasks.*
+
+The most basic usage requires only passing the value type to the
+`Generators.randomValue()` method:
+
+```java
+Year year = Generators.randomValue(Year.class);
+assertNotNull(year);
+```
+
+Alternatively, `@Random` annotation can be used in JUnit 5 tests' fields and
+parameters using the
+[supported validation annotations](./testing.html#targeted-value-generation)
+as generation parameters:
+
+```java
+@Test
+void testSomething(@NotNull @Random Year year) {
+    assertNotNull(year);
+}
+```
+
+For more advanced use cases see [the 'Test values generation' article](./testing.html).
+
+$H2 [Provide new generator implementations](./generators.html)
+
+To provide support for new random value types generation add the dependency as
+optional to the project.
+
+```xml
+<project ...>
+...
+  <dependency>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>${project.artifactId}</artifactId>
+    <version>${project.version}</version>
+    <optional>true</optional>
+  </dependency>
+...
+</project>
+```
+
+See [the 'Provide new generators' article](./generators.html) for
+implementation details.
+
+# Features
+
+The library provides the following features:
+
+- SPI generators discovery
+    - Annotation based generators ordering
+- Generators
+    - Typed generators
+    - Parameterizable generators
+        - Generic classes generation support 
+        - Java Validation 2.1 based parameters extractors
+            - `NotNull` extractor
+            - `Size` extractor
+            - `Min` extractor
+            - `Max` extractor
+        - Parameterizable typed generators
+        - Targeted generators
+            - Property type generator
+            - Method argument type generator
+            - Method return type generator
+            - Constructor argument type generator
+            - Constructor based generator
+            - Factory method based generator
+- Primitives and wrapper types generators
+    - `java.lang.Boolean` generator
+    - `java.lang.Byte` generator
+    - `java.lang.Short` generator
+    - `java.lang.Integer` generator
+    - `java.lang.Long` generator
+    - `java.lang.Float` generator
+    - `java.lang.Double` generator
+    - `java.lang.Character` generator
+- Common types generators
+    - `java.lang.CharSequence` generator
+    - `java.lang.Number` generator
+    - `java.lang.String` generator
+    - `java.io.File` generator
+    - `java.math.BigInteger` generator
+    - `java.math.BigDecimal` generator
+    - `java.nio.charset.Charset` generator
+    - `java.nio.file.Path` generator
+    - `java.util.Calendar` generator
+    - `java.util.Currency` generator
+    - `java.util.Date` generator
+    - `java.util.Locale` generator
+    - `java.util.TimeZone` generator
+    - `java.util.URI` generator
+    - `java.util.URL` generator
+    - `java.util.UUID` generator
+    - `java.time.Clock` generator
+    - `java.time.Duration` generator
+    - `java.time.Instant` generator
+    - `java.time.LocalDate` generator
+    - `java.time.LocalDateTime` generator
+    - `java.time.LocalTime` generator
+    - `java.time.MonthDay` generator
+    - `java.time.OffsetDateTime` generator
+    - `java.time.OffsetTime` generator
+    - `java.time.Period` generator
+    - `java.time.Year` generator
+    - `java.time.YearMonth` generator
+    - `java.time.ZonedDateTime` generator
+    - `java.time.ZoneId` generator
+    - `java.time.ZoneOffset` generator
+    - `java.time.chrono.Chronology` generator
+- Arrays and collections generators
+    - `java.lang.Array` generator
+    - `java.util.Collection` generator
+    - `java.util.List` generator
+    - `java.util.Set` generator
+    - `java.util.Map` generator
+- General generators
+    - Enumerations generator
+    - Annotated constructor based bean generator
+    - Annotated method based bean generator
+- JUnit 5 extension
+    - Annotation based test values generation
