@@ -3,7 +3,7 @@
 01. :gift: Added support for retrieval of targeted generators based on `Field` and `Parameter`
     01. :gift: Added class `dev.orne.test.rnd.params.ParameterTypeGenerator`
     01. :gift: Added method `ConstraintIntrospector.findParameterConstrains(Parameter, Class...)`
-    01. :gift: Added method `ConstraintIntrospector.findParameterConstrains(Validator, Parameter, Class<?>...)`
+    01. :gift: Added method `ConstraintIntrospector.findParameterConstrains(Validator, Parameter, Class...)`
     01. :gift: Added method `Generators.forField(Field)`
     01. :gift: Added method `Generators.forField(Class, Field)`
     01. :gift: Added method `forParameter(Parameter)`
