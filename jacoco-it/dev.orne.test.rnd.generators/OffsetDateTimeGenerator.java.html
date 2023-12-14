@@ -44,17 +44,24 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L47">public class OffsetDateTimeGenerator</span>
+public class OffsetDateTimeGenerator
 extends AbstractTypedGenerator&lt;OffsetDateTime&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public OffsetDateTimeGenerator() {
+<span class="fc" id="L54">        super();</span>
+<span class="fc" id="L55">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull OffsetDateTime defaultValue() {
-<span class="fc" id="L55">        return OffsetDateTime.of(</span>
-<span class="fc" id="L56">                Generators.defaultValue(LocalDateTime.class),</span>
-<span class="fc" id="L57">                Generators.defaultValue(ZoneOffset.class));</span>
+<span class="fc" id="L62">        return OffsetDateTime.of(</span>
+<span class="fc" id="L63">                Generators.defaultValue(LocalDateTime.class),</span>
+<span class="fc" id="L64">                Generators.defaultValue(ZoneOffset.class));</span>
     }
 
     /**
@@ -62,9 +69,9 @@ extends AbstractTypedGenerator&lt;OffsetDateTime&gt; {
      */
     @Override
     public @NotNull OffsetDateTime randomValue() {
-<span class="fc" id="L65">        return OffsetDateTime.of(</span>
-<span class="fc" id="L66">                Generators.randomValue(LocalDateTime.class),</span>
-<span class="fc" id="L67">                Generators.randomValue(ZoneOffset.class));</span>
+<span class="fc" id="L72">        return OffsetDateTime.of(</span>
+<span class="fc" id="L73">                Generators.randomValue(LocalDateTime.class),</span>
+<span class="fc" id="L74">                Generators.randomValue(ZoneOffset.class));</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

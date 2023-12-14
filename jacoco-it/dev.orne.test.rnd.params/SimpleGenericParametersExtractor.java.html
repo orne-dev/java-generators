@@ -39,8 +39,15 @@ import org.apiguardian.api.API.Status;
  * @see SimpleGenericParameters
  */
 @API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
-<span class="fc" id="L42">public class SimpleGenericParametersExtractor</span>
+public class SimpleGenericParametersExtractor
 extends AbstractParametersSourceExtractor&lt;SimpleGenericParameters, SimpleGenericParameters&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public SimpleGenericParametersExtractor() {
+<span class="fc" id="L49">        super();</span>
+<span class="fc" id="L50">    }</span>
 
     /**
      * {@inheritDoc}
@@ -49,10 +56,10 @@ extends AbstractParametersSourceExtractor&lt;SimpleGenericParameters, SimpleGene
     public void extractParameters(
             final @NotNull SimpleGenericParameters from,
             final @NotNull SimpleGenericParameters target) {
-<span class="fc" id="L52">        final Type type = from.getType();</span>
-<span class="pc bpc" id="L53" title="1 of 2 branches missed.">        if (type != null) {</span>
-<span class="fc" id="L54">            target.setType(type);</span>
+<span class="fc" id="L59">        final Type type = from.getType();</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">        if (type != null) {</span>
+<span class="fc" id="L61">            target.setType(type);</span>
         }
-<span class="fc" id="L56">    }</span>
+<span class="fc" id="L63">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

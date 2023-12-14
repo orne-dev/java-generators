@@ -23,7 +23,9 @@
  */
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,6 +47,7 @@ import dev.orne.test.rnd.params.ConstructorParameterTypeGenerator;
 import dev.orne.test.rnd.params.GeneratorNotParameterizableException;
 import dev.orne.test.rnd.params.MethodParameterTypeGenerator;
 import dev.orne.test.rnd.params.MethodReturnTypeGenerator;
+import dev.orne.test.rnd.params.ParameterTypeGenerator;
 import dev.orne.test.rnd.params.ParameterizableGenerator;
 import dev.orne.test.rnd.params.PropertyTypeGenerator;
 
@@ -63,7 +66,7 @@ import dev.orne.test.rnd.params.PropertyTypeGenerator;
  * and {@link #reset()}.
  * 
  * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
- * @version 1.0, 2022-10
+ * @version 1.1, 2023-11
  * @since 0.1
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
@@ -72,10 +75,10 @@ public final class Generators {
     /**
      * The generator comparator by priority.
      */
-<span class="fc" id="L75">    public static final Comparator&lt;Generator&gt; COMPARATOR =</span>
-<span class="fc" id="L76">            Comparator.comparingInt(Generator::getPriority).reversed();</span>
+<span class="fc" id="L78">    public static final Comparator&lt;Generator&gt; COMPARATOR =</span>
+<span class="fc" id="L79">            Comparator.comparingInt(Generator::getPriority).reversed();</span>
     /** The by class generator cache. */
-<span class="fc" id="L78">    private static final Map&lt;Class&lt;?&gt;, Generator&gt; CACHE = new WeakHashMap&lt;&gt;();</span>
+<span class="fc" id="L81">    private static final Map&lt;Class&lt;?&gt;, Generator&gt; CACHE = new WeakHashMap&lt;&gt;();</span>
     /** The registered generators. */
     private static List&lt;Generator&gt; registeredGenerators;
 
@@ -95,7 +98,7 @@ public final class Generators {
      */
     public static boolean supports(
             final @NotNull Class&lt;?&gt; type) {
-<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        return getGenerator(type) != null;</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        return getGenerator(type) != null;</span>
     }
 
     /**
@@ -109,8 +112,8 @@ public final class Generators {
      */
     public static &lt;T&gt; T defaultValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L112">        final Generator generator = getGeneratorInt(type);</span>
-<span class="fc" id="L113">        return generator.defaultValue(type);</span>
+<span class="fc" id="L115">        final Generator generator = getGeneratorInt(type);</span>
+<span class="fc" id="L116">        return generator.defaultValue(type);</span>
     }
 
     /**
@@ -118,7 +121,7 @@ public final class Generators {
      * 
      * @param &lt;T&gt; The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return The default value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
@@ -129,7 +132,7 @@ public final class Generators {
     public static &lt;T&gt; T defaultValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull Object... params) {
-<span class="fc" id="L132">        return requireParameterizableGenerator(type).defaultValue(type, params);</span>
+<span class="fc" id="L135">        return requireParameterizableGenerator(type).defaultValue(type, params);</span>
     }
 
     /**
@@ -146,8 +149,8 @@ public final class Generators {
      */
     public static &lt;T&gt; T nullableDefaultValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L149">        final Generator generator = getGeneratorInt(type);</span>
-<span class="fc" id="L150">        return generator.nullableDefaultValue(type);</span>
+<span class="fc" id="L152">        final Generator generator = getGeneratorInt(type);</span>
+<span class="fc" id="L153">        return generator.nullableDefaultValue(type);</span>
     }
 
     /**
@@ -158,7 +161,7 @@ public final class Generators {
      * 
      * @param &lt;T&gt; The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return The nullable default value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
@@ -169,7 +172,7 @@ public final class Generators {
     public static &lt;T&gt; T nullableDefaultValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull Object... params) {
-<span class="fc" id="L172">        return requireParameterizableGenerator(type).nullableDefaultValue(type, params);</span>
+<span class="fc" id="L175">        return requireParameterizableGenerator(type).nullableDefaultValue(type, params);</span>
     }
 
     /**
@@ -183,8 +186,8 @@ public final class Generators {
      */
     public static &lt;T&gt; T randomValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L186">        final Generator generator = getGeneratorInt(type);</span>
-<span class="fc" id="L187">        return generator.randomValue(type);</span>
+<span class="fc" id="L189">        final Generator generator = getGeneratorInt(type);</span>
+<span class="fc" id="L190">        return generator.randomValue(type);</span>
     }
 
     /**
@@ -192,7 +195,7 @@ public final class Generators {
      * 
      * @param &lt;T&gt; The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return A random value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
@@ -203,7 +206,7 @@ public final class Generators {
     public static &lt;T&gt; T randomValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull Object... params) {
-<span class="fc" id="L206">        return requireParameterizableGenerator(type).randomValue(type, params);</span>
+<span class="fc" id="L209">        return requireParameterizableGenerator(type).randomValue(type, params);</span>
     }
 
     /**
@@ -222,8 +225,8 @@ public final class Generators {
      */
     public static &lt;T&gt; T nullableRandomValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L225">        final Generator generator = getGeneratorInt(type);</span>
-<span class="fc" id="L226">        return generator.nullableRandomValue(type);</span>
+<span class="fc" id="L228">        final Generator generator = getGeneratorInt(type);</span>
+<span class="fc" id="L229">        return generator.nullableRandomValue(type);</span>
     }
 
     /**
@@ -235,7 +238,7 @@ public final class Generators {
      * 
      * @param &lt;T&gt; The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return A random nullable value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
@@ -247,7 +250,7 @@ public final class Generators {
     public static &lt;T&gt; T nullableRandomValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull Object... params) {
-<span class="fc" id="L250">        return requireParameterizableGenerator(type).nullableRandomValue(type, params);</span>
+<span class="fc" id="L253">        return requireParameterizableGenerator(type).nullableRandomValue(type, params);</span>
     }
 
     /**
@@ -259,9 +262,9 @@ public final class Generators {
      */
     public static Generator getGenerator(
             final @NotNull Class&lt;?&gt; type) {
-<span class="fc" id="L262">        Validate.notNull(type);</span>
-<span class="fc" id="L263">        final Generator result = getGeneratorInt(type);</span>
-<span class="pc bpc" id="L264" title="1 of 2 branches missed.">        return result == MissingGenerator.INSTANCE ? null : result;</span>
+<span class="fc" id="L265">        Validate.notNull(type);</span>
+<span class="fc" id="L266">        final Generator result = getGeneratorInt(type);</span>
+<span class="pc bpc" id="L267" title="1 of 2 branches missed.">        return result == MissingGenerator.INSTANCE ? null : result;</span>
     }
 
     /**
@@ -275,11 +278,11 @@ public final class Generators {
      */
     public static ParameterizableGenerator getParameterizableGenerator(
             final @NotNull Class&lt;?&gt; type) {
-<span class="nc" id="L278">        final Generator result = getGenerator(type);</span>
-<span class="nc bnc" id="L279" title="All 2 branches missed.">        if (result instanceof ParameterizableGenerator) {</span>
-<span class="nc" id="L280">            return (ParameterizableGenerator) result;</span>
+<span class="nc" id="L281">        final Generator result = getGenerator(type);</span>
+<span class="nc bnc" id="L282" title="All 2 branches missed.">        if (result instanceof ParameterizableGenerator) {</span>
+<span class="nc" id="L283">            return (ParameterizableGenerator) result;</span>
         } else {
-<span class="nc" id="L282">            return null;</span>
+<span class="nc" id="L285">            return null;</span>
         }
     }
 
@@ -292,7 +295,7 @@ public final class Generators {
      */
     static @NotNull Generator getGeneratorInt(
             final @NotNull Class&lt;?&gt; type) {
-<span class="fc" id="L295">        return CACHE.computeIfAbsent(type, Generators::findGenerator);</span>
+<span class="fc" id="L298">        return CACHE.computeIfAbsent(type, Generators::findGenerator);</span>
     }
 
     /**
@@ -307,11 +310,11 @@ public final class Generators {
      */
     static @NotNull ParameterizableGenerator requireParameterizableGenerator(
             final @NotNull Class&lt;?&gt; type) {
-<span class="fc" id="L310">        final Generator generator = getGeneratorInt(type);</span>
-<span class="pc bpc" id="L311" title="1 of 2 branches missed.">        if (generator == MissingGenerator.INSTANCE) {</span>
-<span class="nc" id="L312">            throw new GeneratorNotFoundException(MissingGenerator.ERR_MSG);</span>
+<span class="fc" id="L313">        final Generator generator = getGeneratorInt(type);</span>
+<span class="pc bpc" id="L314" title="1 of 2 branches missed.">        if (generator == MissingGenerator.INSTANCE) {</span>
+<span class="nc" id="L315">            throw new GeneratorNotFoundException(MissingGenerator.ERR_MSG);</span>
         } else {
-<span class="fc" id="L314">            return generator.asParameterizable();</span>
+<span class="fc" id="L317">            return generator.asParameterizable();</span>
         }
     }
 
@@ -324,16 +327,52 @@ public final class Generators {
      */
     static @NotNull Generator findGenerator(
             final @NotNull Class&lt;?&gt; type) {
-<span class="fc" id="L327">        Generator result = MissingGenerator.INSTANCE;</span>
-<span class="fc" id="L328">        synchronized (Generators.class) {</span>
-<span class="pc bpc" id="L329" title="1 of 2 branches missed.">            for (final Generator generator : getGeneratorsInt()) {</span>
-<span class="fc bfc" id="L330" title="All 2 branches covered.">                if (generator.supports(type)) {</span>
-<span class="fc" id="L331">                    result = generator;</span>
-<span class="fc" id="L332">                    break;</span>
+<span class="fc" id="L330">        Generator result = MissingGenerator.INSTANCE;</span>
+<span class="fc" id="L331">        synchronized (Generators.class) {</span>
+<span class="pc bpc" id="L332" title="1 of 2 branches missed.">            for (final Generator generator : getGeneratorsInt()) {</span>
+<span class="fc bfc" id="L333" title="All 2 branches covered.">                if (generator.supports(type)) {</span>
+<span class="fc" id="L334">                    result = generator;</span>
+<span class="fc" id="L335">                    break;</span>
                 }
-<span class="fc" id="L334">            }</span>
-<span class="fc" id="L335">        }</span>
-<span class="fc" id="L336">        return result;</span>
+<span class="fc" id="L337">            }</span>
+<span class="fc" id="L338">        }</span>
+<span class="fc" id="L339">        return result;</span>
+    }
+
+    /**
+     * Returns a targeted generator for the specified field.
+     * &lt;p&gt;
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the field declaration.
+     * 
+     * @param &lt;T&gt; The type of the generated values
+     * @param field The bean field
+     * @return A generator for the type of the specified field
+     * @since 0.2
+     */
+    @API(status=Status.EXPERIMENTAL, since = &quot;0.2&quot;)
+    public static &lt;T&gt; @NotNull PropertyTypeGenerator&lt;T&gt; forField(
+            final @NotNull Field field) {
+<span class="nc" id="L356">        return PropertyTypeGenerator.&lt;T&gt;targeting(field);</span>
+    }
+
+    /**
+     * Returns a targeted generator for the specified field.
+     * &lt;p&gt;
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the field declaration.
+     * 
+     * @param &lt;T&gt; The type of the generated values
+     * @param beanType The bean type
+     * @param field The bean field
+     * @return A generator for the type of the specified field
+     * @since 0.2
+     */
+    @API(status=Status.EXPERIMENTAL, since = &quot;0.2&quot;)
+    public static &lt;T&gt; @NotNull PropertyTypeGenerator&lt;T&gt; forField(
+            final @NotNull Class&lt;?&gt; beanType,
+            final @NotNull Field field) {
+<span class="nc" id="L375">        return PropertyTypeGenerator.&lt;T&gt;targeting(beanType, field);</span>
     }
 
     /**
@@ -351,7 +390,24 @@ public final class Generators {
     public static &lt;T&gt; @NotNull PropertyTypeGenerator&lt;T&gt; forProperty(
             final @NotNull Class&lt;?&gt; beanType,
             final @NotNull String property) {
-<span class="fc" id="L354">        return PropertyTypeGenerator.&lt;T&gt;targeting(beanType, property);</span>
+<span class="fc" id="L393">        return PropertyTypeGenerator.&lt;T&gt;targeting(beanType, property);</span>
+    }
+
+    /**
+     * Returns a targeted generator for the specified parameter.
+     * &lt;p&gt;
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the parameter declaration.
+     * 
+     * @param &lt;T&gt; The type of the generated values
+     * @param parameter The parameter
+     * @return A generator for the type of the specified parameter
+     * @since 0.2
+     */
+    @API(status=Status.EXPERIMENTAL, since = &quot;0.2&quot;)
+    public static &lt;T&gt; @NotNull ParameterTypeGenerator&lt;T&gt; forParameter(
+            final @NotNull Parameter parameter) {
+<span class="nc" id="L410">        return ParameterTypeGenerator.&lt;T&gt;targeting(parameter);</span>
     }
 
     /**
@@ -369,7 +425,7 @@ public final class Generators {
     public static &lt;T&gt; @NotNull MethodParameterTypeGenerator&lt;T&gt; forParameter(
             final @NotNull Method method,
             final @NotNull int parameterIndex) {
-<span class="fc" id="L372">        return MethodParameterTypeGenerator.&lt;T&gt;targeting(method, parameterIndex);</span>
+<span class="fc" id="L428">        return MethodParameterTypeGenerator.&lt;T&gt;targeting(method, parameterIndex);</span>
     }
 
     /**
@@ -391,7 +447,7 @@ public final class Generators {
             final @NotNull String method,
             final @NotNull Class&lt;?&gt;[] parameterTypes,
             final @NotNull int parameterIndex) {
-<span class="fc" id="L394">        return MethodParameterTypeGenerator.&lt;T&gt;targeting(cls, method, parameterIndex, parameterTypes);</span>
+<span class="fc" id="L450">        return MethodParameterTypeGenerator.&lt;T&gt;targeting(cls, method, parameterIndex, parameterTypes);</span>
     }
 
     /**
@@ -407,7 +463,7 @@ public final class Generators {
     @API(status=Status.EXPERIMENTAL, since = &quot;0.1&quot;)
     public static &lt;T&gt; @NotNull MethodReturnTypeGenerator&lt;T&gt; forReturnType(
             final @NotNull Method method) {
-<span class="nc" id="L410">        return MethodReturnTypeGenerator.&lt;T&gt;targeting(method);</span>
+<span class="nc" id="L466">        return MethodReturnTypeGenerator.&lt;T&gt;targeting(method);</span>
     }
 
     /**
@@ -427,7 +483,7 @@ public final class Generators {
             final @NotNull Class&lt;?&gt; cls,
             final @NotNull String method,
             final @NotNull Class&lt;?&gt;[] parameterTypes) {
-<span class="fc" id="L430">        return MethodReturnTypeGenerator.&lt;T&gt;targeting(cls, method, parameterTypes);</span>
+<span class="fc" id="L486">        return MethodReturnTypeGenerator.&lt;T&gt;targeting(cls, method, parameterTypes);</span>
     }
 
     /**
@@ -445,7 +501,7 @@ public final class Generators {
     public static &lt;T&gt; @NotNull ConstructorParameterTypeGenerator&lt;T&gt; forParameter(
             final @NotNull Constructor&lt;?&gt; constructor,
             final @NotNull int parameterIndex) {
-<span class="fc" id="L448">        return ConstructorParameterTypeGenerator.&lt;T&gt;targeting(constructor, parameterIndex);</span>
+<span class="fc" id="L504">        return ConstructorParameterTypeGenerator.&lt;T&gt;targeting(constructor, parameterIndex);</span>
     }
 
     /**
@@ -465,7 +521,7 @@ public final class Generators {
             final @NotNull Class&lt;?&gt; cls,
             final @NotNull Class&lt;?&gt;[] parameterTypes,
             final @NotNull int parameterIndex) {
-<span class="fc" id="L468">        return ConstructorParameterTypeGenerator.&lt;T&gt;targeting(cls, parameterIndex, parameterTypes);</span>
+<span class="fc" id="L524">        return ConstructorParameterTypeGenerator.&lt;T&gt;targeting(cls, parameterIndex, parameterTypes);</span>
     }
 
     /**
@@ -474,7 +530,7 @@ public final class Generators {
      * @return The registered generators
      */
     public static @NotNull List&lt;Generator&gt; getRegisteredGenerators() {
-<span class="nc" id="L477">        return Collections.unmodifiableList(getGeneratorsInt());</span>
+<span class="nc" id="L533">        return Collections.unmodifiableList(getGeneratorsInt());</span>
     }
 
     /**
@@ -484,9 +540,9 @@ public final class Generators {
      */
     public static void register(
             final @NotNull Generator... generators) {
-<span class="nc" id="L487">        Validate.notNull(generators);</span>
-<span class="nc" id="L488">        register(Arrays.asList(generators));</span>
-<span class="nc" id="L489">    }</span>
+<span class="nc" id="L543">        Validate.notNull(generators);</span>
+<span class="nc" id="L544">        register(Arrays.asList(generators));</span>
+<span class="nc" id="L545">    }</span>
 
     /**
      * Adds the specified generators to the registered generators.
@@ -495,15 +551,15 @@ public final class Generators {
      */
     public static void register(
             final @NotNull Collection&lt;Generator&gt; generators) {
-<span class="nc" id="L498">        Validate.notNull(generators);</span>
-<span class="nc" id="L499">        Validate.noNullElements(generators);</span>
-<span class="nc" id="L500">        synchronized (Generators.class) {</span>
-<span class="nc" id="L501">            final List&lt;Generator&gt; intList = getGeneratorsInt();</span>
-<span class="nc" id="L502">            intList.addAll(generators);</span>
-<span class="nc" id="L503">            Collections.sort(intList, COMPARATOR);</span>
-<span class="nc" id="L504">            CACHE.clear();</span>
-<span class="nc" id="L505">        }</span>
-<span class="nc" id="L506">    }</span>
+<span class="nc" id="L554">        Validate.notNull(generators);</span>
+<span class="nc" id="L555">        Validate.noNullElements(generators);</span>
+<span class="nc" id="L556">        synchronized (Generators.class) {</span>
+<span class="nc" id="L557">            final List&lt;Generator&gt; intList = getGeneratorsInt();</span>
+<span class="nc" id="L558">            intList.addAll(generators);</span>
+<span class="nc" id="L559">            Collections.sort(intList, COMPARATOR);</span>
+<span class="nc" id="L560">            CACHE.clear();</span>
+<span class="nc" id="L561">        }</span>
+<span class="nc" id="L562">    }</span>
 
     /**
      * Removes the specified generators from the registered generators.
@@ -512,9 +568,9 @@ public final class Generators {
      */
     public static void remove(
             final @NotNull Generator... generators) {
-<span class="nc" id="L515">        Validate.notNull(generators);</span>
-<span class="nc" id="L516">        remove(Arrays.asList(generators));</span>
-<span class="nc" id="L517">    }</span>
+<span class="nc" id="L571">        Validate.notNull(generators);</span>
+<span class="nc" id="L572">        remove(Arrays.asList(generators));</span>
+<span class="nc" id="L573">    }</span>
 
     /**
      * Removes the specified generators from the registered generators.
@@ -523,26 +579,26 @@ public final class Generators {
      */
     public static void remove(
             final @NotNull Collection&lt;Generator&gt; generators) {
-<span class="nc" id="L526">        Validate.notNull(generators);</span>
-<span class="nc" id="L527">        Validate.noNullElements(generators);</span>
-<span class="nc" id="L528">        synchronized (Generators.class) {</span>
-<span class="nc" id="L529">            final List&lt;Generator&gt; intList = getGeneratorsInt();</span>
-<span class="nc" id="L530">            intList.removeAll(generators);</span>
-<span class="nc" id="L531">            Collections.sort(intList, COMPARATOR);</span>
-<span class="nc" id="L532">            CACHE.clear();</span>
-<span class="nc" id="L533">        }</span>
-<span class="nc" id="L534">    }</span>
+<span class="nc" id="L582">        Validate.notNull(generators);</span>
+<span class="nc" id="L583">        Validate.noNullElements(generators);</span>
+<span class="nc" id="L584">        synchronized (Generators.class) {</span>
+<span class="nc" id="L585">            final List&lt;Generator&gt; intList = getGeneratorsInt();</span>
+<span class="nc" id="L586">            intList.removeAll(generators);</span>
+<span class="nc" id="L587">            Collections.sort(intList, COMPARATOR);</span>
+<span class="nc" id="L588">            CACHE.clear();</span>
+<span class="nc" id="L589">        }</span>
+<span class="nc" id="L590">    }</span>
 
     /**
      * Resets the loaded and cached generators. Next call will regenerate the
      * generator list (including SPI generators) and restart generator caching.
      */
     public static void reset() {
-<span class="nc" id="L541">        synchronized (Generators.class) {</span>
-<span class="nc" id="L542">            registeredGenerators = null;</span>
-<span class="nc" id="L543">            CACHE.clear();</span>
-<span class="nc" id="L544">        }</span>
-<span class="nc" id="L545">    }</span>
+<span class="nc" id="L597">        synchronized (Generators.class) {</span>
+<span class="nc" id="L598">            registeredGenerators = null;</span>
+<span class="nc" id="L599">            CACHE.clear();</span>
+<span class="nc" id="L600">        }</span>
+<span class="nc" id="L601">    }</span>
 
     /**
      * Returns a modifiable list with the registered generators.
@@ -552,13 +608,13 @@ public final class Generators {
      * @return The registered generators
      */
     static @NotNull List&lt;Generator&gt; getGeneratorsInt() {
-<span class="fc" id="L555">        synchronized (Generators.class) {</span>
-<span class="fc bfc" id="L556" title="All 2 branches covered.">            if (registeredGenerators == null) {</span>
-<span class="fc" id="L557">                registeredGenerators = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L558">                registeredGenerators.addAll(loadSpiGenerators());</span>
-<span class="fc" id="L559">                Collections.sort(registeredGenerators, COMPARATOR);</span>
+<span class="fc" id="L611">        synchronized (Generators.class) {</span>
+<span class="fc bfc" id="L612" title="All 2 branches covered.">            if (registeredGenerators == null) {</span>
+<span class="fc" id="L613">                registeredGenerators = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L614">                registeredGenerators.addAll(loadSpiGenerators());</span>
+<span class="fc" id="L615">                Collections.sort(registeredGenerators, COMPARATOR);</span>
             }
-<span class="fc" id="L561">            return registeredGenerators;</span>
+<span class="fc" id="L617">            return registeredGenerators;</span>
         }
     }
 
@@ -568,7 +624,7 @@ public final class Generators {
      * @return The internal by class generator cache
      */
     static @NotNull Map&lt;Class&lt;?&gt;, Generator&gt; getCacheInt() {
-<span class="nc" id="L571">        return CACHE;</span>
+<span class="nc" id="L627">        return CACHE;</span>
     }
 
     /**
@@ -579,15 +635,15 @@ public final class Generators {
      * @see ServiceLoader
      */
     static @NotNull List&lt;Generator&gt; loadSpiGenerators() {
-<span class="fc" id="L582">        final List&lt;Generator&gt; result = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L583">        final ServiceLoader&lt;Generator&gt; loader =</span>
-<span class="fc" id="L584">                ServiceLoader.load(Generator.class);</span>
-<span class="fc" id="L585">        final Iterator&lt;Generator&gt; it = loader.iterator();</span>
-<span class="fc bfc" id="L586" title="All 2 branches covered.">        while (it.hasNext()) {</span>
-<span class="fc" id="L587">            final Generator generator = it.next();</span>
-<span class="fc" id="L588">            result.add(generator);</span>
-<span class="fc" id="L589">        }</span>
-<span class="fc" id="L590">        return result;</span>
+<span class="fc" id="L638">        final List&lt;Generator&gt; result = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L639">        final ServiceLoader&lt;Generator&gt; loader =</span>
+<span class="fc" id="L640">                ServiceLoader.load(Generator.class);</span>
+<span class="fc" id="L641">        final Iterator&lt;Generator&gt; it = loader.iterator();</span>
+<span class="fc bfc" id="L642" title="All 2 branches covered.">        while (it.hasNext()) {</span>
+<span class="fc" id="L643">            final Generator generator = it.next();</span>
+<span class="fc" id="L644">            result.add(generator);</span>
+<span class="fc" id="L645">        }</span>
+<span class="fc" id="L646">        return result;</span>
     }
 
     /**
@@ -604,7 +660,7 @@ public final class Generators {
         /** The error message. */
         public static final String ERR_MSG = &quot;No suitable generator found&quot;;
         /** The generator placeholder for missing generators. */
-<span class="fc" id="L607">        public static final MissingGenerator INSTANCE = new MissingGenerator();</span>
+<span class="fc" id="L663">        public static final MissingGenerator INSTANCE = new MissingGenerator();</span>
 
         /**
          * Private constructor.
@@ -619,7 +675,7 @@ public final class Generators {
         @Override
         public boolean supports(
                 final @NotNull Class&lt;?&gt; type) {
-<span class="nc" id="L622">            return false;</span>
+<span class="nc" id="L678">            return false;</span>
         }
 
         /**
@@ -628,7 +684,7 @@ public final class Generators {
         @Override
         public &lt;T&gt; @NotNull T defaultValue(
                 final @NotNull Class&lt;T&gt; type) {
-<span class="nc" id="L631">            throw new GeneratorNotFoundException(ERR_MSG);</span>
+<span class="nc" id="L687">            throw new GeneratorNotFoundException(ERR_MSG);</span>
         }
 
         /**
@@ -637,7 +693,7 @@ public final class Generators {
         @Override
         public &lt;T&gt; T nullableDefaultValue(
                 final @NotNull Class&lt;T&gt; type) {
-<span class="nc" id="L640">            throw new GeneratorNotFoundException(ERR_MSG);</span>
+<span class="nc" id="L696">            throw new GeneratorNotFoundException(ERR_MSG);</span>
         }
 
         /**
@@ -646,7 +702,7 @@ public final class Generators {
         @Override
         public &lt;T&gt; @NotNull T randomValue(
                 final @NotNull Class&lt;T&gt; type) {
-<span class="nc" id="L649">            throw new GeneratorNotFoundException(ERR_MSG);</span>
+<span class="nc" id="L705">            throw new GeneratorNotFoundException(ERR_MSG);</span>
         }
 
         /**
@@ -655,8 +711,8 @@ public final class Generators {
         @Override
         public &lt;T&gt; T nullableRandomValue(
                 final @NotNull Class&lt;T&gt; type) {
-<span class="nc" id="L658">            throw new GeneratorNotFoundException(ERR_MSG);</span>
+<span class="nc" id="L714">            throw new GeneratorNotFoundException(ERR_MSG);</span>
         }
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

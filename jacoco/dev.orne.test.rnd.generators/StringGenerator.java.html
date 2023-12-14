@@ -45,7 +45,7 @@ import dev.orne.test.rnd.params.StringGenerationParameters;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L48">public class StringGenerator</span>
+public class StringGenerator
 extends AbstractTypedParameterizableGenerator&lt;String, StringGenerationParameters&gt; {
 
     /** The default value. */
@@ -56,14 +56,21 @@ extends AbstractTypedParameterizableGenerator&lt;String, StringGenerationParamet
     public static final int MAX_SIZE = 40;
 
     /**
+     * Creates a new instance.
+     */
+    public StringGenerator() {
+<span class="fc" id="L62">        super();</span>
+<span class="fc" id="L63">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public boolean supports(
             final @NotNull Class&lt;?&gt; type) {
-<span class="fc" id="L64">        Validate.notNull(type);</span>
-<span class="fc bfc" id="L65" title="All 2 branches covered.">        return String.class.equals(type) ||</span>
-<span class="fc bfc" id="L66" title="All 2 branches covered.">                CharSequence.class.equals(type);</span>
+<span class="fc" id="L71">        Validate.notNull(type);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        return String.class.equals(type) ||</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">                CharSequence.class.equals(type);</span>
     }
 
     /**
@@ -72,8 +79,8 @@ extends AbstractTypedParameterizableGenerator&lt;String, StringGenerationParamet
     @Override
     public @NotNull String defaultValue(
             final @NotNull StringGenerationParameters parameters) {
-<span class="fc" id="L75">        validateParameters(parameters);</span>
-<span class="fc" id="L76">        return &quot;&quot;;</span>
+<span class="fc" id="L82">        validateParameters(parameters);</span>
+<span class="fc" id="L83">        return &quot;&quot;;</span>
     }
 
     /**
@@ -82,8 +89,8 @@ extends AbstractTypedParameterizableGenerator&lt;String, StringGenerationParamet
     @Override
     public @NotNull String randomValue(
             final @NotNull StringGenerationParameters parameters) {
-<span class="fc" id="L85">        validateParameters(parameters);</span>
-<span class="fc" id="L86">        return randomString(parameters);</span>
+<span class="fc" id="L92">        validateParameters(parameters);</span>
+<span class="fc" id="L93">        return randomString(parameters);</span>
     }
 
     /**
@@ -95,7 +102,7 @@ extends AbstractTypedParameterizableGenerator&lt;String, StringGenerationParamet
     protected void validateParameters(
             final @NotNull StringGenerationParameters parameters) {
         // No restrictions
-<span class="fc" id="L98">    }</span>
+<span class="fc" id="L105">    }</span>
 
     /**
      * Returns a random sized string.
@@ -106,8 +113,8 @@ extends AbstractTypedParameterizableGenerator&lt;String, StringGenerationParamet
      */
     protected @NotNull String randomString(
             final @NotNull StringGenerationParameters parameters) {
-<span class="fc" id="L109">        final int size = randomStringSize(parameters);</span>
-<span class="fc" id="L110">        return RandomStringUtils.random(size);</span>
+<span class="fc" id="L116">        final int size = randomSize(parameters);</span>
+<span class="fc" id="L117">        return RandomStringUtils.random(size);</span>
     }
 
     /**
@@ -116,11 +123,11 @@ extends AbstractTypedParameterizableGenerator&lt;String, StringGenerationParamet
      * @param parameters The generation parameters.
      * @return The string length.
      */
-    protected int randomStringSize(
+    protected int randomSize(
             final @NotNull StringGenerationParameters parameters) {
-<span class="fc" id="L121">        return RandomUtils.nextInt(</span>
-<span class="fc" id="L122">                NumberUtils.max(MIN_SIZE, parameters.getMinSize()),</span>
-<span class="fc" id="L123">                NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);</span>
+<span class="fc" id="L128">        return RandomUtils.nextInt(</span>
+<span class="fc" id="L129">                NumberUtils.max(MIN_SIZE, parameters.getMinSize()),</span>
+<span class="fc" id="L130">                NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);</span>
     }
 
     /**
@@ -130,7 +137,7 @@ extends AbstractTypedParameterizableGenerator&lt;String, StringGenerationParamet
      * @see StringGenerationParameters
      */
     public static @NotNull StringGenerationParameters createParameters() {
-<span class="fc" id="L133">        return new StringGenerationParameters();</span>
+<span class="fc" id="L140">        return new StringGenerationParameters();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

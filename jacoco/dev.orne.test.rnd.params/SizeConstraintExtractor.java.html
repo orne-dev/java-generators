@@ -46,8 +46,15 @@ import org.apiguardian.api.API.Status;
  * @see SizeParameters
  */
 @API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
-<span class="fc" id="L49">public class SizeConstraintExtractor</span>
+public class SizeConstraintExtractor
 extends AbstractParametersSourceExtractor&lt;SizeParameters, Size&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public SizeConstraintExtractor() {
+<span class="fc" id="L56">        super();</span>
+<span class="fc" id="L57">    }</span>
 
     /**
      * {@inheritDoc}
@@ -56,8 +63,8 @@ extends AbstractParametersSourceExtractor&lt;SizeParameters, Size&gt; {
     public void extractParameters(
             final @NotNull Size from,
             final @NotNull SizeParameters target) {
-<span class="fc" id="L59">        target.setMinSize(NumberUtils.max(from.min(), target.getMinSize()));</span>
-<span class="fc" id="L60">        target.setMaxSize(NumberUtils.min(from.max(), target.getMaxSize()));</span>
-<span class="fc" id="L61">    }</span>
+<span class="fc" id="L66">        target.setMinSize(NumberUtils.max(from.min(), target.getMinSize()));</span>
+<span class="fc" id="L67">        target.setMaxSize(NumberUtils.min(from.max(), target.getMaxSize()));</span>
+<span class="fc" id="L68">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

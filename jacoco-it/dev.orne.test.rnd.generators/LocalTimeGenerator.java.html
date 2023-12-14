@@ -42,15 +42,22 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L45">public class LocalTimeGenerator</span>
+public class LocalTimeGenerator
 extends AbstractTypedGenerator&lt;LocalTime&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public LocalTimeGenerator() {
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull LocalTime defaultValue() {
-<span class="fc" id="L53">        return LocalTime.MIN;</span>
+<span class="fc" id="L60">        return LocalTime.MIN;</span>
     }
 
     /**
@@ -58,11 +65,11 @@ extends AbstractTypedGenerator&lt;LocalTime&gt; {
      */
     @Override
     public @NotNull LocalTime randomValue() {
-<span class="fc" id="L61">        return LocalTime.of(</span>
-<span class="fc" id="L62">                RandomUtils.nextInt(0, 24),</span>
-<span class="fc" id="L63">                RandomUtils.nextInt(0, 60),</span>
-<span class="fc" id="L64">                RandomUtils.nextInt(0, 60),</span>
-<span class="fc" id="L65">                RandomUtils.nextInt(0, 1000000000));</span>
+<span class="fc" id="L68">        return LocalTime.of(</span>
+<span class="fc" id="L69">                RandomUtils.nextInt(0, 24),</span>
+<span class="fc" id="L70">                RandomUtils.nextInt(0, 60),</span>
+<span class="fc" id="L71">                RandomUtils.nextInt(0, 60),</span>
+<span class="fc" id="L72">                RandomUtils.nextInt(0, 1000000000));</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -44,15 +44,22 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L47">public class DurationGenerator</span>
+public class DurationGenerator
 extends AbstractTypedGenerator&lt;Duration&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public DurationGenerator() {
+<span class="fc" id="L54">        super();</span>
+<span class="fc" id="L55">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Duration defaultValue() {
-<span class="fc" id="L55">        return Duration.ZERO;</span>
+<span class="fc" id="L62">        return Duration.ZERO;</span>
     }
 
     /**
@@ -60,11 +67,11 @@ extends AbstractTypedGenerator&lt;Duration&gt; {
      */
     @Override
     public @NotNull Duration randomValue() {
-<span class="fc" id="L63">        ChronoUnit unit = Generators.randomValue(ChronoUnit.class);</span>
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        while (unit.isDurationEstimated()) {</span>
-<span class="fc" id="L65">            unit = Generators.randomValue(ChronoUnit.class);</span>
+<span class="fc" id="L70">        ChronoUnit unit = Generators.randomValue(ChronoUnit.class);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        while (unit.isDurationEstimated()) {</span>
+<span class="fc" id="L72">            unit = Generators.randomValue(ChronoUnit.class);</span>
         }
-<span class="fc" id="L67">        return Duration.of(RandomUtils.nextInt(), unit);</span>
+<span class="fc" id="L74">        return Duration.of(RandomUtils.nextInt(), unit);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

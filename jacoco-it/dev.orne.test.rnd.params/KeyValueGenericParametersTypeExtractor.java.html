@@ -42,8 +42,15 @@ import org.apiguardian.api.API.Status;
  * @see SimpleGenericParameters
  */
 @API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
-<span class="fc" id="L45">public class KeyValueGenericParametersTypeExtractor</span>
+public class KeyValueGenericParametersTypeExtractor
 extends AbstractParametersSourceExtractor&lt;KeyValueGenericParameters, TypeDeclaration&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public KeyValueGenericParametersTypeExtractor() {
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">    }</span>
 
     /**
      * {@inheritDoc}
@@ -52,13 +59,13 @@ extends AbstractParametersSourceExtractor&lt;KeyValueGenericParameters, TypeDecl
     public void extractParameters(
             final @NotNull TypeDeclaration from,
             final @NotNull KeyValueGenericParameters target) {
-<span class="nc" id="L55">        Validate.notNull(from);</span>
-<span class="nc" id="L56">        Validate.notNull(target);</span>
-<span class="nc" id="L57">        Validate.isInstanceOf(ParameterizedType.class, from.getType());</span>
-<span class="nc" id="L58">        final ParameterizedType type = (ParameterizedType) from.getType();</span>
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        Validate.isTrue(type.getActualTypeArguments().length == 2);</span>
-<span class="nc" id="L60">        target.setKeysType(type.getActualTypeArguments()[0]);</span>
-<span class="nc" id="L61">        target.setValuesType(type.getActualTypeArguments()[1]);</span>
-<span class="nc" id="L62">    }</span>
+<span class="nc" id="L62">        Validate.notNull(from);</span>
+<span class="nc" id="L63">        Validate.notNull(target);</span>
+<span class="nc" id="L64">        Validate.isInstanceOf(ParameterizedType.class, from.getType());</span>
+<span class="nc" id="L65">        final ParameterizedType type = (ParameterizedType) from.getType();</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        Validate.isTrue(type.getActualTypeArguments().length == 2);</span>
+<span class="nc" id="L67">        target.setKeysType(type.getActualTypeArguments()[0]);</span>
+<span class="nc" id="L68">        target.setValuesType(type.getActualTypeArguments()[1]);</span>
+<span class="nc" id="L69">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

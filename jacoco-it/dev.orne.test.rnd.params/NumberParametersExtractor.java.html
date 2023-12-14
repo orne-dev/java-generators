@@ -42,8 +42,15 @@ import org.apiguardian.api.API.Status;
  * @see SizeParameters
  */
 @API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
-<span class="fc" id="L45">public class NumberParametersExtractor</span>
+public class NumberParametersExtractor
 extends AbstractParametersSourceExtractor&lt;NumberParameters, NumberParameters&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public NumberParametersExtractor() {
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">    }</span>
 
     /**
      * {@inheritDoc}
@@ -52,9 +59,9 @@ extends AbstractParametersSourceExtractor&lt;NumberParameters, NumberParameters&
     public void extractParameters(
             final @NotNull NumberParameters from,
             final @NotNull NumberParameters target) {
-<span class="nc" id="L55">        target.setMin(max(from.getMin(), target.getMin()));</span>
-<span class="nc" id="L56">        target.setMax(min(from.getMax(), target.getMax()));</span>
-<span class="nc" id="L57">    }</span>
+<span class="nc" id="L62">        target.setMin(max(from.getMin(), target.getMin()));</span>
+<span class="nc" id="L63">        target.setMax(min(from.getMax(), target.getMax()));</span>
+<span class="nc" id="L64">    }</span>
 
     /**
      * Returns the minimum value. If both {@code newValue}'s long value and
@@ -68,11 +75,11 @@ extends AbstractParametersSourceExtractor&lt;NumberParameters, NumberParameters&
     private static @NotNull Number max(
             final @NotNull Number oldValue,
             final @NotNull Number newValue) {
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        if (newValue.longValue() &gt; oldValue.longValue() &amp;&amp;</span>
-<span class="nc bnc" id="L72" title="All 2 branches missed.">                newValue.doubleValue() &gt; oldValue.doubleValue()) {</span>
-<span class="nc" id="L73">            return newValue;</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        if (newValue.longValue() &gt; oldValue.longValue() &amp;&amp;</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">                newValue.doubleValue() &gt; oldValue.doubleValue()) {</span>
+<span class="nc" id="L80">            return newValue;</span>
         } else {
-<span class="nc" id="L75">            return oldValue;</span>
+<span class="nc" id="L82">            return oldValue;</span>
         }
     }
 
@@ -88,12 +95,12 @@ extends AbstractParametersSourceExtractor&lt;NumberParameters, NumberParameters&
     private static @NotNull Number min(
             final @NotNull Number oldValue,
             final @NotNull Number newValue) {
-<span class="nc bnc" id="L91" title="All 2 branches missed.">        if (newValue.longValue() &lt; oldValue.longValue() &amp;&amp;</span>
-<span class="nc bnc" id="L92" title="All 2 branches missed.">                newValue.doubleValue() &lt; oldValue.doubleValue()) {</span>
-<span class="nc" id="L93">            return newValue;</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (newValue.longValue() &lt; oldValue.longValue() &amp;&amp;</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">                newValue.doubleValue() &lt; oldValue.doubleValue()) {</span>
+<span class="nc" id="L100">            return newValue;</span>
         } else {
-<span class="nc" id="L95">            return oldValue;</span>
+<span class="nc" id="L102">            return oldValue;</span>
         }
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

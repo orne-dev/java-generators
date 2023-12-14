@@ -43,8 +43,15 @@ import org.apiguardian.api.API.Status;
  * @see NumberParameters
  */
 @API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
-<span class="fc" id="L46">public class MinConstraintExtractor</span>
+public class MinConstraintExtractor
 extends AbstractParametersSourceExtractor&lt;NumberParameters, Min&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public MinConstraintExtractor() {
+<span class="fc" id="L53">        super();</span>
+<span class="fc" id="L54">    }</span>
 
     /**
      * {@inheritDoc}
@@ -53,7 +60,7 @@ extends AbstractParametersSourceExtractor&lt;NumberParameters, Min&gt; {
     public void extractParameters(
             final @NotNull Min from,
             final @NotNull NumberParameters target) {
-<span class="fc" id="L56">        target.setMin(NumberUtils.max(from.value(), target.getMin().longValue()));</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L63">        target.setMin(NumberUtils.max(from.value(), target.getMin().longValue()));</span>
+<span class="fc" id="L64">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

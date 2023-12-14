@@ -43,8 +43,15 @@ import org.apiguardian.api.API.Status;
  * @see NumberParameters
  */
 @API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
-<span class="fc" id="L46">public class PositiveOrZeroConstraintExtractor</span>
+public class PositiveOrZeroConstraintExtractor
 extends AbstractParametersSourceExtractor&lt;NumberParameters, PositiveOrZero&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public PositiveOrZeroConstraintExtractor() {
+<span class="fc" id="L53">        super();</span>
+<span class="fc" id="L54">    }</span>
 
     /**
      * {@inheritDoc}
@@ -53,7 +60,7 @@ extends AbstractParametersSourceExtractor&lt;NumberParameters, PositiveOrZero&gt
     public void extractParameters(
             final @NotNull PositiveOrZero from,
             final @NotNull NumberParameters target) {
-<span class="nc" id="L56">        target.setMin(NumberUtils.max(0, target.getMin().longValue()));</span>
-<span class="nc" id="L57">    }</span>
+<span class="nc" id="L63">        target.setMin(NumberUtils.max(0, target.getMin().longValue()));</span>
+<span class="nc" id="L64">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

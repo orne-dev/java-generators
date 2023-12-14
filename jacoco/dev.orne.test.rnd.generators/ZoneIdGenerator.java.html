@@ -44,7 +44,7 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L47">public class ZoneIdGenerator</span>
+public class ZoneIdGenerator
 extends AbstractTypedGenerator&lt;ZoneId&gt; {
 
     /** The supported zone IDs. */
@@ -52,11 +52,18 @@ extends AbstractTypedGenerator&lt;ZoneId&gt; {
 <span class="fc" id="L52">            ZoneId.getAvailableZoneIds());</span>
 
     /**
+     * Creates a new instance.
+     */
+    public ZoneIdGenerator() {
+<span class="fc" id="L58">        super();</span>
+<span class="fc" id="L59">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull ZoneId defaultValue() {
-<span class="fc" id="L59">        return ZoneId.systemDefault();</span>
+<span class="fc" id="L66">        return ZoneId.systemDefault();</span>
     }
 
     /**
@@ -64,8 +71,8 @@ extends AbstractTypedGenerator&lt;ZoneId&gt; {
      */
     @Override
     public @NotNull ZoneId randomValue() {
-<span class="fc" id="L67">        final int index = RandomUtils.nextInt(0, IDS.size());</span>
-<span class="fc" id="L68">        return ZoneId.of(IDS.get(index));</span>
+<span class="fc" id="L74">        final int index = RandomUtils.nextInt(0, IDS.size());</span>
+<span class="fc" id="L75">        return ZoneId.of(IDS.get(index));</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

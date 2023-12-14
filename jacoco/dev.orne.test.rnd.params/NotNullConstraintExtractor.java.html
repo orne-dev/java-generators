@@ -37,8 +37,15 @@ import org.apiguardian.api.API.Status;
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
-<span class="fc" id="L40">public class NotNullConstraintExtractor</span>
+public class NotNullConstraintExtractor
 extends AbstractParametersSourceExtractor&lt;NullableParameters, NotNull&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public NotNullConstraintExtractor() {
+<span class="fc" id="L47">        super();</span>
+<span class="fc" id="L48">    }</span>
 
     /**
      * {@inheritDoc}
@@ -47,7 +54,7 @@ extends AbstractParametersSourceExtractor&lt;NullableParameters, NotNull&gt; {
     public void extractParameters(
             final @NotNull NotNull from,
             final @NotNull NullableParameters target) {
-<span class="fc" id="L50">        target.setNullable(false);</span>
-<span class="fc" id="L51">    }</span>
+<span class="fc" id="L57">        target.setNullable(false);</span>
+<span class="fc" id="L58">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

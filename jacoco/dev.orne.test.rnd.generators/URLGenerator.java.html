@@ -48,7 +48,7 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L51">public class URLGenerator</span>
+public class URLGenerator
 extends AbstractTypedGenerator&lt;URL&gt; {
 
     /** The default protocol. */
@@ -62,14 +62,21 @@ extends AbstractTypedGenerator&lt;URL&gt; {
 <span class="fc" id="L62">    private static final NopStreamHandler HANDLER = new NopStreamHandler();</span>
 
     /**
+     * Creates a new instance.
+     */
+    public URLGenerator() {
+<span class="fc" id="L68">        super();</span>
+<span class="fc" id="L69">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull URL defaultValue() {
         try {
-<span class="fc" id="L70">            return new URL(DEFAULT_PROTOCOL, DEFAULT_HOST, -1, DEFAULT_PATH, HANDLER);</span>
-<span class="nc" id="L71">        } catch (final MalformedURLException e) {</span>
-<span class="nc" id="L72">            throw new GenerationException(&quot;Error generating default URL&quot;, e);</span>
+<span class="fc" id="L77">            return new URL(DEFAULT_PROTOCOL, DEFAULT_HOST, -1, DEFAULT_PATH, HANDLER);</span>
+<span class="nc" id="L78">        } catch (final MalformedURLException e) {</span>
+<span class="nc" id="L79">            throw new GenerationException(&quot;Error generating default URL&quot;, e);</span>
         }
     }
 
@@ -78,7 +85,7 @@ extends AbstractTypedGenerator&lt;URL&gt; {
      */
     @Override
     public @NotNull URL randomValue() {
-<span class="fc" id="L81">        return randomURL();</span>
+<span class="fc" id="L88">        return randomURL();</span>
     }
 
     /**
@@ -88,12 +95,12 @@ extends AbstractTypedGenerator&lt;URL&gt; {
      */
     public static @NotNull URL randomURL() {
         try {
-<span class="fc" id="L91">            return new URL(</span>
+<span class="fc" id="L98">            return new URL(</span>
                     null,
-<span class="fc" id="L93">                    URIGenerator.randomAbsoluteURI().toString(),</span>
+<span class="fc" id="L100">                    URIGenerator.randomAbsoluteURI().toString(),</span>
                     HANDLER);
-<span class="nc" id="L95">        } catch (final MalformedURLException e) {</span>
-<span class="nc" id="L96">            throw new GenerationException(&quot;Error generating random URL&quot;, e);</span>
+<span class="nc" id="L102">        } catch (final MalformedURLException e) {</span>
+<span class="nc" id="L103">            throw new GenerationException(&quot;Error generating random URL&quot;, e);</span>
         }
     }
 
@@ -105,16 +112,23 @@ extends AbstractTypedGenerator&lt;URL&gt; {
      * @version 1.0, 2022-11
      * @since URLGenerator 1.0
      */
-<span class="fc" id="L108">    protected static class NopStreamHandler</span>
+    protected static class NopStreamHandler
     extends URLStreamHandler {
+
+        /**
+         * Creates a new instance.
+         */
+        protected NopStreamHandler() {
+<span class="fc" id="L122">            super();</span>
+<span class="fc" id="L123">        }</span>
 
         /**
          * {@inheritDoc}
          */
         @Override
         protected URLConnection openConnection(URL u) throws IOException {
-<span class="fc" id="L116">            throw new NotImplementedException(&quot;Open generated URLs is not allowed&quot;);</span>
+<span class="fc" id="L130">            throw new NotImplementedException(&quot;Open generated URLs is not allowed&quot;);</span>
         }
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

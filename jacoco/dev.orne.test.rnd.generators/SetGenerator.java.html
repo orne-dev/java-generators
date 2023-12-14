@@ -48,7 +48,7 @@ import dev.orne.test.rnd.params.CollectionGenerationParameters;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.GENERIC_GENERATORS)
-<span class="fc" id="L51">public class SetGenerator</span>
+public class SetGenerator
 extends AbstractTypedParameterizableGenerator&lt;Set&lt;?&gt;, CollectionGenerationParameters&gt; {
 
     /** The minimum generated set size. */
@@ -57,13 +57,20 @@ extends AbstractTypedParameterizableGenerator&lt;Set&lt;?&gt;, CollectionGenerat
     public static final int MAX_SIZE = 100;
 
     /**
+     * Creates a new instance.
+     */
+    public SetGenerator() {
+<span class="fc" id="L63">        super();</span>
+<span class="fc" id="L64">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Set&lt;?&gt; defaultValue(
             final @NotNull CollectionGenerationParameters parameters) {
-<span class="fc" id="L65">        validateParameters(parameters);</span>
-<span class="fc" id="L66">        return new HashSet&lt;&gt;();</span>
+<span class="fc" id="L72">        validateParameters(parameters);</span>
+<span class="fc" id="L73">        return new HashSet&lt;&gt;();</span>
     }
 
     /**
@@ -72,8 +79,8 @@ extends AbstractTypedParameterizableGenerator&lt;Set&lt;?&gt;, CollectionGenerat
     @Override
     public @NotNull Set&lt;?&gt; randomValue(
             final @NotNull CollectionGenerationParameters parameters) {
-<span class="fc" id="L75">        validateParameters(parameters);</span>
-<span class="fc" id="L76">        return randomSet(parameters);</span>
+<span class="fc" id="L82">        validateParameters(parameters);</span>
+<span class="fc" id="L83">        return randomSet(parameters);</span>
     }
 
     /**
@@ -83,14 +90,14 @@ extends AbstractTypedParameterizableGenerator&lt;Set&lt;?&gt;, CollectionGenerat
     public &lt;T&gt; T nullableRandomValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull CollectionGenerationParameters parameters) {
-<span class="fc" id="L86">        assertSupported(type);</span>
+<span class="fc" id="L93">        assertSupported(type);</span>
         final T value;
-<span class="fc bfc" id="L88" title="All 4 branches covered.">        if (parameters.isNullable() &amp;&amp; randomNull(type)) {</span>
-<span class="fc" id="L89">            value = null;</span>
+<span class="fc bfc" id="L95" title="All 4 branches covered.">        if (parameters.isNullable() &amp;&amp; randomNull(type)) {</span>
+<span class="fc" id="L96">            value = null;</span>
         } else {
-<span class="fc" id="L91">            value = type.cast(randomNullablesSet(parameters));</span>
+<span class="fc" id="L98">            value = type.cast(randomNullablesSet(parameters));</span>
         }
-<span class="fc" id="L93">        return value;</span>
+<span class="fc" id="L100">        return value;</span>
     }
 
     /**
@@ -99,14 +106,14 @@ extends AbstractTypedParameterizableGenerator&lt;Set&lt;?&gt;, CollectionGenerat
     @Override
     public Set&lt;?&gt; nullableRandomValue(
             final @NotNull CollectionGenerationParameters parameters) {
-<span class="fc" id="L102">        validateParameters(parameters);</span>
+<span class="fc" id="L109">        validateParameters(parameters);</span>
         final Set&lt;?&gt; value;
-<span class="fc bfc" id="L104" title="All 4 branches covered.">        if (parameters.isNullable() &amp;&amp; randomNull(getValueType())) {</span>
-<span class="fc" id="L105">            value = null;</span>
+<span class="fc bfc" id="L111" title="All 4 branches covered.">        if (parameters.isNullable() &amp;&amp; randomNull(getValueType())) {</span>
+<span class="fc" id="L112">            value = null;</span>
         } else {
-<span class="fc" id="L107">            value = randomNullablesSet(parameters);</span>
+<span class="fc" id="L114">            value = randomNullablesSet(parameters);</span>
         }
-<span class="fc" id="L109">        return value;</span>
+<span class="fc" id="L116">        return value;</span>
     }
 
     /**
@@ -117,8 +124,8 @@ extends AbstractTypedParameterizableGenerator&lt;Set&lt;?&gt;, CollectionGenerat
      */
     protected void validateParameters(
             final @NotNull CollectionGenerationParameters parameters) {
-<span class="fc" id="L120">        Validate.notNull(parameters.getType(), &quot;The set component type is required&quot;);</span>
-<span class="fc" id="L121">    }</span>
+<span class="fc" id="L127">        Validate.notNull(parameters.getType(), &quot;The set component type is required&quot;);</span>
+<span class="fc" id="L128">    }</span>
 
     /**
      * Returns a random sized set of the specified component type.
@@ -130,13 +137,13 @@ extends AbstractTypedParameterizableGenerator&lt;Set&lt;?&gt;, CollectionGenerat
     @SuppressWarnings(&quot;java:S1452&quot;)
     protected @NotNull Set&lt;?&gt; randomSet(
             final @NotNull CollectionGenerationParameters parameters) {
-<span class="fc" id="L133">        final int size = randomSetSize(parameters);</span>
-<span class="fc" id="L134">        final Set&lt;Object&gt; result = new HashSet&lt;&gt;(size);</span>
-<span class="fc bfc" id="L135" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i++) {</span>
-<span class="fc" id="L136">            result.add(CollectionGeneratorUtils.randomComponent(</span>
-<span class="fc" id="L137">                    parameters.getType()));</span>
+<span class="fc" id="L140">        final int size = randomSize(parameters);</span>
+<span class="fc" id="L141">        final Set&lt;Object&gt; result = new HashSet&lt;&gt;(size);</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i++) {</span>
+<span class="fc" id="L143">            result.add(CollectionGeneratorUtils.randomComponent(</span>
+<span class="fc" id="L144">                    parameters.getType()));</span>
         }
-<span class="fc" id="L139">        return result;</span>
+<span class="fc" id="L146">        return result;</span>
     }
 
     /**
@@ -150,13 +157,13 @@ extends AbstractTypedParameterizableGenerator&lt;Set&lt;?&gt;, CollectionGenerat
     @SuppressWarnings(&quot;java:S1452&quot;)
     protected Set&lt;?&gt; randomNullablesSet(
             final @NotNull CollectionGenerationParameters parameters) {
-<span class="fc" id="L153">        final int size = randomSetSize(parameters);</span>
-<span class="fc" id="L154">        final Set&lt;Object&gt; result = new HashSet&lt;&gt;(size);</span>
-<span class="fc bfc" id="L155" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i++) {</span>
-<span class="fc" id="L156">            result.add(CollectionGeneratorUtils.nullableRandomComponent(</span>
-<span class="fc" id="L157">                    parameters.getType()));</span>
+<span class="fc" id="L160">        final int size = randomSize(parameters);</span>
+<span class="fc" id="L161">        final Set&lt;Object&gt; result = new HashSet&lt;&gt;(size);</span>
+<span class="fc bfc" id="L162" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i++) {</span>
+<span class="fc" id="L163">            result.add(CollectionGeneratorUtils.nullableRandomComponent(</span>
+<span class="fc" id="L164">                    parameters.getType()));</span>
         }
-<span class="fc" id="L159">        return result;</span>
+<span class="fc" id="L166">        return result;</span>
     }
 
     /**
@@ -165,11 +172,11 @@ extends AbstractTypedParameterizableGenerator&lt;Set&lt;?&gt;, CollectionGenerat
      * @param parameters The generation parameters.
      * @return The set size.
      */
-    protected int randomSetSize(
+    protected int randomSize(
             final @NotNull CollectionGenerationParameters parameters) {
-<span class="fc" id="L170">        return RandomUtils.nextInt(</span>
-<span class="fc" id="L171">                NumberUtils.max(MIN_SIZE, parameters.getMinSize()),</span>
-<span class="fc" id="L172">                NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);</span>
+<span class="fc" id="L177">        return RandomUtils.nextInt(</span>
+<span class="fc" id="L178">                NumberUtils.max(MIN_SIZE, parameters.getMinSize()),</span>
+<span class="fc" id="L179">                NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

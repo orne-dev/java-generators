@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RandomValueExtension.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.junit</a> &gt; <span class="el_source">RandomValueExtension.java</span></div><h1>RandomValueExtension.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.junit;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Parameter;
+
+/*-
+ * #%L
+ * Orne Test Generators
+ * %%
+ * Copyright (C) 2023 Orne Developments
+ * %%
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Lesser Public
+ * License along with this program.  If not, see
+ * &lt;http://www.gnu.org/licenses/lgpl-3.0.html&gt;.
+ * #L%
+ */
+
+import javax.validation.constraints.NotNull;
+
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.ParameterContext;
+import org.junit.jupiter.api.extension.ParameterResolutionException;
+import org.junit.jupiter.api.extension.ParameterResolver;
+import org.junit.platform.commons.support.ModifierSupport;
+
+import dev.orne.test.rnd.GenerationException;
+import dev.orne.test.rnd.Generators;
+import dev.orne.test.rnd.params.ParameterTypeGenerator;
+
+/**
+ * JUnit Jupiter extension for automatic random value injection.
+ * &lt;p&gt;
+ * Supports injection in static fields (before all tests), in instance fields
+ * (before each test) and in constructor and test or callback method arguments.
+ * 
+ * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @version 1.0, 2023-11
+ * @since 0.1
+ * @see Random
+ */
+public class RandomValueExtension
+implements BeforeAllCallback, BeforeEachCallback, ParameterResolver {
+
+    /**
+     * Creates a new instance.
+     */
+    public RandomValueExtension() {
+<span class="fc" id="L61">        super();</span>
+<span class="fc" id="L62">    }</span>
+
+    /**
+     * {@inheritDoc}
+     * &lt;p&gt;
+     * Injects static fields annotated with {@code @Random} with random
+     * values.
+     */
+    @Override
+    public void beforeAll(
+            final @NotNull ExtensionContext context)
+    throws GenerationException {
+<span class="fc" id="L74">        injectFields(</span>
+<span class="fc" id="L75">                context.getRequiredTestClass(),</span>
+                null);
+<span class="fc" id="L77">    }</span>
+
+    /**
+     * {@inheritDoc}
+     * &lt;p&gt;
+     * Injects instance fields annotated with {@code @Random} with random
+     * values.
+     */
+    @Override
+    public void beforeEach(
+            final @NotNull ExtensionContext context)
+    throws GenerationException {
+<span class="fc" id="L89">        injectFields(</span>
+<span class="fc" id="L90">                context.getRequiredTestClass(),</span>
+<span class="fc" id="L91">                context.getRequiredTestInstance());</span>
+<span class="fc" id="L92">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean supportsParameter(
+            final @NotNull ParameterContext parameterContext,
+            final @NotNull ExtensionContext extensionContext)
+    throws ParameterResolutionException {
+<span class="fc" id="L102">        return parameterContext.isAnnotated(Random.class);</span>
+    }
+
+    /**
+     * {@inheritDoc}
+     * &lt;p&gt;
+     * Resolves method parameters annotated with {@code @Random} with random
+     * values.
+     */
+    @Override
+    public Object resolveParameter(
+            final @NotNull ParameterContext parameterContext,
+            final @NotNull ExtensionContext extensionContext)
+    throws ParameterResolutionException {
+<span class="fc" id="L116">        final Parameter param = parameterContext.getParameter();</span>
+<span class="fc" id="L117">        final Random annot = param.getAnnotation(Random.class);</span>
+<span class="fc" id="L118">        final ParameterTypeGenerator&lt;?&gt; generator = Generators.forParameter(parameterContext.getParameter());</span>
+        // TODO Support extraction of constraints from static methods
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        if (ModifierSupport.isStatic(param.getDeclaringExecutable())) {</span>
+<span class="fc" id="L121">            return generator.randomValue(annot.groups());</span>
+        } else {
+<span class="fc" id="L123">            return generator.nullableRandomValue(annot.groups());</span>
+        }
+    }
+
+    /**
+     * Injects to the fields annotated with {@code @Random} of the test class
+     * generated random values.
+     * &lt;p&gt;
+     * If a test instance is provided annotated instance fields will be
+     * injected. Otherwise instance fields will be injected.
+     * 
+     * @param testClass The test class.
+     * @param testInstance The test instance, if any.
+     * @throws ParameterResolutionException If an error occurs injecting the
+     * field values.
+     */
+    protected void injectFields(
+            final @NotNull Class&lt;?&gt; testClass,
+            final Object testInstance) {
+<span class="fc" id="L142">        FieldUtils.getFieldsListWithAnnotation(testClass, Random.class).parallelStream()</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">            .filter(f -&gt; testInstance == null ? ModifierSupport.isStatic(f) : ModifierSupport.isNotStatic(f))</span>
+<span class="fc" id="L144">            .forEach(field -&gt; injectField(testClass, field, testInstance, generateValue(testClass, field)));</span>
+<span class="fc" id="L145">    }</span>
+
+    /**
+     * Generates a random value for the specified field of the test class.
+     * 
+     * @param testClass The test class.
+     * @param field The target field.
+     * @return The generated random value.
+     */
+    protected Object generateValue(
+            final @NotNull Class&lt;?&gt; testClass,
+            final @NotNull Field field) {
+<span class="fc" id="L157">        final Random annot = field.getAnnotation(Random.class);</span>
+        // TODO Support extraction of constraints from static methods
+<span class="fc bfc" id="L159" title="All 2 branches covered.">        if (ModifierSupport.isStatic(field)) {</span>
+<span class="fc" id="L160">            return Generators.forField(testClass, field).randomValue(annot.groups());</span>
+        } else {
+<span class="fc" id="L162">            return Generators.forField(testClass, field).nullableRandomValue(annot.groups());</span>
+        }
+    }
+
+    /**
+     * Injects to the target field of the test class a generated random value.
+     * 
+     * @param testClass The test class.
+     * @param field The target field.
+     * @param testInstance The test instance, if any.
+     * @param value The random value.
+     * @throws ParameterResolutionException If an error occurs injecting the
+     * field value.
+     */
+    protected void injectField(
+            final @NotNull Class&lt;?&gt; testClass,
+            final @NotNull Field field,
+            final Object testInstance,
+            final Object value) {
+<span class="fc bfc" id="L181" title="All 4 branches covered.">        if (testInstance != null &amp;&amp; ModifierSupport.isFinal(field)) {</span>
+<span class="fc" id="L182">            throw new ParameterResolutionException(</span>
+<span class="fc" id="L183">                    String.format(&quot;Cannot inject random value to final field %s&quot;, field));</span>
+        }
+        try {
+<span class="fc" id="L186">            FieldUtils.writeField(field, testInstance, value, true);</span>
+<span class="fc" id="L187">        } catch (final ReflectiveOperationException e) {</span>
+<span class="fc" id="L188">            throw new ParameterResolutionException(</span>
+<span class="fc" id="L189">                    String.format(&quot;Cannot inject random value to field %s&quot;, field), e);</span>
+<span class="fc" id="L190">        }</span>
+<span class="fc" id="L191">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

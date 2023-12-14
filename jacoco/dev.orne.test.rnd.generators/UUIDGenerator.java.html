@@ -41,7 +41,7 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L44">public class UUIDGenerator</span>
+public class UUIDGenerator
 extends AbstractTypedGenerator&lt;UUID&gt; {
 
     /** The default value. */
@@ -49,11 +49,18 @@ extends AbstractTypedGenerator&lt;UUID&gt; {
             &quot;00000000-0000-0000-00-000000000000&quot;);
 
     /**
+     * Creates a new instance.
+     */
+    public UUIDGenerator() {
+<span class="fc" id="L55">        super();</span>
+<span class="fc" id="L56">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull UUID defaultValue() {
-<span class="fc" id="L56">        return DEFAULT_VALUE;</span>
+<span class="fc" id="L63">        return DEFAULT_VALUE;</span>
     }
 
     /**
@@ -61,7 +68,7 @@ extends AbstractTypedGenerator&lt;UUID&gt; {
      */
     @Override
     public @NotNull UUID randomValue() {
-<span class="fc" id="L64">        return UUID.randomUUID();</span>
+<span class="fc" id="L71">        return UUID.randomUUID();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -45,7 +45,7 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L48">public class CurrencyGenerator</span>
+public class CurrencyGenerator
 extends AbstractTypedGenerator&lt;Currency&gt; {
 
     /** The available currencies. */
@@ -65,11 +65,18 @@ extends AbstractTypedGenerator&lt;Currency&gt; {
 <span class="fc" id="L65">    }</span>
 
     /**
+     * Creates a new instance.
+     */
+    public CurrencyGenerator() {
+<span class="fc" id="L71">        super();</span>
+<span class="fc" id="L72">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Currency defaultValue() {
-<span class="fc" id="L72">        return DEFAULT;</span>
+<span class="fc" id="L79">        return DEFAULT;</span>
     }
 
     /**
@@ -77,8 +84,8 @@ extends AbstractTypedGenerator&lt;Currency&gt; {
      */
     @Override
     public @NotNull Currency randomValue() {
-<span class="fc" id="L80">        final int index = RandomUtils.nextInt(0, CURRENCIES.size());</span>
-<span class="fc" id="L81">        return CURRENCIES.get(index);</span>
+<span class="fc" id="L87">        final int index = RandomUtils.nextInt(0, CURRENCIES.size());</span>
+<span class="fc" id="L88">        return CURRENCIES.get(index);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

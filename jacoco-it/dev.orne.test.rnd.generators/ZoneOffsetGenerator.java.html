@@ -42,15 +42,22 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L45">public class ZoneOffsetGenerator</span>
+public class ZoneOffsetGenerator
 extends AbstractTypedGenerator&lt;ZoneOffset&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public ZoneOffsetGenerator() {
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull ZoneOffset defaultValue() {
-<span class="fc" id="L53">        return ZoneOffset.UTC;</span>
+<span class="fc" id="L60">        return ZoneOffset.UTC;</span>
     }
 
     /**
@@ -58,11 +65,11 @@ extends AbstractTypedGenerator&lt;ZoneOffset&gt; {
      */
     @Override
     public @NotNull ZoneOffset randomValue() {
-<span class="fc" id="L61">        final long seconds = RandomUtils.nextLong(</span>
+<span class="fc" id="L68">        final long seconds = RandomUtils.nextLong(</span>
                 0,
-<span class="fc" id="L63">                (long) ZoneOffset.MAX.getTotalSeconds() - (long) ZoneOffset.MIN.getTotalSeconds())</span>
-<span class="fc" id="L64">                + ZoneOffset.MIN.getTotalSeconds();</span>
-<span class="fc" id="L65">        return ZoneOffset.ofTotalSeconds((int) seconds);</span>
+<span class="fc" id="L70">                (long) ZoneOffset.MAX.getTotalSeconds() - (long) ZoneOffset.MIN.getTotalSeconds())</span>
+<span class="fc" id="L71">                + ZoneOffset.MIN.getTotalSeconds();</span>
+<span class="fc" id="L72">        return ZoneOffset.ofTotalSeconds((int) seconds);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

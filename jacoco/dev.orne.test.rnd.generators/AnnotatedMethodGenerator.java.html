@@ -52,7 +52,7 @@ import dev.orne.test.rnd.params.ExecutableGenerator;
  */
 @API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 @Priority(Priority.ANNOTATION_GENERATORS)
-<span class="fc" id="L55">public class AnnotatedMethodGenerator</span>
+public class AnnotatedMethodGenerator
 implements Generator {
 
     /** The class logger. */
@@ -87,12 +87,19 @@ implements Generator {
             new WeakHashMap&lt;&gt;();
 
     /**
+     * Creates a new instance.
+     */
+    public AnnotatedMethodGenerator() {
+<span class="fc" id="L93">        super();</span>
+<span class="fc" id="L94">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public boolean supports(
             final @NotNull Class&lt;?&gt; type) {
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        return getAnnotatedGenerator(type) != null;</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        return getAnnotatedGenerator(type) != null;</span>
     }
 
     /**
@@ -107,13 +114,13 @@ implements Generator {
      */
     protected void assertSupported(
             final @NotNull Class&lt;?&gt; type) {
-<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (!supports(type)) {</span>
-<span class="fc" id="L111">            throw new UnsupportedValueTypeException(String.format(</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (!supports(type)) {</span>
+<span class="fc" id="L118">            throw new UnsupportedValueTypeException(String.format(</span>
                     &quot;Generators of type %s does not support generation of values of type %s&quot;,
-<span class="fc" id="L113">                    getClass(),</span>
+<span class="fc" id="L120">                    getClass(),</span>
                     type));
         }
-<span class="fc" id="L116">    }</span>
+<span class="fc" id="L123">    }</span>
 
     /**
      * {@inheritDoc}
@@ -121,15 +128,15 @@ implements Generator {
     @Override
     public &lt;T&gt; @NotNull T defaultValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L124">        assertSupported(type);</span>
-<span class="fc" id="L125">        return getAnnotatedGenerator(type).defaultValue(type);</span>
+<span class="fc" id="L131">        assertSupported(type);</span>
+<span class="fc" id="L132">        return getAnnotatedGenerator(type).defaultValue(type);</span>
     }
 
     @Override
     public &lt;T&gt; T nullableDefaultValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L131">        assertSupported(type);</span>
-<span class="fc" id="L132">        return getAnnotatedGenerator(type).nullableDefaultValue(type);</span>
+<span class="fc" id="L138">        assertSupported(type);</span>
+<span class="fc" id="L139">        return getAnnotatedGenerator(type).nullableDefaultValue(type);</span>
     }
 
     /**
@@ -138,15 +145,15 @@ implements Generator {
     @Override
     public &lt;T&gt; @NotNull T randomValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L141">        assertSupported(type);</span>
-<span class="fc" id="L142">        return getAnnotatedGenerator(type).randomValue(type);</span>
+<span class="fc" id="L148">        assertSupported(type);</span>
+<span class="fc" id="L149">        return getAnnotatedGenerator(type).randomValue(type);</span>
     }
 
     @Override
     public &lt;T&gt; T nullableRandomValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L148">        assertSupported(type);</span>
-<span class="fc" id="L149">        return getAnnotatedGenerator(type).nullableRandomValue(type);</span>
+<span class="fc" id="L155">        assertSupported(type);</span>
+<span class="fc" id="L156">        return getAnnotatedGenerator(type).nullableRandomValue(type);</span>
     }
 
     /**
@@ -160,25 +167,25 @@ implements Generator {
      */
     protected Generator getAnnotatedGenerator(
             final @NotNull Class&lt;?&gt; targetType) {
-<span class="fc" id="L163">        Validate.notNull(targetType);</span>
+<span class="fc" id="L170">        Validate.notNull(targetType);</span>
         Generator generator;
-<span class="fc" id="L165">        synchronized (this.cache) {</span>
-<span class="fc" id="L166">            generator = this.cache.computeIfAbsent(targetType, this::discoverAnnotatedGenerator);</span>
-<span class="fc" id="L167">        }</span>
-<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (generator == Generators.MissingGenerator.INSTANCE) {</span>
-<span class="fc" id="L169">            generator = null;</span>
+<span class="fc" id="L172">        synchronized (this.cache) {</span>
+<span class="fc" id="L173">            generator = this.cache.computeIfAbsent(targetType, this::discoverAnnotatedGenerator);</span>
+<span class="fc" id="L174">        }</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">        if (generator == Generators.MissingGenerator.INSTANCE) {</span>
+<span class="fc" id="L176">            generator = null;</span>
         }
-<span class="fc" id="L171">        return generator;</span>
+<span class="fc" id="L178">        return generator;</span>
     }
 
     /**
      * Clears the cache of discovered generators.
      */
     protected void clearCache() {
-<span class="fc" id="L178">        synchronized (this.cache) {</span>
-<span class="fc" id="L179">            this.cache.clear();</span>
-<span class="fc" id="L180">        }</span>
-<span class="fc" id="L181">    }</span>
+<span class="fc" id="L185">        synchronized (this.cache) {</span>
+<span class="fc" id="L186">            this.cache.clear();</span>
+<span class="fc" id="L187">        }</span>
+<span class="fc" id="L188">    }</span>
 
     /**
      * Removes the cache of discovered generator for the specified class.
@@ -187,10 +194,10 @@ implements Generator {
      */
     protected void clearCache(
             final @NotNull Class&lt;?&gt; targetType) {
-<span class="fc" id="L190">        synchronized (this.cache) {</span>
-<span class="fc" id="L191">            this.cache.remove(targetType);</span>
-<span class="fc" id="L192">        }</span>
-<span class="fc" id="L193">    }</span>
+<span class="fc" id="L197">        synchronized (this.cache) {</span>
+<span class="fc" id="L198">            this.cache.remove(targetType);</span>
+<span class="fc" id="L199">        }</span>
+<span class="fc" id="L200">    }</span>
 
     /**
      * Finds a constructor or static method annotated with
@@ -201,19 +208,19 @@ implements Generator {
      */
     protected @NotNull Generator discoverAnnotatedGenerator(
             final @NotNull Class&lt;?&gt; targetType) {
-<span class="fc" id="L204">        Generator generator = null;</span>
+<span class="fc" id="L211">        Generator generator = null;</span>
         try {
-<span class="fc" id="L206">            generator = findDeclaredConstructor(targetType);</span>
-<span class="fc bfc" id="L207" title="All 2 branches covered.">            if (generator == null) {</span>
-<span class="fc" id="L208">                generator = findDeclaredMethod(targetType);</span>
+<span class="fc" id="L213">            generator = findDeclaredConstructor(targetType);</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">            if (generator == null) {</span>
+<span class="fc" id="L215">                generator = findDeclaredMethod(targetType);</span>
             }
-<span class="fc" id="L210">        } catch (final RuntimeException re) {</span>
-<span class="fc" id="L211">            LOG.warn(HELP_MISCONFIGURED, targetType);</span>
-<span class="fc" id="L212">        }</span>
-<span class="fc bfc" id="L213" title="All 2 branches covered.">        if (generator == null) {</span>
-<span class="fc" id="L214">            generator = Generators.MissingGenerator.INSTANCE;</span>
+<span class="fc" id="L217">        } catch (final RuntimeException re) {</span>
+<span class="fc" id="L218">            LOG.warn(HELP_MISCONFIGURED, targetType);</span>
+<span class="fc" id="L219">        }</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">        if (generator == null) {</span>
+<span class="fc" id="L221">            generator = Generators.MissingGenerator.INSTANCE;</span>
         }
-<span class="fc" id="L216">        return generator;</span>
+<span class="fc" id="L223">        return generator;</span>
     }
 
     /**
@@ -227,23 +234,23 @@ implements Generator {
      */
     protected &lt;T&gt; ExecutableGenerator&lt;T&gt; findDeclaredConstructor(
             final @NotNull Class&lt;T&gt; targetType) {
-<span class="fc" id="L230">        Validate.notNull(targetType);</span>
-<span class="fc" id="L231">        ExecutableGenerator&lt;T&gt; generator = null;</span>
-<span class="fc bfc" id="L232" title="All 2 branches covered.">        for (final Constructor&lt;?&gt; ctr : targetType.getDeclaredConstructors()) {</span>
-<span class="fc bfc" id="L233" title="All 2 branches covered.">            if (ctr.isAnnotationPresent(GeneratorMethod.class)) {</span>
-<span class="fc bfc" id="L234" title="All 2 branches covered.">                if ((ctr.getModifiers() &amp; GENERATOR_CONSTRUCTOR_MODIFIERS) != GENERATOR_CONSTRUCTOR_MODIFIERS) {</span>
-<span class="fc" id="L235">                    LOG.warn(ERR_GENERATOR_CONSTRUCTOR_MODIFIERS,</span>
+<span class="fc" id="L237">        Validate.notNull(targetType);</span>
+<span class="fc" id="L238">        ExecutableGenerator&lt;T&gt; generator = null;</span>
+<span class="fc bfc" id="L239" title="All 2 branches covered.">        for (final Constructor&lt;?&gt; ctr : targetType.getDeclaredConstructors()) {</span>
+<span class="fc bfc" id="L240" title="All 2 branches covered.">            if (ctr.isAnnotationPresent(GeneratorMethod.class)) {</span>
+<span class="fc bfc" id="L241" title="All 2 branches covered.">                if ((ctr.getModifiers() &amp; GENERATOR_CONSTRUCTOR_MODIFIERS) != GENERATOR_CONSTRUCTOR_MODIFIERS) {</span>
+<span class="fc" id="L242">                    LOG.warn(ERR_GENERATOR_CONSTRUCTOR_MODIFIERS,</span>
                             ctr,
                             targetType);
                 } else {
                     @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L240">                    final Constructor&lt;T&gt; tCtr = (Constructor&lt;T&gt;) ctr;</span>
-<span class="fc" id="L241">                    generator = ExecutableGenerator.of(tCtr);</span>
+<span class="fc" id="L247">                    final Constructor&lt;T&gt; tCtr = (Constructor&lt;T&gt;) ctr;</span>
+<span class="fc" id="L248">                    generator = ExecutableGenerator.of(tCtr);</span>
                 }
-<span class="fc" id="L243">                break;</span>
+<span class="fc" id="L250">                break;</span>
             }
         }
-<span class="fc" id="L246">        return generator;</span>
+<span class="fc" id="L253">        return generator;</span>
     }
 
     /**
@@ -257,25 +264,25 @@ implements Generator {
      */
     protected &lt;T&gt; ExecutableGenerator&lt;T&gt; findDeclaredMethod(
             final @NotNull Class&lt;T&gt; targetType) {
-<span class="fc" id="L260">        Validate.notNull(targetType);</span>
-<span class="fc" id="L261">        ExecutableGenerator&lt;T&gt; generator = null;</span>
-<span class="fc bfc" id="L262" title="All 2 branches covered.">        for (final Method method : targetType.getDeclaredMethods()) {</span>
-<span class="fc bfc" id="L263" title="All 2 branches covered.">            if (method.isAnnotationPresent(GeneratorMethod.class)) {</span>
-<span class="fc bfc" id="L264" title="All 2 branches covered.">                if ((method.getModifiers() &amp; GENERATOR_METHOD_MODIFIERS) != GENERATOR_METHOD_MODIFIERS) {</span>
-<span class="fc" id="L265">                    LOG.warn(ERR_GENERATOR_METHOD_MODIFIERS,</span>
+<span class="fc" id="L267">        Validate.notNull(targetType);</span>
+<span class="fc" id="L268">        ExecutableGenerator&lt;T&gt; generator = null;</span>
+<span class="fc bfc" id="L269" title="All 2 branches covered.">        for (final Method method : targetType.getDeclaredMethods()) {</span>
+<span class="fc bfc" id="L270" title="All 2 branches covered.">            if (method.isAnnotationPresent(GeneratorMethod.class)) {</span>
+<span class="fc bfc" id="L271" title="All 2 branches covered.">                if ((method.getModifiers() &amp; GENERATOR_METHOD_MODIFIERS) != GENERATOR_METHOD_MODIFIERS) {</span>
+<span class="fc" id="L272">                    LOG.warn(ERR_GENERATOR_METHOD_MODIFIERS,</span>
                             method,
                             targetType);
-<span class="fc bfc" id="L268" title="All 2 branches covered.">                } else if (!(targetType.isAssignableFrom(method.getReturnType()))) {</span>
-<span class="fc" id="L269">                    LOG.warn(ERR_GENERATOR_METHOD_RETURN_TYPE,</span>
+<span class="fc bfc" id="L275" title="All 2 branches covered.">                } else if (!(targetType.isAssignableFrom(method.getReturnType()))) {</span>
+<span class="fc" id="L276">                    LOG.warn(ERR_GENERATOR_METHOD_RETURN_TYPE,</span>
                             method,
                             targetType);
                 } else {
-<span class="fc" id="L273">                    generator = ExecutableGenerator.of(targetType, method);</span>
+<span class="fc" id="L280">                    generator = ExecutableGenerator.of(targetType, method);</span>
                 }
-<span class="fc" id="L275">                break;</span>
+<span class="fc" id="L282">                break;</span>
             }
         }
-<span class="fc" id="L278">        return generator;</span>
+<span class="fc" id="L285">        return generator;</span>
     }
 
     /**
@@ -283,9 +290,9 @@ implements Generator {
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L286">        return new HashCodeBuilder()</span>
-<span class="fc" id="L287">                .append(getClass())</span>
-<span class="fc" id="L288">                .build();</span>
+<span class="fc" id="L293">        return new HashCodeBuilder()</span>
+<span class="fc" id="L294">                .append(getClass())</span>
+<span class="fc" id="L295">                .build();</span>
     }
 
     /**
@@ -293,10 +300,10 @@ implements Generator {
      */
     @Override
     public boolean equals(final Object obj) {
-<span class="fc bfc" id="L296" title="All 2 branches covered.">        if (obj == null) { return false; }</span>
-<span class="fc bfc" id="L297" title="All 2 branches covered.">        if (obj == this) { return true; }</span>
+<span class="fc bfc" id="L303" title="All 2 branches covered.">        if (obj == null) { return false; }</span>
+<span class="fc bfc" id="L304" title="All 2 branches covered.">        if (obj == this) { return true; }</span>
         // Ignore cache
-<span class="fc bfc" id="L299" title="All 2 branches covered.">        return obj.getClass() == getClass();</span>
+<span class="fc bfc" id="L306" title="All 2 branches covered.">        return obj.getClass() == getClass();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

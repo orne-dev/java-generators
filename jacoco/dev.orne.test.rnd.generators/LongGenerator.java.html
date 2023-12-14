@@ -39,18 +39,25 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L42">public class LongGenerator</span>
+public class LongGenerator
 extends AbstractPrimitiveGenerator&lt;Long&gt; {
 
     /** The default value. */
     public static final long DEFAULT_VALUE = 0L;
 
     /**
+     * Creates a new instance.
+     */
+    public LongGenerator() {
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Long defaultValue() {
-<span class="fc" id="L53">        return DEFAULT_VALUE;</span>
+<span class="fc" id="L60">        return DEFAULT_VALUE;</span>
     }
 
     /**
@@ -58,7 +65,7 @@ extends AbstractPrimitiveGenerator&lt;Long&gt; {
      */
     @Override
     public @NotNull Long randomValue() {
-<span class="fc" id="L61">        return randomLong();</span>
+<span class="fc" id="L68">        return randomLong();</span>
     }
 
     /**
@@ -68,11 +75,11 @@ extends AbstractPrimitiveGenerator&lt;Long&gt; {
      * @return A random {@code long} value
      */
     public static long randomLong() {
-<span class="fc" id="L71">        long result = RandomUtils.nextLong();</span>
-<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (RandomUtils.nextBoolean()) {</span>
-<span class="fc" id="L73">            result *= -1;</span>
+<span class="fc" id="L78">        long result = RandomUtils.nextLong();</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (RandomUtils.nextBoolean()) {</span>
+<span class="fc" id="L80">            result *= -1;</span>
         }
-<span class="fc" id="L75">        return result;</span>
+<span class="fc" id="L82">        return result;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -44,15 +44,22 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L47">public class LocalDateGenerator</span>
+public class LocalDateGenerator
 extends AbstractTypedGenerator&lt;LocalDate&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public LocalDateGenerator() {
+<span class="fc" id="L54">        super();</span>
+<span class="fc" id="L55">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull LocalDate defaultValue() {
-<span class="fc" id="L55">        return LocalDate.ofEpochDay(0);</span>
+<span class="fc" id="L62">        return LocalDate.ofEpochDay(0);</span>
     }
 
     /**
@@ -60,10 +67,10 @@ extends AbstractTypedGenerator&lt;LocalDate&gt; {
      */
     @Override
     public @NotNull LocalDate randomValue() {
-<span class="fc" id="L63">        final Year year = Generators.randomValue(Year.class);</span>
-<span class="fc" id="L64">        return LocalDate.ofYearDay(</span>
-<span class="fc" id="L65">                year.getValue(),</span>
-<span class="fc bfc" id="L66" title="All 2 branches covered.">                RandomUtils.nextInt(1, year.isLeap() ? 367 : 366));</span>
+<span class="fc" id="L70">        final Year year = Generators.randomValue(Year.class);</span>
+<span class="fc" id="L71">        return LocalDate.ofYearDay(</span>
+<span class="fc" id="L72">                year.getValue(),</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">                RandomUtils.nextInt(1, year.isLeap() ? 367 : 366));</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

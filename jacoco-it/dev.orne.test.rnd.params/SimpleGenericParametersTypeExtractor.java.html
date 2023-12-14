@@ -41,8 +41,15 @@ import org.apiguardian.api.API.Status;
  * @see SimpleGenericParameters
  */
 @API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
-<span class="fc" id="L44">public class SimpleGenericParametersTypeExtractor</span>
+public class SimpleGenericParametersTypeExtractor
 extends AbstractParametersSourceExtractor&lt;SimpleGenericParameters, TypeDeclaration&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public SimpleGenericParametersTypeExtractor() {
+<span class="fc" id="L51">        super();</span>
+<span class="fc" id="L52">    }</span>
 
     /**
      * {@inheritDoc}
@@ -51,12 +58,12 @@ extends AbstractParametersSourceExtractor&lt;SimpleGenericParameters, TypeDeclar
     public void extractParameters(
             final @NotNull TypeDeclaration from,
             final @NotNull SimpleGenericParameters target) {
-<span class="nc" id="L54">        Validate.notNull(from);</span>
-<span class="nc" id="L55">        Validate.notNull(target);</span>
-<span class="nc" id="L56">        Validate.isInstanceOf(ParameterizedType.class, from.getType());</span>
-<span class="nc" id="L57">        final ParameterizedType type = (ParameterizedType) from.getType();</span>
-<span class="nc bnc" id="L58" title="All 2 branches missed.">        Validate.isTrue(type.getActualTypeArguments().length == 1);</span>
-<span class="nc" id="L59">        target.setType(type.getActualTypeArguments()[0]);</span>
-<span class="nc" id="L60">    }</span>
+<span class="nc" id="L61">        Validate.notNull(from);</span>
+<span class="nc" id="L62">        Validate.notNull(target);</span>
+<span class="nc" id="L63">        Validate.isInstanceOf(ParameterizedType.class, from.getType());</span>
+<span class="nc" id="L64">        final ParameterizedType type = (ParameterizedType) from.getType();</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">        Validate.isTrue(type.getActualTypeArguments().length == 1);</span>
+<span class="nc" id="L66">        target.setType(type.getActualTypeArguments()[0]);</span>
+<span class="nc" id="L67">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

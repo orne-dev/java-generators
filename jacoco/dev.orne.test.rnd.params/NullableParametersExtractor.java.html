@@ -41,8 +41,15 @@ import org.apiguardian.api.API.Status;
  * @see NullableParameters
  */
 @API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
-<span class="fc" id="L44">public class NullableParametersExtractor</span>
+public class NullableParametersExtractor
 extends AbstractParametersSourceExtractor&lt;NullableParameters, NullableParameters&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public NullableParametersExtractor() {
+<span class="fc" id="L51">        super();</span>
+<span class="fc" id="L52">    }</span>
 
     /**
      * {@inheritDoc}
@@ -51,7 +58,7 @@ extends AbstractParametersSourceExtractor&lt;NullableParameters, NullableParamet
     public void extractParameters(
             final @NotNull NullableParameters from,
             final @NotNull NullableParameters target) {
-<span class="fc bfc" id="L54" title="All 4 branches covered.">        target.setNullable(target.isNullable() &amp;&amp; from.isNullable());</span>
-<span class="fc" id="L55">    }</span>
+<span class="fc bfc" id="L61" title="All 4 branches covered.">        target.setNullable(target.isNullable() &amp;&amp; from.isNullable());</span>
+<span class="fc" id="L62">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

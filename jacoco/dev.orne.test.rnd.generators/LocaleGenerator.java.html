@@ -42,18 +42,25 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L45">public class LocaleGenerator</span>
+public class LocaleGenerator
 extends AbstractTypedGenerator&lt;Locale&gt; {
 
     /** The available locales. */
 <span class="fc" id="L49">    private static final Locale[] LOCALES = Locale.getAvailableLocales();</span>
 
     /**
+     * Creates a new instance.
+     */
+    public LocaleGenerator() {
+<span class="fc" id="L55">        super();</span>
+<span class="fc" id="L56">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Locale defaultValue() {
-<span class="fc" id="L56">        return Locale.getDefault();</span>
+<span class="fc" id="L63">        return Locale.getDefault();</span>
     }
 
     /**
@@ -61,8 +68,8 @@ extends AbstractTypedGenerator&lt;Locale&gt; {
      */
     @Override
     public @NotNull Locale randomValue() {
-<span class="fc" id="L64">        final int index = RandomUtils.nextInt(0, LOCALES.length);</span>
-<span class="fc" id="L65">        return LOCALES[index];</span>
+<span class="fc" id="L71">        final int index = RandomUtils.nextInt(0, LOCALES.length);</span>
+<span class="fc" id="L72">        return LOCALES[index];</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -39,8 +39,15 @@ import org.apiguardian.api.API.Status;
  * @see KeyValueGenericParameters
  */
 @API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
-<span class="fc" id="L42">public class KeyValueGenericParametersExtractor</span>
+public class KeyValueGenericParametersExtractor
 extends AbstractParametersSourceExtractor&lt;KeyValueGenericParameters, KeyValueGenericParameters&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public KeyValueGenericParametersExtractor() {
+<span class="fc" id="L49">        super();</span>
+<span class="fc" id="L50">    }</span>
 
     /**
      * {@inheritDoc}
@@ -49,14 +56,14 @@ extends AbstractParametersSourceExtractor&lt;KeyValueGenericParameters, KeyValue
     public void extractParameters(
             final @NotNull KeyValueGenericParameters from,
             final @NotNull KeyValueGenericParameters target) {
-<span class="fc" id="L52">        final Type keysType = from.getKeysType();</span>
-<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (keysType != null) {</span>
-<span class="fc" id="L54">            target.setKeysType(keysType);</span>
+<span class="fc" id="L59">        final Type keysType = from.getKeysType();</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (keysType != null) {</span>
+<span class="fc" id="L61">            target.setKeysType(keysType);</span>
         }
-<span class="fc" id="L56">        final Type valuesType = from.getValuesType();</span>
-<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (valuesType != null) {</span>
-<span class="fc" id="L58">            target.setValuesType(valuesType);</span>
+<span class="fc" id="L63">        final Type valuesType = from.getValuesType();</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (valuesType != null) {</span>
+<span class="fc" id="L65">            target.setValuesType(valuesType);</span>
         }
-<span class="fc" id="L60">    }</span>
+<span class="fc" id="L67">    }</span>
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

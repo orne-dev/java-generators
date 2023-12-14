@@ -42,18 +42,25 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L45">public class TimeZoneGenerator</span>
+public class TimeZoneGenerator
 extends AbstractTypedGenerator&lt;TimeZone&gt; {
 
     /** The available time zone IDs. */
 <span class="fc" id="L49">    private static final String[] IDS = TimeZone.getAvailableIDs();</span>
 
     /**
+     * Creates a new instance.
+     */
+    public TimeZoneGenerator() {
+<span class="fc" id="L55">        super();</span>
+<span class="fc" id="L56">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull TimeZone defaultValue() {
-<span class="fc" id="L56">        return TimeZone.getDefault();</span>
+<span class="fc" id="L63">        return TimeZone.getDefault();</span>
     }
 
     /**
@@ -61,8 +68,8 @@ extends AbstractTypedGenerator&lt;TimeZone&gt; {
      */
     @Override
     public @NotNull TimeZone randomValue() {
-<span class="fc" id="L64">        final int index = RandomUtils.nextInt(0, IDS.length);</span>
-<span class="fc" id="L65">        return TimeZone.getTimeZone(IDS[index]);</span>
+<span class="fc" id="L71">        final int index = RandomUtils.nextInt(0, IDS.length);</span>
+<span class="fc" id="L72">        return TimeZone.getTimeZone(IDS[index]);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

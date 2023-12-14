@@ -44,16 +44,23 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L47">public class MonthDayGenerator</span>
+public class MonthDayGenerator
 extends AbstractTypedGenerator&lt;MonthDay&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public MonthDayGenerator() {
+<span class="fc" id="L54">        super();</span>
+<span class="fc" id="L55">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull MonthDay defaultValue() {
-<span class="fc" id="L55">        return MonthDay.of(</span>
-<span class="fc" id="L56">                Generators.defaultValue(Month.class),</span>
+<span class="fc" id="L62">        return MonthDay.of(</span>
+<span class="fc" id="L63">                Generators.defaultValue(Month.class),</span>
                 1);
     }
 
@@ -62,22 +69,22 @@ extends AbstractTypedGenerator&lt;MonthDay&gt; {
      */
     @Override
     public @NotNull MonthDay randomValue() {
-<span class="fc" id="L65">        final Month month = Generators.randomValue(Month.class);</span>
+<span class="fc" id="L72">        final Month month = Generators.randomValue(Month.class);</span>
         final int day;
-<span class="fc bfc" id="L67" title="All 3 branches covered.">        switch (month) {</span>
+<span class="fc bfc" id="L74" title="All 3 branches covered.">        switch (month) {</span>
             case APRIL:
             case JUNE:
             case SEPTEMBER:
             case NOVEMBER:
-<span class="fc" id="L72">                day = RandomUtils.nextInt(1, 31);</span>
-<span class="fc" id="L73">                break;</span>
+<span class="fc" id="L79">                day = RandomUtils.nextInt(1, 31);</span>
+<span class="fc" id="L80">                break;</span>
             case FEBRUARY:
-<span class="fc" id="L75">                day = RandomUtils.nextInt(1, 30);</span>
-<span class="fc" id="L76">                break;</span>
+<span class="fc" id="L82">                day = RandomUtils.nextInt(1, 30);</span>
+<span class="fc" id="L83">                break;</span>
             default:
-<span class="fc" id="L78">                day = RandomUtils.nextInt(1, 32);</span>
+<span class="fc" id="L85">                day = RandomUtils.nextInt(1, 32);</span>
         }
-<span class="fc" id="L80">        return MonthDay.of(month, day);</span>
+<span class="fc" id="L87">        return MonthDay.of(month, day);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -45,17 +45,24 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L48">public class CalendarGenerator</span>
+public class CalendarGenerator
 extends AbstractTypedGenerator&lt;Calendar&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public CalendarGenerator() {
+<span class="fc" id="L55">        super();</span>
+<span class="fc" id="L56">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Calendar defaultValue() {
-<span class="fc" id="L56">        final Calendar result = Calendar.getInstance();</span>
-<span class="fc" id="L57">        result.setTimeInMillis(0);</span>
-<span class="fc" id="L58">        return result;</span>
+<span class="fc" id="L63">        final Calendar result = Calendar.getInstance();</span>
+<span class="fc" id="L64">        result.setTimeInMillis(0);</span>
+<span class="fc" id="L65">        return result;</span>
     }
 
     /**
@@ -63,11 +70,11 @@ extends AbstractTypedGenerator&lt;Calendar&gt; {
      */
     @Override
     public @NotNull Calendar randomValue() {
-<span class="fc" id="L66">        final Calendar result = Calendar.getInstance(</span>
-<span class="fc" id="L67">                Generators.randomValue(TimeZone.class),</span>
-<span class="fc" id="L68">                Generators.randomValue(Locale.class));</span>
-<span class="fc" id="L69">        result.setTimeInMillis(RandomUtils.nextLong());</span>
-<span class="fc" id="L70">        return result;</span>
+<span class="fc" id="L73">        final Calendar result = Calendar.getInstance(</span>
+<span class="fc" id="L74">                Generators.randomValue(TimeZone.class),</span>
+<span class="fc" id="L75">                Generators.randomValue(Locale.class));</span>
+<span class="fc" id="L76">        result.setTimeInMillis(RandomUtils.nextLong());</span>
+<span class="fc" id="L77">        return result;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

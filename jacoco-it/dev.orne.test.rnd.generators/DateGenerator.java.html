@@ -42,15 +42,22 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L45">public class DateGenerator</span>
+public class DateGenerator
 extends AbstractTypedGenerator&lt;Date&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public DateGenerator() {
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Date defaultValue() {
-<span class="fc" id="L53">        return new Date(0);</span>
+<span class="fc" id="L60">        return new Date(0);</span>
     }
 
     /**
@@ -58,7 +65,7 @@ extends AbstractTypedGenerator&lt;Date&gt; {
      */
     @Override
     public @NotNull Date randomValue() {
-<span class="fc" id="L61">        return new Date(RandomUtils.nextLong());</span>
+<span class="fc" id="L68">        return new Date(RandomUtils.nextLong());</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

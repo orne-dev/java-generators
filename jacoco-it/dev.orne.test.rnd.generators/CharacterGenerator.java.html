@@ -39,18 +39,25 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L42">public class CharacterGenerator</span>
+public class CharacterGenerator
 extends AbstractPrimitiveGenerator&lt;Character&gt; {
 
     /** The default value. */
     public static final char DEFAULT_VALUE = 0;
 
     /**
+     * Creates a new instance.
+     */
+    public CharacterGenerator() {
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Character defaultValue() {
-<span class="fc" id="L53">        return DEFAULT_VALUE;</span>
+<span class="fc" id="L60">        return DEFAULT_VALUE;</span>
     }
 
     /**
@@ -58,7 +65,7 @@ extends AbstractPrimitiveGenerator&lt;Character&gt; {
      */
     @Override
     public @NotNull Character randomValue() {
-<span class="fc" id="L61">        return Character.valueOf(randomChar());</span>
+<span class="fc" id="L68">        return Character.valueOf(randomChar());</span>
     }
 
     /**
@@ -68,8 +75,8 @@ extends AbstractPrimitiveGenerator&lt;Character&gt; {
      * @return A random {@code byte} value
      */
     public static char randomChar() {
-<span class="fc" id="L71">        return (char) RandomUtils.nextInt(Character.MIN_VALUE,</span>
+<span class="fc" id="L78">        return (char) RandomUtils.nextInt(Character.MIN_VALUE,</span>
                 Character.MAX_VALUE + 1);
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

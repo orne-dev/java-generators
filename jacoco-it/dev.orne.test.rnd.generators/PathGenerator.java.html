@@ -45,7 +45,7 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L48">public class PathGenerator</span>
+public class PathGenerator
 extends AbstractTypedGenerator&lt;Path&gt; {
 
     /** System property for working directory path. */
@@ -58,11 +58,18 @@ extends AbstractTypedGenerator&lt;Path&gt; {
 <span class="fc" id="L58">    public static final String SEPARATOR = FileSystems.getDefault().getSeparator();</span>
 
     /**
+     * Creates a new instance.
+     */
+    public PathGenerator() {
+<span class="fc" id="L64">        super();</span>
+<span class="fc" id="L65">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Path defaultValue() {
-<span class="fc" id="L65">        return workingDir();</span>
+<span class="fc" id="L72">        return workingDir();</span>
     }
 
     /**
@@ -70,7 +77,7 @@ extends AbstractTypedGenerator&lt;Path&gt; {
      */
     @Override
     public @NotNull Path randomValue() {
-<span class="fc" id="L73">        return Paths.get(randomPath());</span>
+<span class="fc" id="L80">        return Paths.get(randomPath());</span>
     }
 
     /**
@@ -79,7 +86,7 @@ extends AbstractTypedGenerator&lt;Path&gt; {
      * @return The current working directory
      */
     public static @NotNull Path workingDir() {
-<span class="fc" id="L82">        return Paths.get(workingPath());</span>
+<span class="fc" id="L89">        return Paths.get(workingPath());</span>
     }
 
     /**
@@ -88,7 +95,7 @@ extends AbstractTypedGenerator&lt;Path&gt; {
      * @return The current working directory path
      */
     public static @NotNull String workingPath() {
-<span class="fc" id="L91">        return removeLastSeparator(System.getProperty(WORKING_DIR_PROP));</span>
+<span class="fc" id="L98">        return removeLastSeparator(System.getProperty(WORKING_DIR_PROP));</span>
     }
 
     /**
@@ -97,7 +104,7 @@ extends AbstractTypedGenerator&lt;Path&gt; {
      * @return The current user's home directory
      */
     public static @NotNull Path userDir() {
-<span class="nc" id="L100">        return Paths.get(userPath());</span>
+<span class="nc" id="L107">        return Paths.get(userPath());</span>
     }
 
     /**
@@ -106,7 +113,7 @@ extends AbstractTypedGenerator&lt;Path&gt; {
      * @return The current user's home directory path
      */
     public static @NotNull String userPath() {
-<span class="nc" id="L109">        return removeLastSeparator(System.getProperty(USER_DIR_PROP));</span>
+<span class="nc" id="L116">        return removeLastSeparator(System.getProperty(USER_DIR_PROP));</span>
         
     }
 
@@ -116,7 +123,7 @@ extends AbstractTypedGenerator&lt;Path&gt; {
      * @return The default temporary file directory
      */
     public static @NotNull Path tmpDir() {
-<span class="nc" id="L119">        return Paths.get(tmpPath());</span>
+<span class="nc" id="L126">        return Paths.get(tmpPath());</span>
     }
 
     /**
@@ -125,7 +132,7 @@ extends AbstractTypedGenerator&lt;Path&gt; {
      * @return The default temporary file directory path
      */
     public static @NotNull String tmpPath() {
-<span class="nc" id="L128">        return removeLastSeparator(System.getProperty(TMP_DIR_PROP));</span>
+<span class="nc" id="L135">        return removeLastSeparator(System.getProperty(TMP_DIR_PROP));</span>
     }
 
     /**
@@ -134,14 +141,14 @@ extends AbstractTypedGenerator&lt;Path&gt; {
      * @return The generated random path
      */
     public static @NotNull String randomPath() {
-<span class="fc" id="L137">        final int segments = RandomUtils.nextInt(1, 5);</span>
-<span class="fc" id="L138">        final StringBuilder path = new StringBuilder()</span>
-<span class="fc" id="L139">                .append(randomPathSegment());</span>
-<span class="fc bfc" id="L140" title="All 2 branches covered.">        for (int i = 1; i &lt; segments; i++) {</span>
-<span class="fc" id="L141">            path.append(SEPARATOR)</span>
-<span class="fc" id="L142">                .append(randomPathSegment());</span>
+<span class="fc" id="L144">        final int segments = RandomUtils.nextInt(1, 5);</span>
+<span class="fc" id="L145">        final StringBuilder path = new StringBuilder()</span>
+<span class="fc" id="L146">                .append(randomPathSegment());</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">        for (int i = 1; i &lt; segments; i++) {</span>
+<span class="fc" id="L148">            path.append(SEPARATOR)</span>
+<span class="fc" id="L149">                .append(randomPathSegment());</span>
         }
-<span class="fc" id="L144">        return path.toString();</span>
+<span class="fc" id="L151">        return path.toString();</span>
     }
 
     /**
@@ -150,7 +157,7 @@ extends AbstractTypedGenerator&lt;Path&gt; {
      * @return The generated random path
      */
     public static @NotNull String randomPathSegment() {
-<span class="fc" id="L153">        return RandomStringUtils.randomAlphanumeric(5);</span>
+<span class="fc" id="L160">        return RandomStringUtils.randomAlphanumeric(5);</span>
     }
 
     /**
@@ -165,12 +172,12 @@ extends AbstractTypedGenerator&lt;Path&gt; {
     protected static @NotNull String removeLastSeparator(
             final @NotNull String path) {
         final String result;
-<span class="pc bpc" id="L168" title="1 of 2 branches missed.">        if (path.endsWith(SEPARATOR)) {</span>
-<span class="nc" id="L169">            result = path.substring(0, path.length() - SEPARATOR.length());</span>
+<span class="pc bpc" id="L175" title="1 of 2 branches missed.">        if (path.endsWith(SEPARATOR)) {</span>
+<span class="nc" id="L176">            result = path.substring(0, path.length() - SEPARATOR.length());</span>
         } else {
-<span class="fc" id="L171">            result = path;</span>
+<span class="fc" id="L178">            result = path;</span>
         }
-<span class="fc" id="L173">        return result;</span>
+<span class="fc" id="L180">        return result;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

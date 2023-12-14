@@ -42,15 +42,22 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L45">public class PeriodGenerator</span>
+public class PeriodGenerator
 extends AbstractTypedGenerator&lt;Period&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public PeriodGenerator() {
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Period defaultValue() {
-<span class="fc" id="L53">        return Period.ZERO;</span>
+<span class="fc" id="L60">        return Period.ZERO;</span>
     }
 
     /**
@@ -58,10 +65,10 @@ extends AbstractTypedGenerator&lt;Period&gt; {
      */
     @Override
     public @NotNull Period randomValue() {
-<span class="fc" id="L61">        return Period.of(</span>
-<span class="fc" id="L62">                RandomUtils.nextInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE,</span>
-<span class="fc" id="L63">                RandomUtils.nextInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE,</span>
-<span class="fc" id="L64">                RandomUtils.nextInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE);</span>
+<span class="fc" id="L68">        return Period.of(</span>
+<span class="fc" id="L69">                RandomUtils.nextInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE,</span>
+<span class="fc" id="L70">                RandomUtils.nextInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE,</span>
+<span class="fc" id="L71">                RandomUtils.nextInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

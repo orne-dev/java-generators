@@ -43,15 +43,22 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L46">public class ClockGenerator</span>
+public class ClockGenerator
 extends AbstractTypedGenerator&lt;Clock&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public ClockGenerator() {
+<span class="fc" id="L53">        super();</span>
+<span class="fc" id="L54">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Clock defaultValue() {
-<span class="fc" id="L54">        return Clock.systemUTC();</span>
+<span class="fc" id="L61">        return Clock.systemUTC();</span>
     }
 
     /**
@@ -59,7 +66,7 @@ extends AbstractTypedGenerator&lt;Clock&gt; {
      */
     @Override
     public @NotNull Clock randomValue() {
-<span class="fc" id="L62">        return Clock.system(Generators.randomValue(ZoneId.class));</span>
+<span class="fc" id="L69">        return Clock.system(Generators.randomValue(ZoneId.class));</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

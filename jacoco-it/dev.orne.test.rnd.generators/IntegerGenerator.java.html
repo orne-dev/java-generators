@@ -39,18 +39,25 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L42">public class IntegerGenerator</span>
+public class IntegerGenerator
 extends AbstractPrimitiveGenerator&lt;Integer&gt; {
 
     /** The default value. */
     public static final int DEFAULT_VALUE = 0;
 
     /**
+     * Creates a new instance.
+     */
+    public IntegerGenerator() {
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Integer defaultValue() {
-<span class="fc" id="L53">        return DEFAULT_VALUE;</span>
+<span class="fc" id="L60">        return DEFAULT_VALUE;</span>
     }
 
     /**
@@ -58,7 +65,7 @@ extends AbstractPrimitiveGenerator&lt;Integer&gt; {
      */
     @Override
     public @NotNull Integer randomValue() {
-<span class="fc" id="L61">        return randomInt();</span>
+<span class="fc" id="L68">        return randomInt();</span>
     }
 
     /**
@@ -68,11 +75,11 @@ extends AbstractPrimitiveGenerator&lt;Integer&gt; {
      * @return A random {@code int} value
      */
     public static int randomInt() {
-<span class="fc" id="L71">        int result = RandomUtils.nextInt();</span>
-<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (RandomUtils.nextBoolean()) {</span>
-<span class="fc" id="L73">            result *= -1;</span>
+<span class="fc" id="L78">        int result = RandomUtils.nextInt();</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        if (RandomUtils.nextBoolean()) {</span>
+<span class="fc" id="L80">            result *= -1;</span>
         }
-<span class="fc" id="L75">        return result;</span>
+<span class="fc" id="L82">        return result;</span>
     }
 
     /**
@@ -86,7 +93,7 @@ extends AbstractPrimitiveGenerator&lt;Integer&gt; {
     public static int randomInt(
             final int min,
             final int max) {
-<span class="fc" id="L89">        return (int) (RandomUtils.nextLong(0, (long) max - min + 1) + min);</span>
+<span class="fc" id="L96">        return (int) (RandomUtils.nextLong(0, (long) max - min + 1) + min);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

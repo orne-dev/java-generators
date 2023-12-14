@@ -48,7 +48,7 @@ import dev.orne.test.rnd.params.MapGenerationParameters;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.GENERIC_GENERATORS)
-<span class="fc" id="L51">public class MapGenerator</span>
+public class MapGenerator
 extends AbstractTypedParameterizableGenerator&lt;Map&lt;?, ?&gt;, MapGenerationParameters&gt; {
 
     /** The minimum generated array size. */
@@ -57,13 +57,20 @@ extends AbstractTypedParameterizableGenerator&lt;Map&lt;?, ?&gt;, MapGenerationP
     public static final int MAX_SIZE = 100;
 
     /**
+     * Creates a new instance.
+     */
+    public MapGenerator() {
+<span class="fc" id="L63">        super();</span>
+<span class="fc" id="L64">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Map&lt;?, ?&gt; defaultValue(
             final @NotNull MapGenerationParameters parameters) {
-<span class="fc" id="L65">        validateParameters(parameters);</span>
-<span class="fc" id="L66">        return new HashMap&lt;&gt;();</span>
+<span class="fc" id="L72">        validateParameters(parameters);</span>
+<span class="fc" id="L73">        return new HashMap&lt;&gt;();</span>
     }
 
     /**
@@ -72,8 +79,8 @@ extends AbstractTypedParameterizableGenerator&lt;Map&lt;?, ?&gt;, MapGenerationP
     @Override
     public @NotNull Map&lt;?, ?&gt; randomValue(
             final @NotNull MapGenerationParameters parameters) {
-<span class="fc" id="L75">        validateParameters(parameters);</span>
-<span class="fc" id="L76">        return randomMap(parameters);</span>
+<span class="fc" id="L82">        validateParameters(parameters);</span>
+<span class="fc" id="L83">        return randomMap(parameters);</span>
     }
 
     /**
@@ -83,14 +90,14 @@ extends AbstractTypedParameterizableGenerator&lt;Map&lt;?, ?&gt;, MapGenerationP
     public &lt;T&gt; T nullableRandomValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull MapGenerationParameters parameters) {
-<span class="fc" id="L86">        assertSupported(type);</span>
+<span class="fc" id="L93">        assertSupported(type);</span>
         final T value;
-<span class="fc bfc" id="L88" title="All 4 branches covered.">        if (parameters.isNullable() &amp;&amp; randomNull(type)) {</span>
-<span class="fc" id="L89">            value = null;</span>
+<span class="fc bfc" id="L95" title="All 4 branches covered.">        if (parameters.isNullable() &amp;&amp; randomNull(type)) {</span>
+<span class="fc" id="L96">            value = null;</span>
         } else {
-<span class="fc" id="L91">            value = type.cast(randomNullablesMap(parameters));</span>
+<span class="fc" id="L98">            value = type.cast(randomNullablesMap(parameters));</span>
         }
-<span class="fc" id="L93">        return value;</span>
+<span class="fc" id="L100">        return value;</span>
     }
 
     /**
@@ -99,14 +106,14 @@ extends AbstractTypedParameterizableGenerator&lt;Map&lt;?, ?&gt;, MapGenerationP
     @Override
     public Map&lt;?, ?&gt; nullableRandomValue(
             final @NotNull MapGenerationParameters parameters) {
-<span class="fc" id="L102">        validateParameters(parameters);</span>
+<span class="fc" id="L109">        validateParameters(parameters);</span>
         final Map&lt;?, ?&gt; value;
-<span class="fc bfc" id="L104" title="All 4 branches covered.">        if (parameters.isNullable() &amp;&amp; randomNull(getValueType())) {</span>
-<span class="fc" id="L105">            value = null;</span>
+<span class="fc bfc" id="L111" title="All 4 branches covered.">        if (parameters.isNullable() &amp;&amp; randomNull(getValueType())) {</span>
+<span class="fc" id="L112">            value = null;</span>
         } else {
-<span class="fc" id="L107">            value = randomNullablesMap(parameters);</span>
+<span class="fc" id="L114">            value = randomNullablesMap(parameters);</span>
         }
-<span class="fc" id="L109">        return value;</span>
+<span class="fc" id="L116">        return value;</span>
     }
 
     /**
@@ -117,9 +124,9 @@ extends AbstractTypedParameterizableGenerator&lt;Map&lt;?, ?&gt;, MapGenerationP
      */
     protected void validateParameters(
             final @NotNull MapGenerationParameters parameters) {
-<span class="fc" id="L120">        Validate.notNull(parameters.getKeysType(), &quot;The map keys type is required&quot;);</span>
-<span class="fc" id="L121">        Validate.notNull(parameters.getValuesType(), &quot;The map values type is required&quot;);</span>
-<span class="fc" id="L122">    }</span>
+<span class="fc" id="L127">        Validate.notNull(parameters.getKeysType(), &quot;The map keys type is required&quot;);</span>
+<span class="fc" id="L128">        Validate.notNull(parameters.getValuesType(), &quot;The map values type is required&quot;);</span>
+<span class="fc" id="L129">    }</span>
 
     /**
      * Returns a random sized map of the specified keys and values types.
@@ -131,16 +138,16 @@ extends AbstractTypedParameterizableGenerator&lt;Map&lt;?, ?&gt;, MapGenerationP
     @SuppressWarnings(&quot;java:S1452&quot;)
     protected @NotNull Map&lt;?, ?&gt; randomMap(
             final @NotNull MapGenerationParameters parameters) {
-<span class="fc" id="L134">        final int size = randomSetSize(parameters);</span>
-<span class="fc" id="L135">        final Map&lt;Object, Object&gt; result = new HashMap&lt;&gt;(size);</span>
-<span class="fc bfc" id="L136" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i++) {</span>
-<span class="fc" id="L137">            result.put(</span>
-<span class="fc" id="L138">                    CollectionGeneratorUtils.randomComponent(</span>
-<span class="fc" id="L139">                        parameters.getKeysType()),</span>
-<span class="fc" id="L140">                    CollectionGeneratorUtils.randomComponent(</span>
-<span class="fc" id="L141">                        parameters.getValuesType()));</span>
+<span class="fc" id="L141">        final int size = randomSize(parameters);</span>
+<span class="fc" id="L142">        final Map&lt;Object, Object&gt; result = new HashMap&lt;&gt;(size);</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i++) {</span>
+<span class="fc" id="L144">            result.put(</span>
+<span class="fc" id="L145">                    CollectionGeneratorUtils.randomComponent(</span>
+<span class="fc" id="L146">                        parameters.getKeysType()),</span>
+<span class="fc" id="L147">                    CollectionGeneratorUtils.randomComponent(</span>
+<span class="fc" id="L148">                        parameters.getValuesType()));</span>
         }
-<span class="fc" id="L143">        return result;</span>
+<span class="fc" id="L150">        return result;</span>
     }
 
     /**
@@ -154,16 +161,16 @@ extends AbstractTypedParameterizableGenerator&lt;Map&lt;?, ?&gt;, MapGenerationP
     @SuppressWarnings(&quot;java:S1452&quot;)
     protected Map&lt;?, ?&gt; randomNullablesMap(
             final @NotNull MapGenerationParameters parameters) {
-<span class="fc" id="L157">        final int size = randomSetSize(parameters);</span>
-<span class="fc" id="L158">        final Map&lt;Object, Object&gt; result = new HashMap&lt;&gt;(size);</span>
-<span class="fc bfc" id="L159" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i++) {</span>
-<span class="fc" id="L160">            result.put(</span>
-<span class="fc" id="L161">                    CollectionGeneratorUtils.randomComponent(</span>
-<span class="fc" id="L162">                        parameters.getKeysType()),</span>
-<span class="fc" id="L163">                    CollectionGeneratorUtils.nullableRandomComponent(</span>
-<span class="fc" id="L164">                        parameters.getValuesType()));</span>
+<span class="fc" id="L164">        final int size = randomSize(parameters);</span>
+<span class="fc" id="L165">        final Map&lt;Object, Object&gt; result = new HashMap&lt;&gt;(size);</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">        for (int i = 0; i &lt; size; i++) {</span>
+<span class="fc" id="L167">            result.put(</span>
+<span class="fc" id="L168">                    CollectionGeneratorUtils.randomComponent(</span>
+<span class="fc" id="L169">                        parameters.getKeysType()),</span>
+<span class="fc" id="L170">                    CollectionGeneratorUtils.nullableRandomComponent(</span>
+<span class="fc" id="L171">                        parameters.getValuesType()));</span>
         }
-<span class="fc" id="L166">        return result;</span>
+<span class="fc" id="L173">        return result;</span>
     }
 
     /**
@@ -172,11 +179,11 @@ extends AbstractTypedParameterizableGenerator&lt;Map&lt;?, ?&gt;, MapGenerationP
      * @param parameters The generation parameters.
      * @return The map size.
      */
-    protected int randomSetSize(
+    protected int randomSize(
             final @NotNull MapGenerationParameters parameters) {
-<span class="fc" id="L177">        return RandomUtils.nextInt(</span>
-<span class="fc" id="L178">                NumberUtils.max(MIN_SIZE, parameters.getMinSize()),</span>
-<span class="fc" id="L179">                NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);</span>
+<span class="fc" id="L184">        return RandomUtils.nextInt(</span>
+<span class="fc" id="L185">                NumberUtils.max(MIN_SIZE, parameters.getMinSize()),</span>
+<span class="fc" id="L186">                NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -45,7 +45,7 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L48">public class ChronologyGenerator</span>
+public class ChronologyGenerator
 extends AbstractTypedGenerator&lt;Chronology&gt; {
 
     /** The supported chronologies. */
@@ -53,11 +53,18 @@ extends AbstractTypedGenerator&lt;Chronology&gt; {
 <span class="fc" id="L53">            Chronology.getAvailableChronologies());</span>
 
     /**
+     * Creates a new instance.
+     */
+    public ChronologyGenerator() {
+<span class="fc" id="L59">        super();</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Chronology defaultValue() {
-<span class="fc" id="L60">        return Chronology.ofLocale(Locale.getDefault());</span>
+<span class="fc" id="L67">        return Chronology.ofLocale(Locale.getDefault());</span>
     }
 
     /**
@@ -65,8 +72,8 @@ extends AbstractTypedGenerator&lt;Chronology&gt; {
      */
     @Override
     public @NotNull Chronology randomValue() {
-<span class="fc" id="L68">        final int index = RandomUtils.nextInt(0, CHRONOS.size());</span>
-<span class="fc" id="L69">        return CHRONOS.get(index);</span>
+<span class="fc" id="L75">        final int index = RandomUtils.nextInt(0, CHRONOS.size());</span>
+<span class="fc" id="L76">        return CHRONOS.get(index);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

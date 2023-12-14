@@ -42,15 +42,22 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L45">public class YearGenerator</span>
+public class YearGenerator
 extends AbstractTypedGenerator&lt;Year&gt; {
+
+    /**
+     * Creates a new instance.
+     */
+    public YearGenerator() {
+<span class="fc" id="L52">        super();</span>
+<span class="fc" id="L53">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Year defaultValue() {
-<span class="fc" id="L53">        return Year.of(0);</span>
+<span class="fc" id="L60">        return Year.of(0);</span>
     }
 
     /**
@@ -58,7 +65,7 @@ extends AbstractTypedGenerator&lt;Year&gt; {
      */
     @Override
     public @NotNull Year randomValue() {
-<span class="fc" id="L61">        return Year.of(RandomUtils.nextInt(0, Year.MAX_VALUE - Year.MIN_VALUE) + Year.MIN_VALUE);</span>
+<span class="fc" id="L68">        return Year.of(RandomUtils.nextInt(0, Year.MAX_VALUE - Year.MIN_VALUE) + Year.MIN_VALUE);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

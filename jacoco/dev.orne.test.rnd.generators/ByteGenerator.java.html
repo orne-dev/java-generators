@@ -38,18 +38,25 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
-<span class="fc" id="L41">public class ByteGenerator</span>
+public class ByteGenerator
 extends AbstractPrimitiveGenerator&lt;Byte&gt; {
 
     /** The default value. */
     public static final byte DEFAULT_VALUE = 0;
 
     /**
+     * Creates a new instance.
+     */
+    public ByteGenerator() {
+<span class="fc" id="L51">        super();</span>
+<span class="fc" id="L52">    }</span>
+
+    /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Byte defaultValue() {
-<span class="fc" id="L52">        return DEFAULT_VALUE;</span>
+<span class="fc" id="L59">        return DEFAULT_VALUE;</span>
     }
 
     /**
@@ -57,7 +64,7 @@ extends AbstractPrimitiveGenerator&lt;Byte&gt; {
      */
     @Override
     public @NotNull Byte randomValue() {
-<span class="fc" id="L60">        return randomByte();</span>
+<span class="fc" id="L67">        return randomByte();</span>
     }
 
     /**
@@ -67,7 +74,7 @@ extends AbstractPrimitiveGenerator&lt;Byte&gt; {
      * @return A random {@code byte} value
      */
     public static byte randomByte() {
-<span class="fc" id="L70">        return (byte) IntegerGenerator.randomInt(Byte.MIN_VALUE, Byte.MAX_VALUE);</span>
+<span class="fc" id="L77">        return (byte) IntegerGenerator.randomInt(Byte.MIN_VALUE, Byte.MAX_VALUE);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

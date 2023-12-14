@@ -43,8 +43,15 @@ import dev.orne.test.rnd.Priority;
  */
 @API(status=Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.GENERIC_GENERATORS)
-<span class="fc" id="L46">public class EnumGenerator</span>
+public class EnumGenerator
 extends AbstractGenerator {
+
+    /**
+     * Creates a new instance.
+     */
+    public EnumGenerator() {
+<span class="fc" id="L53">        super();</span>
+<span class="fc" id="L54">    }</span>
 
     /**
      * {@inheritDoc}
@@ -52,7 +59,7 @@ extends AbstractGenerator {
     @Override
     public boolean supports(
             final @NotNull Class&lt;?&gt; type) {
-<span class="fc bfc" id="L55" title="All 4 branches covered.">        return type.isEnum() &amp;&amp; type.getEnumConstants().length &gt; 0;</span>
+<span class="fc bfc" id="L62" title="All 4 branches covered.">        return type.isEnum() &amp;&amp; type.getEnumConstants().length &gt; 0;</span>
     }
 
     /**
@@ -61,8 +68,8 @@ extends AbstractGenerator {
     @Override
     public &lt;T&gt; @NotNull T defaultValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L64">        assertSupported(type);</span>
-<span class="fc" id="L65">        return type.getEnumConstants()[0];</span>
+<span class="fc" id="L71">        assertSupported(type);</span>
+<span class="fc" id="L72">        return type.getEnumConstants()[0];</span>
     }
 
     /**
@@ -71,9 +78,9 @@ extends AbstractGenerator {
     @Override
     public &lt;T&gt; @NotNull T randomValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L74">        assertSupported(type);</span>
-<span class="fc" id="L75">        final T[] values = type.getEnumConstants();</span>
-<span class="fc" id="L76">        return values[RandomUtils.nextInt(0, values.length)];</span>
+<span class="fc" id="L81">        assertSupported(type);</span>
+<span class="fc" id="L82">        final T[] values = type.getEnumConstants();</span>
+<span class="fc" id="L83">        return values[RandomUtils.nextInt(0, values.length)];</span>
     }
 
     /**
@@ -86,11 +93,11 @@ extends AbstractGenerator {
      */
     public static &lt;T extends Enum&lt;T&gt;&gt; @NotNull T randomEnumValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L89">        Validate.notNull(type);</span>
-<span class="fc" id="L90">        Validate.isTrue(type.isEnum(), &quot;The specified class is not an enumeration&quot;);</span>
-<span class="fc" id="L91">        final T[] values = type.getEnumConstants();</span>
-<span class="fc bfc" id="L92" title="All 2 branches covered.">        Validate.isTrue(values.length &gt; 0, &quot;The specified enumeration has no values&quot;);</span>
-<span class="fc" id="L93">        return values[RandomUtils.nextInt(0, values.length)];</span>
+<span class="fc" id="L96">        Validate.notNull(type);</span>
+<span class="fc" id="L97">        Validate.isTrue(type.isEnum(), &quot;The specified class is not an enumeration&quot;);</span>
+<span class="fc" id="L98">        final T[] values = type.getEnumConstants();</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        Validate.isTrue(values.length &gt; 0, &quot;The specified enumeration has no values&quot;);</span>
+<span class="fc" id="L100">        return values[RandomUtils.nextInt(0, values.length)];</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
