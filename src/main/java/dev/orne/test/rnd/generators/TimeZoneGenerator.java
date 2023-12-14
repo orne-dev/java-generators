@@ -49,6 +49,13 @@ extends AbstractTypedGenerator<TimeZone> {
     private static final String[] IDS = TimeZone.getAvailableIDs();
 
     /**
+     * Creates a new instance.
+     */
+    public TimeZoneGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

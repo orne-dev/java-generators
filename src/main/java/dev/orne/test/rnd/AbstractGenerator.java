@@ -54,6 +54,13 @@ implements Generator {
     private float nullProbability = DEFAULT_NULL_PROBABILITY;
 
     /**
+     * Creates a new instance.
+     */
+    protected AbstractGenerator() {
+        super();
+    }
+
+    /**
      * Verifies that the specified type is supported by this instance.
      * If test fails throws an {@code IllegalArgumentException} exception
      * as documented in {@link #defaultValue(Class)},

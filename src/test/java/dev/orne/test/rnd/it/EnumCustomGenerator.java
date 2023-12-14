@@ -52,6 +52,7 @@ import dev.orne.test.rnd.generators.EnumGenerator;
 public class EnumCustomGenerator
 extends AbstractTypedGenerator<EnumCustomGenerator.Values> {
 
+    /** The generated enumeration values. */
     public static final Values[] GENERATED_VALUES =
             new Values[] {
                 Values.DEFAULT,
@@ -60,22 +61,43 @@ extends AbstractTypedGenerator<EnumCustomGenerator.Values> {
                 Values.NON_DEFAULT_C,
             };
 
+    /**
+     * Creates a new instance.
+     */
+    public EnumCustomGenerator() {
+        super();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull Values defaultValue() {
        return Values.DEFAULT;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public @NotNull Values randomValue() {
         final int index = RandomUtils.nextInt(0, GENERATED_VALUES.length);
         return GENERATED_VALUES[index];
     }
 
+    /**
+     * Test enumeration.
+     */
     public static enum Values {
+        /** The default enumeration constant. */
         DEFAULT,
+        /** The non generated enumeration constant. */
         UNDESIRED,
+        /** The non default enumeration constant. */
         NON_DEFAULT_A,
+        /** The non default enumeration constant. */
         NON_DEFAULT_B,
+        /** The non default enumeration constant. */
         NON_DEFAULT_C,
     }
 }

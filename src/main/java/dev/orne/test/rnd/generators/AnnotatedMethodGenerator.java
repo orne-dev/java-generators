@@ -87,6 +87,13 @@ implements Generator {
             new WeakHashMap<>();
 
     /**
+     * Creates a new instance.
+     */
+    public AnnotatedMethodGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

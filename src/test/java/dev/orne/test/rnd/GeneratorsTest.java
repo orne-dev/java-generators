@@ -44,6 +44,7 @@ import dev.orne.test.rnd.params.GenerationParameters;
 import dev.orne.test.rnd.params.GeneratorNotParameterizableException;
 import dev.orne.test.rnd.params.MethodParameterTypeGenerator;
 import dev.orne.test.rnd.params.MethodReturnTypeGenerator;
+import dev.orne.test.rnd.params.ParameterTypeGenerator;
 import dev.orne.test.rnd.params.ParameterizableGenerator;
 import dev.orne.test.rnd.params.PropertyTypeGenerator;
 import dev.orne.test.rnd.params.TargetedGenerator;
@@ -352,6 +353,8 @@ class GeneratorsTest {
     @Test
     void testGetGeneratorInt() {
         final Generator mockGenerator = spy(Generator.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willThrow(GeneratorNotParameterizableException.class).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         Generators.register(mockGenerator);
         final Map<Class<?>, Generator> cache = Generators.getCacheInt();
@@ -376,6 +379,8 @@ class GeneratorsTest {
     @Test
     void testGetGenerator() {
         final Generator mockGenerator = spy(Generator.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willThrow(GeneratorNotParameterizableException.class).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         Generators.register(mockGenerator);
         final Map<Class<?>, Generator> cache = Generators.getCacheInt();
@@ -399,8 +404,12 @@ class GeneratorsTest {
     @Test
     void testGetParameterizableGenerator() {
         final ParameterizableGenerator mockParamsGenerator = spy(ParameterizableGenerator.class);
+        willReturn(Priority.DEFAULT).given(mockParamsGenerator).getPriority();
+        willReturn(mockParamsGenerator).given(mockParamsGenerator).asParameterizable();
         willReturn(true).given(mockParamsGenerator).supports(MyParameterizableType.class);
         final Generator mockGenerator = spy(Generator.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willThrow(GeneratorNotParameterizableException.class).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         Generators.register(mockParamsGenerator);
         Generators.register(mockGenerator);
@@ -430,6 +439,8 @@ class GeneratorsTest {
     @Test
     void testSupports() {
         final Generator mockGenerator = spy(Generator.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willThrow(GeneratorNotParameterizableException.class).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
         Generators.register(mockGenerator);
@@ -453,6 +464,7 @@ class GeneratorsTest {
     void testDefaultValue() {
         final Generator mockGenerator = spy(Generator.class);
         final MyType mockValue = mock(MyType.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).defaultValue(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
@@ -481,6 +493,8 @@ class GeneratorsTest {
     void testNullableDefaultValue() {
         final Generator mockGenerator = spy(Generator.class);
         final MyType mockValue = mock(MyType.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willThrow(GeneratorNotParameterizableException.class).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).nullableDefaultValue(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
@@ -509,6 +523,8 @@ class GeneratorsTest {
     void testRandomValue() {
         final Generator mockGenerator = spy(Generator.class);
         final MyType mockValue = mock(MyType.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willThrow(GeneratorNotParameterizableException.class).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).randomValue(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
@@ -537,6 +553,8 @@ class GeneratorsTest {
     void testNullableRandomValue() {
         final Generator mockGenerator = spy(Generator.class);
         final MyType mockValue = mock(MyType.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willThrow(GeneratorNotParameterizableException.class).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(mockValue).given(mockGenerator).nullableRandomValue(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
@@ -566,6 +584,8 @@ class GeneratorsTest {
         final ParameterizableGenerator mockParamsGenerator = spy(ParameterizableGenerator.class);
         final GenerationParameters params = spy(GenerationParameters.class);
         final MyParameterizableType mockValue = mock(MyParameterizableType.class);
+        willReturn(Priority.DEFAULT).given(mockParamsGenerator).getPriority();
+        willReturn(mockParamsGenerator).given(mockParamsGenerator).asParameterizable();
         willReturn(true).given(mockParamsGenerator).supports(MyParameterizableType.class);
         willReturn(mockValue).given(mockParamsGenerator).defaultValue(MyParameterizableType.class, params);
         willReturn(false).given(mockParamsGenerator).supports(MyMissingType.class);
@@ -596,6 +616,8 @@ class GeneratorsTest {
     void testDefaultValueNoParameterizable() {
         final Generator mockGenerator = spy(Generator.class);
         final GenerationParameters params = spy(GenerationParameters.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willThrow(GeneratorNotParameterizableException.class).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
         Generators.register(mockGenerator);
@@ -618,6 +640,8 @@ class GeneratorsTest {
         final ParameterizableGenerator mockParamsGenerator = spy(ParameterizableGenerator.class);
         final GenerationParameters params = spy(GenerationParameters.class);
         final MyParameterizableType mockValue = mock(MyParameterizableType.class);
+        willReturn(Priority.DEFAULT).given(mockParamsGenerator).getPriority();
+        willReturn(mockParamsGenerator).given(mockParamsGenerator).asParameterizable();
         willReturn(true).given(mockParamsGenerator).supports(MyParameterizableType.class);
         willReturn(mockValue).given(mockParamsGenerator).nullableDefaultValue(MyParameterizableType.class, params);
         willReturn(false).given(mockParamsGenerator).supports(MyMissingType.class);
@@ -648,6 +672,8 @@ class GeneratorsTest {
     void testNullableDefaultValueNoParameterizable() {
         final Generator mockGenerator = spy(Generator.class);
         final GenerationParameters params = spy(GenerationParameters.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willThrow(GeneratorNotParameterizableException.class).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
         Generators.register(mockGenerator);
@@ -670,6 +696,8 @@ class GeneratorsTest {
         final ParameterizableGenerator mockParamsGenerator = spy(ParameterizableGenerator.class);
         final GenerationParameters params = spy(GenerationParameters.class);
         final MyParameterizableType mockValue = mock(MyParameterizableType.class);
+        willReturn(Priority.DEFAULT).given(mockParamsGenerator).getPriority();
+        willReturn(mockParamsGenerator).given(mockParamsGenerator).asParameterizable();
         willReturn(true).given(mockParamsGenerator).supports(MyParameterizableType.class);
         willReturn(mockValue).given(mockParamsGenerator).randomValue(MyParameterizableType.class, params);
         willReturn(false).given(mockParamsGenerator).supports(MyMissingType.class);
@@ -700,6 +728,8 @@ class GeneratorsTest {
     void testRandomValueNoParameterizable() {
         final Generator mockGenerator = spy(Generator.class);
         final GenerationParameters params = spy(GenerationParameters.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willThrow(GeneratorNotParameterizableException.class).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
         Generators.register(mockGenerator);
@@ -722,6 +752,8 @@ class GeneratorsTest {
         final ParameterizableGenerator mockParamsGenerator = spy(ParameterizableGenerator.class);
         final GenerationParameters params = spy(GenerationParameters.class);
         final MyParameterizableType mockValue = mock(MyParameterizableType.class);
+        willReturn(Priority.DEFAULT).given(mockParamsGenerator).getPriority();
+        willReturn(mockParamsGenerator).given(mockParamsGenerator).asParameterizable();
         willReturn(true).given(mockParamsGenerator).supports(MyParameterizableType.class);
         willReturn(mockValue).given(mockParamsGenerator).nullableRandomValue(MyParameterizableType.class, params);
         willReturn(false).given(mockParamsGenerator).supports(MyMissingType.class);
@@ -752,6 +784,8 @@ class GeneratorsTest {
     void testNullableRandomValueNoParameterizable() {
         final Generator mockGenerator = spy(Generator.class);
         final GenerationParameters params = spy(GenerationParameters.class);
+        willReturn(Priority.DEFAULT).given(mockGenerator).getPriority();
+        willThrow(GeneratorNotParameterizableException.class).given(mockGenerator).asParameterizable();
         willReturn(true).given(mockGenerator).supports(MyType.class);
         willReturn(false).given(mockGenerator).supports(MyMissingType.class);
         Generators.register(mockGenerator);
@@ -767,6 +801,33 @@ class GeneratorsTest {
     }
 
     /**
+     * Test for {@link Generators#forField(Field)}.
+     */
+    @Test
+    void testForField() {
+        final TargetedGenerator<?> result = Generators.forField(
+                ConstraintIntrospectionTestType.PROP0_FIELD);
+        final TargetedGenerator<?> expected = PropertyTypeGenerator.targeting(
+                ConstraintIntrospectionTestType.class,
+                ConstraintIntrospectionTestType.PROP0_FIELD.getName());
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test for {@link Generators#forField(Class, Field)}.
+     */
+    @Test
+    void testForField_Class() {
+        final TargetedGenerator<?> result = Generators.forField(
+                ConstraintIntrospectionTestType.class,
+                ConstraintIntrospectionTestType.PROP0_FIELD);
+        final TargetedGenerator<?> expected = PropertyTypeGenerator.targeting(
+                ConstraintIntrospectionTestType.class,
+                ConstraintIntrospectionTestType.PROP0_FIELD.getName());
+        assertEquals(expected, result);
+    }
+
+    /**
      * Test for {@link Generators#forProperty(Class, String)}.
      */
     @Test
@@ -777,6 +838,18 @@ class GeneratorsTest {
         final TargetedGenerator<?> expected = PropertyTypeGenerator.targeting(
                 ConstraintIntrospectionTestType.class,
                 ConstraintIntrospectionTestType.PROP0_FIELD.getName());
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Test for {@link Generators#forParameter(java.lang.reflect.Parameter)}.
+     */
+    @Test
+    void testForParameter() {
+        final TargetedGenerator<?> result = Generators.forParameter(
+                ConstraintIntrospectionTestType.TEST_METHOD_PARAM_1);
+        final TargetedGenerator<?> expected = ParameterTypeGenerator.targeting(
+                ConstraintIntrospectionTestType.TEST_METHOD_PARAM_1);
         assertEquals(expected, result);
     }
 

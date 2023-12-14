@@ -23,7 +23,9 @@ package dev.orne.test.rnd;
  */
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -45,6 +47,7 @@ import dev.orne.test.rnd.params.ConstructorParameterTypeGenerator;
 import dev.orne.test.rnd.params.GeneratorNotParameterizableException;
 import dev.orne.test.rnd.params.MethodParameterTypeGenerator;
 import dev.orne.test.rnd.params.MethodReturnTypeGenerator;
+import dev.orne.test.rnd.params.ParameterTypeGenerator;
 import dev.orne.test.rnd.params.ParameterizableGenerator;
 import dev.orne.test.rnd.params.PropertyTypeGenerator;
 
@@ -63,7 +66,7 @@ import dev.orne.test.rnd.params.PropertyTypeGenerator;
  * and {@link #reset()}.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
- * @version 1.0, 2022-10
+ * @version 1.1, 2023-11
  * @since 0.1
  */
 @API(status=Status.STABLE, since="0.1")
@@ -118,7 +121,7 @@ public final class Generators {
      * 
      * @param <T> The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return The default value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
@@ -158,7 +161,7 @@ public final class Generators {
      * 
      * @param <T> The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return The nullable default value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
@@ -192,7 +195,7 @@ public final class Generators {
      * 
      * @param <T> The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return A random value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
@@ -235,7 +238,7 @@ public final class Generators {
      * 
      * @param <T> The requested value type.
      * @param type The requested value type.
-     * @param params The generation parameters.
+     * @param params The generation parameter sources.
      * @return A random nullable value for the specified type.
      * @throws GeneratorNotFoundException If no generator supports the
      * requested value type.
@@ -337,6 +340,42 @@ public final class Generators {
     }
 
     /**
+     * Returns a targeted generator for the specified field.
+     * <p>
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the field declaration.
+     * 
+     * @param <T> The type of the generated values
+     * @param field The bean field
+     * @return A generator for the type of the specified field
+     * @since 0.2
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.2")
+    public static <T> @NotNull PropertyTypeGenerator<T> forField(
+            final @NotNull Field field) {
+        return PropertyTypeGenerator.<T>targeting(field);
+    }
+
+    /**
+     * Returns a targeted generator for the specified field.
+     * <p>
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the field declaration.
+     * 
+     * @param <T> The type of the generated values
+     * @param beanType The bean type
+     * @param field The bean field
+     * @return A generator for the type of the specified field
+     * @since 0.2
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.2")
+    public static <T> @NotNull PropertyTypeGenerator<T> forField(
+            final @NotNull Class<?> beanType,
+            final @NotNull Field field) {
+        return PropertyTypeGenerator.<T>targeting(beanType, field);
+    }
+
+    /**
      * Returns a targeted generator for the specified bean property.
      * <p>
      * If a parameterizable generator has been registered for the specified type
@@ -352,6 +391,23 @@ public final class Generators {
             final @NotNull Class<?> beanType,
             final @NotNull String property) {
         return PropertyTypeGenerator.<T>targeting(beanType, property);
+    }
+
+    /**
+     * Returns a targeted generator for the specified parameter.
+     * <p>
+     * If a parameterizable generator has been registered for the specified type
+     * extracts the generation parameters from the parameter declaration.
+     * 
+     * @param <T> The type of the generated values
+     * @param parameter The parameter
+     * @return A generator for the type of the specified parameter
+     * @since 0.2
+     */
+    @API(status=Status.EXPERIMENTAL, since = "0.2")
+    public static <T> @NotNull ParameterTypeGenerator<T> forParameter(
+            final @NotNull Parameter parameter) {
+        return ParameterTypeGenerator.<T>targeting(parameter);
     }
 
     /**

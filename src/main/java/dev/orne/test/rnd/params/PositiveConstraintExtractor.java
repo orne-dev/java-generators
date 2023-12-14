@@ -47,6 +47,13 @@ public class PositiveConstraintExtractor
 extends AbstractParametersSourceExtractor<NumberParameters, Positive> {
 
     /**
+     * Creates a new instance.
+     */
+    public PositiveConstraintExtractor() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -46,6 +46,13 @@ public class DateGenerator
 extends AbstractTypedGenerator<Date> {
 
     /**
+     * Creates a new instance.
+     */
+    public DateGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

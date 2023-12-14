@@ -40,6 +40,13 @@ extends AbstractParametersSourceExtractor<
     private static final String NO_MOCK_ERR = "Mocking of calls expected";
 
     /**
+     * Creates a new instance.
+     */
+    public MockSourceExtractor() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -49,6 +56,29 @@ extends AbstractParametersSourceExtractor<
         throw new AssertionError(NO_MOCK_ERR);
     }
 
-    public static interface Params{}
-    public static interface Source {}
+    /**
+     * Test parameters type.
+     */
+    public static interface Params {
+
+        /**
+         * Sets the test parameter value.
+         * 
+         * @param value The test parameter value.
+         */
+        void setValue(String value);
+    }
+
+    /**
+     * Test parameters source type.
+     */
+    public static interface Source {
+
+        /**
+         * Returns the test parameter value.
+         * 
+         * @return The test parameter value.
+         */
+        String getValue();
+    }
 }

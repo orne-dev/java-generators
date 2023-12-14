@@ -48,6 +48,13 @@ public class LocalDateGenerator
 extends AbstractTypedGenerator<LocalDate> {
 
     /**
+     * Creates a new instance.
+     */
+    public LocalDateGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

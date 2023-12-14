@@ -41,6 +41,13 @@ public class NotNullConstraintExtractor
 extends AbstractParametersSourceExtractor<NullableParameters, NotNull> {
 
     /**
+     * Creates a new instance.
+     */
+    public NotNullConstraintExtractor() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

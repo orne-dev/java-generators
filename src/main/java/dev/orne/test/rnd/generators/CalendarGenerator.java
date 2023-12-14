@@ -49,6 +49,13 @@ public class CalendarGenerator
 extends AbstractTypedGenerator<Calendar> {
 
     /**
+     * Creates a new instance.
+     */
+    public CalendarGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

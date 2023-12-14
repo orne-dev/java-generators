@@ -57,6 +57,13 @@ extends AbstractTypedParameterizableGenerator<Set<?>, CollectionGenerationParame
     public static final int MAX_SIZE = 100;
 
     /**
+     * Creates a new instance.
+     */
+    public SetGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -130,7 +137,7 @@ extends AbstractTypedParameterizableGenerator<Set<?>, CollectionGenerationParame
     @SuppressWarnings("java:S1452")
     protected @NotNull Set<?> randomSet(
             final @NotNull CollectionGenerationParameters parameters) {
-        final int size = randomSetSize(parameters);
+        final int size = randomSize(parameters);
         final Set<Object> result = new HashSet<>(size);
         for (int i = 0; i < size; i++) {
             result.add(CollectionGeneratorUtils.randomComponent(
@@ -150,7 +157,7 @@ extends AbstractTypedParameterizableGenerator<Set<?>, CollectionGenerationParame
     @SuppressWarnings("java:S1452")
     protected Set<?> randomNullablesSet(
             final @NotNull CollectionGenerationParameters parameters) {
-        final int size = randomSetSize(parameters);
+        final int size = randomSize(parameters);
         final Set<Object> result = new HashSet<>(size);
         for (int i = 0; i < size; i++) {
             result.add(CollectionGeneratorUtils.nullableRandomComponent(
@@ -165,7 +172,7 @@ extends AbstractTypedParameterizableGenerator<Set<?>, CollectionGenerationParame
      * @param parameters The generation parameters.
      * @return The set size.
      */
-    protected int randomSetSize(
+    protected int randomSize(
             final @NotNull CollectionGenerationParameters parameters) {
         return RandomUtils.nextInt(
                 NumberUtils.max(MIN_SIZE, parameters.getMinSize()),

@@ -52,6 +52,13 @@ extends AbstractTypedGenerator<BigInteger> {
     private static final int MAX_EXPONENT = 32;
 
     /**
+     * Creates a new instance.
+     */
+    public BigIntegerGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -1,6 +1,19 @@
+# :package: 0.2.0
+
+01. :gift: Added support for retrieval of targeted generators based on `Field` and `Parameter`
+    01. :gift: Added class `dev.orne.test.rnd.params.ParameterTypeGenerator`
+    01. :gift: Added method `ConstraintIntrospector.findParameterConstrains(Parameter, Class...)`
+    01. :gift: Added method `ConstraintIntrospector.findParameterConstrains(Validator, Parameter, Class...)`
+    01. :gift: Added method `Generators.forField(Field)`
+    01. :gift: Added method `Generators.forField(Class, Field)`
+    01. :gift: Added method `forParameter(Parameter)`
+01. :gift: Added **experimental** JUnit 5 (Jupiter) random value injection extension
+    01. Added annotation `dev.orne.test.rnd.junit.Random`
+    01. Added class `dev.orne.test.rnd.junit.RandomValueExtension`
+
 # :package: 0.1.3
 
-01. :bug: Improved `CharsetGenerator`.
+01. :beetle: Improved `CharsetGenerator`.
 
     Prevent generation of charsets that don't support encoding.
     Causes unexpected random errors in multiple tests.
@@ -9,11 +22,11 @@
 
 # :package: 0.1.2
 
-01. :bug: Fixed `URIGenerator` maximum port number (65535).
+01. :beetle: Fixed `URIGenerator` maximum port number (65535).
 
 # :package: 0.1.1
 
-01. :bug: Fixed `CurrencyGenerator` default value.
+01. :beetle: Fixed `CurrencyGenerator` default value.
 
     Default locale may have not country code.
     Use "EUR" as default value in such cases.

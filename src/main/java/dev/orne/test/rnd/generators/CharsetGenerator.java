@@ -69,6 +69,13 @@ extends AbstractTypedGenerator<Charset> {
     }
 
     /**
+     * Creates a new instance.
+     */
+    public CharsetGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

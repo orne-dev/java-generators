@@ -45,6 +45,13 @@ extends AbstractPrimitiveGenerator<Byte> {
     public static final byte DEFAULT_VALUE = 0;
 
     /**
+     * Creates a new instance.
+     */
+    public ByteGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

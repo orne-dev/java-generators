@@ -58,6 +58,13 @@ extends AbstractTypedGenerator<Path> {
     public static final String SEPARATOR = FileSystems.getDefault().getSeparator();
 
     /**
+     * Creates a new instance.
+     */
+    public PathGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

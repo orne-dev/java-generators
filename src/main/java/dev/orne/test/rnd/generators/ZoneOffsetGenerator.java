@@ -46,6 +46,13 @@ public class ZoneOffsetGenerator
 extends AbstractTypedGenerator<ZoneOffset> {
 
     /**
+     * Creates a new instance.
+     */
+    public ZoneOffsetGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

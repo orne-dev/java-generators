@@ -47,6 +47,13 @@ public class SizeParametersExtractor
 extends AbstractParametersSourceExtractor<SizeParameters, SizeParameters> {
 
     /**
+     * Creates a new instance.
+     */
+    public SizeParametersExtractor() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

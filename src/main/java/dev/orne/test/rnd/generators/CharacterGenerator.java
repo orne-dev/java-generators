@@ -46,6 +46,13 @@ extends AbstractPrimitiveGenerator<Character> {
     public static final char DEFAULT_VALUE = 0;
 
     /**
+     * Creates a new instance.
+     */
+    public CharacterGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

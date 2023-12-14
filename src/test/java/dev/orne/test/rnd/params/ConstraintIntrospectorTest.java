@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Collection;
 import java.util.Set;
 
@@ -232,6 +233,116 @@ class ConstraintIntrospectorTest {
     void testFindMethodResultConstrains_Static() {
         final Set<Annotation> result = ConstraintIntrospector.findMethodResultConstrains(
                 ConstraintIntrospectionTestType.STATIC_METHOD);
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    /**
+     * Unit test for {@link ConstraintIntrospector#findParameterConstrains(Parameter, Class...)}.
+     */
+    @Test
+    void testFindParameterConstrains() {
+        final Set<Annotation> result = ConstraintIntrospector.findParameterConstrains(
+                ConstraintIntrospectionTestType.TEST_METHOD.getParameters()[1]);
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(1, result.size());
+        assertContainsConstraint(result, NotNull.class);
+    }
+
+    /**
+     * Unit test for {@link ConstraintIntrospector#findParameterConstrains(Parameter, Class...)}.
+     */
+    @Test
+    void testFindParameterConstrains_Empty() {
+        final Set<Annotation> result = ConstraintIntrospector.findParameterConstrains(
+                ConstraintIntrospectionTestType.TEST_METHOD.getParameters()[0]);
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    /**
+     * Unit test for {@link ConstraintIntrospector#findParameterConstrains(Parameter, Class...)}.
+     */
+    @Test
+    void testFindParameterConstrains_Multiple() {
+        final Set<Annotation> result = ConstraintIntrospector.findParameterConstrains(
+                ConstraintIntrospectionTestType.TEST_METHOD.getParameters()[2]);
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(2, result.size());
+        assertContainsConstraint(result, NotNull.class);
+        final Size size = assertContainsConstraint(result, Size.class);
+        assertEquals(ConstraintIntrospectionTestType.SIZE_MIN, size.min());
+    }
+
+    /**
+     * Unit test for {@link ConstraintIntrospector#findParameterConstrains(Parameter, Class...)}.
+     */
+    @Test
+    void testFindParameterConstrains_Group() {
+        final Set<Annotation> result = ConstraintIntrospector.findParameterConstrains(
+                ConstraintIntrospectionTestType.TEST_METHOD.getParameters()[2],
+                Default.class,
+                ConstraintIntrospectionTestType.Group1.class);
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(3, result.size());
+        assertContainsConstraint(result, NotNull.class);
+        final Size size = assertContainsConstraint(result, Size.class);
+        assertEquals(ConstraintIntrospectionTestType.SIZE_MIN, size.min());
+        final Digits digits = assertContainsConstraint(result, Digits.class);
+        assertEquals(ConstraintIntrospectionTestType.DIGITS_INT, digits.integer());
+        assertEquals(ConstraintIntrospectionTestType.DIGITS_FRA, digits.fraction());
+    }
+
+    /**
+     * Unit test for {@link ConstraintIntrospector#findParameterConstrains(Parameter, Class...)}.
+     */
+    @Test
+    void testFindParameterConstrains_Composed() {
+        final Set<Annotation> result = ConstraintIntrospector.findParameterConstrains(
+                ConstraintIntrospectionTestType.TEST_METHOD.getParameters()[2],
+                Default.class,
+                ConstraintIntrospectionTestType.Group2.class);
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(4, result.size());
+        assertContainsConstraint(result, NotNull.class);
+        final Size size = assertContainsConstraint(result, Size.class);
+        assertEquals(ConstraintIntrospectionTestType.SIZE_MIN, size.min());
+        assertContainsConstraint(result, ConstraintIntrospectionTestType.Composed.class);
+        final Pattern pattern = assertContainsConstraint(result, Pattern.class);
+        assertEquals(ConstraintIntrospectionTestType.PATTERN_REGEXP, pattern.regexp());
+    }
+
+    /**
+     * Unit test for {@link ConstraintIntrospector#findParameterConstrains(Parameter, Class...)}.
+     */
+    @Test
+    void testFindParameterConstrains_Constructor() {
+        final Set<Annotation> result = ConstraintIntrospector.findParameterConstrains(
+                ConstraintIntrospectionTestType.PARAM_CONSTRUCTOR.getParameters()[2],
+                Default.class,
+                ConstraintIntrospectionTestType.Group1.class);
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertEquals(3, result.size());
+        assertContainsConstraint(result, NotNull.class);
+        final Size size = assertContainsConstraint(result, Size.class);
+        assertEquals(ConstraintIntrospectionTestType.SIZE_MIN, size.min());
+        final Digits digits = assertContainsConstraint(result, Digits.class);
+        assertEquals(ConstraintIntrospectionTestType.DIGITS_INT, digits.integer());
+        assertEquals(ConstraintIntrospectionTestType.DIGITS_FRA, digits.fraction());
+    }
+
+    /**
+     * Unit test for {@link ConstraintIntrospector#findParameterConstrains(Parameter, Class...)}.
+     */
+    @Test
+    void testFindParameterConstrains_Static() {
+        final Set<Annotation> result = ConstraintIntrospector.findParameterConstrains(
+                ConstraintIntrospectionTestType.STATIC_METHOD.getParameters()[2]);
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }

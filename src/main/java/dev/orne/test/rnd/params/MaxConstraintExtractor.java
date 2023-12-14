@@ -47,6 +47,13 @@ public class MaxConstraintExtractor
 extends AbstractParametersSourceExtractor<NumberParameters, Max> {
 
     /**
+     * Creates a new instance.
+     */
+    public MaxConstraintExtractor() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

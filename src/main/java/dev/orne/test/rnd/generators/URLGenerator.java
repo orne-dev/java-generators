@@ -62,6 +62,13 @@ extends AbstractTypedGenerator<URL> {
     private static final NopStreamHandler HANDLER = new NopStreamHandler();
 
     /**
+     * Creates a new instance.
+     */
+    public URLGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -107,6 +114,13 @@ extends AbstractTypedGenerator<URL> {
      */
     protected static class NopStreamHandler
     extends URLStreamHandler {
+
+        /**
+         * Creates a new instance.
+         */
+        protected NopStreamHandler() {
+            super();
+        }
 
         /**
          * {@inheritDoc}

@@ -48,6 +48,13 @@ public class ZonedDateTimeGenerator
 extends AbstractTypedGenerator<ZonedDateTime> {
 
     /**
+     * Creates a new instance.
+     */
+    public ZonedDateTimeGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

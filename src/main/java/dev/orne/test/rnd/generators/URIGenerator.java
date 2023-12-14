@@ -127,6 +127,13 @@ extends AbstractTypedGenerator<URI> {
     private static final float FRAGMENT_P = 0.2f;
 
     /**
+     * Creates a new instance.
+     */
+    public URIGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

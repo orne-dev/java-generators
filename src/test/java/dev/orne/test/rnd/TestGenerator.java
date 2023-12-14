@@ -35,7 +35,15 @@ import javax.validation.constraints.NotNull;
 public class TestGenerator
 extends AbstractGenerator {
 
+    /** The generator priority. */
     public static final int PRIORITY = 100;
+
+    /**
+     * Creates a new instance.
+     */
+    public TestGenerator() {
+        super();
+    }
 
     /**
      * {@inheritDoc}
@@ -64,5 +72,16 @@ extends AbstractGenerator {
         return type.cast(new Type());
     }
 
-    public static class Type {}
+    /**
+     * Test empty type.
+     */
+    public static class Type {
+
+        /**
+         * Creates a new instance.
+         */
+        public Type() {
+            super();
+        }
+    }
 }

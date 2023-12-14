@@ -65,6 +65,13 @@ extends AbstractTypedGenerator<Currency> {
     }
 
     /**
+     * Creates a new instance.
+     */
+    public CurrencyGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

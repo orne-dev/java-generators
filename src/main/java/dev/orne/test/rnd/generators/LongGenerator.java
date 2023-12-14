@@ -46,6 +46,13 @@ extends AbstractPrimitiveGenerator<Long> {
     public static final long DEFAULT_VALUE = 0L;
 
     /**
+     * Creates a new instance.
+     */
+    public LongGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

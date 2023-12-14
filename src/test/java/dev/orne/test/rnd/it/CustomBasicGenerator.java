@@ -57,6 +57,16 @@ import dev.orne.test.rnd.generators.EnumGenerator;
 public class CustomBasicGenerator
 extends AbstractGenerator {
 
+    /**
+     * Creates a new instance.
+     */
+    public CustomBasicGenerator() {
+        super();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean supports(@NotNull Class<?> type) {
         return BasicInterface.class.equals(type)
@@ -64,6 +74,9 @@ extends AbstractGenerator {
                 || ExtendedImpl.class.equals(type);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T> @NotNull T defaultValue(@NotNull Class<T> type) {
         assertSupported(type);
@@ -76,6 +89,9 @@ extends AbstractGenerator {
         return type.cast(result);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <T> @NotNull T randomValue(@NotNull Class<T> type) {
         assertSupported(type);
@@ -93,24 +109,54 @@ extends AbstractGenerator {
         return type.cast(result);
     }
 
+    /**
+     * Test interface.
+     */
     public interface BasicInterface {
+        /**
+         * Returns the code.
+         * @return The code.
+         */
         int getCode();
+        /**
+         * Returns the name.
+         * @return The name.
+         */
         String getName();
     }
 
+    /**
+     * Test base bean.
+     */
     public static class BasicImpl
     implements BasicInterface {
+        /** The code. */
         private int code;
+        /** The name. */
         private String name;
+        /**
+         * Creates a new instance.
+         */
+        public BasicImpl() {
+            super();
+        }
         public int getCode() {
             return code;
         }
+        /**
+         * Sets the code.
+         * @param code The code.
+         */
         public void setCode(int code) {
             this.code = code;
         }
         public String getName() {
             return name;
         }
+        /**
+         * Sets the name.
+         * @param name The name.
+         */
         public void setName(String name) {
             this.name = name;
         }
@@ -124,19 +170,46 @@ extends AbstractGenerator {
         }
     }
 
+    /**
+     * Test extended bean.
+     */
     public static class ExtendedImpl
     extends BasicImpl {
+        /** The creation date. */
         private OffsetDateTime creationDate;
+        /** The update date. */
         private OffsetDateTime updateDate;
+        /**
+         * Creates a new instance.
+         */
+        public ExtendedImpl() {
+            super();
+        }
+        /**
+         * Returns the creation date.
+         * @return The creation date.
+         */
         public OffsetDateTime getCreationDate() {
             return creationDate;
         }
+        /**
+         * Sets the creation date.
+         * @param creationDate The creation date.
+         */
         public void setCreationDate(OffsetDateTime creationDate) {
             this.creationDate = creationDate;
         }
+        /**
+         * Returns the update date.
+         * @return The update date.
+         */
         public OffsetDateTime getUpdateDate() {
             return updateDate;
         }
+        /**
+         * Sets the update date.
+         * @param updateDate The update date.
+         */
         public void setUpdateDate(OffsetDateTime updateDate) {
             this.updateDate = updateDate;
         }

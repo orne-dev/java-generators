@@ -55,6 +55,13 @@ extends AbstractPrimitiveGenerator<Double> {
             Double.doubleToLongBits(Double.NEGATIVE_INFINITY);
 
     /**
+     * Creates a new instance.
+     */
+    public DoubleGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

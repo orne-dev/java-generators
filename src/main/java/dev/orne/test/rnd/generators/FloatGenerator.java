@@ -55,6 +55,13 @@ extends AbstractPrimitiveGenerator<Float> {
             Float.floatToIntBits(Float.NEGATIVE_INFINITY);
 
     /**
+     * Creates a new instance.
+     */
+    public FloatGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -49,6 +49,13 @@ extends AbstractTypedGenerator<UUID> {
             "00000000-0000-0000-00-000000000000");
 
     /**
+     * Creates a new instance.
+     */
+    public UUIDGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

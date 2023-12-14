@@ -45,6 +45,13 @@ public class NullableParametersExtractor
 extends AbstractParametersSourceExtractor<NullableParameters, NullableParameters> {
 
     /**
+     * Creates a new instance.
+     */
+    public NullableParametersExtractor() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

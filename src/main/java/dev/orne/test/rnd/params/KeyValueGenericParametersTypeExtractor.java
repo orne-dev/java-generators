@@ -46,6 +46,13 @@ public class KeyValueGenericParametersTypeExtractor
 extends AbstractParametersSourceExtractor<KeyValueGenericParameters, TypeDeclaration> {
 
     /**
+     * Creates a new instance.
+     */
+    public KeyValueGenericParametersTypeExtractor() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

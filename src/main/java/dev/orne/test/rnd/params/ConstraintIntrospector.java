@@ -24,7 +24,9 @@ package dev.orne.test.rnd.params;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -41,6 +43,7 @@ import javax.validation.metadata.ParameterDescriptor;
 import javax.validation.metadata.PropertyDescriptor;
 import javax.validation.metadata.ReturnValueDescriptor;
 import javax.validation.metadata.ElementDescriptor.ConstraintFinder;
+import javax.validation.metadata.ExecutableDescriptor;
 
 import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
@@ -51,7 +54,7 @@ import org.apiguardian.api.API.Status;
  * targets.
  * 
  * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
- * @version 1.0, 2022-11
+ * @version 1.1, 2023-11
  * @since 0.1
  */
 @API(status=Status.EXPERIMENTAL, since="0.1")
@@ -114,6 +117,67 @@ public final class ConstraintIntrospector {
         } else {
             return extractAnnotations(propDesc.findConstraints(), groups);
         }
+    }
+
+    /**
+     * Retrieves the constraint annotations of the specified parameter
+     * for the specified validation groups.
+     * 
+     * @param parameter The target parameter.
+     * @param groups The validation groups.
+     * @return The constraint annotations of the specified parameter.
+     * @since 0.2
+     */
+    public static @NotNull Set<Annotation> findParameterConstrains(
+            final @NotNull Parameter parameter,
+            final @NotNull Class<?>... groups) {
+        return findParameterConstrains(DEFAULT_VALIDATOR, parameter, groups);
+    }
+
+    /**
+     * Retrieves the constraint annotations of the specified parameter
+     * for the specified validation groups.
+     * 
+     * @param validator The validator to use.
+     * @param parameter The target parameter.
+     * @param groups The validation groups.
+     * @return The constraint annotations of the specified parameter.
+     * @since 0.2
+     */
+    public static @NotNull Set<Annotation> findParameterConstrains(
+            final @NotNull Validator validator,
+            final @NotNull Parameter parameter,
+            final @NotNull Class<?>... groups) {
+        Validate.notNull(validator);
+        Validate.notNull(parameter);
+        final Executable exec = parameter.getDeclaringExecutable();
+        final BeanDescriptor beanDesc = validator.getConstraintsForClass(
+                exec.getDeclaringClass());
+        ExecutableDescriptor exedDesc = null;
+        if (exec instanceof Constructor) {
+            exedDesc = beanDesc.getConstraintsForConstructor(
+                    exec.getParameterTypes());
+        } else {
+            exedDesc = beanDesc.getConstraintsForMethod(
+                    exec.getName(),
+                    exec.getParameterTypes());
+        }
+        if (exedDesc == null) {
+            return Collections.emptySet();
+        }
+        ParameterDescriptor paramDesc = null;
+        for (final ParameterDescriptor execParamDesc : exedDesc.getParameterDescriptors()) {
+            if (parameter.getName().equals(execParamDesc.getName())) {
+                paramDesc = execParamDesc;
+                break;
+            }
+        }
+        if (paramDesc == null) {
+            return Collections.emptySet();
+        }
+        return extractAnnotations(
+                paramDesc.findConstraints(),
+                groups);
     }
 
     /**

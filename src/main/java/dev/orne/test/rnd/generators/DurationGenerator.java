@@ -48,6 +48,13 @@ public class DurationGenerator
 extends AbstractTypedGenerator<Duration> {
 
     /**
+     * Creates a new instance.
+     */
+    public DurationGenerator() {
+        super();
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override

@@ -92,6 +92,8 @@ unimplemented):
     - [X] Annotated method based bean generator
     - [ ] Annotated properties based bean generator
     - [ ] Introspection based bean generator
+- [X] JUnit 5 extension
+    - [X] Annotation based test values generation
 
 ## Usage
 
@@ -102,7 +104,7 @@ The binaries can be obtained from [Maven Central][status.maven] with the
 <dependency>
   <groupId>dev.orne.test</groupId>
   <artifactId>generators</artifactId>
-  <version>0.1.2</version>
+  <version>0.2.0</version>
 </dependency>
 ```
 
