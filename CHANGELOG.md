@@ -1,4 +1,4 @@
-# :package: 0.2.0
+# :package: 0.2.0 (2023-12-14)
 
 01. :gift: Added support for retrieval of targeted generators based on `Field` and `Parameter`
     01. :gift: Added class `dev.orne.test.rnd.params.ParameterTypeGenerator`
@@ -11,7 +11,7 @@
     01. Added annotation `dev.orne.test.rnd.junit.Random`
     01. Added class `dev.orne.test.rnd.junit.RandomValueExtension`
 
-# :package: 0.1.3
+# :package: 0.1.3 (2023-10-07)
 
 01. :beetle: Improved `CharsetGenerator`.
 
@@ -20,18 +20,18 @@
     If a test must validate the code behavior with decode-only charsets use
     `CharsetGenerator.randomDecodeOnlyValue()`.
 
-# :package: 0.1.2
+# :package: 0.1.2 (2023-09-09)
 
 01. :beetle: Fixed `URIGenerator` maximum port number (65535).
 
-# :package: 0.1.1
+# :package: 0.1.1 (2022-12-11)
 
 01. :beetle: Fixed `CurrencyGenerator` default value.
 
     Default locale may have not country code.
     Use "EUR" as default value in such cases.
 
-# :package: 0.1.0
+# :package: 0.1.0 (2022-12-10)
 
 01. :gift: Added exception `dev.orne.test.rnd.GenerationException`
 01. :gift: Added exception `dev.orne.test.rnd.UnsupportedValueTypeException`
