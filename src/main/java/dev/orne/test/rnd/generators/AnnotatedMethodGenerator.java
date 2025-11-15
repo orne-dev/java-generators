@@ -37,7 +37,6 @@ import org.slf4j.LoggerFactory;
 
 import dev.orne.test.rnd.Generator;
 import dev.orne.test.rnd.GeneratorMethod;
-import dev.orne.test.rnd.Generators;
 import dev.orne.test.rnd.Priority;
 import dev.orne.test.rnd.UnsupportedValueTypeException;
 import dev.orne.test.rnd.params.ExecutableGenerator;
@@ -171,7 +170,7 @@ implements Generator {
         synchronized (this.cache) {
             generator = this.cache.computeIfAbsent(targetType, this::discoverAnnotatedGenerator);
         }
-        if (generator == Generators.MissingGenerator.INSTANCE) {
+        if (generator == Generator.MISSING) {
             generator = null;
         }
         return generator;
@@ -217,7 +216,7 @@ implements Generator {
             LOG.warn(HELP_MISCONFIGURED, targetType);
         }
         if (generator == null) {
-            generator = Generators.MissingGenerator.INSTANCE;
+            generator = Generator.MISSING;
         }
         return generator;
     }

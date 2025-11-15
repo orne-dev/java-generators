@@ -37,7 +37,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import dev.orne.test.rnd.Generators.MissingGenerator;
 import dev.orne.test.rnd.params.ConstraintIntrospectionTestType;
 import dev.orne.test.rnd.params.ConstructorParameterTypeGenerator;
 import dev.orne.test.rnd.params.GenerationParameters;
@@ -368,9 +367,9 @@ class GeneratorsTest {
         assertEquals(result, cache.get(MyType.class));
         final Generator missingResult = Generators.getGeneratorInt(MyMissingType.class);
         assertNotNull(missingResult);
-        assertSame(MissingGenerator.INSTANCE, missingResult);
+        assertSame(Generator.MISSING, missingResult);
         assertEquals(2, cache.size());
-        assertEquals(MissingGenerator.INSTANCE, cache.get(MyMissingType.class));
+        assertEquals(Generator.MISSING, cache.get(MyMissingType.class));
     }
 
     /**
@@ -395,7 +394,7 @@ class GeneratorsTest {
         final Generator missingResult = Generators.getGenerator(MyMissingType.class);
         assertNull(missingResult);
         assertEquals(2, cache.size());
-        assertEquals(MissingGenerator.INSTANCE, cache.get(MyMissingType.class));
+        assertEquals(Generator.MISSING, cache.get(MyMissingType.class));
     }
 
     /**
@@ -430,7 +429,7 @@ class GeneratorsTest {
         final Generator missingResult = Generators.getParameterizableGenerator(MyMissingType.class);
         assertNull(missingResult);
         assertEquals(3, cache.size());
-        assertEquals(MissingGenerator.INSTANCE, cache.get(MyMissingType.class));
+        assertEquals(Generator.MISSING, cache.get(MyMissingType.class));
     }
 
     /**
@@ -936,54 +935,6 @@ class GeneratorsTest {
                 0,
                 String.class);
         assertEquals(expected, result);
-    }
-
-    /**
-     * Test for {@link MissingGenerator#supports(Class)}.
-     */
-    @Test
-    void testMissingGenerator_Support() {
-        assertFalse(MissingGenerator.INSTANCE.supports(Object.class));
-    }
-
-    /**
-     * Test for {@link MissingGenerator#defaultValue(Class)}.
-     */
-    @Test
-    void testMissingGenerator_DefaultValue() {
-        assertThrows(GeneratorNotFoundException.class, () -> {
-            MissingGenerator.INSTANCE.defaultValue(Object.class);
-        });
-    }
-
-    /**
-     * Test for {@link MissingGenerator#nullableDefaultValue(Class)}.
-     */
-    @Test
-    void testMissingGenerator_NullableDefaultValue() {
-        assertThrows(GeneratorNotFoundException.class, () -> {
-            MissingGenerator.INSTANCE.nullableDefaultValue(Object.class);
-        });
-    }
-
-    /**
-     * Test for {@link MissingGenerator#randomValue(Class)}.
-     */
-    @Test
-    void testMissingGenerator_RandomValue() {
-        assertThrows(GeneratorNotFoundException.class, () -> {
-            MissingGenerator.INSTANCE.randomValue(Object.class);
-        });
-    }
-
-    /**
-     * Test for {@link MissingGenerator#nullableRandomValue(Class)}.
-     */
-    @Test
-    void testMissingGenerator_NullableRandomValue() {
-        assertThrows(GeneratorNotFoundException.class, () -> {
-            MissingGenerator.INSTANCE.nullableRandomValue(Object.class);
-        });
     }
 
     private static class MyType {

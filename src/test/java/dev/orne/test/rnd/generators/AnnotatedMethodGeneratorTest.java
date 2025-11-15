@@ -236,7 +236,7 @@ class AnnotatedMethodGeneratorTest {
     @Test
     void testGetAnnotatedGenerator_Missing() {
         final AnnotatedMethodGenerator generator = spy(new AnnotatedMethodGenerator());
-        final Generator expected = Generators.MissingGenerator.INSTANCE;
+        final Generator expected = Generator.MISSING;
         final Class<?> type = UnsupportedType.class;
         willReturn(expected).given(generator).discoverAnnotatedGenerator(type);
         Generator result = generator.getAnnotatedGenerator(type);
@@ -299,7 +299,7 @@ class AnnotatedMethodGeneratorTest {
         willReturn(null).given(generator).findDeclaredConstructor(type);
         willReturn(null).given(generator).findDeclaredMethod(type);
         final Generator result = generator.discoverAnnotatedGenerator(type);
-        assertSame(Generators.MissingGenerator.INSTANCE, result);
+        assertSame(Generator.MISSING, result);
     }
 
     /**
@@ -313,7 +313,7 @@ class AnnotatedMethodGeneratorTest {
         willThrow(err).given(generator).findDeclaredConstructor(type);
         willThrow(err).given(generator).findDeclaredMethod(type);
         final Generator result = generator.discoverAnnotatedGenerator(type);
-        assertSame(Generators.MissingGenerator.INSTANCE, result);
+        assertSame(Generator.MISSING, result);
     }
 
     /**
@@ -352,7 +352,6 @@ class AnnotatedMethodGeneratorTest {
      * {@link AnnotatedMethodGenerator#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final AnnotatedMethodGenerator generator = new AnnotatedMethodGenerator();
         assertFalse(generator.equals(null));

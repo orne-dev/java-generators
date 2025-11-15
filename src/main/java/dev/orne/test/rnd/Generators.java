@@ -71,9 +71,7 @@ import dev.orne.test.rnd.params.PropertyTypeGenerator;
 @API(status=API.Status.STABLE, since="0.1")
 public final class Generators {
 
-    /**
-     * The generator comparator by priority.
-     */
+    /** The generator comparator by priority. */
     public static final Comparator<Generator> COMPARATOR =
             Comparator.comparingInt(Generator::getPriority).reversed();
     /** The by class generator cache. */
@@ -263,7 +261,7 @@ public final class Generators {
             final @NotNull Class<?> type) {
         Validate.notNull(type);
         final Generator result = getGeneratorInt(type);
-        return result == MissingGenerator.INSTANCE ? null : result;
+        return result == Generator.MISSING ? null : result;
     }
 
     /**
@@ -311,7 +309,7 @@ public final class Generators {
     static @NotNull ParameterizableGenerator requireParameterizableGenerator(
             final @NotNull Class<?> type) {
         final Generator generator = getGeneratorInt(type);
-        if (generator == MissingGenerator.INSTANCE) {
+        if (generator == Generator.MISSING) {
             throw new GeneratorNotFoundException(MissingGenerator.ERR_MSG);
         } else {
             return generator.asParameterizable();
@@ -327,7 +325,7 @@ public final class Generators {
      */
     static @NotNull Generator findGenerator(
             final @NotNull Class<?> type) {
-        Generator result = MissingGenerator.INSTANCE;
+        Generator result = Generator.MISSING;
         synchronized (Generators.class) {
             for (final Generator generator : getGeneratorsInt()) {
                 if (generator.supports(type)) {
@@ -644,74 +642,5 @@ public final class Generators {
             result.add(generator);
         }
         return result;
-    }
-
-    /**
-     * Cache value for missing generators for a value type.
-     * 
-     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
-     * @version 1.0, 2022-10
-     * @since Generators 1.0
-     */
-    @API(status=API.Status.INTERNAL, since="0.1")
-    public static final class MissingGenerator
-    implements Generator {
-
-        /** The error message. */
-        public static final String ERR_MSG = "No suitable generator found";
-        /** The generator placeholder for missing generators. */
-        public static final MissingGenerator INSTANCE = new MissingGenerator();
-
-        /**
-         * Private constructor.
-         */
-        private MissingGenerator() {
-            super();
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public boolean supports(
-                final @NotNull Class<?> type) {
-            return false;
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public <T> @NotNull T defaultValue(
-                final @NotNull Class<T> type) {
-            throw new GeneratorNotFoundException(ERR_MSG);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public <T> T nullableDefaultValue(
-                final @NotNull Class<T> type) {
-            throw new GeneratorNotFoundException(ERR_MSG);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public <T> @NotNull T randomValue(
-                final @NotNull Class<T> type) {
-            throw new GeneratorNotFoundException(ERR_MSG);
-        }
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public <T> T nullableRandomValue(
-                final @NotNull Class<T> type) {
-            throw new GeneratorNotFoundException(ERR_MSG);
-        }
     }
 }
