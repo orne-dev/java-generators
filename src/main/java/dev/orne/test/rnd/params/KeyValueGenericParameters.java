@@ -35,7 +35,7 @@ import org.apiguardian.api.API.Status;
  * Interface for generation parameters of generic classes with two
  * type parameters for key and values.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
@@ -74,7 +74,7 @@ extends GenerationParameters {
     /**
      * Interface for {@code KeyValueGenericParameters} keys type builders.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-12
      * @since KeyValueGenericParameters 1.0
      */
@@ -113,7 +113,7 @@ extends GenerationParameters {
     /**
      * Interface for {@code KeyValueGenericParameters} values type builders.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-12
      * @since KeyValueGenericParameters 1.0
      */

@@ -46,7 +46,7 @@ import dev.orne.test.rnd.params.ParameterTypeGenerator;
  * Supports injection in static fields (before all tests), in instance fields
  * (before each test) and in constructor and test or callback method arguments.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2023-11
  * @since 0.1
  * @see Random

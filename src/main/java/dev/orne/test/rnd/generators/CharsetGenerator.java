@@ -41,7 +41,7 @@ import dev.orne.test.rnd.Priority;
  * By default generates only values that can encode.
  * Use {@link #randomDecodeOnlyValue()} for values without encoding support.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.1, 2023-10
  * @since 0.1
  */

@@ -43,7 +43,7 @@ import dev.orne.test.rnd.Generator;
  * Implementation of {@code TargetedGenerator} that generates random values
  * of the target method parameter type.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <T> The type of generated values
  * @since 0.1

@@ -35,7 +35,7 @@ import org.apiguardian.api.API.Status;
  * Interface for generation parameters of generic classes with a single
  * type parameter.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
@@ -60,7 +60,7 @@ extends GenerationParameters {
     /**
      * Interface for {@code SimpleGenericParameters} builders.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-12
      * @since SimpleGenericParameters 1.0
      */

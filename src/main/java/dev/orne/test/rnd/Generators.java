@@ -65,7 +65,7 @@ import dev.orne.test.rnd.params.PropertyTypeGenerator;
  * {@link #remove(Generator...)}, {@link #remove(Collection)}
  * and {@link #reset()}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.1, 2023-11
  * @since 0.1
  */
@@ -649,7 +649,7 @@ public final class Generators {
     /**
      * Cache value for missing generators for a value type.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-10
      * @since Generators 1.0
      */

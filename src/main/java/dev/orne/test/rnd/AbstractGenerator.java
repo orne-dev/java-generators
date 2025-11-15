@@ -39,7 +39,7 @@ import org.apiguardian.api.API.Status;
  * Abstract basic implementation of {@code Generator}.
  * Provides basic implementations for common methods.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2021-03
  * @since 0.1
  */

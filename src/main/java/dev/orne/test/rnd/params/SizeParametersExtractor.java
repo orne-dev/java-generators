@@ -37,7 +37,7 @@ import org.apiguardian.api.API.Status;
  * Same way target's {@code maxSize} value will
  * be the minimum of it's prior value and sources's value.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see SizeParameters

@@ -31,7 +31,7 @@ import org.apiguardian.api.API.Status;
  * Interface for generators that target a property, method or constructor
  * parameter or method return type.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <T> The type of the target
  * @since 0.1

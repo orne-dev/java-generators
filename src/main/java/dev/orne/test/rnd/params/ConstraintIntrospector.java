@@ -53,7 +53,7 @@ import org.apiguardian.api.API.Status;
  * Utility class for retrieving constraints annotations from generation
  * targets.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.1, 2023-11
  * @since 0.1
  */

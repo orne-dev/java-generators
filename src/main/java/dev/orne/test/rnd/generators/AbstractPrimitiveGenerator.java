@@ -33,7 +33,7 @@ import dev.orne.test.rnd.AbstractTypedGenerator;
 /**
  * Abstract generator implementation for primitive types.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
  * @param <T> The primitive wrapper type
  * @since 0.1

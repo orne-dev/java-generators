@@ -31,7 +31,7 @@ import org.apiguardian.api.API.Status;
  * Extension of {@code Generator} for generators that
  * only provide one type of values.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2021-03
  * @param <T> The type of generated values
  * @since 0.1

@@ -42,7 +42,7 @@ import dev.orne.test.rnd.Priority;
 /**
  * Generator of {@code URL} values.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
@@ -108,7 +108,7 @@ extends AbstractTypedGenerator<URL> {
      * Implementation of {@code URLStreamHandler} that prevents opening
      * generated random URLs.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-11
      * @since URLGenerator 1.0
      */

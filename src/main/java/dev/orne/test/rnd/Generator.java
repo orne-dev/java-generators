@@ -33,7 +33,7 @@ import dev.orne.test.rnd.params.ParameterizableGenerator;
 /**
  * Interface for random value generators.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2021-03
  * @since 0.1
  */

@@ -38,7 +38,7 @@ import org.apiguardian.api.API.Status;
  * Generation parameters source that provides the declared type of the value
  * to generate.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */

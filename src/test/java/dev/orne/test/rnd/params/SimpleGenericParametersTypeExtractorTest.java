@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@code SimpleGenericParametersTypeExtractor}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see SimpleGenericParametersTypeExtractor

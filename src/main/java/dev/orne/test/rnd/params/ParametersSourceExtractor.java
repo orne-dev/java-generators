@@ -32,7 +32,7 @@ import dev.orne.test.rnd.Priority;
 /**
  * Interface for generation parameters extractor from a source type.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <P> The target generation parameters type
  * @param <S> The parameters source type
@@ -86,7 +86,7 @@ public interface ParametersSourceExtractor<P, S> {
      * <p>
      * For by missed extractor results mainly.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-11
      * @since ParametersSourceExtractor 1.0
      */

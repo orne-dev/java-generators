@@ -33,7 +33,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 /**
  * Annotation for automatic random value injection in JUnit Jupiter tests.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2023-11
  * @since 0.1
  */

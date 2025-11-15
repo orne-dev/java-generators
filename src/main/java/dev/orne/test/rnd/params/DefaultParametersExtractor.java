@@ -41,7 +41,7 @@ import org.apiguardian.api.API.Status;
 /**
  * Default implementation for {@code ParametersExtrator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <P> The target generation parameters type
  * @since 0.1

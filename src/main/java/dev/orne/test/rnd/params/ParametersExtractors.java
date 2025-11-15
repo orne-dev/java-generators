@@ -48,7 +48,7 @@ import dev.orne.test.rnd.Generators;
  * {@code /META-INF/services/dev.orne.test.rnd.params.ParametersSourceExtractor}
  * SPI files in the class path.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
@@ -335,7 +335,7 @@ public final class ParametersExtractors {
     /**
      * Functional interface for generation parameters source extractors filter.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-11
      * @since ParametersExtractors 1.0
      */
@@ -360,7 +360,7 @@ public final class ParametersExtractors {
     /**
      * Functional interface for parameters extractor builder.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-11
      * @since ParametersExtractors 1.0
      */

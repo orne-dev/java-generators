@@ -36,7 +36,7 @@ import org.apiguardian.api.API.Status;
  * Same way the maximum of the parameters maximum value and the number type's
  * maximum value will be used.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
@@ -80,7 +80,7 @@ extends GenerationParameters {
     /**
      * Interface for {@code NumberParameters} builders.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-12
      * @since NullableParameters 1.0
      */

@@ -32,7 +32,7 @@ import dev.orne.test.rnd.Generator;
 /**
  * Interface for random value generators with optional parameters.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */

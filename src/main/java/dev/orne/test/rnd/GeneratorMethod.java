@@ -41,7 +41,7 @@ import org.apiguardian.api.API.Status;
  * by other generators and must return (in the static method version) an
  * instance of the class.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */

@@ -48,7 +48,7 @@ import dev.orne.test.rnd.generators.EnumGenerator;
  * ({@value dev.orne.test.rnd.Priority#GENERIC_GENERATORS}) and therefore
  * takes precedence for generation of the supported types.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
  * @since 0.1
  * @see Priority

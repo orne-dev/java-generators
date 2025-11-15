@@ -53,7 +53,7 @@ import org.apache.commons.lang3.reflect.MethodUtils;
 /**
  * Utility class for constraint instrospection tests.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */

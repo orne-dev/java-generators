@@ -30,7 +30,7 @@ import org.apiguardian.api.API.Status;
 /**
  * Interface for generation parameters for value types that can be {@code null}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
@@ -59,7 +59,7 @@ extends GenerationParameters {
     /**
      * Interface for {@code NullableParameters} builders.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-12
      * @since NullableParameters 1.0
      */

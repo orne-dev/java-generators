@@ -37,7 +37,7 @@ import org.apiguardian.api.API.Status;
 /**
  * Abstract implementation of {@code TypedParameterizableGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <T> The type of generated values
  * @param <P> The parameters type

@@ -35,7 +35,7 @@ import org.apiguardian.api.API.Status;
  * be {@code true} if both it's prior value and sources's value
  * are {@code true}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  * @see NullableParameters

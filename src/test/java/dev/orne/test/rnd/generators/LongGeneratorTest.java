@@ -34,7 +34,7 @@ import dev.orne.test.rnd.Priority;
 /**
  * Unit tests for {@code LongGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
  * @since 0.1
  * @see LongGenerator
