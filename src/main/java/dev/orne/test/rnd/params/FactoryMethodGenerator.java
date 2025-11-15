@@ -28,7 +28,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generators;
@@ -42,7 +41,7 @@ import dev.orne.test.rnd.Generators;
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class FactoryMethodGenerator<T>
 extends ExecutableGenerator<T> {
 

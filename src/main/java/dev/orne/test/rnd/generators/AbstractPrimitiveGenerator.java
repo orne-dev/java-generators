@@ -26,7 +26,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 
@@ -38,7 +37,7 @@ import dev.orne.test.rnd.AbstractTypedGenerator;
  * @param <T> The primitive wrapper type
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 public abstract class AbstractPrimitiveGenerator<T>
 extends AbstractTypedGenerator<T> {
 

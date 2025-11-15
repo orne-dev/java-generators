@@ -25,7 +25,6 @@ package dev.orne.test.rnd;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Extension of {@code Generator} for generators that
@@ -36,7 +35,7 @@ import org.apiguardian.api.API.Status;
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 public interface TypedGenerator<T>
 extends Generator {
 

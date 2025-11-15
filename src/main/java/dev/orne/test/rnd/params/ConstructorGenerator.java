@@ -27,7 +27,6 @@ import java.lang.reflect.Constructor;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generators;
@@ -41,7 +40,7 @@ import dev.orne.test.rnd.Generators;
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class ConstructorGenerator<T>
 extends ExecutableGenerator<T> {
 

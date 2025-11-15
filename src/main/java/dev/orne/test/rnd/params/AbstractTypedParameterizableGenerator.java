@@ -32,7 +32,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Abstract implementation of {@code TypedParameterizableGenerator}.
@@ -43,7 +42,7 @@ import org.apiguardian.api.API.Status;
  * @param <P> The parameters type
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public abstract class AbstractTypedParameterizableGenerator<
         T,
         P extends GenerationParameters>

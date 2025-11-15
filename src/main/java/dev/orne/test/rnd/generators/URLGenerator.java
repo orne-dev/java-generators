@@ -33,7 +33,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 import dev.orne.test.rnd.GenerationException;
@@ -46,7 +45,7 @@ import dev.orne.test.rnd.Priority;
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class URLGenerator
 extends AbstractTypedGenerator<URL> {

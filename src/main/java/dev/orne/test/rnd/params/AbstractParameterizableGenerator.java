@@ -29,7 +29,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractGenerator;
 
@@ -41,7 +40,7 @@ import dev.orne.test.rnd.AbstractGenerator;
  * @param <P> The parameters type
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public abstract class AbstractParameterizableGenerator<
         P extends GenerationParameters>
 extends AbstractGenerator

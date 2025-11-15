@@ -28,7 +28,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Generation parameters extractor that detects {@code TypeDeclaration}
@@ -40,7 +39,7 @@ import org.apiguardian.api.API.Status;
  * @see TypeDeclaration
  * @see SimpleGenericParameters
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class SimpleGenericParametersTypeExtractor
 extends AbstractParametersSourceExtractor<SimpleGenericParameters, TypeDeclaration> {
 

@@ -29,7 +29,6 @@ import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Priority;
@@ -43,7 +42,7 @@ import dev.orne.test.rnd.params.StringGenerationParameters;
  * @version 1.0, 2022-10
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class StringGenerator
 extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters> {

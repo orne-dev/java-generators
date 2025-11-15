@@ -23,7 +23,6 @@ package dev.orne.test.rnd;
  */
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Exception throw by {@code Generators} when value generation is requested but
@@ -33,7 +32,7 @@ import org.apiguardian.api.API.Status;
  * @version 1.0, 2022-10
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 public class GeneratorNotFoundException
 extends GenerationException {
 

@@ -25,7 +25,6 @@ package dev.orne.test.rnd.params;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.TypedGenerator;
 
@@ -38,7 +37,7 @@ import dev.orne.test.rnd.TypedGenerator;
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public interface TypedParameterizableGenerator<T>
 extends TypedGenerator<T>, ParameterizableGenerator {
 

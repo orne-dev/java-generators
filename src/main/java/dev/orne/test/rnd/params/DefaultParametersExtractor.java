@@ -36,7 +36,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Default implementation for {@code ParametersExtrator}.
@@ -46,7 +45,7 @@ import org.apiguardian.api.API.Status;
  * @param <P> The target generation parameters type
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since = "0.1")
+@API(status=API.Status.EXPERIMENTAL, since = "0.1")
 public class DefaultParametersExtractor<P>
 implements ParametersExtractor<P> {
 

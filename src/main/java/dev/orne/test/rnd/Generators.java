@@ -41,7 +41,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.params.ConstructorParameterTypeGenerator;
 import dev.orne.test.rnd.params.GeneratorNotParameterizableException;
@@ -69,7 +68,7 @@ import dev.orne.test.rnd.params.PropertyTypeGenerator;
  * @version 1.1, 2023-11
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 public final class Generators {
 
     /**
@@ -128,7 +127,7 @@ public final class Generators {
      * @throws GeneratorNotParameterizableException If the generator registered
      * for the requested value type is not parameterizable.
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.1")
     public static <T> T defaultValue(
             final @NotNull Class<T> type,
             final @NotNull Object... params) {
@@ -168,7 +167,7 @@ public final class Generators {
      * @throws GeneratorNotParameterizableException If the generator registered
      * for the requested value type is not parameterizable.
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.1")
     public static <T> T nullableDefaultValue(
             final @NotNull Class<T> type,
             final @NotNull Object... params) {
@@ -202,7 +201,7 @@ public final class Generators {
      * @throws GeneratorNotParameterizableException If the generator registered
      * for the requested value type is not parameterizable.
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.1")
     public static <T> T randomValue(
             final @NotNull Class<T> type,
             final @NotNull Object... params) {
@@ -246,7 +245,7 @@ public final class Generators {
      * for the requested value type is not parameterizable.
      * @see #randomValue(Class)
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.1")
     public static <T> T nullableRandomValue(
             final @NotNull Class<T> type,
             final @NotNull Object... params) {
@@ -276,6 +275,7 @@ public final class Generators {
      * @return The generator to use. Returns {@code null} is no one is
      * suitable.
      */
+    @API(status=API.Status.EXPERIMENTAL, since="0.1")
     public static ParameterizableGenerator getParameterizableGenerator(
             final @NotNull Class<?> type) {
         final Generator result = getGenerator(type);
@@ -350,7 +350,7 @@ public final class Generators {
      * @return A generator for the type of the specified field
      * @since 0.2
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.2")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.2")
     public static <T> @NotNull PropertyTypeGenerator<T> forField(
             final @NotNull Field field) {
         return PropertyTypeGenerator.<T>targeting(field);
@@ -368,7 +368,7 @@ public final class Generators {
      * @return A generator for the type of the specified field
      * @since 0.2
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.2")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.2")
     public static <T> @NotNull PropertyTypeGenerator<T> forField(
             final @NotNull Class<?> beanType,
             final @NotNull Field field) {
@@ -386,7 +386,7 @@ public final class Generators {
      * @param property The property of the bean
      * @return A generator for the type of the specified property
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.1")
     public static <T> @NotNull PropertyTypeGenerator<T> forProperty(
             final @NotNull Class<?> beanType,
             final @NotNull String property) {
@@ -404,7 +404,7 @@ public final class Generators {
      * @return A generator for the type of the specified parameter
      * @since 0.2
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.2")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.2")
     public static <T> @NotNull ParameterTypeGenerator<T> forParameter(
             final @NotNull Parameter parameter) {
         return ParameterTypeGenerator.<T>targeting(parameter);
@@ -421,7 +421,7 @@ public final class Generators {
      * @param parameterIndex The parameter index
      * @return A generator for the type of the specified method parameter
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.1")
     public static <T> @NotNull MethodParameterTypeGenerator<T> forParameter(
             final @NotNull Method method,
             final @NotNull int parameterIndex) {
@@ -441,7 +441,7 @@ public final class Generators {
      * @param parameterIndex The parameter index
      * @return A generator for the type of the specified method parameter
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.1")
     public static <T> @NotNull MethodParameterTypeGenerator<T> forParameter(
             final @NotNull Class<?> cls,
             final @NotNull String method,
@@ -460,7 +460,7 @@ public final class Generators {
      * @param method The method
      * @return A generator for the type of the specified method return type
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.1")
     public static <T> @NotNull MethodReturnTypeGenerator<T> forReturnType(
             final @NotNull Method method) {
         return MethodReturnTypeGenerator.<T>targeting(method);
@@ -478,7 +478,7 @@ public final class Generators {
      * @param method The method name
      * @return A generator for the type of the specified method return type
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.1")
     public static <T> @NotNull MethodReturnTypeGenerator<T> forReturnType(
             final @NotNull Class<?> cls,
             final @NotNull String method,
@@ -497,7 +497,7 @@ public final class Generators {
      * @param parameterIndex The parameter index
      * @return A generator for the type of the specified constructor parameter
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.1")
     public static <T> @NotNull ConstructorParameterTypeGenerator<T> forParameter(
             final @NotNull Constructor<?> constructor,
             final @NotNull int parameterIndex) {
@@ -516,7 +516,7 @@ public final class Generators {
      * @param parameterIndex The parameter index
      * @return A generator for the type of the specified constructor parameter
      */
-    @API(status=Status.EXPERIMENTAL, since = "0.1")
+    @API(status=API.Status.EXPERIMENTAL, since = "0.1")
     public static <T> @NotNull ConstructorParameterTypeGenerator<T> forParameter(
             final @NotNull Class<?> cls,
             final @NotNull Class<?>[] parameterTypes,
@@ -653,7 +653,7 @@ public final class Generators {
      * @version 1.0, 2022-10
      * @since Generators 1.0
      */
-    @API(status=Status.INTERNAL, since="0.1")
+    @API(status=API.Status.INTERNAL, since="0.1")
     public static final class MissingGenerator
     implements Generator {
 

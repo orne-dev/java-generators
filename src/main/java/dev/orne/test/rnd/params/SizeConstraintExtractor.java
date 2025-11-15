@@ -27,7 +27,6 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Generation parameters extractor that detects {@code Size}
@@ -45,7 +44,7 @@ import org.apiguardian.api.API.Status;
  * @see Size
  * @see SizeParameters
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class SizeConstraintExtractor
 extends AbstractParametersSourceExtractor<SizeParameters, Size> {
 

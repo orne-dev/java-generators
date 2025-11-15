@@ -29,7 +29,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.GeneratorNotFoundException;
@@ -44,7 +43,7 @@ import dev.orne.test.rnd.params.TypeDeclaration;
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public final class CollectionGeneratorUtils {
 
     /** The error message for unsupported component types. */

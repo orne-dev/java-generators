@@ -32,7 +32,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Generation parameters source that provides the declared type of the value
@@ -42,7 +41,7 @@ import org.apiguardian.api.API.Status;
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class TypeDeclaration {
 
     /** The value type. */

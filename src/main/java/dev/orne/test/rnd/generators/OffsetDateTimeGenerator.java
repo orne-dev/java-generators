@@ -29,7 +29,6 @@ import java.time.ZoneOffset;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 import dev.orne.test.rnd.Generators;
@@ -42,7 +41,7 @@ import dev.orne.test.rnd.Priority;
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class OffsetDateTimeGenerator
 extends AbstractTypedGenerator<OffsetDateTime> {

@@ -25,7 +25,6 @@ package dev.orne.test.rnd.params;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Generation parameters extractor that copies parameters
@@ -41,7 +40,7 @@ import org.apiguardian.api.API.Status;
  * @since 0.1
  * @see SizeParameters
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class NumberParametersExtractor
 extends AbstractParametersSourceExtractor<NumberParameters, NumberParameters> {
 

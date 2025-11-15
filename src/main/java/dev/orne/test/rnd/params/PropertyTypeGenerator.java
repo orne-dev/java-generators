@@ -34,7 +34,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generator;
@@ -48,7 +47,7 @@ import dev.orne.test.rnd.Generator;
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class PropertyTypeGenerator<T>
 extends AbstractTargetedGenerator<T> {
 

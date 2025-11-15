@@ -33,7 +33,6 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.Generator;
 
@@ -46,7 +45,7 @@ import dev.orne.test.rnd.Generator;
  * @param <T> The type of generated values
  * @since 0.2
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.2")
 public class ParameterTypeGenerator<T>
 extends AbstractTargetedGenerator<T> {
 

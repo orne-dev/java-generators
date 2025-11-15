@@ -47,7 +47,6 @@ import javax.validation.metadata.ExecutableDescriptor;
 
 import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Utility class for retrieving constraints annotations from generation
@@ -57,7 +56,7 @@ import org.apiguardian.api.API.Status;
  * @version 1.1, 2023-11
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public final class ConstraintIntrospector {
 
     /** The default validation groups when no one is provided. */

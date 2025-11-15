@@ -25,7 +25,6 @@ package dev.orne.test.rnd;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.params.GeneratorNotParameterizableException;
 import dev.orne.test.rnd.params.ParameterizableGenerator;
@@ -37,7 +36,7 @@ import dev.orne.test.rnd.params.ParameterizableGenerator;
  * @version 1.0, 2021-03
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 public interface Generator {
 
     /**

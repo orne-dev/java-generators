@@ -32,7 +32,6 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,13 +43,13 @@ import dev.orne.test.rnd.UnsupportedValueTypeException;
 import dev.orne.test.rnd.params.ExecutableGenerator;
 
 /**
- * Generator of beans annotated with {@code Currency}.
+ * Generator of beans annotated with {@code GeneratorMethod}.
  * 
  * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 @Priority(Priority.ANNOTATION_GENERATORS)
 public class AnnotatedMethodGenerator
 implements Generator {

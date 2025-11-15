@@ -31,7 +31,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Abstract implementation of {@code ParametersSourceExtractor}.
@@ -42,7 +41,7 @@ import org.apiguardian.api.API.Status;
  * @param <S> The metadata sources type
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public abstract class AbstractParametersSourceExtractor<P, S>
 implements ParametersSourceExtractor<P, S> {
 

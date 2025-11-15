@@ -30,7 +30,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Annotation for generators priority.
@@ -42,7 +41,7 @@ import org.apiguardian.api.API.Status;
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE })
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 public @interface Priority {
 
     /** The default priority. */
