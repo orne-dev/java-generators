@@ -98,12 +98,12 @@ unimplemented):
 ## Usage
 
 The binaries can be obtained from [Maven Central][status.maven] with the
-`dev.orne.test:generators` coordinates:
+`dev.orne.test:orne-test-generators` coordinates:
 
 ```xml
 <dependency>
   <groupId>dev.orne.test</groupId>
-  <artifactId>generators</artifactId>
+  <artifactId>orne-test-generators</artifactId>
   <version>0.2.0</version>
 </dependency>
 ```
@@ -289,12 +289,12 @@ For further information refer to the [Javadoc][javadoc]
 and [Maven Site][site].
 
 [site]: https://orne-dev.github.io/java-generators/
-[javadoc]: https://javadoc.io/doc/dev.orne.test/generators
-[status.license]: http://www.gnu.org/licenses/gpl-3.0.txt
+[javadoc]: https://javadoc.io/doc/dev.orne.test/orne-test-generators
+[status.license]: https://www.gnu.org/licenses/gpl-3.0.txt
 [status.license.badge]: https://img.shields.io/github/license/orne-dev/java-generators
-[status.maven]: https://search.maven.org/artifact/dev.orne.test/generators
-[status.maven.badge]: https://img.shields.io/maven-central/v/dev.orne.test/generators.svg?label=Maven%20Central
-[status.javadoc.badge]: https://javadoc.io/badge2/dev.orne.test/generators/javadoc.svg
+[status.maven]: https://search.maven.org/artifact/dev.orne.test/orne-test-generators
+[status.maven.badge]: https://img.shields.io/maven-central/v/dev.orne.test/orne-test-generators.svg?label=Maven%20Central
+[status.javadoc.badge]: https://javadoc.io/badge2/dev.orne.test/orne-test-generators/javadoc.svg
 [status.site.badge]: https://img.shields.io/website?url=https%3A%2F%2Forne-dev.github.io%2Fjava-generators%2F
 [status.latest.ci]: https://github.com/orne-dev/java-generators/actions/workflows/release.yml
 [status.latest.ci.badge]: https://github.com/orne-dev/java-generators/actions/workflows/release.yml/badge.svg?branch=master
