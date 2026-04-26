@@ -60,20 +60,19 @@ class TypeDeclarationTest {
      * {@link TypeDeclaration#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final TypeDeclaration params = new TypeDeclaration(MyType.class);
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (TypeDeclaration) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         TypeDeclaration other = new TypeDeclaration(MyType.class);
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new TypeDeclaration(OtherType.class);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new TypeDeclaration(TypeUtils.parameterize(List.class, MyType.class));
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 
     private static interface MyType {};

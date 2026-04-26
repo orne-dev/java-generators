@@ -200,25 +200,24 @@ class MapGenerationParametersTest {
      * {@link MapGenerationParameters#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final MapGenerationParameters params = new MapGenerationParameters();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (MapGenerationParameters) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         MapGenerationParameters other = new MapGenerationParameters();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new MapGenerationParameters().withNullable(!NullableParameters.DEFAULT_NULLABLE);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new MapGenerationParameters().withKeysType(Integer.class);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new MapGenerationParameters().withValuesType(String.class);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new MapGenerationParameters().withMinSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new MapGenerationParameters().withMaxSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 }

@@ -431,14 +431,13 @@ class AbstractParameterizableGeneratorTest {
      * {@link AbstractParameterizableGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final DirectChild generator = new DirectChild();
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (DirectChild) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         final DirectChild other = new DirectChild();
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
     }

@@ -181,23 +181,22 @@ class CollectionGenerationParametersTest {
      * {@link CollectionGenerationParameters#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final CollectionGenerationParameters params = new CollectionGenerationParameters();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (CollectionGenerationParameters) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         CollectionGenerationParameters other = new CollectionGenerationParameters();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new CollectionGenerationParameters().withNullable(!NullableParameters.DEFAULT_NULLABLE);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new CollectionGenerationParameters().withType(String.class);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new CollectionGenerationParameters().withMinSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new CollectionGenerationParameters().withMaxSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 }

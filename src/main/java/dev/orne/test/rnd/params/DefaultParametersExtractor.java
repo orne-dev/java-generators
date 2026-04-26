@@ -72,7 +72,6 @@ implements ParametersExtractor<P> {
      * 
      * @return The parameters source extractors, in inverse priority order
      */
-    @SuppressWarnings("java:S1452")
     public @NotNull List<ParametersSourceExtractor<? super P, ?>> getExtractors() {
         return Collections.unmodifiableList(this.extractors);
     }

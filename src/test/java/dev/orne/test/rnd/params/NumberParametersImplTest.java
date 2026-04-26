@@ -106,19 +106,18 @@ class NumberParametersImplTest {
      * {@link NumberParametersImpl#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final NumberParametersImpl params = new NumberParametersImpl();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (NumberParametersImpl) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         NumberParametersImpl other = new NumberParametersImpl();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new NumberParametersImpl().withMin(5);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new NumberParametersImpl().withMax(20);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 }

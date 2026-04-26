@@ -119,17 +119,16 @@ class SimpleGenericParametersImplTest {
      * {@link SimpleGenericParametersImpl#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final SimpleGenericParametersImpl params = new SimpleGenericParametersImpl();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (SimpleGenericParametersImpl) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         SimpleGenericParametersImpl other = new SimpleGenericParametersImpl();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new SimpleGenericParametersImpl().withElementsType(String.class);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 }

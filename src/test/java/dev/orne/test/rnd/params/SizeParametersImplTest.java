@@ -106,19 +106,18 @@ class SizeParametersImplTest {
      * {@link SizeParametersImpl#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final SizeParametersImpl params = new SizeParametersImpl();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (SizeParametersImpl) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         SizeParametersImpl other = new SizeParametersImpl();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new SizeParametersImpl().withMinSize(5);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new SizeParametersImpl().withMaxSize(20);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 }

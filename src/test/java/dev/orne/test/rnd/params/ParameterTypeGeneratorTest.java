@@ -231,7 +231,6 @@ class ParameterTypeGeneratorTest {
      * {@link ParameterTypeGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final Generator delegated = spy(Generator.class);
         willReturn(true).given(delegated).supports(Object.class);
@@ -247,36 +246,36 @@ class ParameterTypeGeneratorTest {
                 MyValueType.class,
                 TEST_CTR_PARAM_0,
                 delegated);
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (ParameterTypeGenerator<?>) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         ParameterTypeGenerator<?> other = new ParameterTypeGenerator<>(
                 MyValueType.class,
                 TEST_CTR_PARAM_0,
                 delegated);
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
         other = new ParameterTypeGenerator<>(
                 Object.class,
                 TEST_CTR_PARAM_0,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new ParameterTypeGenerator<>(
                 MyValueType.class,
                 OTHER_CTR_PARAM_0,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new ParameterTypeGenerator<>(
                 MyValueType.class,
                 TEST_CTR_PARAM_1,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new ParameterTypeGenerator<>(
                 MyValueType.class,
                 TEST_CTR_PARAM_1,
                 otherDelegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
     }
 
     private interface MyValueType {}

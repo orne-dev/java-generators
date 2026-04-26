@@ -146,21 +146,20 @@ class StringGenerationParametersTest {
      * {@link StringGenerationParameters#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final StringGenerationParameters params = new StringGenerationParameters();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (StringGenerationParameters) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         StringGenerationParameters other = new StringGenerationParameters();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new StringGenerationParameters().withNullable(false);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new StringGenerationParameters().withMinSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new StringGenerationParameters().withMaxSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 }

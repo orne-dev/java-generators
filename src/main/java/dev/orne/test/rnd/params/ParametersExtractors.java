@@ -101,7 +101,6 @@ public final class ParametersExtractors {
      * 
      * @return The registered parameter source extractors
      */
-    @SuppressWarnings("java:S1452")
     public static @NotNull List<ParametersSourceExtractor<?, ?>> getRegisteredSourceExtractors() {
         return Collections.unmodifiableList(getSourceExtractorsInt());
     }
@@ -264,7 +263,6 @@ public final class ParametersExtractors {
      * @return The source extractors that accept the specified parameters typet,
      * in priority order
      */
-    @SuppressWarnings("java:S1452")
     static <P> @NotNull List<ParametersSourceExtractor<? super P, ?>> filterSourceExtractors(
             final @NotNull List<ParametersSourceExtractor<?, ?>> extractors,
             final @NotNull Class<P> parametersType) {
@@ -289,7 +287,6 @@ public final class ParametersExtractors {
      * 
      * @return The registered parameter source extractors
      */
-    @SuppressWarnings("java:S1452")
     static @NotNull List<ParametersSourceExtractor<?, ?>> getSourceExtractorsInt() {
         synchronized (ParametersExtractors.class) {
             if (registeredSourceExtractors == null) {
@@ -306,7 +303,6 @@ public final class ParametersExtractors {
      * 
      * @return The internal by type parameters extractor cache
      */
-    @SuppressWarnings("java:S1452")
     static @NotNull Map<Class<?>, ParametersExtractor<?>> getCacheInt() {
         return CACHE;
     }
@@ -318,7 +314,7 @@ public final class ParametersExtractors {
      * @return The SPI declared parameter source extractors
      * @see ServiceLoader
      */
-    @SuppressWarnings({ "rawtypes", "java:S1452" })
+    @SuppressWarnings("rawtypes")
     static @NotNull List<ParametersSourceExtractor<?, ?>> loadSpiExtractors() {
         final List<ParametersSourceExtractor<?, ?>> result = new ArrayList<>();
         final ServiceLoader<ParametersSourceExtractor> loader =
@@ -350,7 +346,6 @@ public final class ParametersExtractors {
          * @param parametersType The target parameter type
          * @return The source extractors to use, in priority order
          */
-        @SuppressWarnings("java:S1452")
         <P> @NotNull List<ParametersSourceExtractor<? super P, ?>> findSuitable(
                 @NotNull List<ParametersSourceExtractor<?, ?>> extractors,
                 @NotNull Class<P> parametersType);

@@ -179,14 +179,13 @@ class AbstractGeneratorTest {
      * {@link AbstractGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final TestGenerator generator = new TestGenerator();
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (TestGenerator) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         final TestGenerator other = new TestGenerator();
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
     }

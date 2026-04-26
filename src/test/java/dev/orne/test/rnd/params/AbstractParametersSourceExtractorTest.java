@@ -89,14 +89,13 @@ class AbstractParametersSourceExtractorTest {
      * {@link AbstractGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final TestSourceExtractor extractor = new TestSourceExtractor();
-        assertFalse(extractor.equals(null));
-        assertTrue(extractor.equals(extractor));
-        assertFalse(extractor.equals(new Object()));
+        assertNotEquals(extractor, (TestSourceExtractor) null);
+        assertEquals(extractor, extractor);
+        assertNotEquals(extractor, new Object());
         final TestSourceExtractor other = new TestSourceExtractor();
-        assertTrue(extractor.equals(other));
+        assertEquals(extractor, other);
         assertEquals(extractor.hashCode(), other.hashCode());
         assertEquals(extractor.toString(), other.toString());
     }

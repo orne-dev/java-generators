@@ -212,7 +212,6 @@ class ExecutableGeneratorTest {
      * {@link ExecutableGenerator#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final Class<?> type = MyType.class; 
         final Class<?> otherType = OtherType.class; 
@@ -230,31 +229,31 @@ class ExecutableGeneratorTest {
                 type,
                 executable,
                 paramGenerators);
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (ExecutableGenerator<?>) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         ExecutableGenerator<?> other = new GenericChild<>(
                 type,
                 executable,
                 paramGenerators);
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
         other = new GenericChild<>(
                 otherType,
                 executable,
                 paramGenerators);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new GenericChild<>(
                 type,
                 otherExecutable,
                 paramGenerators);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new GenericChild<>(
                 type,
                 executable,
                 otherParamGenerators);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
     }
 
     public static class MyType {

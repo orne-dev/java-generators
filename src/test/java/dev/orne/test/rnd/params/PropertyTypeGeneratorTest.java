@@ -208,7 +208,6 @@ class PropertyTypeGeneratorTest {
      * {@link PropertyTypeGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final Generator delegated = spy(Generator.class);
         willReturn(true).given(delegated).supports(Object.class);
@@ -225,15 +224,15 @@ class PropertyTypeGeneratorTest {
                 MySubType.class,
                 PROP1_FIELD,
                 delegated);
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (PropertyTypeGenerator<?>) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         PropertyTypeGenerator<?> other = new PropertyTypeGenerator<>(
                 MyPropType.class,
                 MySubType.class,
                 PROP1_FIELD,
                 delegated);
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
         other = new PropertyTypeGenerator<>(
@@ -241,19 +240,19 @@ class PropertyTypeGeneratorTest {
                 MySubType.class,
                 PROP1_FIELD,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new PropertyTypeGenerator<>(
                 MyPropType.class,
                 MySubType.class,
                 PROP0_FIELD,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new PropertyTypeGenerator<>(
                 MyPropType.class,
                 MySubType.class,
                 PROP1_FIELD,
                 otherDelegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
     }
 
     private interface MyPropType {}

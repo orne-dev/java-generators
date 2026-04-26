@@ -139,7 +139,6 @@ extends AbstractTargetedGenerator<T> {
      * 
      * @return The target constructor.
      */
-    @SuppressWarnings("java:S1452")
     public @NotNull Constructor<?> getConstructor() {
         return this.constructor;
     }

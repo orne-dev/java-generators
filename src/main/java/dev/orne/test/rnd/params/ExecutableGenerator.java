@@ -110,7 +110,6 @@ extends AbstractTypedGenerator<T> {
      * 
      * @return The generator for the executable parameters
      */
-    @SuppressWarnings("java:S1452")
     public @NotNull TargetedGenerator<?>[] getParameterGenerators() {
         return this.parameterGenerators;
     }

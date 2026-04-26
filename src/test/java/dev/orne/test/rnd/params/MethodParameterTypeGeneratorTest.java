@@ -200,7 +200,6 @@ class MethodParameterTypeGeneratorTest {
      * {@link MethodParameterTypeGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final Generator delegated = spy(Generator.class);
         willReturn(true).given(delegated).supports(Object.class);
@@ -217,15 +216,15 @@ class MethodParameterTypeGeneratorTest {
                 TEST_METHOD,
                 0,
                 delegated);
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (MethodParameterTypeGenerator<?>) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         MethodParameterTypeGenerator<?> other = new MethodParameterTypeGenerator<>(
                 MyValueType.class,
                 TEST_METHOD,
                 0,
                 delegated);
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
         other = new MethodParameterTypeGenerator<>(
@@ -233,25 +232,25 @@ class MethodParameterTypeGeneratorTest {
                 TEST_METHOD,
                 0,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new MethodParameterTypeGenerator<>(
                 MyValueType.class,
                 OTHER_METHOD,
                 0,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new MethodParameterTypeGenerator<>(
                 MyValueType.class,
                 TEST_METHOD,
                 1,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new MethodParameterTypeGenerator<>(
                 MyValueType.class,
                 TEST_METHOD,
                 0,
                 otherDelegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
     }
 
     private interface MyValueType {}
