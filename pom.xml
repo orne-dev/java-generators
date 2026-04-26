@@ -40,12 +40,12 @@
     <java.module.name>dev.orne.test.generators</java.module.name>
     <license.licenseName>lgpl_v3</license.licenseName>
 
-    <commons.lang.version>3.10</commons.lang.version>
+    <commons.lang.version>3.20.0</commons.lang.version>
 
     <javax.validation.version>2.0.1.Final</javax.validation.version>
 
-    <hibernate.validation.version>6.1.5.Final</hibernate.validation.version>
-    <glassfish.jakarta.el.version>3.0.3</glassfish.jakarta.el.version>
+    <hibernate.validation.version>6.2.5.Final</hibernate.validation.version>
+    <glassfish.jakarta.el.version>3.0.4</glassfish.jakarta.el.version>
 
     <github.project.id>java-generators</github.project.id>
     <sonar.projectKey>orne-dev_java-generators</sonar.projectKey>
