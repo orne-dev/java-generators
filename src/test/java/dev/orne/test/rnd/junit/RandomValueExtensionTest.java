@@ -267,7 +267,7 @@ class RandomValueExtensionTest {
     throws ReflectiveOperationException {
         final RandomValueExtension extension = new RandomValueExtension();
         final TestTarget instance = new TestTarget();
-        final Field  invalidStaticField = TestTarget.class.getDeclaredField("invalidStaticField");
+        final Field  invalidStaticField = TestTarget.class.getDeclaredField("INVALID_STATIC_FIELD");
         final Field  staticField = TestTarget.class.getDeclaredField("staticField");
         final Field  invalidInstanceField = TestTarget.class.getDeclaredField("invalidInstanceField");
         final Field  instanceField = TestTarget.class.getDeclaredField("instanceField");
@@ -287,7 +287,7 @@ class RandomValueExtensionTest {
     @SuppressWarnings("unused")
     private static class TestTarget {
         private static final String DEFAULT_VALUE = "Can be injected";
-        private static final String invalidStaticField = "Cannot be injected";
+        private static final String INVALID_STATIC_FIELD = "Cannot be injected";
         private static @Random @NotNull String staticField = DEFAULT_VALUE;
         private final String invalidInstanceField = "Cannot be injected";
         private @Random @NotNull String instanceField = DEFAULT_VALUE;

@@ -257,11 +257,33 @@ class ExecutableGeneratorTest {
     }
 
     public static class MyType {
-        public MyType() {}
-        public MyType(String value0, Integer value1) {}
+        /**
+         * Default constructor, for testing purposes.
+         */
+        public MyType() {
+            super();
+        }
+        /**
+         * Constructor with parameters, for testing purposes.
+         * @param value0 A string value
+         * @param value1 An integer value
+         */
+        public MyType(String value0, Integer value1) {
+            super();
+        }
+        /**
+         * Factory method, for testing purposes.
+         * @param value0 A string value
+         * @param value1 An integer value
+         * @return A new instance of {@code MyType}
+         */
         public static MyType factory(String value0, Integer value1) {
             return new MyType();
         }
+        /**
+         * Factory method without parameters, for testing purposes.
+         * @return A new instance of {@code MyType}
+         */
         public static MyType otherFactory() {
             return new MyType();
         }

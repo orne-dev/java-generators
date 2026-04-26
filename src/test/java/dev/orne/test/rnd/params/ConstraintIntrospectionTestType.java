@@ -171,20 +171,24 @@ public class ConstraintIntrospectionTestType {
     private String prop2;
 
     /** Default constructor. */
-    public ConstraintIntrospectionTestType() {}
+    public ConstraintIntrospectionTestType() {
+        super();
+    }
     /**
      * Single parameter constructor.
      * 
-     * @param param0 Constructor parameter 0.
+     * @param param0 Unconstrained parameter.
      */
     public ConstraintIntrospectionTestType(
-            String param0) {}
+            String param0) {
+        super();
+    }
     /**
      * Multiple parameters constructor.
      * 
-     * @param param0 Constructor parameter 0.
-     * @param param1 Constructor parameter 1.
-     * @param param2 Constructor parameter 2.
+     * @param param0 Unconstrained parameter.
+     * @param param1 Non nullable parameter.
+     * @param param2 Multiple constrained parameter.
      */
     public ConstraintIntrospectionTestType(
             String param0,
@@ -194,7 +198,9 @@ public class ConstraintIntrospectionTestType {
             @Size(min = SIZE_MIN)
             @Digits(integer = DIGITS_INT, fraction = DIGITS_FRA, groups = Group1.class)
             @Composed(groups = Group2.class)
-            String param2) {}
+            String param2) {
+        super();
+    }
     /**
      * Returns bean property 0.
      * 

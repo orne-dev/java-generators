@@ -112,8 +112,7 @@ class FactoryMethodGeneratorTest {
      * Unit test for {@link FactoryMethodGenerator#generate(Object[])}
      */
     @Test
-    void testGenerate()
-    throws Exception {
+    void testGenerate() {
         final TargetedGenerator<?>[] paramGenerators = new TargetedGenerator[] {
                 mock(TargetedGenerator.class),
                 mock(TargetedGenerator.class)
@@ -131,8 +130,7 @@ class FactoryMethodGeneratorTest {
      * Unit test for {@link FactoryMethodGenerator#generate(Object[])}
      */
     @Test
-    void testGenerateException()
-    throws Exception {
+    void testGenerateException() {
         final TargetedGenerator<?>[] paramGenerators = new TargetedGenerator[] {
                 mock(TargetedGenerator.class),
                 mock(TargetedGenerator.class)
@@ -151,10 +149,27 @@ class FactoryMethodGeneratorTest {
 
     public static class MyType {
         private static Exception error = null;
-        public MyType() {}
+        public MyType() {
+            super();
+        }
+        /**
+         * Factory method.
+         * 
+         * @param value0 Factory method parameter 0
+         * @param value1 Factory method parameter 1
+         * @return A new MyType instance
+         */
         public static MyType ofFactory(String value0, Integer value1) {
             return new MyType();
         }
+        /**
+         * Failable factory method.
+         * 
+         * @param value0 Factory method parameter 0
+         * @param value1 Factory method parameter 1
+         * @return A new MyType instance
+         * @throws Exception If an error occurs during MyType creation
+         */
         public static MyType factory(Object param0, Object param1)
         throws Exception {
             if (error != null) {

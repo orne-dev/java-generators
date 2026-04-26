@@ -75,6 +75,6 @@ class TypeDeclarationTest {
         assertNotEquals(params, other);
     }
 
-    private static interface MyType {};
-    private static interface OtherType {};
+    private static interface MyType {}
+    private static interface OtherType {}
 }

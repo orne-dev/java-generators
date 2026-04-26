@@ -107,8 +107,7 @@ class ConstructorGeneratorTest {
      * Unit test for {@link ConstructorGenerator#generate(Object[])}
      */
     @Test
-    void testGenerate()
-    throws Exception {
+    void testGenerate() {
         final TargetedGenerator<?>[] paramGenerators = new TargetedGenerator[] {
                 mock(TargetedGenerator.class),
                 mock(TargetedGenerator.class)
@@ -125,15 +124,14 @@ class ConstructorGeneratorTest {
      * Unit test for {@link ConstructorGenerator#generate(Object[])}
      */
     @Test
-    void testGenerateException()
-    throws Exception {
+    void testGenerateException() {
         final TargetedGenerator<?>[] paramGenerators = new TargetedGenerator[] {
                 mock(TargetedGenerator.class),
                 mock(TargetedGenerator.class)
         };
         final Object mockParam0 = new Object();
         final Object mockParam1 = new Object();
-        final Object[] params = new Object[] {mockParam0, mockParam1 };
+        final Object[] params = new Object[] { mockParam0, mockParam1 };
         final Exception error = new Exception();
         MyType.error = error;
         final ConstructorGenerator<?> generator = new ConstructorGenerator<>(PARAMS_CTR, paramGenerators);
@@ -144,8 +142,22 @@ class ConstructorGeneratorTest {
 
     public static class MyType {
         private static Exception error = null;
-        public MyType() {}
-        public MyType(String value0, Integer value1) {}
+        /**
+         * Test constructor with parameters.
+         * 
+         * @param value0 Test constructor parameter 0.
+         * @param value1 Test constructor parameter 1.
+         */
+        public MyType(String value0, Integer value1) {
+            super();
+        }
+        /**
+         * Failable test constructor with parameters.
+         * 
+         * @param param0 Test constructor parameter 0.
+         * @param param1 Test constructor parameter 1.
+         * @throws Exception If the test constructor error is set.
+         */
         public MyType(Object param0, Object param1)
         throws Exception {
             if (error != null) {

@@ -286,11 +286,23 @@ class ParameterTypeGeneratorTest {
                 MyValueType param1,
                 @NotNull
                 @Size(min = 1, max = 10)
-                List<String> param2) {}
+                List<String> param2) {
+            throw new UnsupportedOperationException("Only declaration needed");
+        }
         public MyType(
                 String param0,
                 @NotNull
-                MyValueType param1) {}
+                MyValueType param1) {
+            throw new UnsupportedOperationException("Only declaration needed");
+        }
+        /**
+         * Test method.
+         * 
+         * @param param0 Unconstrained parameter
+         * @param param1 Non nullable parameter
+         * @param param2 Multiple constraints parameter
+         * @return A string result
+         */
         public String testMethod(
                 String param0,
                 @NotNull
@@ -300,6 +312,14 @@ class ParameterTypeGeneratorTest {
                 List<String> param2) {
             return null;
         }
+        /**
+         * Other test method.
+         * 
+         * @param param0 Unconstrained parameter
+         * @param param1 Non nullable parameter
+         * @param param2 Multiple constraints parameter
+         * @return A string result
+         */
         public String otherMethod(
                 String param0,
                 @NotNull
