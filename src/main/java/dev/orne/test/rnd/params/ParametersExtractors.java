@@ -189,11 +189,13 @@ public final class ParametersExtractors {
      * @return The parameters extractor for the target parameters type
      */
     @SuppressWarnings("unchecked")
-    public static <P> dev.orne.test.rnd.params.ParametersExtractor<P> getExtractor(
+    public static <P> ParametersExtractor<P> getExtractor(
             final @NotNull Class<P> parametersType) {
-        return (ParametersExtractor<P>) CACHE.computeIfAbsent(
-                parametersType,
-                ParametersExtractors::createExtractor);
+        synchronized (Generators.class) {
+            return (ParametersExtractor<P>) CACHE.computeIfAbsent(
+                    parametersType,
+                    ParametersExtractors::createExtractor);
+        }
     }
 
     /**

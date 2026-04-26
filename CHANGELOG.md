@@ -7,10 +7,15 @@
 ### Changed
 
 - Changed Maven coordinates from `dev.orne.test:generators` to `dev.orne.test:orne-test-generators`.
+- Updated dependencies versions.
 
 ### Added
 
 - Expose "generator not found" generator placeholder `Generator.MISSING`.
+
+### Fixed
+
+- Fix `ParametersExtractors` cache synchronization issue.
 
 ## dev.orne.test:generators - 0.2.0 - 2023-12-14
 
