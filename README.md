@@ -9,10 +9,10 @@ Provides utilities for generation of random values.
 [![Javadoc][status.javadoc.badge]][javadoc]
 [![Maven site][status.site.badge]][site]
 
-| Latest Release | Develop |
-| :------------: | :-------------: |
-| [![Build Status][status.latest.ci.badge]][status.latest.ci] | [![Build Status][status.dev.ci.badge]][status.dev.ci] |
-| [![Coverage][status.latest.cov.badge]][status.latest.cov] | [![Coverage][status.dev.cov.badge]][status.dev.cov] |
+| Branch | CI Status | Quality | Coverage |
+| :------------: | :-------------: | :-------------: | :-------------: |
+| Main | [![Build Status][status.latest.ci.badge]][status.latest.ci] | [![Quality][status.sonar.quality.badge]][status.sonar] | [![Coverage][status.sonar.cov.badge]][status.sonar] |
+| Develop | [![Build Status][status.dev.ci.badge]][status.dev.ci] | | |
 
 ## Features
 
@@ -292,15 +292,14 @@ and [Maven Site][site].
 [javadoc]: https://javadoc.io/doc/dev.orne.test/orne-test-generators
 [status.license]: https://www.gnu.org/licenses/gpl-3.0.txt
 [status.license.badge]: https://img.shields.io/github/license/orne-dev/java-generators
-[status.maven]: https://search.maven.org/artifact/dev.orne.test/orne-test-generators
+[status.maven]: https://central.sonatype.com/artifact/dev.orne.test/orne-test-generators
 [status.maven.badge]: https://img.shields.io/maven-central/v/dev.orne.test/orne-test-generators.svg?label=Maven%20Central
 [status.javadoc.badge]: https://javadoc.io/badge2/dev.orne.test/orne-test-generators/javadoc.svg
 [status.site.badge]: https://img.shields.io/website?url=https%3A%2F%2Forne-dev.github.io%2Fjava-generators%2F
 [status.latest.ci]: https://github.com/orne-dev/java-generators/actions/workflows/release.yml
 [status.latest.ci.badge]: https://github.com/orne-dev/java-generators/actions/workflows/release.yml/badge.svg?branch=master
-[status.latest.cov]: https://sonarcloud.io/dashboard?id=orne-dev_java-generators
-[status.latest.cov.badge]: https://sonarcloud.io/api/project_badges/measure?project=orne-dev_java-generators&metric=coverage
 [status.dev.ci]: https://github.com/orne-dev/java-generators/actions/workflows/build.yml
 [status.dev.ci.badge]: https://github.com/orne-dev/java-generators/actions/workflows/build.yml/badge.svg?branch=develop
-[status.dev.cov]: https://sonarcloud.io/dashboard?id=orne-dev_java-generators&branch=develop
-[status.dev.cov.badge]: https://sonarcloud.io/api/project_badges/measure?project=orne-dev_java-generators&metric=coverage&branch=develop
+[status.sonar]: https://sonarcloud.io/dashboard?id=orne-dev_java-generators
+[status.sonar.quality.badge]: https://sonarcloud.io/api/project_badges/measure?project=orne-dev_java-generators&metric=alert_status
+[status.sonar.cov.badge]: https://sonarcloud.io/api/project_badges/measure?project=orne-dev_java-generators&metric=coverage
