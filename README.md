@@ -1,6 +1,9 @@
-# Orne random value generators
+# Orne test data random value generators
 
-Provides utilities for generation of random values.
+Provides utilities for generation of random values for testing purposes
+
+**Warning:** This library is intended for testing purposes only and the
+generated values must not be used in production code.
 
 ## Status
 
