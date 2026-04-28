@@ -28,11 +28,17 @@ unimplemented):
     - [X] Typed generators
     - [X] Parameterizable generators
         - [X] Generic classes generation support 
+        - [ ] JSpecify based parameters extractors
         - [X] Jakarta Validation 2.0 based parameters extractors
             - [X] `NotNull` extractor
             - [X] `Size` extractor
             - [X] `Min` extractor
             - [X] `Max` extractor
+        - [ ] Jakarta Validation 3.0 based parameters extractors
+            - [ ] `NotNull` extractor
+            - [ ] `Size` extractor
+            - [ ] `Min` extractor
+            - [ ] `Max` extractor
         - [X] Parameterizable typed generators
         - [X] Targeted generators
             - [X] Property type generator
@@ -63,6 +69,7 @@ unimplemented):
     - [X] `java.util.Currency` generator
     - [X] `java.util.Date` generator
     - [X] `java.util.Locale` generator
+    - [ ] `java.util.Optional` generator
     - [X] `java.util.TimeZone` generator
     - [X] `java.util.URI` generator
     - [X] `java.util.URL` generator
