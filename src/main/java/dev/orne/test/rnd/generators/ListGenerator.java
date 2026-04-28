@@ -142,7 +142,7 @@ extends AbstractTypedParameterizableGenerator<List<?>, CollectionGenerationParam
      * @return A random list for the specified component type.
      * @throws GenerationException If an error occurs generating the value
      */
-    protected @NotNull List<?> randomList(
+    protected @NotNull List<Object> randomList(
             final @NotNull CollectionGenerationParameters parameters) {
         final int size = randomSize(parameters);
         final List<Object> result = new ArrayList<>(size);
@@ -161,7 +161,7 @@ extends AbstractTypedParameterizableGenerator<List<?>, CollectionGenerationParam
      * @return A random list of the specified component type.
      * @throws GenerationException If an error occurs generating the value
      */
-    protected List<?> randomNullablesList(
+    protected List<Object> randomNullablesList(
             final @NotNull CollectionGenerationParameters parameters) {
         final int size = randomSize(parameters);
         final List<Object> result = new ArrayList<>(size);

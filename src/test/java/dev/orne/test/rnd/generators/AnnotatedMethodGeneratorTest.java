@@ -354,11 +354,11 @@ class AnnotatedMethodGeneratorTest {
     @Test
     void testEqualsHashCodeToString() {
         final AnnotatedMethodGenerator generator = new AnnotatedMethodGenerator();
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (AnnotatedMethodGenerator) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         AnnotatedMethodGenerator other = new AnnotatedMethodGenerator();
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
     }

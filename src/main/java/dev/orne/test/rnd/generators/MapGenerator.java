@@ -134,7 +134,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
      * @return A random map for the specified keys and values types.
      * @throws GenerationException If an error occurs generating the value
      */
-    protected @NotNull Map<?, ?> randomMap(
+    protected @NotNull Map<Object, Object> randomMap(
             final @NotNull MapGenerationParameters parameters) {
         final int size = randomSize(parameters);
         final Map<Object, Object> result = new HashMap<>(size);
@@ -156,7 +156,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
      * @return A random map of the specified keys and values types.
      * @throws GenerationException If an error occurs generating the value
      */
-    protected Map<?, ?> randomNullablesMap(
+    protected Map<Object, Object> randomNullablesMap(
             final @NotNull MapGenerationParameters parameters) {
         final int size = randomSize(parameters);
         final Map<Object, Object> result = new HashMap<>(size);

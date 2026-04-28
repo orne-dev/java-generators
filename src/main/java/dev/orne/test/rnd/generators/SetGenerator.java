@@ -133,7 +133,7 @@ extends AbstractTypedParameterizableGenerator<Set<?>, CollectionGenerationParame
      * @return A random set for the specified component type.
      * @throws GenerationException If an error occurs generating the value
      */
-    protected @NotNull Set<?> randomSet(
+    protected @NotNull Set<Object> randomSet(
             final @NotNull CollectionGenerationParameters parameters) {
         final int size = randomSize(parameters);
         final Set<Object> result = new HashSet<>(size);
@@ -152,7 +152,7 @@ extends AbstractTypedParameterizableGenerator<Set<?>, CollectionGenerationParame
      * @return A random set of the specified component type.
      * @throws GenerationException If an error occurs generating the value
      */
-    protected Set<?> randomNullablesSet(
+    protected Set<Object> randomNullablesSet(
             final @NotNull CollectionGenerationParameters parameters) {
         final int size = randomSize(parameters);
         final Set<Object> result = new HashSet<>(size);
