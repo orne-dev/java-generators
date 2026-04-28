@@ -29,7 +29,6 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 import dev.orne.test.rnd.Priority;
@@ -37,11 +36,11 @@ import dev.orne.test.rnd.Priority;
 /**
  * Generator of {@code File} values.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class FileGenerator
 extends AbstractTypedGenerator<File> {
@@ -137,7 +136,7 @@ extends AbstractTypedGenerator<File> {
      * @return The generated random path
      */
     public static @NotNull String randomPath() {
-        final int segments = RandomUtils.nextInt(1, 5);
+        final int segments = RandomUtils.insecure().randomInt(1, 5);
         final StringBuilder path = new StringBuilder()
                 .append(randomPathSegment());
         for (int i = 1; i < segments; i++) {
@@ -153,7 +152,7 @@ extends AbstractTypedGenerator<File> {
      * @return The generated random path
      */
     public static @NotNull String randomPathSegment() {
-        return RandomStringUtils.randomAlphanumeric(5);
+        return RandomStringUtils.insecure().nextAlphanumeric(5);
     }
 
     /**

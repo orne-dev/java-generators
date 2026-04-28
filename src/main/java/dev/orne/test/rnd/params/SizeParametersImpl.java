@@ -22,24 +22,24 @@ package dev.orne.test.rnd.params;
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * The basic implementation of {@code SizeParameters}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class SizeParametersImpl
 implements SizeParameters,
         SizeParameters.Builder {
@@ -64,7 +64,7 @@ implements SizeParameters,
     public SizeParametersImpl(
             final @NotNull GenerationParameters copy) {
         super();
-        Validate.notNull(copy);
+        Objects.requireNonNull(copy);
         if (copy instanceof SizeParameters) {
             final SizeParameters tcopy = (SizeParameters) copy;
             this.minSize = tcopy.getMinSize();

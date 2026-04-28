@@ -1,144 +1,175 @@
-# :package: 0.2.0
+# Orne Java random value generator for tests - Changelog
 
-01. :gift: Added support for retrieval of targeted generators based on `Field` and `Parameter`
-    01. :gift: Added class `dev.orne.test.rnd.params.ParameterTypeGenerator`
-    01. :gift: Added method `ConstraintIntrospector.findParameterConstrains(Parameter, Class...)`
-    01. :gift: Added method `ConstraintIntrospector.findParameterConstrains(Validator, Parameter, Class...)`
-    01. :gift: Added method `Generators.forField(Field)`
-    01. :gift: Added method `Generators.forField(Class, Field)`
-    01. :gift: Added method `forParameter(Parameter)`
-01. :gift: Added **experimental** JUnit 5 (Jupiter) random value injection extension
-    01. Added annotation `dev.orne.test.rnd.junit.Random`
-    01. Added class `dev.orne.test.rnd.junit.RandomValueExtension`
+## 0.3.0 - 2026-14-28
 
-# :package: 0.1.3
+- **Maven coordinates change.**
 
-01. :beetle: Improved `CharsetGenerator`.
+### Changed
+
+- Changed Maven coordinates from `dev.orne.test:generators` to `dev.orne.test:orne-test-generators`.
+- Updated dependencies versions.
+
+### Added
+
+- Expose "generator not found" generator placeholder `Generator.MISSING`.
+
+### Fixed
+
+- Fix `ParametersExtractors` cache synchronization issue.
+
+## dev.orne.test:generators - 0.2.0 - 2023-12-14
+
+### Added
+
+- Add support for retrieval of targeted generators based on `Field` and `Parameter`
+    - `dev.orne.test.rnd.params.ParameterTypeGenerator` class
+    - `ConstraintIntrospector.findParameterConstrains(Parameter, Class...)` method
+    - `ConstraintIntrospector.findParameterConstrains(Validator, Parameter, Class...)` method
+    - `Generators.forField(Field)` method
+    - `Generators.forField(Class, Field)` method
+    - `Generators.forParameter(Parameter)` method
+- Add **experimental** JUnit 5 (Jupiter) random value injection extension
+    - `dev.orne.test.rnd.junit.Random` annotation
+    - `dev.orne.test.rnd.junit.RandomValueExtension` class
+
+## dev.orne.test:generators - 0.1.3 - 2023-10-07
+
+### Changed
+
+- Improve `CharsetGenerator`.
 
     Prevent generation of charsets that don't support encoding.
     Causes unexpected random errors in multiple tests.
     If a test must validate the code behavior with decode-only charsets use
     `CharsetGenerator.randomDecodeOnlyValue()`.
 
-# :package: 0.1.2
+## dev.orne.test:generators - 0.1.2 - 2023-09-09
 
-01. :beetle: Fixed `URIGenerator` maximum port number (65535).
+### Fixed
 
-# :package: 0.1.1
+- Fix `URIGenerator` maximum port number (65535).
 
-01. :beetle: Fixed `CurrencyGenerator` default value.
+## dev.orne.test:generators - 0.1.1 - 2022-12-11
+
+### Fixed
+
+- Fix `CurrencyGenerator` default value.
 
     Default locale may have not country code.
     Use "EUR" as default value in such cases.
 
-# :package: 0.1.0
+## dev.orne.test:generators - 0.1.0 - 2022-12-10
 
-01. :gift: Added exception `dev.orne.test.rnd.GenerationException`
-01. :gift: Added exception `dev.orne.test.rnd.UnsupportedValueTypeException`
-01. :gift: Added annotation `dev.orne.test.rnd.Priority`
-01. :gift: Added interface `dev.orne.test.rnd.Generator`
-01. :gift: Added class `dev.orne.test.rnd.AbstractGenerator`
-01. :gift: Added interface `dev.orne.test.rnd.TypedGenerator`
-01. :gift: Added class `dev.orne.test.rnd.AbstractTypedGenerator`
-01. :gift: Added exception `dev.orne.test.rnd.GeneratorNotFoundException`
-01. :gift: Added class `dev.orne.test.rnd.Generators`
-01. :gift: Added **experimental** generation parameters system
-    01. Added interface `dev.orne.test.rnd.params.GenerationParameters`
-    01. Added interface `dev.orne.test.rnd.params.NullableParameters`
-    01. Added class `dev.orne.test.rnd.params.NullableParametersImpl`
-    01. Added interface `dev.orne.test.rnd.params.NumberParameters`
-    01. Added class `dev.orne.test.rnd.params.NumberParametersImpl`
-    01. Added interface `dev.orne.test.rnd.params.SizeParameters`
-    01. Added class `dev.orne.test.rnd.params.SizeParametersImpl`
-    01. Added interface `dev.orne.test.rnd.params.ParameterizableGenerator`
-    01. Added interface `dev.orne.test.rnd.params.TypedParameterizableGenerator`
-    01. Added interface `dev.orne.test.rnd.params.ParametersExtractor`
-    01. Added interface `dev.orne.test.rnd.params.ParametersSourceExtractor`
-    01. Added class `dev.orne.test.rnd.params.AbstractParametersSourceExtractor`
-    01. Added class `dev.orne.test.rnd.params.DefaultParametersExtractor`
-    01. Added class `dev.orne.test.rnd.params.ParametersExtractors`
-    01. Added class `dev.orne.test.rnd.params.AbstractParameterizableGenerator`
-    01. Added class `dev.orne.test.rnd.params.AbstractTypedParameterizableGenerator`
-    01. Added exception `dev.orne.test.rnd.params.GeneratorNotParameterizableException`
-    01. Added built-in parameter source extractors
-        01. Added class `dev.orne.test.rnd.params.NullableParametersExtractor`
-        01. Added class `dev.orne.test.rnd.params.NotNullConstraintExtractor`
-        01. Added class `dev.orne.test.rnd.params.NumberParametersExtractor`
-        01. Added class `dev.orne.test.rnd.params.MinConstraintExtractor`
-        01. Added class `dev.orne.test.rnd.params.MaxConstraintExtractor`
-        01. Added class `dev.orne.test.rnd.params.PositiveConstraintExtractor`
-        01. Added class `dev.orne.test.rnd.params.PositiveOrZeroConstraintExtractor`
-        01. Added class `dev.orne.test.rnd.params.SizeParametersExtractor`
-        01. Added class `dev.orne.test.rnd.params.SizeConstraintExtractor`
-    01. Added generic classes generation support
-        01. Added class `dev.orne.test.rnd.params.TypeDeclaration`
-        01. Added interface `dev.orne.test.rnd.params.SimpleGenericParameters`
-        01. Added class `dev.orne.test.rnd.params.SimpleGenericParametersImpl`
-        01. Added class `dev.orne.test.rnd.params.SimpleGenericParametersExtractor`
-        01. Added class `dev.orne.test.rnd.params.SimpleGenericParametersTypeExtractor`
-        01. Added interface `dev.orne.test.rnd.params.KeyValueGenericParameters`
-        01. Added class `dev.orne.test.rnd.params.KeyValueGenericParametersImpl`
-        01. Added class `dev.orne.test.rnd.params.KeyValueGenericParametersExtractor`
-        01. Added class `dev.orne.test.rnd.params.KeyValueGenericParametersTypeExtractor`
-    01. Added targeted generators system
-        01. Added interface `dev.orne.test.rnd.params.TargetedGenerator`
-        01. Added class `dev.orne.test.rnd.params.ConstraintIntrospector`
-        01. Added class `dev.orne.test.rnd.params.AbstractTargetedGenerator`
-        01. Added class `dev.orne.test.rnd.params.PropertyTypeGenerator`
-        01. Added class `dev.orne.test.rnd.params.MethodReturnTypeGenerator`
-        01. Added class `dev.orne.test.rnd.params.MethodParameterTypeGenerator`
-        01. Added class `dev.orne.test.rnd.params.ConstructorParameterTypeGenerator`
-        01. Added class `dev.orne.test.rnd.params.ExecutableGenerator`
-        01. Added class `dev.orne.test.rnd.params.ConstructorGenerator`
-        01. Added class `dev.orne.test.rnd.params.FactoryMethodGenerator`
-01. :gift: Added built-in generators
-    01. Added class `dev.orne.test.rnd.generators.AbstractPrimitiveGenerator`
-    01. Added class `dev.orne.test.rnd.generators.BooleanGenerator`
-    01. Added class `dev.orne.test.rnd.generators.ByteGenerator`
-    01. Added class `dev.orne.test.rnd.generators.ShortGenerator`
-    01. Added class `dev.orne.test.rnd.generators.IntegerGenerator`
-    01. Added class `dev.orne.test.rnd.generators.LongGenerator`
-    01. Added class `dev.orne.test.rnd.generators.CharacterGenerator`
-    01. Added class `dev.orne.test.rnd.params.StringGenerationParameters`
-    01. Added class `dev.orne.test.rnd.generators.StringGenerator`
-    01. Added class `dev.orne.test.rnd.generators.BigIntegerGenerator`
-    01. Added class `dev.orne.test.rnd.generators.BigDecimalGenerator`
-    01. Added class `dev.orne.test.rnd.generators.DateGenerator`
-    01. Added class `dev.orne.test.rnd.generators.LocaleGenerator`
-    01. Added class `dev.orne.test.rnd.generators.CharsetGenerator`
-    01. Added class `dev.orne.test.rnd.generators.TimeZoneGenerator`
-    01. Added class `dev.orne.test.rnd.generators.CurrencyGenerator`
-    01. Added class `dev.orne.test.rnd.generators.CalendarGenerator`
-    01. Added class `dev.orne.test.rnd.generators.URIGenerator`
-    01. Added class `dev.orne.test.rnd.generators.URLGenerator`
-    01. Added class `dev.orne.test.rnd.generators.UUIDGenerator`
-    01. Added class `dev.orne.test.rnd.generators.ClockGeneratorTest`
-    01. Added class `dev.orne.test.rnd.generators.ChronologyGenerator`
-    01. Added class `dev.orne.test.rnd.generators.DurationGenerator`
-    01. Added class `dev.orne.test.rnd.generators.InstantGenerator`
-    01. Added class `dev.orne.test.rnd.generators.LocalDateGenerator`
-    01. Added class `dev.orne.test.rnd.generators.LocalDateTimeGenerator`
-    01. Added class `dev.orne.test.rnd.generators.LocalTimeGenerator`
-    01. Added class `dev.orne.test.rnd.generators.MonthDayGenerator`
-    01. Added class `dev.orne.test.rnd.generators.OffsetDateTimeGenerator`
-    01. Added class `dev.orne.test.rnd.generators.OffsetTimeGenerator`
-    01. Added class `dev.orne.test.rnd.generators.PeriodGenerator`
-    01. Added class `dev.orne.test.rnd.generators.YearGenerator`
-    01. Added class `dev.orne.test.rnd.generators.YearMonthGenerator`
-    01. Added class `dev.orne.test.rnd.generators.ZonedDateTimeGenerator`
-    01. Added class `dev.orne.test.rnd.generators.ZoneIdGenerator`
-    01. Added class `dev.orne.test.rnd.generators.ZoneOffsetGenerator`
-    01. Added class `dev.orne.test.rnd.generators.EnumGenerator`
-    01. Added class `dev.orne.test.rnd.generators.FileGenerator`
-    01. Added class `dev.orne.test.rnd.generators.PathGenerator`
-01. :gift: Added collection generators
-    01. Added class `dev.orne.test.rnd.generators.CollectionGeneratorUtils`
-    01. Added class `dev.orne.test.rnd.generators.ArrayGenerator`
-    01. Added class `dev.orne.test.rnd.params.CollectionGenerationParameters`
-    01. Added class `dev.orne.test.rnd.generators.ListGenerator`
-    01. Added class `dev.orne.test.rnd.generators.SetGenerator`
-    01. Added class `dev.orne.test.rnd.params.MapGenerationParameters`
-    01. Added class `dev.orne.test.rnd.generators.MapGenerator`
-01. :gift: Added annotation based generation
-    01. Added annotation `dev.orne.test.rnd.GeneratorMethod`
-    01. Added class `dev.orne.test.rnd.generators.AnnotatedMethodGenerator`
+### Added
+
+- Add JPMS default module name `dev.orne.test.generators`.
+- Add main API.
+    - `dev.orne.test.rnd.GenerationException` exception
+    - `dev.orne.test.rnd.UnsupportedValueTypeException` exception
+    - `dev.orne.test.rnd.GeneratorNotFoundException` exception
+    - `dev.orne.test.rnd.Priority` annotation
+    - `dev.orne.test.rnd.Generator` interface
+    - `dev.orne.test.rnd.AbstractGenerator` class
+    - `dev.orne.test.rnd.TypedGenerator` interface
+    - `dev.orne.test.rnd.AbstractTypedGenerator` class
+    - `dev.orne.test.rnd.Generators` class
+- Add **experimental** generation parameters system
+    - `dev.orne.test.rnd.params.GenerationParameters` interface
+    - `dev.orne.test.rnd.params.NullableParameters` interface
+    - `dev.orne.test.rnd.params.NullableParametersImpl` class
+    - `dev.orne.test.rnd.params.NumberParameters` interface
+    - `dev.orne.test.rnd.params.NumberParametersImpl` class
+    - `dev.orne.test.rnd.params.SizeParameters` interface
+    - `dev.orne.test.rnd.params.SizeParametersImpl` class
+    - `dev.orne.test.rnd.params.ParameterizableGenerator` interface
+    - `dev.orne.test.rnd.params.TypedParameterizableGenerator` interface
+    - `dev.orne.test.rnd.params.ParametersExtractor` interface
+    - `dev.orne.test.rnd.params.ParametersSourceExtractor` interface
+    - `dev.orne.test.rnd.params.AbstractParametersSourceExtractor` class
+    - `dev.orne.test.rnd.params.DefaultParametersExtractor` class
+    - `dev.orne.test.rnd.params.ParametersExtractors` class
+    - `dev.orne.test.rnd.params.AbstractParameterizableGenerator` class
+    - `dev.orne.test.rnd.params.AbstractTypedParameterizableGenerator` class
+    - `dev.orne.test.rnd.params.GeneratorNotParameterizableException` exception
+    - Add built-in parameter source extractors
+        - `dev.orne.test.rnd.params.NullableParametersExtractor` class
+        - `dev.orne.test.rnd.params.NotNullConstraintExtractor` class
+        - `dev.orne.test.rnd.params.NumberParametersExtractor` class
+        - `dev.orne.test.rnd.params.MinConstraintExtractor` class
+        - `dev.orne.test.rnd.params.MaxConstraintExtractor` class
+        - `dev.orne.test.rnd.params.PositiveConstraintExtractor` class
+        - `dev.orne.test.rnd.params.PositiveOrZeroConstraintExtractor` class
+        - `dev.orne.test.rnd.params.SizeParametersExtractor` class
+        - `dev.orne.test.rnd.params.SizeConstraintExtractor` class
+    - Add generic classes generation support
+        - `dev.orne.test.rnd.params.TypeDeclaration` class
+        - `dev.orne.test.rnd.params.SimpleGenericParameters` interface
+        - `dev.orne.test.rnd.params.SimpleGenericParametersImpl` class
+        - `dev.orne.test.rnd.params.SimpleGenericParametersExtractor` class
+        - `dev.orne.test.rnd.params.SimpleGenericParametersTypeExtractor` class
+        - `dev.orne.test.rnd.params.KeyValueGenericParameters` interface
+        - `dev.orne.test.rnd.params.KeyValueGenericParametersImpl` class
+        - `dev.orne.test.rnd.params.KeyValueGenericParametersExtractor` class
+        - `dev.orne.test.rnd.params.KeyValueGenericParametersTypeExtractor` class
+    - Add targeted generators system
+        - `dev.orne.test.rnd.params.TargetedGenerator` interface
+        - `dev.orne.test.rnd.params.ConstraintIntrospector` class
+        - `dev.orne.test.rnd.params.AbstractTargetedGenerator` class
+        - `dev.orne.test.rnd.params.PropertyTypeGenerator` class
+        - `dev.orne.test.rnd.params.MethodReturnTypeGenerator` class
+        - `dev.orne.test.rnd.params.MethodParameterTypeGenerator` class
+        - `dev.orne.test.rnd.params.ConstructorParameterTypeGenerator` class
+        - `dev.orne.test.rnd.params.ExecutableGenerator` class
+        - `dev.orne.test.rnd.params.ConstructorGenerator` class
+        - `dev.orne.test.rnd.params.FactoryMethodGenerator` class
+- Add built-in generators
+    - `dev.orne.test.rnd.generators.AbstractPrimitiveGenerator` class
+    - `dev.orne.test.rnd.generators.BooleanGenerator` class
+    - `dev.orne.test.rnd.generators.ByteGenerator` class
+    - `dev.orne.test.rnd.generators.ShortGenerator` class
+    - `dev.orne.test.rnd.generators.IntegerGenerator` class
+    - `dev.orne.test.rnd.generators.LongGenerator` class
+    - `dev.orne.test.rnd.generators.CharacterGenerator` class
+    - `dev.orne.test.rnd.params.StringGenerationParameters` class
+    - `dev.orne.test.rnd.generators.StringGenerator` class
+    - `dev.orne.test.rnd.generators.BigIntegerGenerator` class
+    - `dev.orne.test.rnd.generators.BigDecimalGenerator` class
+    - `dev.orne.test.rnd.generators.DateGenerator` class
+    - `dev.orne.test.rnd.generators.LocaleGenerator` class
+    - `dev.orne.test.rnd.generators.CharsetGenerator` class
+    - `dev.orne.test.rnd.generators.TimeZoneGenerator` class
+    - `dev.orne.test.rnd.generators.CurrencyGenerator` class
+    - `dev.orne.test.rnd.generators.CalendarGenerator` class
+    - `dev.orne.test.rnd.generators.URIGenerator` class
+    - `dev.orne.test.rnd.generators.URLGenerator` class
+    - `dev.orne.test.rnd.generators.UUIDGenerator` class
+    - `dev.orne.test.rnd.generators.ClockGeneratorTest` class
+    - `dev.orne.test.rnd.generators.ChronologyGenerator` class
+    - `dev.orne.test.rnd.generators.DurationGenerator` class
+    - `dev.orne.test.rnd.generators.InstantGenerator` class
+    - `dev.orne.test.rnd.generators.LocalDateGenerator` class
+    - `dev.orne.test.rnd.generators.LocalDateTimeGenerator` class
+    - `dev.orne.test.rnd.generators.LocalTimeGenerator` class
+    - `dev.orne.test.rnd.generators.MonthDayGenerator` class
+    - `dev.orne.test.rnd.generators.OffsetDateTimeGenerator` class
+    - `dev.orne.test.rnd.generators.OffsetTimeGenerator` class
+    - `dev.orne.test.rnd.generators.PeriodGenerator` class
+    - `dev.orne.test.rnd.generators.YearGenerator` class
+    - `dev.orne.test.rnd.generators.YearMonthGenerator` class
+    - `dev.orne.test.rnd.generators.ZonedDateTimeGenerator` class
+    - `dev.orne.test.rnd.generators.ZoneIdGenerator` class
+    - `dev.orne.test.rnd.generators.ZoneOffsetGenerator` class
+    - `dev.orne.test.rnd.generators.EnumGenerator` class
+    - `dev.orne.test.rnd.generators.FileGenerator` class
+    - `dev.orne.test.rnd.generators.PathGenerator` class
+- Add collection generators
+    - `dev.orne.test.rnd.generators.CollectionGeneratorUtils` class
+    - `dev.orne.test.rnd.generators.ArrayGenerator` class
+    - `dev.orne.test.rnd.params.CollectionGenerationParameters` class
+    - `dev.orne.test.rnd.generators.ListGenerator` class
+    - `dev.orne.test.rnd.generators.SetGenerator` class
+    - `dev.orne.test.rnd.params.MapGenerationParameters` class
+    - `dev.orne.test.rnd.generators.MapGenerator` class
+- Add annotation based generation
+    - `dev.orne.test.rnd.GeneratorMethod` annotation
+    - `dev.orne.test.rnd.generators.AnnotatedMethodGenerator` class

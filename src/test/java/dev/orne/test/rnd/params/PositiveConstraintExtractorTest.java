@@ -39,7 +39,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Unit tests for {@code PositiveConstraintExtractor}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see PositiveConstraintExtractor
@@ -94,7 +94,7 @@ extends BaseParametersSourceExtractorTest {
                 Arguments.of(0L),
                 Arguments.of(1L),
                 Arguments.of(5L),
-                Arguments.of(RandomUtils.nextLong())
+                Arguments.of(RandomUtils.insecure().randomLong())
         );
     }
 }

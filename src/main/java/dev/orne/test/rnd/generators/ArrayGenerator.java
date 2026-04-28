@@ -28,7 +28,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractGenerator;
 import dev.orne.test.rnd.GenerationException;
@@ -40,11 +39,11 @@ import dev.orne.test.rnd.Priority;
  * Generator of array values.
  * Requires supported component type generation in {@code Generators}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.GENERIC_GENERATORS)
 public class ArrayGenerator
 extends AbstractGenerator {
@@ -104,7 +103,7 @@ extends AbstractGenerator {
     protected @NotNull Object randomArray(
             final @NotNull Class<?> componentType,
             final @NotNull Generator generator) {
-        final int size = RandomUtils.nextInt(MIN_SIZE, MAX_SIZE);
+        final int size = RandomUtils.insecure().randomInt(MIN_SIZE, MAX_SIZE);
         final Object result = Array.newInstance(componentType, size);
         for (int i = 0; i < size; i++) {
             Array.set(result, i, generator.randomValue(componentType));
@@ -142,7 +141,7 @@ extends AbstractGenerator {
     protected Object randomNullablesArray(
             final @NotNull Class<?> componentType,
             final @NotNull Generator generator) {
-        final int size = RandomUtils.nextInt(MIN_SIZE, MAX_SIZE);
+        final int size = RandomUtils.insecure().randomInt(MIN_SIZE, MAX_SIZE);
         final Object result = Array.newInstance(componentType, size);
         for (int i = 0; i < size; i++) {
             Array.set(result, i, generator.nullableRandomValue(componentType));

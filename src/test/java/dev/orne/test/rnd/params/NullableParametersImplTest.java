@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@code NullableParametersImpl}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  * @see NullableParametersImpl
@@ -86,17 +86,16 @@ class NullableParametersImplTest {
      * {@link NullableParametersImpl#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final NullableParametersImpl params = new NullableParametersImpl();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (NullableParametersImpl) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         final NullableParametersImpl other = new NullableParametersImpl();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other.setNullable(!NullableParameters.DEFAULT_NULLABLE);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 }

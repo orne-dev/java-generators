@@ -40,7 +40,7 @@ import dev.orne.test.rnd.TestGenerator;
 /**
  * Unit tests for {@code DefaultParametersExtractor}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see DefaultParametersExtractor
@@ -241,23 +241,22 @@ class DefaultParametersExtractorTest {
      * {@link DefaultParametersExtractor#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785", "unlikely-arg-type" })
     void testEqualsHashCodeToString() {
         final DefaultParametersExtractor<?> generator = new DefaultParametersExtractor<>(
                 Collections.emptyList());
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new TestGenerator()));
+        assertNotEquals(generator, (DefaultParametersExtractor<?>) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new TestGenerator());
         DefaultParametersExtractor<?> other = new DefaultParametersExtractor<>(
                 Collections.emptyList());
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
         other = new DefaultParametersExtractor<>(
                 Arrays.asList(
                         new TestSourceExtractor()
                 ));
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
     }
 
     private static interface MyParams {}

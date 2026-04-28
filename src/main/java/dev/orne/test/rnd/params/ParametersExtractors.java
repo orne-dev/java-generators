@@ -31,13 +31,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ServiceLoader;
 
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.Generators;
 
@@ -48,11 +48,11 @@ import dev.orne.test.rnd.Generators;
  * {@code /META-INF/services/dev.orne.test.rnd.params.ParametersSourceExtractor}
  * SPI files in the class path.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public final class ParametersExtractors {
 
     /**
@@ -102,7 +102,6 @@ public final class ParametersExtractors {
      * 
      * @return The registered parameter source extractors
      */
-    @SuppressWarnings("java:S1452")
     public static @NotNull List<ParametersSourceExtractor<?, ?>> getRegisteredSourceExtractors() {
         return Collections.unmodifiableList(getSourceExtractorsInt());
     }
@@ -115,7 +114,7 @@ public final class ParametersExtractors {
      */
     public static void register(
             final @NotNull ParametersSourceExtractor<?, ?>... extractors) {
-        Validate.notNull(extractors);
+        Objects.requireNonNull(extractors);
         register(Arrays.asList(extractors));
     }
 
@@ -127,7 +126,7 @@ public final class ParametersExtractors {
      */
     public static void register(
             final @NotNull Collection<ParametersSourceExtractor<?, ?>> extractors) {
-        Validate.notNull(extractors);
+        Objects.requireNonNull(extractors);
         Validate.noNullElements(extractors);
         synchronized (Generators.class) {
             final List<ParametersSourceExtractor<?, ?>> intList = getSourceExtractorsInt();
@@ -145,7 +144,7 @@ public final class ParametersExtractors {
      */
     public static void remove(
             final @NotNull ParametersSourceExtractor<?, ?>... extractors) {
-        Validate.notNull(extractors);
+        Objects.requireNonNull(extractors);
         remove(Arrays.asList(extractors));
     }
 
@@ -157,7 +156,7 @@ public final class ParametersExtractors {
      */
     public static void remove(
             final @NotNull Collection<ParametersSourceExtractor<?, ?>> extractors) {
-        Validate.notNull(extractors);
+        Objects.requireNonNull(extractors);
         Validate.noNullElements(extractors);
         synchronized (Generators.class) {
             final List<ParametersSourceExtractor<?, ?>> intList = getSourceExtractorsInt();
@@ -191,11 +190,13 @@ public final class ParametersExtractors {
      * @return The parameters extractor for the target parameters type
      */
     @SuppressWarnings("unchecked")
-    public static <P> dev.orne.test.rnd.params.ParametersExtractor<P> getExtractor(
+    public static <P> ParametersExtractor<P> getExtractor(
             final @NotNull Class<P> parametersType) {
-        return (ParametersExtractor<P>) CACHE.computeIfAbsent(
-                parametersType,
-                ParametersExtractors::createExtractor);
+        synchronized (Generators.class) {
+            return (ParametersExtractor<P>) CACHE.computeIfAbsent(
+                    parametersType,
+                    ParametersExtractors::createExtractor);
+        }
     }
 
     /**
@@ -214,7 +215,7 @@ public final class ParametersExtractors {
      */
     public static void setFilter(
             final @NotNull SourceExtractorFilter filter) {
-        ParametersExtractors.filter = Validate.notNull(filter);
+        ParametersExtractors.filter = Objects.requireNonNull(filter);
         reset();
     }
 
@@ -234,7 +235,7 @@ public final class ParametersExtractors {
      */
     public static void setBuilder(
             final @NotNull ExtractorBuilder builder) {
-        ParametersExtractors.builder = Validate.notNull(builder);
+        ParametersExtractors.builder = Objects.requireNonNull(builder);
         reset();
     }
 
@@ -265,7 +266,6 @@ public final class ParametersExtractors {
      * @return The source extractors that accept the specified parameters typet,
      * in priority order
      */
-    @SuppressWarnings("java:S1452")
     static <P> @NotNull List<ParametersSourceExtractor<? super P, ?>> filterSourceExtractors(
             final @NotNull List<ParametersSourceExtractor<?, ?>> extractors,
             final @NotNull Class<P> parametersType) {
@@ -290,7 +290,6 @@ public final class ParametersExtractors {
      * 
      * @return The registered parameter source extractors
      */
-    @SuppressWarnings("java:S1452")
     static @NotNull List<ParametersSourceExtractor<?, ?>> getSourceExtractorsInt() {
         synchronized (ParametersExtractors.class) {
             if (registeredSourceExtractors == null) {
@@ -307,7 +306,6 @@ public final class ParametersExtractors {
      * 
      * @return The internal by type parameters extractor cache
      */
-    @SuppressWarnings("java:S1452")
     static @NotNull Map<Class<?>, ParametersExtractor<?>> getCacheInt() {
         return CACHE;
     }
@@ -319,7 +317,7 @@ public final class ParametersExtractors {
      * @return The SPI declared parameter source extractors
      * @see ServiceLoader
      */
-    @SuppressWarnings({ "rawtypes", "java:S1452" })
+    @SuppressWarnings("rawtypes")
     static @NotNull List<ParametersSourceExtractor<?, ?>> loadSpiExtractors() {
         final List<ParametersSourceExtractor<?, ?>> result = new ArrayList<>();
         final ServiceLoader<ParametersSourceExtractor> loader =
@@ -335,7 +333,7 @@ public final class ParametersExtractors {
     /**
      * Functional interface for generation parameters source extractors filter.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-11
      * @since ParametersExtractors 1.0
      */
@@ -351,7 +349,6 @@ public final class ParametersExtractors {
          * @param parametersType The target parameter type
          * @return The source extractors to use, in priority order
          */
-        @SuppressWarnings("java:S1452")
         <P> @NotNull List<ParametersSourceExtractor<? super P, ?>> findSuitable(
                 @NotNull List<ParametersSourceExtractor<?, ?>> extractors,
                 @NotNull Class<P> parametersType);
@@ -360,7 +357,7 @@ public final class ParametersExtractors {
     /**
      * Functional interface for parameters extractor builder.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-11
      * @since ParametersExtractors 1.0
      */

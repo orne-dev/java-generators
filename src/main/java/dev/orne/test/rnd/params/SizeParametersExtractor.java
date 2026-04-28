@@ -26,7 +26,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Generation parameters extractor that copies parameters
@@ -37,12 +36,12 @@ import org.apiguardian.api.API.Status;
  * Same way target's {@code maxSize} value will
  * be the minimum of it's prior value and sources's value.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see SizeParameters
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class SizeParametersExtractor
 extends AbstractParametersSourceExtractor<SizeParameters, SizeParameters> {
 

@@ -34,7 +34,7 @@ import dev.orne.test.rnd.AbstractGenerator;
 /**
  * Unit tests for {@code AbstractParametersSourceExtractor}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see AbstractParametersSourceExtractor
@@ -89,14 +89,13 @@ class AbstractParametersSourceExtractorTest {
      * {@link AbstractGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final TestSourceExtractor extractor = new TestSourceExtractor();
-        assertFalse(extractor.equals(null));
-        assertTrue(extractor.equals(extractor));
-        assertFalse(extractor.equals(new Object()));
+        assertNotEquals(extractor, (TestSourceExtractor) null);
+        assertEquals(extractor, extractor);
+        assertNotEquals(extractor, new Object());
         final TestSourceExtractor other = new TestSourceExtractor();
-        assertTrue(extractor.equals(other));
+        assertEquals(extractor, other);
         assertEquals(extractor.hashCode(), other.hashCode());
         assertEquals(extractor.toString(), other.toString());
     }

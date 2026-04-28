@@ -29,7 +29,6 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 import dev.orne.test.rnd.Priority;
@@ -37,11 +36,11 @@ import dev.orne.test.rnd.Priority;
 /**
  * Generator of {@code BigInteger} values.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class BigIntegerGenerator
 extends AbstractTypedGenerator<BigInteger> {
@@ -81,9 +80,9 @@ extends AbstractTypedGenerator<BigInteger> {
      * @return A random {@code BigInteger} value
      */
     public static BigInteger randomBigInteger() {
-        final int size = RandomUtils.nextInt(1, MAX_EXPONENT + 1);
-        BigInteger result = new BigInteger(RandomStringUtils.randomNumeric(size));
-        if (RandomUtils.nextBoolean()) {
+        final int size = RandomUtils.insecure().randomInt(1, MAX_EXPONENT + 1);
+        BigInteger result = new BigInteger(RandomStringUtils.insecure().nextNumeric(size));
+        if (RandomUtils.insecure().randomBoolean()) {
             result = result.negate();
         }
         return result;

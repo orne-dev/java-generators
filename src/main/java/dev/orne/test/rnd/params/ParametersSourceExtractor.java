@@ -25,20 +25,19 @@ package dev.orne.test.rnd.params;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.Priority;
 
 /**
  * Interface for generation parameters extractor from a source type.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <P> The target generation parameters type
  * @param <S> The parameters source type
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public interface ParametersSourceExtractor<P, S> {
 
     /** Shared instance of fallback NOP extractor. */
@@ -86,7 +85,7 @@ public interface ParametersSourceExtractor<P, S> {
      * <p>
      * For by missed extractor results mainly.
      * 
-     * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+     * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
      * @version 1.0, 2022-11
      * @since ParametersSourceExtractor 1.0
      */

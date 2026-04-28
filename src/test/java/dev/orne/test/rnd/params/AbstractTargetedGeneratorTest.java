@@ -42,7 +42,7 @@ import dev.orne.test.rnd.Generators;
 /**
  * Unit tests for {@code AbstractTargetedGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see AbstractTargetedGenerator
@@ -305,7 +305,6 @@ class AbstractTargetedGeneratorTest {
      * {@link AbstractTargetedGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final Generator delegated = spy(Generator.class);
         willReturn(true).given(delegated).supports(MyType.class);
@@ -313,17 +312,17 @@ class AbstractTargetedGeneratorTest {
         final Generator otherDelegated = spy(Generator.class);
         willReturn(true).given(otherDelegated).supports(MyType.class);
         final GenericChild<?> generator = new GenericChild<>(MyType.class, delegated);
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (GenericChild<?>) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         GenericChild<?> other = new GenericChild<>(MyType.class, delegated);
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
         other = new GenericChild<>(OtherType.class, delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new GenericChild<>(MyType.class, otherDelegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
     }
 
     private interface MyType {}

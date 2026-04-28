@@ -30,7 +30,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 import dev.orne.test.rnd.Generators;
@@ -39,11 +38,11 @@ import dev.orne.test.rnd.Priority;
 /**
  * Generator of {@code Calendar} values.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class CalendarGenerator
 extends AbstractTypedGenerator<Calendar> {
@@ -73,7 +72,7 @@ extends AbstractTypedGenerator<Calendar> {
         final Calendar result = Calendar.getInstance(
                 Generators.randomValue(TimeZone.class),
                 Generators.randomValue(Locale.class));
-        result.setTimeInMillis(RandomUtils.nextLong());
+        result.setTimeInMillis(RandomUtils.insecure().randomLong());
         return result;
     }
 }

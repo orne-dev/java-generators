@@ -24,12 +24,11 @@ package dev.orne.test.rnd.generators;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.GeneratorNotFoundException;
@@ -40,11 +39,11 @@ import dev.orne.test.rnd.params.TypeDeclaration;
 /**
  * Utility class for generating components for generic types.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public final class CollectionGeneratorUtils {
 
     /** The error message for unsupported component types. */
@@ -71,7 +70,7 @@ public final class CollectionGeneratorUtils {
      */
     public static @NotNull Object randomComponent(
             final @NotNull Type type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         final Object result;
         if (type instanceof Class<?>) {
             result = Generators.randomValue((Class<?>) type);
@@ -104,7 +103,7 @@ public final class CollectionGeneratorUtils {
      */
     public static @NotNull Object nullableRandomComponent(
             final @NotNull Type type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         final Object result;
         if (type instanceof Class<?>) {
             result = Generators.nullableRandomValue((Class<?>) type);

@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -36,17 +37,16 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Default implementation for {@code ParametersExtrator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <P> The target generation parameters type
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since = "0.1")
+@API(status=API.Status.EXPERIMENTAL, since = "0.1")
 public class DefaultParametersExtractor<P>
 implements ParametersExtractor<P> {
 
@@ -61,7 +61,7 @@ implements ParametersExtractor<P> {
     public DefaultParametersExtractor(
             final @NotNull Collection<ParametersSourceExtractor<? super P, ?>> extractors) {
         super();
-        Validate.notNull(extractors);
+        Objects.requireNonNull(extractors);
         Validate.noNullElements(extractors);
         this.extractors = new ArrayList<>(extractors);
     }
@@ -73,7 +73,6 @@ implements ParametersExtractor<P> {
      * 
      * @return The parameters source extractors, in inverse priority order
      */
-    @SuppressWarnings("java:S1452")
     public @NotNull List<ParametersSourceExtractor<? super P, ?>> getExtractors() {
         return Collections.unmodifiableList(this.extractors);
     }
@@ -85,8 +84,8 @@ implements ParametersExtractor<P> {
     public void extractParameters(
             final @NotNull P params,
             final @NotNull Object... sources) {
-        Validate.notNull(params);
-        Validate.notNull(sources);
+        Objects.requireNonNull(params);
+        Objects.requireNonNull(sources);
         Validate.noNullElements(sources);
         extractParameters(params, Arrays.asList(sources));
     }
@@ -98,8 +97,8 @@ implements ParametersExtractor<P> {
     public void extractParameters(
             final @NotNull P params,
             final @NotNull Collection<?> sources) {
-        Validate.notNull(params);
-        Validate.notNull(sources);
+        Objects.requireNonNull(params);
+        Objects.requireNonNull(sources);
         Validate.noNullElements(sources);
         for (final Object source : sources) {
             extract(params, source);

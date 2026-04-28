@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@code AbstractGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2021-03
  * @since 0.1
  * @see AbstractGenerator
@@ -47,7 +47,7 @@ class AbstractGeneratorTest {
     void testSetNullProbability() {
         final AbstractGenerator generator = spy(AbstractGenerator.class);
         assertEquals(AbstractGenerator.DEFAULT_NULL_PROBABILITY, generator.getNullProbability());
-        float newProb = RandomUtils.nextFloat(0, 1);
+        float newProb = RandomUtils.insecure().randomFloat(0, 1);
         generator.setNullProbability(newProb);
         assertEquals(newProb, generator.getNullProbability());
         assertThrows(IllegalArgumentException.class, () -> {
@@ -179,14 +179,13 @@ class AbstractGeneratorTest {
      * {@link AbstractGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final TestGenerator generator = new TestGenerator();
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (TestGenerator) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         final TestGenerator other = new TestGenerator();
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
     }

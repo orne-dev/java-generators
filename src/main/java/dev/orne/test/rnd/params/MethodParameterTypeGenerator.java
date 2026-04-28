@@ -26,6 +26,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -34,7 +35,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generator;
@@ -43,12 +43,12 @@ import dev.orne.test.rnd.Generator;
  * Implementation of {@code TargetedGenerator} that generates random values
  * of the target method parameter type.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class MethodParameterTypeGenerator<T>
 extends AbstractTargetedGenerator<T> {
 
@@ -69,7 +69,7 @@ extends AbstractTargetedGenerator<T> {
             @NotNull Method method,
             int parameterIndex) {
         super(valueType);
-        this.method = Validate.notNull(method);
+        this.method = Objects.requireNonNull(method);
         this.parameterIndex = parameterIndex;
         Validate.validIndex(method.getParameterTypes(), parameterIndex);
     }
@@ -88,7 +88,7 @@ extends AbstractTargetedGenerator<T> {
             int parameterIndex,
             @NotNull Generator generator) {
         super(valueType, generator);
-        this.method = Validate.notNull(method);
+        this.method = Objects.requireNonNull(method);
         this.parameterIndex = parameterIndex;
         Validate.validIndex(method.getParameterTypes(), parameterIndex);
     }
@@ -104,7 +104,7 @@ extends AbstractTargetedGenerator<T> {
     public static <T> dev.orne.test.rnd.params.MethodParameterTypeGenerator<T> targeting(
             final @NotNull Method method,
             final int parameterIndex) {
-        Validate.notNull(method);
+        Objects.requireNonNull(method);
         @SuppressWarnings("unchecked")
         final Class<T> targetType = (Class<T>) method.getParameterTypes()[parameterIndex];
         return new MethodParameterTypeGenerator<>(targetType,  method, parameterIndex);
@@ -125,8 +125,8 @@ extends AbstractTargetedGenerator<T> {
             final @NotNull String methodName,
             final int parameterIndex,
             final @NotNull Class<?>... parameterTypes) {
-        Validate.notNull(cls);
-        Validate.notNull(methodName);
+        Objects.requireNonNull(cls);
+        Objects.requireNonNull(methodName);
         final Method method = MethodUtils.getMatchingMethod(cls, methodName, parameterTypes);
         if (method == null) {
             throw new GenerationException("Target method not found");

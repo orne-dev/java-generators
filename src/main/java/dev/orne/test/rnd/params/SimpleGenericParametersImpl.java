@@ -25,25 +25,24 @@ package dev.orne.test.rnd.params;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * The basic implementation of {@code SimpleGenericParameters}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class SimpleGenericParametersImpl
 implements SimpleGenericParameters,
         SimpleGenericParameters.Builder {
@@ -66,7 +65,7 @@ implements SimpleGenericParameters,
     public SimpleGenericParametersImpl(
             final @NotNull GenerationParameters copy) {
         super();
-        Validate.notNull(copy);
+        Objects.requireNonNull(copy);
         if (copy instanceof SimpleGenericParameters) {
             final SimpleGenericParameters tcopy = (SimpleGenericParameters) copy;
             this.type = tcopy.getType();
@@ -94,7 +93,7 @@ implements SimpleGenericParameters,
     @Override
     public @NotNull SimpleGenericParametersImpl withElementsType(
             final @NotNull Class<?> type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         setType(type);
         return this;
     }
@@ -105,7 +104,7 @@ implements SimpleGenericParameters,
     @Override
     public @NotNull SimpleGenericParametersImpl withElementsType(
             final @NotNull GenericArrayType type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         setType(type);
         return this;
     }
@@ -116,7 +115,7 @@ implements SimpleGenericParameters,
     @Override
     public @NotNull SimpleGenericParametersImpl withElementsType(
             final @NotNull ParameterizedType type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         setType(type);
         return this;
     }

@@ -23,12 +23,12 @@ package dev.orne.test.rnd.params;
  */
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generators;
@@ -37,12 +37,12 @@ import dev.orne.test.rnd.Generators;
  * Generator that calls a static factory method with generated parameters to
  * generate values of the target type.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class FactoryMethodGenerator<T>
 extends ExecutableGenerator<T> {
 
@@ -71,8 +71,8 @@ extends ExecutableGenerator<T> {
     public static <T> FactoryMethodGenerator<T> of(
             final @NotNull Class<T> type,
             final @NotNull Method method) {
-        Validate.notNull(type);
-        Validate.notNull(method);
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(method);
         Validate.isTrue(method.getReturnType().equals(type));
         final TargetedGenerator<?>[] generators = new TargetedGenerator<?>[method.getParameterCount()];
         for (int i = 0; i < generators.length; i++) {

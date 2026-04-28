@@ -31,7 +31,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Annotation for class constructor or static method to be used to create new
@@ -41,14 +40,14 @@ import org.apiguardian.api.API.Status;
  * by other generators and must return (in the static method version) an
  * instance of the class.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
 @Documented
 @Retention(RUNTIME)
 @Target({ METHOD, CONSTRUCTOR })
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 public @interface GeneratorMethod {
     // No extra properties
 }

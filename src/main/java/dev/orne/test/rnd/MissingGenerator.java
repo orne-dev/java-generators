@@ -4,7 +4,7 @@ package dev.orne.test.rnd;
  * #%L
  * Orne Test Generators
  * %%
- * Copyright (C) 2022 Orne Developments
+ * Copyright (C) 2021 - 2025 Orne Developments
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -24,23 +24,27 @@ package dev.orne.test.rnd;
 
 import javax.validation.constraints.NotNull;
 
+import org.apiguardian.api.API;
+
 /**
- * Mock implementation of {@code Generator}.
+ * Cache value for missing generators for a value type.
  * 
  * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
+ * @version 2.0, 2025-11
  * @since 0.1
  */
-public class MockGenerator
-extends AbstractGenerator {
+@API(status=API.Status.INTERNAL, since="0.1")
+final class MissingGenerator
+implements Generator {
 
-    /** Missing mock error message. */
-    private static final String NO_MOCK_ERR = "Mocking of calls expected";
+    /** The error message. */
+    static final String ERR_MSG = "No suitable generator found";
 
     /**
-     * Creates a new instance.
+     * Private constructor.
      */
-    public MockGenerator() {
+    MissingGenerator() {
         super();
     }
 
@@ -50,7 +54,7 @@ extends AbstractGenerator {
     @Override
     public boolean supports(
             final @NotNull Class<?> type) {
-        throw new AssertionError(NO_MOCK_ERR);
+        return false;
     }
 
     /**
@@ -59,7 +63,7 @@ extends AbstractGenerator {
     @Override
     public <T> @NotNull T defaultValue(
             final @NotNull Class<T> type) {
-        throw new AssertionError(NO_MOCK_ERR);
+        throw new GeneratorNotFoundException(ERR_MSG);
     }
 
     /**
@@ -68,7 +72,7 @@ extends AbstractGenerator {
     @Override
     public <T> T nullableDefaultValue(
             final @NotNull Class<T> type) {
-        throw new AssertionError(NO_MOCK_ERR);
+        throw new GeneratorNotFoundException(ERR_MSG);
     }
 
     /**
@@ -77,7 +81,7 @@ extends AbstractGenerator {
     @Override
     public <T> @NotNull T randomValue(
             final @NotNull Class<T> type) {
-        throw new AssertionError(NO_MOCK_ERR);
+        throw new GeneratorNotFoundException(ERR_MSG);
     }
 
     /**
@@ -86,6 +90,6 @@ extends AbstractGenerator {
     @Override
     public <T> T nullableRandomValue(
             final @NotNull Class<T> type) {
-        throw new AssertionError(NO_MOCK_ERR);
+        throw new GeneratorNotFoundException(ERR_MSG);
     }
 }

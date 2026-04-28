@@ -41,7 +41,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 /**
  * Unit tests for {@code AbstractTypedParameterizableGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see AbstractTypedParameterizableGenerator
@@ -443,14 +443,13 @@ class AbstractTypedParameterizableGeneratorTest {
      * {@link AbstractTypedParameterizableGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final DirectChild generator = new DirectChild();
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (DirectChild) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         final DirectChild other = new DirectChild();
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
     }

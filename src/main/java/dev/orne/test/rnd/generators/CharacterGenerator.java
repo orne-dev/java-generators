@@ -26,18 +26,17 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.Priority;
 
 /**
  * Generator of {@code char} and {@code Character} values.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class CharacterGenerator
 extends AbstractPrimitiveGenerator<Character> {
@@ -75,7 +74,7 @@ extends AbstractPrimitiveGenerator<Character> {
      * @return A random {@code byte} value
      */
     public static char randomChar() {
-        return (char) RandomUtils.nextInt(Character.MIN_VALUE,
+        return (char) RandomUtils.insecure().randomInt(Character.MIN_VALUE,
                 Character.MAX_VALUE + 1);
     }
 }

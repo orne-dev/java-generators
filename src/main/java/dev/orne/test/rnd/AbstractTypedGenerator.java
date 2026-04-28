@@ -22,6 +22,8 @@ package dev.orne.test.rnd;
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
@@ -29,17 +31,16 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Abstract implementation of {@code TypedGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2021-03
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 public abstract class AbstractTypedGenerator<T>
 extends AbstractGenerator
 implements TypedGenerator<T> {
@@ -55,7 +56,7 @@ implements TypedGenerator<T> {
     protected AbstractTypedGenerator(
             final @NotNull Class<T> valueType) {
         super();
-        this.valueType = Validate.notNull(valueType);
+        this.valueType = Objects.requireNonNull(valueType);
     }
 
     /**
@@ -101,7 +102,7 @@ implements TypedGenerator<T> {
     @Override
     public boolean supports(
             final @NotNull Class<?> type) {
-        return Validate.notNull(type).equals(this.valueType);
+        return Objects.requireNonNull(type).equals(this.valueType);
     }
 
     /**

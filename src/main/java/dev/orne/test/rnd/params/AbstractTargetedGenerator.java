@@ -27,6 +27,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -34,7 +35,6 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.Generator;
 import dev.orne.test.rnd.Generators;
@@ -42,12 +42,12 @@ import dev.orne.test.rnd.Generators;
 /**
  * Abstract implementation of {@code TargetedGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public abstract class AbstractTargetedGenerator<T>
 implements TargetedGenerator<T> {
 
@@ -76,8 +76,8 @@ implements TargetedGenerator<T> {
             final @NotNull Class<T> valueType,
             final @NotNull Generator generator) {
         super();
-        this.valueType = Validate.notNull(valueType);
-        this.generator = Validate.notNull(generator);
+        this.valueType = Objects.requireNonNull(valueType);
+        this.generator = Objects.requireNonNull(generator);
         Validate.isTrue(generator.supports(valueType));
     }
 

@@ -35,13 +35,16 @@ import dev.orne.test.rnd.Priority;
 /**
  * Unit tests for {@code DoubleGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
  * @since 0.1
  * @see DoubleGenerator
  */
 @Tag("ut")
 class DoubleGeneratorTest {
+
+    /** The random generator used for testing. */
+    private static final RandomUtils RND = RandomUtils.insecure();
 
     /**
      * Integration test for automatic registration in {@code Generators}.
@@ -114,7 +117,7 @@ class DoubleGeneratorTest {
      */
     @Test
     void testIsNaN() {
-        assertFalse(DoubleGenerator.isNaN(Double.doubleToLongBits(RandomUtils.nextDouble())));
+        assertFalse(DoubleGenerator.isNaN(Double.doubleToLongBits(RND.randomDouble())));
         assertFalse(DoubleGenerator.isNaN(Double.doubleToLongBits(Double.MIN_VALUE)));
         assertFalse(DoubleGenerator.isNaN(Double.doubleToLongBits(Double.MIN_NORMAL)));
         assertFalse(DoubleGenerator.isNaN(Double.doubleToLongBits(Double.MAX_VALUE)));
@@ -123,11 +126,11 @@ class DoubleGeneratorTest {
         assertTrue(DoubleGenerator.isNaN(Double.doubleToLongBits(Double.NaN)));
         assertTrue(DoubleGenerator.isNaN(
                 Double.doubleToLongBits(Double.POSITIVE_INFINITY) |
-                Double.doubleToLongBits(RandomUtils.nextDouble())
+                Double.doubleToLongBits(RND.randomDouble())
         ));
         assertTrue(DoubleGenerator.isNaN(
                 Double.doubleToLongBits(Double.NEGATIVE_INFINITY) |
-                Double.doubleToLongBits(RandomUtils.nextDouble())
+                Double.doubleToLongBits(RND.randomDouble())
         ));
     }
 
@@ -136,7 +139,7 @@ class DoubleGeneratorTest {
      */
     @Test
     void testIsInfinity() {
-        assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(RandomUtils.nextFloat())));
+        assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(RND.randomFloat())));
         assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(Double.MIN_VALUE)));
         assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(Double.MIN_NORMAL)));
         assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(Double.MAX_VALUE)));
@@ -145,11 +148,11 @@ class DoubleGeneratorTest {
         assertFalse(DoubleGenerator.isInfinity(Double.doubleToLongBits(Double.NaN)));
         assertFalse(DoubleGenerator.isInfinity(
                 Double.doubleToLongBits(Double.POSITIVE_INFINITY) |
-                Double.doubleToLongBits(RandomUtils.nextDouble())
+                Double.doubleToLongBits(RND.randomDouble())
         ));
         assertFalse(DoubleGenerator.isInfinity(
                 Double.doubleToLongBits(Double.NEGATIVE_INFINITY) |
-                Double.doubleToLongBits(RandomUtils.nextDouble())
+                Double.doubleToLongBits(RND.randomDouble())
         ));
     }
 }

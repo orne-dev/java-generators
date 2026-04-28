@@ -22,14 +22,14 @@ package dev.orne.test.rnd.generators;
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Priority;
@@ -39,11 +39,11 @@ import dev.orne.test.rnd.params.StringGenerationParameters;
 /**
  * Generator of {@code String} and {@code CharSequence} values.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class StringGenerator
 extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters> {
@@ -68,7 +68,7 @@ extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters
     @Override
     public boolean supports(
             final @NotNull Class<?> type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         return String.class.equals(type) ||
                 CharSequence.class.equals(type);
     }
@@ -114,7 +114,7 @@ extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters
     protected @NotNull String randomString(
             final @NotNull StringGenerationParameters parameters) {
         final int size = randomSize(parameters);
-        return RandomStringUtils.random(size);
+        return RandomStringUtils.insecure().next(size);
     }
 
     /**
@@ -125,7 +125,7 @@ extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters
      */
     protected int randomSize(
             final @NotNull StringGenerationParameters parameters) {
-        return RandomUtils.nextInt(
+        return RandomUtils.insecure().randomInt(
                 NumberUtils.max(MIN_SIZE, parameters.getMinSize()),
                 NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);
     }

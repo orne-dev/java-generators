@@ -27,17 +27,16 @@ import java.util.Collection;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Interface for generation parameters extractor.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <P> The target generation parameters type
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since = "0.1")
+@API(status=API.Status.EXPERIMENTAL, since = "0.1")
 public interface ParametersExtractor<P> {
 
     /**

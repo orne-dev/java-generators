@@ -28,6 +28,7 @@ import java.lang.reflect.Parameter;
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apiguardian.api.API;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -46,11 +47,12 @@ import dev.orne.test.rnd.params.ParameterTypeGenerator;
  * Supports injection in static fields (before all tests), in instance fields
  * (before each test) and in constructor and test or callback method arguments.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2023-11
- * @since 0.1
+ * @since 0.2
  * @see Random
  */
+@API(status=API.Status.EXPERIMENTAL, since="0.2")
 public class RandomValueExtension
 implements BeforeAllCallback, BeforeEachCallback, ParameterResolver {
 

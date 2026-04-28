@@ -30,7 +30,6 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 import dev.orne.test.rnd.GenerationException;
@@ -39,20 +38,23 @@ import dev.orne.test.rnd.Priority;
 /**
  * Generator of {@code URI} values.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc2732">RFC 2732</a>
  * @see <a href="https://datatracker.ietf.org/doc/html/rfc2373">RFC 2373</a>
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class URIGenerator
 extends AbstractTypedGenerator<URI> {
 
     /** The default value. */
     public static final URI DEFAULT_VALUE = URI.create("/");
-    
+
+    private static final RandomUtils RND = RandomUtils.insecure();
+    private static final RandomStringUtils STR_RND = RandomStringUtils.insecure();
+
     private static final String LOWALPHA = "abcdefghijklmnopqrstuvwxyz";
     private static final String UPALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final String ALPHA = LOWALPHA + UPALPHA;
@@ -155,12 +157,12 @@ extends AbstractTypedGenerator<URI> {
      * @return The random scheme
      */
     public static @NotNull String randomScheme() {
-        final int length = RandomUtils.nextInt(
+        final int length = RandomUtils.insecure().randomInt(
                 SCHEME_MIN_LENGTH,
                 SCHEME_MAX_LENGTH + 1);
         final StringBuilder buffer = new StringBuilder();
-        buffer.append(RandomStringUtils.randomAlphabetic(1));
-        buffer.append(RandomStringUtils.random(length - 1, SCHEME_REST_C));
+        buffer.append(STR_RND.nextAlphabetic(1));
+        buffer.append(STR_RND.next(length - 1, SCHEME_REST_C));
         return buffer.toString();
     }
 
@@ -170,15 +172,15 @@ extends AbstractTypedGenerator<URI> {
      * @return The random user info
      */
     public static @NotNull String randomUserInfo() {
-        final int length = RandomUtils.nextInt(
+        final int length = RND.randomInt(
                 USERINFO_MIN_LENGTH,
                 USERINFO_MAX_LENGTH + 1);
         final StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            if (RandomUtils.nextFloat(0, 1) < ESCAPED_CHAR_P) {
-                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));
+            if (RND.randomFloat(0, 1) < ESCAPED_CHAR_P) {
+                buffer.append((char) RND.randomInt('\u0080', '\uFFFF'));
             } else {
-                buffer.append(RandomStringUtils.random(1, UNESCAPED_USERINFO_C));
+                buffer.append(STR_RND.next(1, UNESCAPED_USERINFO_C));
             }
         }
         return buffer.toString();
@@ -190,7 +192,7 @@ extends AbstractTypedGenerator<URI> {
      * @return The random user info, or {@code null}
      */
     public static String randomOptionalUserInfo() {
-        if (RandomUtils.nextFloat(0, 1) < USERINFO_P) {
+        if (RND.randomFloat(0, 1) < USERINFO_P) {
             return randomUserInfo();
         } else {
             return null;
@@ -204,15 +206,15 @@ extends AbstractTypedGenerator<URI> {
      */
     protected static @NotNull String randomDomainLabel() {
         final StringBuilder buffer = new StringBuilder();
-        final int length = RandomUtils.nextInt(
+        final int length = RND.randomInt(
                 DOMAIN_LABEL_MIN_LENGTH,
                 DOMAIN_LABEL_MAX_LENGTH + 1);
-        buffer.append(RandomStringUtils.randomAlphanumeric(1));
+        buffer.append(STR_RND.nextAlphanumeric(1));
         if (length > 1) {
             if (length > 2) {
-                buffer.append(RandomStringUtils.random(length - 2, DOMAIN_LABEL_MIDDLE_C));
+                buffer.append(STR_RND.next(length - 2, DOMAIN_LABEL_MIDDLE_C));
             }
-            buffer.append(RandomStringUtils.randomAlphanumeric(1));
+            buffer.append(STR_RND.nextAlphanumeric(1));
         }
         return buffer.toString();
     }
@@ -224,15 +226,15 @@ extends AbstractTypedGenerator<URI> {
      */
     protected static @NotNull String randomTopLabel() {
         final StringBuilder buffer = new StringBuilder();
-        final int length = RandomUtils.nextInt(
+        final int length = RND.randomInt(
                 TOP_LABEL_MIN_LENGTH,
                 TOP_LABEL_MAX_LENGTH + 1);
-        buffer.append(RandomStringUtils.randomAlphabetic(1));
+        buffer.append(STR_RND.nextAlphabetic(1));
         if (length > 1) {
             if (length > 2) {
-                buffer.append(RandomStringUtils.random(length - 2, TOP_LABEL_MIDDLE_C));
+                buffer.append(STR_RND.next(length - 2, TOP_LABEL_MIDDLE_C));
             }
-            buffer.append(RandomStringUtils.randomAlphanumeric(1));
+            buffer.append(STR_RND.nextAlphanumeric(1));
         }
         return buffer.toString();
     }
@@ -244,14 +246,14 @@ extends AbstractTypedGenerator<URI> {
      */
     public static @NotNull String randomHostName() {
         final StringBuilder buffer = new StringBuilder();
-        final int domainLevels = RandomUtils.nextInt(
+        final int domainLevels = RND.randomInt(
                 HOSTNAME_MIN_DOMAIN_LEVELS,
                 HOSTNAME_MAX_DOMAIN_LEVELS + 1);
         for (int i = 0; i < domainLevels; i++) {
             buffer.append(randomDomainLabel()).append(DOMAIN_LABEL_SEPARATOR);
         }
         buffer.append(randomTopLabel());
-        if (RandomUtils.nextFloat(0, 1) < TOP_LABEL_SUFFIX_P) {
+        if (RND.randomFloat(0, 1) < TOP_LABEL_SUFFIX_P) {
             buffer.append(TOP_LABEL_SUFFIX);
         }
         return buffer.toString();
@@ -265,10 +267,10 @@ extends AbstractTypedGenerator<URI> {
     public static @NotNull String randomIp4Address() {
         return String.format(
                 "%d.%d.%d.%d",
-                RandomUtils.nextInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1),
-                RandomUtils.nextInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1),
-                RandomUtils.nextInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1),
-                RandomUtils.nextInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1));
+                RND.randomInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1),
+                RND.randomInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1),
+                RND.randomInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1),
+                RND.randomInt(IP4_ADDRESS_MIN_NUM, IP4_ADDRESS_MAX_NUM + 1));
     }
 
     /**
@@ -277,10 +279,10 @@ extends AbstractTypedGenerator<URI> {
      * @return The random IP6 address piece
      */
     protected static @NotNull String randomIp6Piece() {
-        final int length = RandomUtils.nextInt(
+        final int length = RND.randomInt(
                 IP6_PIECE_MIN_LENGTH,
                 IP6_PIECE_MAX_LENGTH + 1);
-        return RandomStringUtils.random(length, HEXDIG);
+        return STR_RND.next(length, HEXDIG);
     }
 
     /**
@@ -308,14 +310,14 @@ extends AbstractTypedGenerator<URI> {
      */
     public static @NotNull String randomAbbreviatedIp6Address() {
         final StringBuilder buffer = new StringBuilder();
-        final int pieces = RandomUtils.nextInt(
+        final int pieces = RND.randomInt(
                 IP6_ADDRESS_MIN_LENGTH,
                 IP6_ADDRESS_MAX_LENGTH);
         if (pieces == 0) {
             buffer.append(IP6_ADDRESS_SEPARATOR)
                     .append(IP6_ADDRESS_SEPARATOR);
         } else {
-            final int prePieces = RandomUtils.nextInt(0, pieces + 1);
+            final int prePieces = RND.randomInt(0, pieces + 1);
             if (prePieces > 0) {
                 buffer.append(randomIp6Piece());
                 for (int i = 1 ; i < prePieces; i++) {
@@ -341,7 +343,7 @@ extends AbstractTypedGenerator<URI> {
      * @return The IP6 address
      */
     public static @NotNull String randomIp6Address() {
-        if (RandomUtils.nextFloat(0, 1) < IP6_ABRV_P) {
+        if (RND.randomFloat(0, 1) < IP6_ABRV_P) {
             return randomAbbreviatedIp6Address();
         } else {
             return randomFullIp6Address();
@@ -354,9 +356,9 @@ extends AbstractTypedGenerator<URI> {
      * @return The host part
      */
     public static @NotNull String randomHost() {
-        if (RandomUtils.nextFloat(0, 1) < HOSTNAME_P) {
+        if (RND.randomFloat(0, 1) < HOSTNAME_P) {
             return randomHostName();
-        } else if (RandomUtils.nextFloat(0, 1) < IP4_P) {
+        } else if (RND.randomFloat(0, 1) < IP4_P) {
             return randomIp4Address();
         } else {
             return IP6_ADDRESS_PREFIX + randomIp6Address() + IP6_ADDRESS_SUFFIX;
@@ -369,7 +371,7 @@ extends AbstractTypedGenerator<URI> {
      * @return The port
      */
     public static int randomPort() {
-        return RandomUtils.nextInt(PORT_MIN, PORT_MAX + 1);
+        return RND.randomInt(PORT_MIN, PORT_MAX + 1);
     }
 
     /**
@@ -378,7 +380,7 @@ extends AbstractTypedGenerator<URI> {
      * @return The port, or {@code -1}
      */
     public static int randomOptionalPort() {
-        if (RandomUtils.nextFloat(0, 1) < PORT_P) {
+        if (RND.randomFloat(0, 1) < PORT_P) {
             return randomPort();
         } else {
             return -1;
@@ -412,14 +414,14 @@ extends AbstractTypedGenerator<URI> {
      */
     public static @NotNull String randomRegistryBasedNamedAuthority() {
         final StringBuilder buffer = new StringBuilder();
-        final int length = RandomUtils.nextInt(
+        final int length = RND.randomInt(
                 REG_NAME_MIN_LENGTH,
                 REG_NAME_MAX_LENGTH + 1);
         for (int i = 0; i < length; i++) {
-            if (RandomUtils.nextFloat(0, 1) < ESCAPED_CHAR_P) {
-                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));
+            if (RND.randomFloat(0, 1) < ESCAPED_CHAR_P) {
+                buffer.append((char) RND.randomInt('\u0080', '\uFFFF'));
             } else {
-                buffer.append(RandomStringUtils.random(1, UNESCAPED_REG_NAME_C));
+                buffer.append(STR_RND.next(1, UNESCAPED_REG_NAME_C));
             }
         }
         return buffer.toString();
@@ -431,7 +433,7 @@ extends AbstractTypedGenerator<URI> {
      * @return The authority part
      */
     public static @NotNull String randomAuthority() {
-        if (RandomUtils.nextFloat(0, 1) < SERVER_P) {
+        if (RND.randomFloat(0, 1) < SERVER_P) {
             return randomServerAuthority();
         } else {
             return randomRegistryBasedNamedAuthority();
@@ -445,27 +447,27 @@ extends AbstractTypedGenerator<URI> {
      */
     protected static @NotNull String randomPathSegment() {
         final StringBuilder buffer = new StringBuilder();
-        final int length = RandomUtils.nextInt(
+        final int length = RND.randomInt(
                 SEGMENT_PATH_MIN_LENGTH,
                 SEGMENT_PATH_MAX_LENGTH + 1);
-        buffer.append(RandomStringUtils.randomAlphabetic(1));
+        buffer.append(STR_RND.nextAlphabetic(1));
         for (int i = 1; i < length; i++) {
-            if (RandomUtils.nextFloat(0, 1) < ESCAPED_CHAR_P) {
-                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));
+            if (RND.randomFloat(0, 1) < ESCAPED_CHAR_P) {
+                buffer.append((char) RND.randomInt('\u0080', '\uFFFF'));
             } else {
-                buffer.append(RandomStringUtils.random(1, UNESCAPED_PATH_C));
+                buffer.append(STR_RND.next(1, UNESCAPED_PATH_C));
             }
         }
-        if (RandomUtils.nextFloat(0, 1) < SEGMENT_PARAM_P) {
+        if (RND.randomFloat(0, 1) < SEGMENT_PARAM_P) {
             buffer.append(SEGMENT_PARAM_SEPARATOR);
-            final int paramLength = RandomUtils.nextInt(
+            final int paramLength = RND.randomInt(
                     PARAM_MIN_LENGTH,
                     PARAM_MAX_LENGTH + 1);
             for (int i = 0; i < paramLength; i++) {
-                if (RandomUtils.nextFloat(0, 1) < ESCAPED_CHAR_P) {
-                    buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));
+                if (RND.randomFloat(0, 1) < ESCAPED_CHAR_P) {
+                    buffer.append((char) RND.randomInt('\u0080', '\uFFFF'));
                 } else {
-                    buffer.append(RandomStringUtils.random(1, UNESCAPED_PATH_C));
+                    buffer.append(STR_RND.next(1, UNESCAPED_PATH_C));
                 }
             }
         }
@@ -480,7 +482,7 @@ extends AbstractTypedGenerator<URI> {
     public static @NotNull String randomAbsolutePath() {
         final StringBuilder buffer = new StringBuilder();
         buffer.append(ABSOLUTE_PATH_PREFIX);
-        final int length = RandomUtils.nextInt(
+        final int length = RND.randomInt(
                 PATH_SEGMENTS_MIN_SEGMENTS,
                 PATH_SEGMENTS_MAX_SEGMENTS + 1);
         if (length > 0) {
@@ -499,17 +501,17 @@ extends AbstractTypedGenerator<URI> {
      */
     public static @NotNull String randomRelativePath() {
         final StringBuilder buffer = new StringBuilder();
-        final int length = RandomUtils.nextInt(
+        final int length = RND.randomInt(
                 RELATIVE_SEGMENT_MIN_LENGTH,
                 RELATIVE_SEGMENT_MAX_LENGTH + 1);
         for (int i = 0; i < length; i++) {
-            if (RandomUtils.nextFloat(0, 1) < ESCAPED_CHAR_P) {
-                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));
+            if (RND.randomFloat(0, 1) < ESCAPED_CHAR_P) {
+                buffer.append((char) RND.randomInt('\u0080', '\uFFFF'));
             } else {
-                buffer.append(RandomStringUtils.random(1, UNESCAPED_RELATIVE_SEGMENT_C));
+                buffer.append(STR_RND.next(1, UNESCAPED_RELATIVE_SEGMENT_C));
             }
         }
-        if (RandomUtils.nextFloat(0, 1) < RELATIVE_PATH_ABSOLUTE_PATH_P) {
+        if (RND.randomFloat(0, 1) < RELATIVE_PATH_ABSOLUTE_PATH_P) {
             buffer.append(randomAbsolutePath());
         }
         return buffer.toString();
@@ -522,7 +524,7 @@ extends AbstractTypedGenerator<URI> {
      * @return The path part
      */
     public static @NotNull String randomPath() {
-        if (RandomUtils.nextFloat(0, 1) < PATH_ABSOLUTE_P) {
+        if (RND.randomFloat(0, 1) < PATH_ABSOLUTE_P) {
             return randomAbsolutePath();
         } else {
             return randomRelativePath();
@@ -536,14 +538,14 @@ extends AbstractTypedGenerator<URI> {
      */
     public static @NotNull String randomQuery() {
         final StringBuilder buffer = new StringBuilder();
-        final int length = RandomUtils.nextInt(
+        final int length = RND.randomInt(
                 QUERY_MIN_LENGTH,
                 QUERY_MAX_LENGTH + 1);
         for (int i = 0; i < length; i++) {
-            if (RandomUtils.nextFloat(0, 1) < ESCAPED_CHAR_P) {
-                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));
+            if (RND.randomFloat(0, 1) < ESCAPED_CHAR_P) {
+                buffer.append((char) RND.randomInt('\u0080', '\uFFFF'));
             } else {
-                buffer.append(RandomStringUtils.random(1, UNESCAPED_URIC));
+                buffer.append(STR_RND.next(1, UNESCAPED_URIC));
             }
         }
         return buffer.toString();
@@ -555,7 +557,7 @@ extends AbstractTypedGenerator<URI> {
      * @return The query part, or {@code null}
      */
     public static String randomOptionalQuery() {
-        if (RandomUtils.nextFloat(0, 1) < QUERY_P) {
+        if (RND.randomFloat(0, 1) < QUERY_P) {
             return randomQuery();
         } else {
             return null;
@@ -569,14 +571,14 @@ extends AbstractTypedGenerator<URI> {
      */
     public static @NotNull String randomFragment() {
         final StringBuilder buffer = new StringBuilder();
-        final int length = RandomUtils.nextInt(
+        final int length = RND.randomInt(
                 FRAGMENT_MIN_LENGTH,
                 FRAGMENT_MAX_LENGTH + 1);
         for (int i = 0; i < length; i++) {
-            if (RandomUtils.nextFloat(0, 1) < ESCAPED_CHAR_P) {
-                buffer.append((char) RandomUtils.nextInt('\u0080', '\uFFFF'));
+            if (RND.randomFloat(0, 1) < ESCAPED_CHAR_P) {
+                buffer.append((char) RND.randomInt('\u0080', '\uFFFF'));
             } else {
-                buffer.append(RandomStringUtils.random(1, UNESCAPED_URIC));
+                buffer.append(STR_RND.next(1, UNESCAPED_URIC));
             }
         }
         return buffer.toString();
@@ -588,7 +590,7 @@ extends AbstractTypedGenerator<URI> {
      * @return The fragment part, or {@code null}
      */
     public static String randomOptionalFragment() {
-        if (RandomUtils.nextFloat(0, 1) < FRAGMENT_P) {
+        if (RND.randomFloat(0, 1) < FRAGMENT_P) {
             return randomFragment();
         } else {
             return null;
@@ -602,7 +604,7 @@ extends AbstractTypedGenerator<URI> {
      */
     public static @NotNull URI randomRelativeURI() {
         final String path;
-        if (RandomUtils.nextFloat(0, 1) < PATH_ABSOLUTE_P) {
+        if (RND.randomFloat(0, 1) < PATH_ABSOLUTE_P) {
             path = randomAbsolutePath();
         } else {
             path = randomRelativePath();
@@ -643,7 +645,7 @@ extends AbstractTypedGenerator<URI> {
      * @return The URI
      */
     public static @NotNull URI randomURI() {
-        if (RandomUtils.nextFloat(0, 1) < PATH_ABSOLUTE_P) {
+        if (RND.randomFloat(0, 1) < PATH_ABSOLUTE_P) {
             return randomAbsoluteURI();
         } else {
             return randomRelativeURI();

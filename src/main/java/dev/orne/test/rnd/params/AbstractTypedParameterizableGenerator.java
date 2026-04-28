@@ -24,26 +24,25 @@ package dev.orne.test.rnd.params;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Abstract implementation of {@code TypedParameterizableGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <T> The type of generated values
  * @param <P> The parameters type
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public abstract class AbstractTypedParameterizableGenerator<
         T,
         P extends GenerationParameters>
@@ -63,7 +62,7 @@ implements TypedParameterizableGenerator<T> {
             final @NotNull Class<T> valueType,
             final @NotNull Class<P> paramsType) {
         super(paramsType);
-        this.valueType = Validate.notNull(valueType);
+        this.valueType = Objects.requireNonNull(valueType);
     }
 
     /**
@@ -99,7 +98,7 @@ implements TypedParameterizableGenerator<T> {
     @Override
     public boolean supports(
             final @NotNull Class<?> type) {
-        return Validate.notNull(type).equals(this.valueType);
+        return Objects.requireNonNull(type).equals(this.valueType);
     }
 
     /**

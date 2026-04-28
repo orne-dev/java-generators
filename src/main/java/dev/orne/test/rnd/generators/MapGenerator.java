@@ -31,7 +31,6 @@ import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Priority;
@@ -42,11 +41,11 @@ import dev.orne.test.rnd.params.MapGenerationParameters;
  * Generator of {@code Map} values.
  * Requires supported component type generation in {@code Generators}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.GENERIC_GENERATORS)
 public class MapGenerator
 extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters> {
@@ -135,8 +134,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
      * @return A random map for the specified keys and values types.
      * @throws GenerationException If an error occurs generating the value
      */
-    @SuppressWarnings("java:S1452")
-    protected @NotNull Map<?, ?> randomMap(
+    protected @NotNull Map<Object, Object> randomMap(
             final @NotNull MapGenerationParameters parameters) {
         final int size = randomSize(parameters);
         final Map<Object, Object> result = new HashMap<>(size);
@@ -158,8 +156,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
      * @return A random map of the specified keys and values types.
      * @throws GenerationException If an error occurs generating the value
      */
-    @SuppressWarnings("java:S1452")
-    protected Map<?, ?> randomNullablesMap(
+    protected Map<Object, Object> randomNullablesMap(
             final @NotNull MapGenerationParameters parameters) {
         final int size = randomSize(parameters);
         final Map<Object, Object> result = new HashMap<>(size);
@@ -181,7 +178,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
      */
     protected int randomSize(
             final @NotNull MapGenerationParameters parameters) {
-        return RandomUtils.nextInt(
+        return RandomUtils.insecure().randomInt(
                 NumberUtils.max(MIN_SIZE, parameters.getMinSize()),
                 NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);
     }

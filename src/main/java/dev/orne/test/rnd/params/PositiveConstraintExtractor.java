@@ -27,7 +27,6 @@ import javax.validation.constraints.Positive;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Generation parameters extractor that detects {@code Positive}
@@ -36,13 +35,13 @@ import org.apiguardian.api.API.Status;
  * As {@code long} is a primitive type target's minimum value will
  * be the maximum of it's prior value and sources's value.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see Positive
  * @see NumberParameters
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class PositiveConstraintExtractor
 extends AbstractParametersSourceExtractor<NumberParameters, Positive> {
 

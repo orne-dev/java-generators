@@ -26,6 +26,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -34,7 +35,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generator;
@@ -43,12 +43,12 @@ import dev.orne.test.rnd.Generator;
  * Implementation of {@code TargetedGenerator} that generates random values
  * of the type a target property.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class PropertyTypeGenerator<T>
 extends AbstractTargetedGenerator<T> {
 
@@ -69,8 +69,8 @@ extends AbstractTargetedGenerator<T> {
             final @NotNull Class<?> validationClass,
             final @NotNull Field property) {
         super(valueType);
-        this.validationClass = Validate.notNull(validationClass);
-        this.property = Validate.notNull(property);
+        this.validationClass = Objects.requireNonNull(validationClass);
+        this.property = Objects.requireNonNull(property);
     }
 
     /**
@@ -87,8 +87,8 @@ extends AbstractTargetedGenerator<T> {
             final @NotNull Field property,
             final @NotNull Generator generator) {
         super(valueType, generator);
-        this.validationClass = Validate.notNull(validationClass);
-        this.property = Validate.notNull(property);
+        this.validationClass = Objects.requireNonNull(validationClass);
+        this.property = Objects.requireNonNull(property);
     }
 
     /**
@@ -102,7 +102,7 @@ extends AbstractTargetedGenerator<T> {
      */
     public static <T> dev.orne.test.rnd.params.PropertyTypeGenerator<T> targeting(
             final @NotNull Field field) {
-        Validate.notNull(field);
+        Objects.requireNonNull(field);
         return targeting(field.getDeclaringClass(), field);
     }
 
@@ -118,8 +118,8 @@ extends AbstractTargetedGenerator<T> {
     public static <T> dev.orne.test.rnd.params.PropertyTypeGenerator<T> targeting(
             final @NotNull Class<?> cls,
             final @NotNull Field field) {
-        Validate.notNull(cls);
-        Validate.notNull(field);
+        Objects.requireNonNull(cls);
+        Objects.requireNonNull(field);
         Validate.isTrue(field.getDeclaringClass().isAssignableFrom(cls));
         @SuppressWarnings("unchecked")
         final Class<T> targetType = (Class<T>) field.getType();
@@ -143,8 +143,8 @@ extends AbstractTargetedGenerator<T> {
     public static <T> dev.orne.test.rnd.params.PropertyTypeGenerator<T> targeting(
             final @NotNull Class<?> cls,
             final @NotNull String property) {
-        Validate.notNull(cls);
-        Validate.notNull(property);
+        Objects.requireNonNull(cls);
+        Objects.requireNonNull(property);
         final Field field = FieldUtils.getField(cls, property, true);
         if (field == null) {
             throw new GenerationException("Target property not found");

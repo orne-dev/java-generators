@@ -25,32 +25,30 @@ package dev.orne.test.rnd.generators;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Objects;
 import java.util.WeakHashMap;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dev.orne.test.rnd.Generator;
 import dev.orne.test.rnd.GeneratorMethod;
-import dev.orne.test.rnd.Generators;
 import dev.orne.test.rnd.Priority;
 import dev.orne.test.rnd.UnsupportedValueTypeException;
 import dev.orne.test.rnd.params.ExecutableGenerator;
 
 /**
- * Generator of beans annotated with {@code Currency}.
+ * Generator of beans annotated with {@code GeneratorMethod}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 @Priority(Priority.ANNOTATION_GENERATORS)
 public class AnnotatedMethodGenerator
 implements Generator {
@@ -167,12 +165,12 @@ implements Generator {
      */
     protected Generator getAnnotatedGenerator(
             final @NotNull Class<?> targetType) {
-        Validate.notNull(targetType);
+        Objects.requireNonNull(targetType);
         Generator generator;
         synchronized (this.cache) {
             generator = this.cache.computeIfAbsent(targetType, this::discoverAnnotatedGenerator);
         }
-        if (generator == Generators.MissingGenerator.INSTANCE) {
+        if (generator == Generator.MISSING) {
             generator = null;
         }
         return generator;
@@ -218,7 +216,7 @@ implements Generator {
             LOG.warn(HELP_MISCONFIGURED, targetType);
         }
         if (generator == null) {
-            generator = Generators.MissingGenerator.INSTANCE;
+            generator = Generator.MISSING;
         }
         return generator;
     }
@@ -234,7 +232,7 @@ implements Generator {
      */
     protected <T> ExecutableGenerator<T> findDeclaredConstructor(
             final @NotNull Class<T> targetType) {
-        Validate.notNull(targetType);
+        Objects.requireNonNull(targetType);
         ExecutableGenerator<T> generator = null;
         for (final Constructor<?> ctr : targetType.getDeclaredConstructors()) {
             if (ctr.isAnnotationPresent(GeneratorMethod.class)) {
@@ -264,7 +262,7 @@ implements Generator {
      */
     protected <T> ExecutableGenerator<T> findDeclaredMethod(
             final @NotNull Class<T> targetType) {
-        Validate.notNull(targetType);
+        Objects.requireNonNull(targetType);
         ExecutableGenerator<T> generator = null;
         for (final Method method : targetType.getDeclaredMethods()) {
             if (method.isAnnotationPresent(GeneratorMethod.class)) {

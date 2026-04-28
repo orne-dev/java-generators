@@ -32,7 +32,6 @@ import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Priority;
@@ -43,11 +42,11 @@ import dev.orne.test.rnd.params.CollectionGenerationParameters;
  * Generator of {@code List} values.
  * Requires supported component type generation in {@code Generators}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.GENERIC_GENERATORS)
 public class ListGenerator
 extends AbstractTypedParameterizableGenerator<List<?>, CollectionGenerationParameters> {
@@ -143,8 +142,7 @@ extends AbstractTypedParameterizableGenerator<List<?>, CollectionGenerationParam
      * @return A random list for the specified component type.
      * @throws GenerationException If an error occurs generating the value
      */
-    @SuppressWarnings("java:S1452")
-    protected @NotNull List<?> randomList(
+    protected @NotNull List<Object> randomList(
             final @NotNull CollectionGenerationParameters parameters) {
         final int size = randomSize(parameters);
         final List<Object> result = new ArrayList<>(size);
@@ -163,8 +161,7 @@ extends AbstractTypedParameterizableGenerator<List<?>, CollectionGenerationParam
      * @return A random list of the specified component type.
      * @throws GenerationException If an error occurs generating the value
      */
-    @SuppressWarnings("java:S1452")
-    protected List<?> randomNullablesList(
+    protected List<Object> randomNullablesList(
             final @NotNull CollectionGenerationParameters parameters) {
         final int size = randomSize(parameters);
         final List<Object> result = new ArrayList<>(size);
@@ -183,7 +180,7 @@ extends AbstractTypedParameterizableGenerator<List<?>, CollectionGenerationParam
      */
     protected int randomSize(
             final @NotNull CollectionGenerationParameters parameters) {
-        return RandomUtils.nextInt(
+        return RandomUtils.insecure().randomInt(
                 NumberUtils.max(MIN_SIZE, parameters.getMinSize()),
                 NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);
     }

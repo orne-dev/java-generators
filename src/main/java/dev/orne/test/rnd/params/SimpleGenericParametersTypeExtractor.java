@@ -23,24 +23,24 @@ package dev.orne.test.rnd.params;
  */
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Generation parameters extractor that detects {@code TypeDeclaration}
  * parameter sources and sets {@code SimpleGenericParameters.type}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see TypeDeclaration
  * @see SimpleGenericParameters
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class SimpleGenericParametersTypeExtractor
 extends AbstractParametersSourceExtractor<SimpleGenericParameters, TypeDeclaration> {
 
@@ -58,8 +58,8 @@ extends AbstractParametersSourceExtractor<SimpleGenericParameters, TypeDeclarati
     public void extractParameters(
             final @NotNull TypeDeclaration from,
             final @NotNull SimpleGenericParameters target) {
-        Validate.notNull(from);
-        Validate.notNull(target);
+        Objects.requireNonNull(from);
+        Objects.requireNonNull(target);
         Validate.isInstanceOf(ParameterizedType.class, from.getType());
         final ParameterizedType type = (ParameterizedType) from.getType();
         Validate.isTrue(type.getActualTypeArguments().length == 1);

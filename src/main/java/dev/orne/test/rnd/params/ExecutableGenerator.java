@@ -25,15 +25,14 @@ package dev.orne.test.rnd.params;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 
@@ -41,12 +40,12 @@ import dev.orne.test.rnd.AbstractTypedGenerator;
  * Abstract generator that calls an executable with generated parameters to
  * generate values of the target type.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public abstract class ExecutableGenerator<T>
 extends AbstractTypedGenerator<T> {
 
@@ -67,8 +66,8 @@ extends AbstractTypedGenerator<T> {
             final @NotNull Executable executable,
             final @NotNull TargetedGenerator<?>[] paramGenerators) {
         super(type);
-        this.executable = Validate.notNull(executable);
-        this.parameterGenerators = Validate.notNull(paramGenerators);
+        this.executable = Objects.requireNonNull(executable);
+        this.parameterGenerators = Objects.requireNonNull(paramGenerators);
     }
 
     /**
@@ -111,7 +110,6 @@ extends AbstractTypedGenerator<T> {
      * 
      * @return The generator for the executable parameters
      */
-    @SuppressWarnings("java:S1452")
     public @NotNull TargetedGenerator<?>[] getParameterGenerators() {
         return this.parameterGenerators;
     }

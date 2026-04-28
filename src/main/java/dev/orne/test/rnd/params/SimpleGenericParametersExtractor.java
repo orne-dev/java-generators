@@ -27,18 +27,17 @@ import java.lang.reflect.Type;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Generation parameters extractor that copies parameters
  * between {@code SimpleGenericParameters} instances.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see SimpleGenericParameters
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class SimpleGenericParametersExtractor
 extends AbstractParametersSourceExtractor<SimpleGenericParameters, SimpleGenericParameters> {
 

@@ -44,7 +44,7 @@ import dev.orne.test.rnd.Generators;
 /**
  * Unit tests for {@code ConstructorParameterTypeGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see ConstructorParameterTypeGenerator
@@ -200,7 +200,6 @@ class ConstructorParameterTypeGeneratorTest {
      * {@link ConstructorParameterTypeGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final Generator delegated = spy(Generator.class);
         willReturn(true).given(delegated).supports(Object.class);
@@ -217,15 +216,15 @@ class ConstructorParameterTypeGeneratorTest {
                 TEST_CTR,
                 0,
                 delegated);
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (ConstructorParameterTypeGenerator<?>) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         ConstructorParameterTypeGenerator<?> other = new ConstructorParameterTypeGenerator<>(
                 MyValueType.class,
                 TEST_CTR,
                 0,
                 delegated);
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
         other = new ConstructorParameterTypeGenerator<>(
@@ -233,25 +232,25 @@ class ConstructorParameterTypeGeneratorTest {
                 TEST_CTR,
                 0,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new ConstructorParameterTypeGenerator<>(
                 MyValueType.class,
                 OTHER_CTR,
                 0,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new ConstructorParameterTypeGenerator<>(
                 MyValueType.class,
                 TEST_CTR,
                 1,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new ConstructorParameterTypeGenerator<>(
                 MyValueType.class,
                 TEST_CTR,
                 0,
                 otherDelegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
     }
 
     private interface MyValueType {}
@@ -262,10 +261,14 @@ class ConstructorParameterTypeGeneratorTest {
                 MyValueType param1,
                 @NotNull
                 @Size(min = 1, max = 10)
-                List<String> param2) {}
+                List<String> param2) {
+            // Only for signature
+        }
         public MyType(
                 String param0,
                 @NotNull
-                MyValueType param1) {}
+                MyValueType param1) {
+            // Only for signature
+        }
     }
 }

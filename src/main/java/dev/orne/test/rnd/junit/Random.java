@@ -28,19 +28,21 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.apiguardian.api.API;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
  * Annotation for automatic random value injection in JUnit Jupiter tests.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2023-11
- * @since 0.1
+ * @since 0.2
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.FIELD, ElementType.PARAMETER })
 @ExtendWith(RandomValueExtension.class)
+@API(status=API.Status.EXPERIMENTAL, since="0.2")
 public @interface Random {
 
     /**

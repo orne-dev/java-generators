@@ -40,7 +40,7 @@ import dev.orne.test.rnd.Generators;
 /**
  * Unit tests for {@code ExecutableGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  * @see ExecutableGenerator
@@ -212,7 +212,6 @@ class ExecutableGeneratorTest {
      * {@link ExecutableGenerator#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final Class<?> type = MyType.class; 
         final Class<?> otherType = OtherType.class; 
@@ -230,39 +229,61 @@ class ExecutableGeneratorTest {
                 type,
                 executable,
                 paramGenerators);
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (ExecutableGenerator<?>) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         ExecutableGenerator<?> other = new GenericChild<>(
                 type,
                 executable,
                 paramGenerators);
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
         other = new GenericChild<>(
                 otherType,
                 executable,
                 paramGenerators);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new GenericChild<>(
                 type,
                 otherExecutable,
                 paramGenerators);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new GenericChild<>(
                 type,
                 executable,
                 otherParamGenerators);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
     }
 
     public static class MyType {
-        public MyType() {}
-        public MyType(String value0, Integer value1) {}
+        /**
+         * Default constructor, for testing purposes.
+         */
+        public MyType() {
+            super();
+        }
+        /**
+         * Constructor with parameters, for testing purposes.
+         * @param value0 A string value
+         * @param value1 An integer value
+         */
+        public MyType(String value0, Integer value1) {
+            super();
+        }
+        /**
+         * Factory method, for testing purposes.
+         * @param value0 A string value
+         * @param value1 An integer value
+         * @return A new instance of {@code MyType}
+         */
         public static MyType factory(String value0, Integer value1) {
             return new MyType();
         }
+        /**
+         * Factory method without parameters, for testing purposes.
+         * @return A new instance of {@code MyType}
+         */
         public static MyType otherFactory() {
             return new MyType();
         }

@@ -26,18 +26,17 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.Priority;
 
 /**
  * Generator of {@code long} and {@code Long} values.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class LongGenerator
 extends AbstractPrimitiveGenerator<Long> {
@@ -75,8 +74,8 @@ extends AbstractPrimitiveGenerator<Long> {
      * @return A random {@code long} value
      */
     public static long randomLong() {
-        long result = RandomUtils.nextLong();
-        if (RandomUtils.nextBoolean()) {
+        long result = RandomUtils.insecure().randomLong();
+        if (RandomUtils.insecure().randomBoolean()) {
             result *= -1;
         }
         return result;

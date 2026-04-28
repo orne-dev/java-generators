@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@code AbstractTypedGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2021-03
  * @since 0.1
  * @see AbstractTypedGenerator
@@ -183,18 +183,17 @@ class AbstractTypedGeneratorTest {
      * {@link AbstractTypedGenerator#toString()}
      */
     @Test
-    @SuppressWarnings({ "java:S5785", "unlikely-arg-type" })
     void testEqualsHashCodeToString() {
         final GenericChild<?> generator = new GenericChild<>(String.class);
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new TestGenerator()));
+        assertNotEquals(generator, (GenericChild<?>) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new TestGenerator());
         GenericChild<?> other = new GenericChild<>(String.class);
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
         other = new GenericChild<>(Number.class);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
     }
 
     /**

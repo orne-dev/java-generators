@@ -39,7 +39,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * Unit tests for {@code MaxConstraintExtractor}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see MaxConstraintExtractor
@@ -96,8 +96,8 @@ extends BaseParametersSourceExtractorTest {
                 Arguments.of(5L, Long.MAX_VALUE),
                 Arguments.of(Long.MAX_VALUE, 5L),
                 Arguments.of(
-                    RandomUtils.nextLong(),
-                    RandomUtils.nextLong())
+                    RandomUtils.insecure().randomLong(),
+                    RandomUtils.insecure().randomLong())
         );
     }
 }

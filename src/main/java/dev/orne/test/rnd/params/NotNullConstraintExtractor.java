@@ -25,18 +25,17 @@ package dev.orne.test.rnd.params;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Generation parameters extractor that detects {@code NotNull}
  * constraint annotations and sets {@code GenerationParameters.nullable}
  * to false.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class NotNullConstraintExtractor
 extends AbstractParametersSourceExtractor<NullableParameters, NotNull> {
 

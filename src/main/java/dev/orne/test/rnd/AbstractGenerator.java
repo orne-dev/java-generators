@@ -33,17 +33,16 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Abstract basic implementation of {@code Generator}.
  * Provides basic implementations for common methods.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2021-03
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 public abstract class AbstractGenerator
 implements Generator {
 
@@ -142,7 +141,7 @@ implements Generator {
      */
     public boolean randomNull(
             final @NotNull Class<?> type) {
-        return RandomUtils.nextFloat(0, 1) < this.nullProbability;
+        return RandomUtils.insecure().randomFloat(0, 1) < this.nullProbability;
     }
 
     /**

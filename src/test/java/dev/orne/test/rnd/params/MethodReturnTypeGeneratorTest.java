@@ -45,7 +45,7 @@ import dev.orne.test.rnd.Generators;
 /**
  * Unit tests for {@code MethodReturnTypeGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see MethodReturnTypeGenerator
@@ -184,7 +184,6 @@ class MethodReturnTypeGeneratorTest {
      * {@link MethodReturnTypeGenerator#toString()}
      */
     @Test
-    @SuppressWarnings("java:S5785")
     void testEqualsHashCodeToString() {
         final Generator delegated = spy(Generator.class);
         willReturn(true).given(delegated).supports(Object.class);
@@ -200,31 +199,31 @@ class MethodReturnTypeGeneratorTest {
                 MyValueType.class,
                 METHOD1,
                 delegated);
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (MethodReturnTypeGenerator<?>) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         MethodReturnTypeGenerator<?> other = new MethodReturnTypeGenerator<>(
                 MyValueType.class,
                 METHOD1,
                 delegated);
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
         other = new MethodReturnTypeGenerator<>(
                 Object.class,
                 METHOD1,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new MethodReturnTypeGenerator<>(
                 MyValueType.class,
                 METHOD0,
                 delegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
         other = new MethodReturnTypeGenerator<>(
                 MyValueType.class,
                 METHOD1,
                 otherDelegated);
-        assertFalse(generator.equals(other));
+        assertNotEquals(generator, other);
     }
 
     private interface MyValueType {}

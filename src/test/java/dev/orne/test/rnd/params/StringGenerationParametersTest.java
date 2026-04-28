@@ -32,13 +32,16 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@code StringGenerationParameters}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  * @see StringGenerationParameters
  */
 @Tag("ut")
 class StringGenerationParametersTest {
+
+    /** The random generator used for testing. */
+    private static final RandomUtils RND = RandomUtils.insecure();
 
     /**
      * Unit test for {@link StringGenerationParameters#StringGenerationParameters()}.
@@ -57,9 +60,9 @@ class StringGenerationParametersTest {
     @Test
     void testCopyConstructor() {
         final StringGenerationParameters copy = new StringGenerationParameters();
-        copy.setNullable(RandomUtils.nextBoolean());
-        copy.setMinSize(RandomUtils.nextInt());
-        copy.setMaxSize(RandomUtils.nextInt());
+        copy.setNullable(RND.randomBoolean());
+        copy.setMinSize(RND.randomInt());
+        copy.setMaxSize(RND.randomInt());
         final StringGenerationParameters params = new StringGenerationParameters(copy);
         assertEquals(copy, params);
     }
@@ -95,8 +98,8 @@ class StringGenerationParametersTest {
     @Test
     void testCopyConstructor_SizeParameters() {
         final SizeParameters copy = mock(SizeParameters.class);
-        final int minSize = RandomUtils.nextInt();
-        final int maxSize = RandomUtils.nextInt();
+        final int minSize = RND.randomInt();
+        final int maxSize = RND.randomInt();
         given(copy.getMinSize()).willReturn(minSize);
         given(copy.getMaxSize()).willReturn(maxSize);
         final StringGenerationParameters params = new StringGenerationParameters(copy);
@@ -122,7 +125,7 @@ class StringGenerationParametersTest {
     @Test
     void testWithMinSize() {
         final StringGenerationParameters params = new StringGenerationParameters();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final StringGenerationParameters result = params.withMinSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMinSize());
@@ -134,7 +137,7 @@ class StringGenerationParametersTest {
     @Test
     void testWithMaxSize() {
         final StringGenerationParameters params = new StringGenerationParameters();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final StringGenerationParameters result = params.withMaxSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMaxSize());
@@ -146,21 +149,20 @@ class StringGenerationParametersTest {
      * {@link StringGenerationParameters#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final StringGenerationParameters params = new StringGenerationParameters();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (StringGenerationParameters) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         StringGenerationParameters other = new StringGenerationParameters();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new StringGenerationParameters().withNullable(false);
-        assertFalse(params.equals(other));
-        other = new StringGenerationParameters().withMinSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
-        other = new StringGenerationParameters().withMaxSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
+        other = new StringGenerationParameters().withMinSize(RND.randomInt());
+        assertNotEquals(params, other);
+        other = new StringGenerationParameters().withMaxSize(RND.randomInt());
+        assertNotEquals(params, other);
     }
 }

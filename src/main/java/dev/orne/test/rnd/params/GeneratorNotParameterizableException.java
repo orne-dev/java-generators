@@ -23,7 +23,6 @@ package dev.orne.test.rnd.params;
  */
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 
@@ -31,11 +30,11 @@ import dev.orne.test.rnd.GenerationException;
  * Exception throw by {@code Generators} when parameters based value generation
  * is requested but the suitable generator is not parameterizable.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since = "0.1")
+@API(status=API.Status.EXPERIMENTAL, since = "0.1")
 public class GeneratorNotParameterizableException
 extends GenerationException {
 

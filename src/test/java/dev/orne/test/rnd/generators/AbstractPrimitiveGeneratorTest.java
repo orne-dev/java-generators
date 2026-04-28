@@ -36,7 +36,7 @@ import dev.orne.test.rnd.UnsupportedValueTypeException;
 /**
  * Unit tests for {@code AbstractPrimitiveGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
  * @since 0.1
  * @see AbstractPrimitiveGenerator
@@ -91,7 +91,7 @@ class AbstractPrimitiveGeneratorTest {
     @Test
     void testDefaultValue() {
         final TestGenerator<Integer> generator = spy(new TestGenerator<>(Integer.class));
-        final Integer mockValue = RandomUtils.nextInt();
+        final Integer mockValue = RandomUtils.insecure().randomInt();
         willReturn(mockValue).given(generator).defaultValue();
         assertThrows(UnsupportedValueTypeException.class, () -> {
             generator.nullableDefaultValue(Long.class);

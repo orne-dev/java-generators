@@ -23,26 +23,25 @@ package dev.orne.test.rnd.params;
  */
 
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Generation parameters source that provides the declared type of the value
  * to generate.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class TypeDeclaration {
 
     /** The value type. */
@@ -56,7 +55,7 @@ public class TypeDeclaration {
     public TypeDeclaration(
             final @NotNull Type type) {
         super();
-        this.type = Validate.notNull(type);
+        this.type = Objects.requireNonNull(type);
     }
 
     /**

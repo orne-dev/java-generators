@@ -45,7 +45,7 @@ import dev.orne.test.rnd.params.SizeParameters;
 /**
  * Integration test for generation parameters.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */

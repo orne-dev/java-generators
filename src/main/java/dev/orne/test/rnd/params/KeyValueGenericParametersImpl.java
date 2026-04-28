@@ -25,25 +25,24 @@ package dev.orne.test.rnd.params;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * The basic implementation of {@code KeyValueGenericParameters}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class KeyValueGenericParametersImpl
 implements KeyValueGenericParameters,
         KeyValueGenericParameters.KeysTypeBuilder,
@@ -69,7 +68,7 @@ implements KeyValueGenericParameters,
     public KeyValueGenericParametersImpl(
             final @NotNull GenerationParameters copy) {
         super();
-        Validate.notNull(copy);
+        Objects.requireNonNull(copy);
         if (copy instanceof KeyValueGenericParameters) {
             final KeyValueGenericParameters tcopy = (KeyValueGenericParameters) copy;
             this.keysType = tcopy.getKeysType();
@@ -98,7 +97,7 @@ implements KeyValueGenericParameters,
     @Override
     public @NotNull KeyValueGenericParametersImpl withKeysType(
             final @NotNull Class<?> type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         setKeysType(type);
         return this;
     }
@@ -108,7 +107,7 @@ implements KeyValueGenericParameters,
     @Override
     public @NotNull KeyValueGenericParametersImpl withKeysType(
             final @NotNull ParameterizedType type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         setKeysType(type);
         return this;
     }
@@ -118,7 +117,7 @@ implements KeyValueGenericParameters,
     @Override
     public @NotNull KeyValueGenericParametersImpl withKeysType(
             final @NotNull GenericArrayType type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         setKeysType(type);
         return this;
     }
@@ -143,7 +142,7 @@ implements KeyValueGenericParameters,
     @Override
     public @NotNull KeyValueGenericParametersImpl withValuesType(
             final @NotNull Class<?> type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         setValuesType(type);
         return this;
     }
@@ -153,7 +152,7 @@ implements KeyValueGenericParameters,
     @Override
     public @NotNull KeyValueGenericParametersImpl withValuesType(
             final @NotNull ParameterizedType type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         setValuesType(type);
         return this;
     }
@@ -163,7 +162,7 @@ implements KeyValueGenericParameters,
     @Override
     public @NotNull KeyValueGenericParametersImpl withValuesType(
             final @NotNull GenericArrayType type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         setValuesType(type);
         return this;
     }

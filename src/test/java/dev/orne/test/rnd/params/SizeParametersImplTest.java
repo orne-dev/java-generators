@@ -32,13 +32,16 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@code SizeParametersImpl}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  * @see SizeParametersImpl
  */
 @Tag("ut")
 class SizeParametersImplTest {
+
+    /** The random generator used for testing. */
+    private static final RandomUtils RND = RandomUtils.insecure();
 
     /**
      * Unit test for {@link SizeParametersImpl#SizeParametersImpl()}.
@@ -67,8 +70,8 @@ class SizeParametersImplTest {
     @Test
     void testCopyConstructor() {
         final SizeParameters copy = mock(SizeParameters.class);
-        final int minSize = RandomUtils.nextInt();
-        final int maxSize = RandomUtils.nextInt();
+        final int minSize = RND.randomInt();
+        final int maxSize = RND.randomInt();
         given(copy.getMinSize()).willReturn(minSize);
         given(copy.getMaxSize()).willReturn(maxSize);
         final SizeParametersImpl params = new SizeParametersImpl(copy);
@@ -82,7 +85,7 @@ class SizeParametersImplTest {
     @Test
     void testWithMinSize() {
         final SizeParametersImpl params = new SizeParametersImpl();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final SizeParametersImpl result = params.withMinSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMinSize());
@@ -94,7 +97,7 @@ class SizeParametersImplTest {
     @Test
     void testWithMaxSize() {
         final SizeParametersImpl params = new SizeParametersImpl();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final SizeParametersImpl result = params.withMaxSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMaxSize());
@@ -106,19 +109,18 @@ class SizeParametersImplTest {
      * {@link SizeParametersImpl#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final SizeParametersImpl params = new SizeParametersImpl();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (SizeParametersImpl) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         SizeParametersImpl other = new SizeParametersImpl();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new SizeParametersImpl().withMinSize(5);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new SizeParametersImpl().withMaxSize(20);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 }

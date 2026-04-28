@@ -26,6 +26,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -33,7 +34,6 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generator;
@@ -42,12 +42,12 @@ import dev.orne.test.rnd.Generator;
  * Implementation of {@code TargetedGenerator} that generates random values
  * of the target constructor parameter type.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <T> The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public class ConstructorParameterTypeGenerator<T>
 extends AbstractTargetedGenerator<T> {
 
@@ -68,7 +68,7 @@ extends AbstractTargetedGenerator<T> {
             @NotNull Constructor<?> constructor,
             int parameterIndex) {
         super(valueType);
-        this.constructor = Validate.notNull(constructor);
+        this.constructor = Objects.requireNonNull(constructor);
         this.parameterIndex = parameterIndex;
         Validate.validIndex(constructor.getParameterTypes(), parameterIndex);
     }
@@ -87,7 +87,7 @@ extends AbstractTargetedGenerator<T> {
             int parameterIndex,
             @NotNull Generator generator) {
         super(valueType, generator);
-        this.constructor = Validate.notNull(constructor);
+        this.constructor = Objects.requireNonNull(constructor);
         this.parameterIndex = parameterIndex;
         Validate.validIndex(constructor.getParameterTypes(), parameterIndex);
     }
@@ -104,7 +104,7 @@ extends AbstractTargetedGenerator<T> {
     public static <T> dev.orne.test.rnd.params.ConstructorParameterTypeGenerator<T> targeting(
             final @NotNull Constructor<?> constructor,
             final int parameterIndex) {
-        Validate.notNull(constructor);
+        Objects.requireNonNull(constructor);
         Validate.validIndex(constructor.getParameterTypes(), parameterIndex);
         @SuppressWarnings("unchecked")
         final Class<T> targetType = (Class<T>) constructor.getParameterTypes()[parameterIndex];
@@ -125,7 +125,7 @@ extends AbstractTargetedGenerator<T> {
             final @NotNull Class<?> cls,
             final int parameterIndex,
             final @NotNull Class<?>... parameterTypes) {
-        Validate.notNull(cls);
+        Objects.requireNonNull(cls);
         Constructor<?> ctr;
         try {
             ctr = cls.getConstructor(parameterTypes);
@@ -140,7 +140,6 @@ extends AbstractTargetedGenerator<T> {
      * 
      * @return The target constructor.
      */
-    @SuppressWarnings("java:S1452")
     public @NotNull Constructor<?> getConstructor() {
         return this.constructor;
     }

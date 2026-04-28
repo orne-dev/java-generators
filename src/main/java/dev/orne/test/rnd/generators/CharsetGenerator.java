@@ -31,7 +31,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 import dev.orne.test.rnd.Priority;
@@ -41,11 +40,11 @@ import dev.orne.test.rnd.Priority;
  * By default generates only values that can encode.
  * Use {@link #randomDecodeOnlyValue()} for values without encoding support.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.1, 2023-10
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class CharsetGenerator
 extends AbstractTypedGenerator<Charset> {
@@ -88,7 +87,7 @@ extends AbstractTypedGenerator<Charset> {
      */
     @Override
     public @NotNull Charset randomValue() {
-        final int index = RandomUtils.nextInt(0, CHARSETS.size());
+        final int index = RandomUtils.insecure().randomInt(0, CHARSETS.size());
         return CHARSETS.get(index);
     }
 
@@ -98,7 +97,7 @@ extends AbstractTypedGenerator<Charset> {
      * @return A random {@code Charset} that does not support encoding.
      */
     public @NotNull Charset randomDecodeOnlyValue() {
-        final int index = RandomUtils.nextInt(0, DECODE_ONLY_CHARSETS.size());
+        final int index = RandomUtils.insecure().randomInt(0, DECODE_ONLY_CHARSETS.size());
         return DECODE_ONLY_CHARSETS.get(index);
     }
 }

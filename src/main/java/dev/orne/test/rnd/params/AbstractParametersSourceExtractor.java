@@ -22,6 +22,8 @@ package dev.orne.test.rnd.params;
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
@@ -31,18 +33,17 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Abstract implementation of {@code ParametersSourceExtractor}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @param <P> The generation parameters type
  * @param <S> The metadata sources type
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since="0.1")
+@API(status=API.Status.EXPERIMENTAL, since="0.1")
 public abstract class AbstractParametersSourceExtractor<P, S>
 implements ParametersSourceExtractor<P, S> {
 
@@ -61,8 +62,8 @@ implements ParametersSourceExtractor<P, S> {
             final @NotNull Class<P> parametersType,
             final @NotNull Class<S> sourceType) {
         super();
-        this.parametersType = Validate.notNull(parametersType);
-        this.sourceType = Validate.notNull(sourceType);
+        this.parametersType = Objects.requireNonNull(parametersType);
+        this.sourceType = Objects.requireNonNull(sourceType);
     }
 
     /**

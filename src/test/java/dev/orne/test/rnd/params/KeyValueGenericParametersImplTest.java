@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@code KeyValueGenericParametersImpl}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  * @see KeyValueGenericParametersImpl
@@ -161,19 +161,18 @@ class KeyValueGenericParametersImplTest {
      * {@link KeyValueGenericParametersImpl#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final KeyValueGenericParametersImpl params = new KeyValueGenericParametersImpl();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (KeyValueGenericParametersImpl) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         KeyValueGenericParametersImpl other = new KeyValueGenericParametersImpl();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new KeyValueGenericParametersImpl().withKeysType(String.class);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new KeyValueGenericParametersImpl().withValuesType(String.class);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 }

@@ -22,12 +22,13 @@ package dev.orne.test.rnd.generators;
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractGenerator;
 import dev.orne.test.rnd.Priority;
@@ -37,11 +38,11 @@ import dev.orne.test.rnd.Priority;
  * <p>
  * Requires that the enumeration type contain constants.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-10
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.GENERIC_GENERATORS)
 public class EnumGenerator
 extends AbstractGenerator {
@@ -80,7 +81,7 @@ extends AbstractGenerator {
             final @NotNull Class<T> type) {
         assertSupported(type);
         final T[] values = type.getEnumConstants();
-        return values[RandomUtils.nextInt(0, values.length)];
+        return values[RandomUtils.insecure().randomInt(0, values.length)];
     }
 
     /**
@@ -93,10 +94,10 @@ extends AbstractGenerator {
      */
     public static <T extends Enum<T>> @NotNull T randomEnumValue(
             final @NotNull Class<T> type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         Validate.isTrue(type.isEnum(), "The specified class is not an enumeration");
         final T[] values = type.getEnumConstants();
         Validate.isTrue(values.length > 0, "The specified enumeration has no values");
-        return values[RandomUtils.nextInt(0, values.length)];
+        return values[RandomUtils.insecure().randomInt(0, values.length)];
     }
 }

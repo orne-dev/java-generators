@@ -34,13 +34,16 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@code MapGenerationParameters}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  * @see MapGenerationParameters
  */
 @Tag("ut")
 class MapGenerationParametersTest {
+
+    /** The random generator used for testing. */
+    private static final RandomUtils RND = RandomUtils.insecure();
 
     /**
      * Unit test for {@link MapGenerationParameters#MapGenerationParameters()}.
@@ -61,11 +64,11 @@ class MapGenerationParametersTest {
     @Test
     void testCopyConstructor() {
         final MapGenerationParameters copy = new MapGenerationParameters();
-        copy.setNullable(RandomUtils.nextBoolean());
+        copy.setNullable(RND.randomBoolean());
         copy.setKeysType(Integer.class);
         copy.setValuesType(String.class);
-        copy.setMinSize(RandomUtils.nextInt());
-        copy.setMaxSize(RandomUtils.nextInt());
+        copy.setMinSize(RND.randomInt());
+        copy.setMaxSize(RND.randomInt());
         final MapGenerationParameters params = new MapGenerationParameters(copy);
         assertEquals(copy, params);
     }
@@ -123,8 +126,8 @@ class MapGenerationParametersTest {
     @Test
     void testCopyConstructor_SizeParameters() {
         final SizeParameters copy = mock(SizeParameters.class);
-        final int minSize = RandomUtils.nextInt();
-        final int maxSize = RandomUtils.nextInt();
+        final int minSize = RND.randomInt();
+        final int maxSize = RND.randomInt();
         given(copy.getMinSize()).willReturn(minSize);
         given(copy.getMaxSize()).willReturn(maxSize);
         final MapGenerationParameters params = new MapGenerationParameters(copy);
@@ -176,7 +179,7 @@ class MapGenerationParametersTest {
     @Test
     void testWithMinSize() {
         final MapGenerationParameters params = new MapGenerationParameters();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final MapGenerationParameters result = params.withMinSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMinSize());
@@ -188,7 +191,7 @@ class MapGenerationParametersTest {
     @Test
     void testWithMaxSize() {
         final MapGenerationParameters params = new MapGenerationParameters();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final MapGenerationParameters result = params.withMaxSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMaxSize());
@@ -200,25 +203,24 @@ class MapGenerationParametersTest {
      * {@link MapGenerationParameters#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final MapGenerationParameters params = new MapGenerationParameters();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (MapGenerationParameters) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         MapGenerationParameters other = new MapGenerationParameters();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new MapGenerationParameters().withNullable(!NullableParameters.DEFAULT_NULLABLE);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new MapGenerationParameters().withKeysType(Integer.class);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new MapGenerationParameters().withValuesType(String.class);
-        assertFalse(params.equals(other));
-        other = new MapGenerationParameters().withMinSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
-        other = new MapGenerationParameters().withMaxSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
+        other = new MapGenerationParameters().withMinSize(RND.randomInt());
+        assertNotEquals(params, other);
+        other = new MapGenerationParameters().withMaxSize(RND.randomInt());
+        assertNotEquals(params, other);
     }
 }

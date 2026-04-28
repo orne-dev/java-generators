@@ -32,13 +32,16 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@code NumberParametersImpl}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  * @see NumberParametersImpl
  */
 @Tag("ut")
 class NumberParametersImplTest {
+
+    /** The random generator used for testing. */
+    private static final RandomUtils RND = RandomUtils.insecure();
 
     /**
      * Unit test for {@link NumberParametersImpl#NumberParametersImpl()}.
@@ -67,8 +70,8 @@ class NumberParametersImplTest {
     @Test
     void testCopyConstructor() {
         final NumberParameters copy = mock(NumberParameters.class);
-        final int min = RandomUtils.nextInt();
-        final int max = RandomUtils.nextInt();
+        final int min = RND.randomInt();
+        final int max = RND.randomInt();
         given(copy.getMin()).willReturn(min);
         given(copy.getMax()).willReturn(max);
         final NumberParametersImpl params = new NumberParametersImpl(copy);
@@ -82,7 +85,7 @@ class NumberParametersImplTest {
     @Test
     void testWithMin() {
         final NumberParametersImpl params = new NumberParametersImpl();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final NumberParametersImpl result = params.withMin(value);
         assertSame(result, params);
         assertEquals(value, params.getMin());
@@ -94,7 +97,7 @@ class NumberParametersImplTest {
     @Test
     void testWithMax() {
         final NumberParametersImpl params = new NumberParametersImpl();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final NumberParametersImpl result = params.withMax(value);
         assertSame(result, params);
         assertEquals(value, params.getMax());
@@ -106,19 +109,18 @@ class NumberParametersImplTest {
      * {@link NumberParametersImpl#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final NumberParametersImpl params = new NumberParametersImpl();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (NumberParametersImpl) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         NumberParametersImpl other = new NumberParametersImpl();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new NumberParametersImpl().withMin(5);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new NumberParametersImpl().withMax(20);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 }

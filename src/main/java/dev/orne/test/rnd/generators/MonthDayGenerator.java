@@ -29,7 +29,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 import dev.orne.test.rnd.Generators;
@@ -38,11 +37,11 @@ import dev.orne.test.rnd.Priority;
 /**
  * Generator of {@code MonthDay} values.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.STABLE, since="0.1")
+@API(status=API.Status.STABLE, since="0.1")
 @Priority(Priority.NATIVE_GENERATORS)
 public class MonthDayGenerator
 extends AbstractTypedGenerator<MonthDay> {
@@ -76,13 +75,13 @@ extends AbstractTypedGenerator<MonthDay> {
             case JUNE:
             case SEPTEMBER:
             case NOVEMBER:
-                day = RandomUtils.nextInt(1, 31);
+                day = RandomUtils.insecure().randomInt(1, 31);
                 break;
             case FEBRUARY:
-                day = RandomUtils.nextInt(1, 30);
+                day = RandomUtils.insecure().randomInt(1, 30);
                 break;
             default:
-                day = RandomUtils.nextInt(1, 32);
+                day = RandomUtils.insecure().randomInt(1, 32);
         }
         return MonthDay.of(month, day);
     }

@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@code TypeDeclaration}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-11
  * @since 0.1
  * @see TypeDeclaration
@@ -60,22 +60,21 @@ class TypeDeclarationTest {
      * {@link TypeDeclaration#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final TypeDeclaration params = new TypeDeclaration(MyType.class);
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (TypeDeclaration) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         TypeDeclaration other = new TypeDeclaration(MyType.class);
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new TypeDeclaration(OtherType.class);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new TypeDeclaration(TypeUtils.parameterize(List.class, MyType.class));
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
     }
 
-    private static interface MyType {};
-    private static interface OtherType {};
+    private static interface MyType {}
+    private static interface OtherType {}
 }

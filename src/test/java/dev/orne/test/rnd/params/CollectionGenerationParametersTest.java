@@ -34,13 +34,16 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit tests for {@code CollectionGenerationParameters}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  * @see CollectionGenerationParameters
  */
 @Tag("ut")
 class CollectionGenerationParametersTest {
+
+    /** The random generator used for testing. */
+    private static final RandomUtils RND = RandomUtils.insecure();
 
     /**
      * Unit test for {@link CollectionGenerationParameters#CollectionGenerationParameters()}.
@@ -60,10 +63,10 @@ class CollectionGenerationParametersTest {
     @Test
     void testCopyConstructor() {
         final CollectionGenerationParameters copy = new CollectionGenerationParameters();
-        copy.setNullable(RandomUtils.nextBoolean());
+        copy.setNullable(RND.randomBoolean());
         copy.setType(String.class);
-        copy.setMinSize(RandomUtils.nextInt());
-        copy.setMaxSize(RandomUtils.nextInt());
+        copy.setMinSize(RND.randomInt());
+        copy.setMaxSize(RND.randomInt());
         final CollectionGenerationParameters params = new CollectionGenerationParameters(copy);
         assertEquals(copy, params);
     }
@@ -117,8 +120,8 @@ class CollectionGenerationParametersTest {
     @Test
     void testCopyConstructor_SizeParameters() {
         final SizeParameters copy = mock(SizeParameters.class);
-        final int minSize = RandomUtils.nextInt();
-        final int maxSize = RandomUtils.nextInt();
+        final int minSize = RND.randomInt();
+        final int maxSize = RND.randomInt();
         given(copy.getMinSize()).willReturn(minSize);
         given(copy.getMaxSize()).willReturn(maxSize);
         final CollectionGenerationParameters params = new CollectionGenerationParameters(copy);
@@ -157,7 +160,7 @@ class CollectionGenerationParametersTest {
     @Test
     void testWithMinSize() {
         final CollectionGenerationParameters params = new CollectionGenerationParameters();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final CollectionGenerationParameters result = params.withMinSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMinSize());
@@ -169,7 +172,7 @@ class CollectionGenerationParametersTest {
     @Test
     void testWithMaxSize() {
         final CollectionGenerationParameters params = new CollectionGenerationParameters();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final CollectionGenerationParameters result = params.withMaxSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMaxSize());
@@ -181,23 +184,22 @@ class CollectionGenerationParametersTest {
      * {@link CollectionGenerationParameters#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final CollectionGenerationParameters params = new CollectionGenerationParameters();
-        assertFalse(params.equals(null));
-        assertTrue(params.equals(params));
-        assertFalse(params.equals(new Object()));
+        assertNotEquals(params, (CollectionGenerationParameters) null);
+        assertEquals(params, params);
+        assertNotEquals(params, new Object());
         CollectionGenerationParameters other = new CollectionGenerationParameters();
-        assertTrue(params.equals(other));
+        assertEquals(params, other);
         assertEquals(params.hashCode(), other.hashCode());
         assertEquals(params.toString(), other.toString());
         other = new CollectionGenerationParameters().withNullable(!NullableParameters.DEFAULT_NULLABLE);
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
         other = new CollectionGenerationParameters().withType(String.class);
-        assertFalse(params.equals(other));
-        other = new CollectionGenerationParameters().withMinSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
-        other = new CollectionGenerationParameters().withMaxSize(RandomUtils.nextInt());
-        assertFalse(params.equals(other));
+        assertNotEquals(params, other);
+        other = new CollectionGenerationParameters().withMinSize(RND.randomInt());
+        assertNotEquals(params, other);
+        other = new CollectionGenerationParameters().withMaxSize(RND.randomInt());
+        assertNotEquals(params, other);
     }
 }

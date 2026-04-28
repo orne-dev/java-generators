@@ -44,7 +44,7 @@ import dev.orne.test.rnd.params.ExecutableGenerator;
 /**
  * Unit tests for {@code AnnotatedMethodGenerator}.
  * 
- * @author <a href="mailto:wamphiry@orne.dev">(w) Iker Hernaez</a>
+ * @author <a href="https://github.com/ihernaez">(w) Iker Hernaez</a>
  * @version 1.0, 2022-12
  * @since 0.1
  * @see AnnotatedMethodGenerator
@@ -236,7 +236,7 @@ class AnnotatedMethodGeneratorTest {
     @Test
     void testGetAnnotatedGenerator_Missing() {
         final AnnotatedMethodGenerator generator = spy(new AnnotatedMethodGenerator());
-        final Generator expected = Generators.MissingGenerator.INSTANCE;
+        final Generator expected = Generator.MISSING;
         final Class<?> type = UnsupportedType.class;
         willReturn(expected).given(generator).discoverAnnotatedGenerator(type);
         Generator result = generator.getAnnotatedGenerator(type);
@@ -299,7 +299,7 @@ class AnnotatedMethodGeneratorTest {
         willReturn(null).given(generator).findDeclaredConstructor(type);
         willReturn(null).given(generator).findDeclaredMethod(type);
         final Generator result = generator.discoverAnnotatedGenerator(type);
-        assertSame(Generators.MissingGenerator.INSTANCE, result);
+        assertSame(Generator.MISSING, result);
     }
 
     /**
@@ -313,7 +313,7 @@ class AnnotatedMethodGeneratorTest {
         willThrow(err).given(generator).findDeclaredConstructor(type);
         willThrow(err).given(generator).findDeclaredMethod(type);
         final Generator result = generator.discoverAnnotatedGenerator(type);
-        assertSame(Generators.MissingGenerator.INSTANCE, result);
+        assertSame(Generator.MISSING, result);
     }
 
     /**
@@ -352,14 +352,13 @@ class AnnotatedMethodGeneratorTest {
      * {@link AnnotatedMethodGenerator#toString()}.
      */
     @Test
-    @SuppressWarnings({ "java:S5785" })
     void testEqualsHashCodeToString() {
         final AnnotatedMethodGenerator generator = new AnnotatedMethodGenerator();
-        assertFalse(generator.equals(null));
-        assertTrue(generator.equals(generator));
-        assertFalse(generator.equals(new Object()));
+        assertNotEquals(generator, (AnnotatedMethodGenerator) null);
+        assertEquals(generator, generator);
+        assertNotEquals(generator, new Object());
         AnnotatedMethodGenerator other = new AnnotatedMethodGenerator();
-        assertTrue(generator.equals(other));
+        assertEquals(generator, other);
         assertEquals(generator.hashCode(), other.hashCode());
         assertEquals(generator.toString(), other.toString());
     }
