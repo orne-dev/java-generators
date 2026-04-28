@@ -64,6 +64,6 @@ extends AbstractTypedGenerator<Instant> {
      */
     @Override
     public @NotNull Instant randomValue() {
-        return Instant.ofEpochMilli(RandomUtils.nextLong());
+        return Instant.ofEpochMilli(RandomUtils.insecure().randomLong());
     }
 }

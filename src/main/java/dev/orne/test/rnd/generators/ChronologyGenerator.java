@@ -71,7 +71,7 @@ extends AbstractTypedGenerator<Chronology> {
      */
     @Override
     public @NotNull Chronology randomValue() {
-        final int index = RandomUtils.nextInt(0, CHRONOS.size());
+        final int index = RandomUtils.insecure().randomInt(0, CHRONOS.size());
         return CHRONOS.get(index);
     }
 }

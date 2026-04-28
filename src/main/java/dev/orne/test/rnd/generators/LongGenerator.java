@@ -74,8 +74,8 @@ extends AbstractPrimitiveGenerator<Long> {
      * @return A random {@code long} value
      */
     public static long randomLong() {
-        long result = RandomUtils.nextLong();
-        if (RandomUtils.nextBoolean()) {
+        long result = RandomUtils.insecure().randomLong();
+        if (RandomUtils.insecure().randomBoolean()) {
             result *= -1;
         }
         return result;

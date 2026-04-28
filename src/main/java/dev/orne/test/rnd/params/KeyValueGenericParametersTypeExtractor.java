@@ -23,6 +23,7 @@ package dev.orne.test.rnd.params;
  */
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -58,8 +59,8 @@ extends AbstractParametersSourceExtractor<KeyValueGenericParameters, TypeDeclara
     public void extractParameters(
             final @NotNull TypeDeclaration from,
             final @NotNull KeyValueGenericParameters target) {
-        Validate.notNull(from);
-        Validate.notNull(target);
+        Objects.requireNonNull(from);
+        Objects.requireNonNull(target);
         Validate.isInstanceOf(ParameterizedType.class, from.getType());
         final ParameterizedType type = (ParameterizedType) from.getType();
         Validate.isTrue(type.getActualTypeArguments().length == 2);

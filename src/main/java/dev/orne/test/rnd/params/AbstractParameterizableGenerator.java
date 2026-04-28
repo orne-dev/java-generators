@@ -22,6 +22,8 @@ package dev.orne.test.rnd.params;
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
@@ -57,7 +59,7 @@ implements ParameterizableGenerator {
     protected AbstractParameterizableGenerator(
             final @NotNull Class<P> paramsType) {
         super();
-        this.parametersType = Validate.notNull(paramsType);
+        this.parametersType = Objects.requireNonNull(paramsType);
     }
 
     /**

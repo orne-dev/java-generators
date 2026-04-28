@@ -64,10 +64,11 @@ extends AbstractTypedGenerator<LocalTime> {
      */
     @Override
     public @NotNull LocalTime randomValue() {
+        final RandomUtils rnd = RandomUtils.insecure();
         return LocalTime.of(
-                RandomUtils.nextInt(0, 24),
-                RandomUtils.nextInt(0, 60),
-                RandomUtils.nextInt(0, 60),
-                RandomUtils.nextInt(0, 1000000000));
+                rnd.randomInt(0, 24),
+                rnd.randomInt(0, 60),
+                rnd.randomInt(0, 60),
+                rnd.randomInt(0, 1000000000));
     }
 }

@@ -64,6 +64,6 @@ extends AbstractTypedGenerator<Year> {
      */
     @Override
     public @NotNull Year randomValue() {
-        return Year.of(RandomUtils.nextInt(0, Year.MAX_VALUE - Year.MIN_VALUE) + Year.MIN_VALUE);
+        return Year.of(RandomUtils.insecure().randomInt(0, Year.MAX_VALUE - Year.MIN_VALUE) + Year.MIN_VALUE);
     }
 }

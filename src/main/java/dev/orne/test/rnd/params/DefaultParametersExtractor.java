@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -60,7 +61,7 @@ implements ParametersExtractor<P> {
     public DefaultParametersExtractor(
             final @NotNull Collection<ParametersSourceExtractor<? super P, ?>> extractors) {
         super();
-        Validate.notNull(extractors);
+        Objects.requireNonNull(extractors);
         Validate.noNullElements(extractors);
         this.extractors = new ArrayList<>(extractors);
     }
@@ -83,8 +84,8 @@ implements ParametersExtractor<P> {
     public void extractParameters(
             final @NotNull P params,
             final @NotNull Object... sources) {
-        Validate.notNull(params);
-        Validate.notNull(sources);
+        Objects.requireNonNull(params);
+        Objects.requireNonNull(sources);
         Validate.noNullElements(sources);
         extractParameters(params, Arrays.asList(sources));
     }
@@ -96,8 +97,8 @@ implements ParametersExtractor<P> {
     public void extractParameters(
             final @NotNull P params,
             final @NotNull Collection<?> sources) {
-        Validate.notNull(params);
-        Validate.notNull(sources);
+        Objects.requireNonNull(params);
+        Objects.requireNonNull(sources);
         Validate.noNullElements(sources);
         for (final Object source : sources) {
             extract(params, source);

@@ -64,6 +64,6 @@ extends AbstractPrimitiveGenerator<Boolean> {
      */
     @Override
     public @NotNull Boolean randomValue() {
-        return RandomUtils.nextBoolean();
+        return RandomUtils.insecure().randomBoolean();
     }
 }

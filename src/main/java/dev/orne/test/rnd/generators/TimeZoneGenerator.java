@@ -67,7 +67,7 @@ extends AbstractTypedGenerator<TimeZone> {
      */
     @Override
     public @NotNull TimeZone randomValue() {
-        final int index = RandomUtils.nextInt(0, IDS.length);
+        final int index = RandomUtils.insecure().randomInt(0, IDS.length);
         return TimeZone.getTimeZone(IDS[index]);
     }
 }

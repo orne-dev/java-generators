@@ -136,7 +136,7 @@ extends AbstractTypedGenerator<File> {
      * @return The generated random path
      */
     public static @NotNull String randomPath() {
-        final int segments = RandomUtils.nextInt(1, 5);
+        final int segments = RandomUtils.insecure().randomInt(1, 5);
         final StringBuilder path = new StringBuilder()
                 .append(randomPathSegment());
         for (int i = 1; i < segments; i++) {
@@ -152,7 +152,7 @@ extends AbstractTypedGenerator<File> {
      * @return The generated random path
      */
     public static @NotNull String randomPathSegment() {
-        return RandomStringUtils.randomAlphanumeric(5);
+        return RandomStringUtils.insecure().nextAlphanumeric(5);
     }
 
     /**

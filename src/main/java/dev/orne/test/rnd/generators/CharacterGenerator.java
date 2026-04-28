@@ -74,7 +74,7 @@ extends AbstractPrimitiveGenerator<Character> {
      * @return A random {@code byte} value
      */
     public static char randomChar() {
-        return (char) RandomUtils.nextInt(Character.MIN_VALUE,
+        return (char) RandomUtils.insecure().randomInt(Character.MIN_VALUE,
                 Character.MAX_VALUE + 1);
     }
 }

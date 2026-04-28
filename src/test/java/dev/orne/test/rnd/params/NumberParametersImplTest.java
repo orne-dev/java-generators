@@ -40,6 +40,9 @@ import org.junit.jupiter.api.Test;
 @Tag("ut")
 class NumberParametersImplTest {
 
+    /** The random generator used for testing. */
+    private static final RandomUtils RND = RandomUtils.insecure();
+
     /**
      * Unit test for {@link NumberParametersImpl#NumberParametersImpl()}.
      */
@@ -67,8 +70,8 @@ class NumberParametersImplTest {
     @Test
     void testCopyConstructor() {
         final NumberParameters copy = mock(NumberParameters.class);
-        final int min = RandomUtils.nextInt();
-        final int max = RandomUtils.nextInt();
+        final int min = RND.randomInt();
+        final int max = RND.randomInt();
         given(copy.getMin()).willReturn(min);
         given(copy.getMax()).willReturn(max);
         final NumberParametersImpl params = new NumberParametersImpl(copy);
@@ -82,7 +85,7 @@ class NumberParametersImplTest {
     @Test
     void testWithMin() {
         final NumberParametersImpl params = new NumberParametersImpl();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final NumberParametersImpl result = params.withMin(value);
         assertSame(result, params);
         assertEquals(value, params.getMin());
@@ -94,7 +97,7 @@ class NumberParametersImplTest {
     @Test
     void testWithMax() {
         final NumberParametersImpl params = new NumberParametersImpl();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final NumberParametersImpl result = params.withMax(value);
         assertSame(result, params);
         assertEquals(value, params.getMax());

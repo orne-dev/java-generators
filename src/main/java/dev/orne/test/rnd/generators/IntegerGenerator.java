@@ -74,8 +74,8 @@ extends AbstractPrimitiveGenerator<Integer> {
      * @return A random {@code int} value
      */
     public static int randomInt() {
-        int result = RandomUtils.nextInt();
-        if (RandomUtils.nextBoolean()) {
+        int result = RandomUtils.insecure().randomInt();
+        if (RandomUtils.insecure().randomBoolean()) {
             result *= -1;
         }
         return result;
@@ -92,6 +92,6 @@ extends AbstractPrimitiveGenerator<Integer> {
     public static int randomInt(
             final int min,
             final int max) {
-        return (int) (RandomUtils.nextLong(0, (long) max - min + 1) + min);
+        return (int) (RandomUtils.insecure().randomLong(0, (long) max - min + 1) + min);
     }
 }

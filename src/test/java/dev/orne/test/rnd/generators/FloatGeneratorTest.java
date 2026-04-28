@@ -43,6 +43,9 @@ import dev.orne.test.rnd.Priority;
 @Tag("ut")
 class FloatGeneratorTest {
 
+    /** The random generator used for testing. */
+    private static final RandomUtils RND = RandomUtils.insecure();
+
     /**
      * Integration test for automatic registration in {@code Generators}.
      * 
@@ -114,7 +117,7 @@ class FloatGeneratorTest {
      */
     @Test
     void testIsNaN() {
-        assertFalse(FloatGenerator.isNaN(Float.floatToIntBits(RandomUtils.nextFloat())));
+        assertFalse(FloatGenerator.isNaN(Float.floatToIntBits(RND.randomFloat())));
         assertFalse(FloatGenerator.isNaN(Float.floatToIntBits(Float.MIN_VALUE)));
         assertFalse(FloatGenerator.isNaN(Float.floatToIntBits(Float.MIN_NORMAL)));
         assertFalse(FloatGenerator.isNaN(Float.floatToIntBits(Float.MAX_VALUE)));
@@ -123,11 +126,11 @@ class FloatGeneratorTest {
         assertTrue(FloatGenerator.isNaN(Float.floatToIntBits(Float.NaN)));
         assertTrue(FloatGenerator.isNaN(
                 Float.floatToIntBits(Float.POSITIVE_INFINITY) |
-                Float.floatToIntBits(RandomUtils.nextFloat())
+                Float.floatToIntBits(RND.randomFloat())
         ));
         assertTrue(FloatGenerator.isNaN(
                 Float.floatToIntBits(Float.NEGATIVE_INFINITY) |
-                Float.floatToIntBits(RandomUtils.nextFloat())
+                Float.floatToIntBits(RND.randomFloat())
         ));
     }
 
@@ -136,7 +139,7 @@ class FloatGeneratorTest {
      */
     @Test
     void testIsInfinity() {
-        assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(RandomUtils.nextFloat())));
+        assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(RND.randomFloat())));
         assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(Float.MIN_VALUE)));
         assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(Float.MIN_NORMAL)));
         assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(Float.MAX_VALUE)));
@@ -145,11 +148,11 @@ class FloatGeneratorTest {
         assertFalse(FloatGenerator.isInfinity(Float.floatToIntBits(Float.NaN)));
         assertFalse(FloatGenerator.isInfinity(
                 Float.floatToIntBits(Float.POSITIVE_INFINITY) |
-                Float.floatToIntBits(RandomUtils.nextFloat())
+                Float.floatToIntBits(RND.randomFloat())
         ));
         assertFalse(FloatGenerator.isInfinity(
                 Float.floatToIntBits(Float.NEGATIVE_INFINITY) |
-                Float.floatToIntBits(RandomUtils.nextFloat())
+                Float.floatToIntBits(RND.randomFloat())
         ));
     }
 }

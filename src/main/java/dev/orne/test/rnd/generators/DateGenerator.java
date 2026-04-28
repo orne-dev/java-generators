@@ -64,6 +64,6 @@ extends AbstractTypedGenerator<Date> {
      */
     @Override
     public @NotNull Date randomValue() {
-        return new Date(RandomUtils.nextLong());
+        return new Date(RandomUtils.insecure().randomLong());
     }
 }

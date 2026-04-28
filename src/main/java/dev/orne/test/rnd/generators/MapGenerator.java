@@ -178,7 +178,7 @@ extends AbstractTypedParameterizableGenerator<Map<?, ?>, MapGenerationParameters
      */
     protected int randomSize(
             final @NotNull MapGenerationParameters parameters) {
-        return RandomUtils.nextInt(
+        return RandomUtils.insecure().randomInt(
                 NumberUtils.max(MIN_SIZE, parameters.getMinSize()),
                 NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);
     }

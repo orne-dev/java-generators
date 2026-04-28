@@ -98,8 +98,8 @@ extends BaseParametersSourceExtractorTest {
                 Arguments.of(0L, 5L),
                 Arguments.of(5L, 5L),
                 Arguments.of(
-                    RandomUtils.nextLong(),
-                    RandomUtils.nextLong())
+                    RandomUtils.insecure().randomLong(),
+                    RandomUtils.insecure().randomLong())
         );
     }
 }

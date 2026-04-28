@@ -25,11 +25,11 @@ package dev.orne.test.rnd.generators;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.Objects;
 import java.util.WeakHashMap;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
 import org.slf4j.Logger;
@@ -165,7 +165,7 @@ implements Generator {
      */
     protected Generator getAnnotatedGenerator(
             final @NotNull Class<?> targetType) {
-        Validate.notNull(targetType);
+        Objects.requireNonNull(targetType);
         Generator generator;
         synchronized (this.cache) {
             generator = this.cache.computeIfAbsent(targetType, this::discoverAnnotatedGenerator);
@@ -232,7 +232,7 @@ implements Generator {
      */
     protected <T> ExecutableGenerator<T> findDeclaredConstructor(
             final @NotNull Class<T> targetType) {
-        Validate.notNull(targetType);
+        Objects.requireNonNull(targetType);
         ExecutableGenerator<T> generator = null;
         for (final Constructor<?> ctr : targetType.getDeclaredConstructors()) {
             if (ctr.isAnnotationPresent(GeneratorMethod.class)) {
@@ -262,7 +262,7 @@ implements Generator {
      */
     protected <T> ExecutableGenerator<T> findDeclaredMethod(
             final @NotNull Class<T> targetType) {
-        Validate.notNull(targetType);
+        Objects.requireNonNull(targetType);
         ExecutableGenerator<T> generator = null;
         for (final Method method : targetType.getDeclaredMethods()) {
             if (method.isAnnotationPresent(GeneratorMethod.class)) {

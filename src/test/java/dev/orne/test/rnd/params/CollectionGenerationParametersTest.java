@@ -42,6 +42,9 @@ import org.junit.jupiter.api.Test;
 @Tag("ut")
 class CollectionGenerationParametersTest {
 
+    /** The random generator used for testing. */
+    private static final RandomUtils RND = RandomUtils.insecure();
+
     /**
      * Unit test for {@link CollectionGenerationParameters#CollectionGenerationParameters()}.
      */
@@ -60,10 +63,10 @@ class CollectionGenerationParametersTest {
     @Test
     void testCopyConstructor() {
         final CollectionGenerationParameters copy = new CollectionGenerationParameters();
-        copy.setNullable(RandomUtils.nextBoolean());
+        copy.setNullable(RND.randomBoolean());
         copy.setType(String.class);
-        copy.setMinSize(RandomUtils.nextInt());
-        copy.setMaxSize(RandomUtils.nextInt());
+        copy.setMinSize(RND.randomInt());
+        copy.setMaxSize(RND.randomInt());
         final CollectionGenerationParameters params = new CollectionGenerationParameters(copy);
         assertEquals(copy, params);
     }
@@ -117,8 +120,8 @@ class CollectionGenerationParametersTest {
     @Test
     void testCopyConstructor_SizeParameters() {
         final SizeParameters copy = mock(SizeParameters.class);
-        final int minSize = RandomUtils.nextInt();
-        final int maxSize = RandomUtils.nextInt();
+        final int minSize = RND.randomInt();
+        final int maxSize = RND.randomInt();
         given(copy.getMinSize()).willReturn(minSize);
         given(copy.getMaxSize()).willReturn(maxSize);
         final CollectionGenerationParameters params = new CollectionGenerationParameters(copy);
@@ -157,7 +160,7 @@ class CollectionGenerationParametersTest {
     @Test
     void testWithMinSize() {
         final CollectionGenerationParameters params = new CollectionGenerationParameters();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final CollectionGenerationParameters result = params.withMinSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMinSize());
@@ -169,7 +172,7 @@ class CollectionGenerationParametersTest {
     @Test
     void testWithMaxSize() {
         final CollectionGenerationParameters params = new CollectionGenerationParameters();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final CollectionGenerationParameters result = params.withMaxSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMaxSize());
@@ -194,9 +197,9 @@ class CollectionGenerationParametersTest {
         assertNotEquals(params, other);
         other = new CollectionGenerationParameters().withType(String.class);
         assertNotEquals(params, other);
-        other = new CollectionGenerationParameters().withMinSize(RandomUtils.nextInt());
+        other = new CollectionGenerationParameters().withMinSize(RND.randomInt());
         assertNotEquals(params, other);
-        other = new CollectionGenerationParameters().withMaxSize(RandomUtils.nextInt());
+        other = new CollectionGenerationParameters().withMaxSize(RND.randomInt());
         assertNotEquals(params, other);
     }
 }

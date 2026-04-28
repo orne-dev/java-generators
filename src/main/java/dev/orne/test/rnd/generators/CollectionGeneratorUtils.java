@@ -24,10 +24,10 @@ package dev.orne.test.rnd.generators;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
 
 import dev.orne.test.rnd.GenerationException;
@@ -70,7 +70,7 @@ public final class CollectionGeneratorUtils {
      */
     public static @NotNull Object randomComponent(
             final @NotNull Type type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         final Object result;
         if (type instanceof Class<?>) {
             result = Generators.randomValue((Class<?>) type);
@@ -103,7 +103,7 @@ public final class CollectionGeneratorUtils {
      */
     public static @NotNull Object nullableRandomComponent(
             final @NotNull Type type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         final Object result;
         if (type instanceof Class<?>) {
             result = Generators.nullableRandomValue((Class<?>) type);

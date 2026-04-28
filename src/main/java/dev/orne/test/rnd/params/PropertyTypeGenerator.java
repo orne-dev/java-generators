@@ -26,6 +26,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -68,8 +69,8 @@ extends AbstractTargetedGenerator<T> {
             final @NotNull Class<?> validationClass,
             final @NotNull Field property) {
         super(valueType);
-        this.validationClass = Validate.notNull(validationClass);
-        this.property = Validate.notNull(property);
+        this.validationClass = Objects.requireNonNull(validationClass);
+        this.property = Objects.requireNonNull(property);
     }
 
     /**
@@ -86,8 +87,8 @@ extends AbstractTargetedGenerator<T> {
             final @NotNull Field property,
             final @NotNull Generator generator) {
         super(valueType, generator);
-        this.validationClass = Validate.notNull(validationClass);
-        this.property = Validate.notNull(property);
+        this.validationClass = Objects.requireNonNull(validationClass);
+        this.property = Objects.requireNonNull(property);
     }
 
     /**
@@ -101,7 +102,7 @@ extends AbstractTargetedGenerator<T> {
      */
     public static <T> dev.orne.test.rnd.params.PropertyTypeGenerator<T> targeting(
             final @NotNull Field field) {
-        Validate.notNull(field);
+        Objects.requireNonNull(field);
         return targeting(field.getDeclaringClass(), field);
     }
 
@@ -117,8 +118,8 @@ extends AbstractTargetedGenerator<T> {
     public static <T> dev.orne.test.rnd.params.PropertyTypeGenerator<T> targeting(
             final @NotNull Class<?> cls,
             final @NotNull Field field) {
-        Validate.notNull(cls);
-        Validate.notNull(field);
+        Objects.requireNonNull(cls);
+        Objects.requireNonNull(field);
         Validate.isTrue(field.getDeclaringClass().isAssignableFrom(cls));
         @SuppressWarnings("unchecked")
         final Class<T> targetType = (Class<T>) field.getType();
@@ -142,8 +143,8 @@ extends AbstractTargetedGenerator<T> {
     public static <T> dev.orne.test.rnd.params.PropertyTypeGenerator<T> targeting(
             final @NotNull Class<?> cls,
             final @NotNull String property) {
-        Validate.notNull(cls);
-        Validate.notNull(property);
+        Objects.requireNonNull(cls);
+        Objects.requireNonNull(property);
         final Field field = FieldUtils.getField(cls, property, true);
         if (field == null) {
             throw new GenerationException("Target property not found");

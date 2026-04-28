@@ -80,9 +80,9 @@ extends AbstractTypedGenerator<BigInteger> {
      * @return A random {@code BigInteger} value
      */
     public static BigInteger randomBigInteger() {
-        final int size = RandomUtils.nextInt(1, MAX_EXPONENT + 1);
-        BigInteger result = new BigInteger(RandomStringUtils.randomNumeric(size));
-        if (RandomUtils.nextBoolean()) {
+        final int size = RandomUtils.insecure().randomInt(1, MAX_EXPONENT + 1);
+        BigInteger result = new BigInteger(RandomStringUtils.insecure().nextNumeric(size));
+        if (RandomUtils.insecure().randomBoolean()) {
             result = result.negate();
         }
         return result;

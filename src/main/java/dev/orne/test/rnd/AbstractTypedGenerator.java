@@ -22,6 +22,8 @@ package dev.orne.test.rnd;
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
@@ -54,7 +56,7 @@ implements TypedGenerator<T> {
     protected AbstractTypedGenerator(
             final @NotNull Class<T> valueType) {
         super();
-        this.valueType = Validate.notNull(valueType);
+        this.valueType = Objects.requireNonNull(valueType);
     }
 
     /**
@@ -100,7 +102,7 @@ implements TypedGenerator<T> {
     @Override
     public boolean supports(
             final @NotNull Class<?> type) {
-        return Validate.notNull(type).equals(this.valueType);
+        return Objects.requireNonNull(type).equals(this.valueType);
     }
 
     /**

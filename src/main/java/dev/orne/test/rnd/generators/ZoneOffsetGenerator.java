@@ -64,7 +64,7 @@ extends AbstractTypedGenerator<ZoneOffset> {
      */
     @Override
     public @NotNull ZoneOffset randomValue() {
-        final long seconds = RandomUtils.nextLong(
+        final long seconds = RandomUtils.insecure().randomLong(
                 0,
                 (long) ZoneOffset.MAX.getTotalSeconds() - (long) ZoneOffset.MIN.getTotalSeconds())
                 + ZoneOffset.MIN.getTotalSeconds();

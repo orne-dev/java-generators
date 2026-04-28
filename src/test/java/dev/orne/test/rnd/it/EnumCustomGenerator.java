@@ -81,7 +81,7 @@ extends AbstractTypedGenerator<EnumCustomGenerator.Values> {
      */
     @Override
     public @NotNull Values randomValue() {
-        final int index = RandomUtils.nextInt(0, GENERATED_VALUES.length);
+        final int index = RandomUtils.insecure().randomInt(0, GENERATED_VALUES.length);
         return GENERATED_VALUES[index];
     }
 

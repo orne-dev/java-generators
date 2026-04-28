@@ -47,7 +47,7 @@ class AbstractGeneratorTest {
     void testSetNullProbability() {
         final AbstractGenerator generator = spy(AbstractGenerator.class);
         assertEquals(AbstractGenerator.DEFAULT_NULL_PROBABILITY, generator.getNullProbability());
-        float newProb = RandomUtils.nextFloat(0, 1);
+        float newProb = RandomUtils.insecure().randomFloat(0, 1);
         generator.setNullProbability(newProb);
         assertEquals(newProb, generator.getNullProbability());
         assertThrows(IllegalArgumentException.class, () -> {

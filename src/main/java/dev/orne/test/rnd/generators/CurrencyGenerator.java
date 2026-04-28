@@ -83,7 +83,7 @@ extends AbstractTypedGenerator<Currency> {
      */
     @Override
     public @NotNull Currency randomValue() {
-        final int index = RandomUtils.nextInt(0, CURRENCIES.size());
+        final int index = RandomUtils.insecure().randomInt(0, CURRENCIES.size());
         return CURRENCIES.get(index);
     }
 }

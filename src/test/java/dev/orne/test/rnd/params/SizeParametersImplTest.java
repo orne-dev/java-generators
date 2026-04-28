@@ -40,6 +40,9 @@ import org.junit.jupiter.api.Test;
 @Tag("ut")
 class SizeParametersImplTest {
 
+    /** The random generator used for testing. */
+    private static final RandomUtils RND = RandomUtils.insecure();
+
     /**
      * Unit test for {@link SizeParametersImpl#SizeParametersImpl()}.
      */
@@ -67,8 +70,8 @@ class SizeParametersImplTest {
     @Test
     void testCopyConstructor() {
         final SizeParameters copy = mock(SizeParameters.class);
-        final int minSize = RandomUtils.nextInt();
-        final int maxSize = RandomUtils.nextInt();
+        final int minSize = RND.randomInt();
+        final int maxSize = RND.randomInt();
         given(copy.getMinSize()).willReturn(minSize);
         given(copy.getMaxSize()).willReturn(maxSize);
         final SizeParametersImpl params = new SizeParametersImpl(copy);
@@ -82,7 +85,7 @@ class SizeParametersImplTest {
     @Test
     void testWithMinSize() {
         final SizeParametersImpl params = new SizeParametersImpl();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final SizeParametersImpl result = params.withMinSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMinSize());
@@ -94,7 +97,7 @@ class SizeParametersImplTest {
     @Test
     void testWithMaxSize() {
         final SizeParametersImpl params = new SizeParametersImpl();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final SizeParametersImpl result = params.withMaxSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMaxSize());

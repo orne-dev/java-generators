@@ -26,6 +26,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -67,7 +68,7 @@ extends AbstractTargetedGenerator<T> {
             @NotNull Constructor<?> constructor,
             int parameterIndex) {
         super(valueType);
-        this.constructor = Validate.notNull(constructor);
+        this.constructor = Objects.requireNonNull(constructor);
         this.parameterIndex = parameterIndex;
         Validate.validIndex(constructor.getParameterTypes(), parameterIndex);
     }
@@ -86,7 +87,7 @@ extends AbstractTargetedGenerator<T> {
             int parameterIndex,
             @NotNull Generator generator) {
         super(valueType, generator);
-        this.constructor = Validate.notNull(constructor);
+        this.constructor = Objects.requireNonNull(constructor);
         this.parameterIndex = parameterIndex;
         Validate.validIndex(constructor.getParameterTypes(), parameterIndex);
     }
@@ -103,7 +104,7 @@ extends AbstractTargetedGenerator<T> {
     public static <T> dev.orne.test.rnd.params.ConstructorParameterTypeGenerator<T> targeting(
             final @NotNull Constructor<?> constructor,
             final int parameterIndex) {
-        Validate.notNull(constructor);
+        Objects.requireNonNull(constructor);
         Validate.validIndex(constructor.getParameterTypes(), parameterIndex);
         @SuppressWarnings("unchecked")
         final Class<T> targetType = (Class<T>) constructor.getParameterTypes()[parameterIndex];
@@ -124,7 +125,7 @@ extends AbstractTargetedGenerator<T> {
             final @NotNull Class<?> cls,
             final int parameterIndex,
             final @NotNull Class<?>... parameterTypes) {
-        Validate.notNull(cls);
+        Objects.requireNonNull(cls);
         Constructor<?> ctr;
         try {
             ctr = cls.getConstructor(parameterTypes);

@@ -103,10 +103,10 @@ extends BaseParametersSourceExtractorTest {
                 Arguments.of(Long.MIN_VALUE, Long.MAX_VALUE, 5, Long.MAX_VALUE),
                 Arguments.of(Long.MIN_VALUE, Long.MAX_VALUE, 5, 10),
                 Arguments.of(
-                    RandomUtils.nextInt(),
-                    RandomUtils.nextInt(),
-                    RandomUtils.nextInt(),
-                    RandomUtils.nextInt())
+                    RandomUtils.insecure().randomInt(),
+                    RandomUtils.insecure().randomInt(),
+                    RandomUtils.insecure().randomInt(),
+                    RandomUtils.insecure().randomInt())
         );
     }
 }

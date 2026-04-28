@@ -103,7 +103,7 @@ extends AbstractGenerator {
     protected @NotNull Object randomArray(
             final @NotNull Class<?> componentType,
             final @NotNull Generator generator) {
-        final int size = RandomUtils.nextInt(MIN_SIZE, MAX_SIZE);
+        final int size = RandomUtils.insecure().randomInt(MIN_SIZE, MAX_SIZE);
         final Object result = Array.newInstance(componentType, size);
         for (int i = 0; i < size; i++) {
             Array.set(result, i, generator.randomValue(componentType));
@@ -141,7 +141,7 @@ extends AbstractGenerator {
     protected Object randomNullablesArray(
             final @NotNull Class<?> componentType,
             final @NotNull Generator generator) {
-        final int size = RandomUtils.nextInt(MIN_SIZE, MAX_SIZE);
+        final int size = RandomUtils.insecure().randomInt(MIN_SIZE, MAX_SIZE);
         final Object result = Array.newInstance(componentType, size);
         for (int i = 0; i < size; i++) {
             Array.set(result, i, generator.nullableRandomValue(componentType));

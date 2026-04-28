@@ -22,11 +22,12 @@ package dev.orne.test.rnd.generators;
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apiguardian.api.API;
 
@@ -67,7 +68,7 @@ extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters
     @Override
     public boolean supports(
             final @NotNull Class<?> type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         return String.class.equals(type) ||
                 CharSequence.class.equals(type);
     }
@@ -113,7 +114,7 @@ extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters
     protected @NotNull String randomString(
             final @NotNull StringGenerationParameters parameters) {
         final int size = randomSize(parameters);
-        return RandomStringUtils.random(size);
+        return RandomStringUtils.insecure().next(size);
     }
 
     /**
@@ -124,7 +125,7 @@ extends AbstractTypedParameterizableGenerator<String, StringGenerationParameters
      */
     protected int randomSize(
             final @NotNull StringGenerationParameters parameters) {
-        return RandomUtils.nextInt(
+        return RandomUtils.insecure().randomInt(
                 NumberUtils.max(MIN_SIZE, parameters.getMinSize()),
                 NumberUtils.min(MAX_SIZE, parameters.getMaxSize()) + 1);
     }

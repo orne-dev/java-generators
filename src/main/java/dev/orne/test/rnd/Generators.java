@@ -34,6 +34,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ServiceLoader;
 import java.util.WeakHashMap;
 
@@ -259,7 +260,7 @@ public final class Generators {
      */
     public static Generator getGenerator(
             final @NotNull Class<?> type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         final Generator result = getGeneratorInt(type);
         return result == Generator.MISSING ? null : result;
     }
@@ -538,7 +539,7 @@ public final class Generators {
      */
     public static void register(
             final @NotNull Generator... generators) {
-        Validate.notNull(generators);
+        Objects.requireNonNull(generators);
         register(Arrays.asList(generators));
     }
 
@@ -549,7 +550,7 @@ public final class Generators {
      */
     public static void register(
             final @NotNull Collection<Generator> generators) {
-        Validate.notNull(generators);
+        Objects.requireNonNull(generators);
         Validate.noNullElements(generators);
         synchronized (Generators.class) {
             final List<Generator> intList = getGeneratorsInt();
@@ -566,7 +567,7 @@ public final class Generators {
      */
     public static void remove(
             final @NotNull Generator... generators) {
-        Validate.notNull(generators);
+        Objects.requireNonNull(generators);
         remove(Arrays.asList(generators));
     }
 
@@ -577,7 +578,7 @@ public final class Generators {
      */
     public static void remove(
             final @NotNull Collection<Generator> generators) {
-        Validate.notNull(generators);
+        Objects.requireNonNull(generators);
         Validate.noNullElements(generators);
         synchronized (Generators.class) {
             final List<Generator> intList = getGeneratorsInt();

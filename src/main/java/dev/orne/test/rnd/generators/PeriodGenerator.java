@@ -64,9 +64,10 @@ extends AbstractTypedGenerator<Period> {
      */
     @Override
     public @NotNull Period randomValue() {
+        final RandomUtils rnd = RandomUtils.insecure();
         return Period.of(
-                RandomUtils.nextInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE,
-                RandomUtils.nextInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE,
-                RandomUtils.nextInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE);
+                rnd.randomInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE,
+                rnd.randomInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE,
+                rnd.randomInt(0, Short.MAX_VALUE + 1 - Short.MIN_VALUE) + Short.MIN_VALUE);
     }
 }

@@ -26,10 +26,10 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
@@ -62,7 +62,7 @@ extends AbstractTargetedGenerator<T> {
             final @NotNull Class<T> valueType,
             final @NotNull Parameter parameter) {
         super(valueType);
-        this.parameter = Validate.notNull(parameter);
+        this.parameter = Objects.requireNonNull(parameter);
     }
 
     /**
@@ -77,7 +77,7 @@ extends AbstractTargetedGenerator<T> {
             final @NotNull Parameter parameter,
             final @NotNull Generator generator) {
         super(valueType, generator);
-        this.parameter = Validate.notNull(parameter);
+        this.parameter = Objects.requireNonNull(parameter);
     }
 
     /**
@@ -90,7 +90,7 @@ extends AbstractTargetedGenerator<T> {
      */
     public static <T> ParameterTypeGenerator<T> targeting(
             final @NotNull Parameter parameter) {
-        Validate.notNull(parameter);
+        Objects.requireNonNull(parameter);
         @SuppressWarnings("unchecked")
         final Class<T> targetType = (Class<T>) parameter.getType();
         return new ParameterTypeGenerator<>(targetType, parameter);

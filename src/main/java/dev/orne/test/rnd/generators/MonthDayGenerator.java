@@ -75,13 +75,13 @@ extends AbstractTypedGenerator<MonthDay> {
             case JUNE:
             case SEPTEMBER:
             case NOVEMBER:
-                day = RandomUtils.nextInt(1, 31);
+                day = RandomUtils.insecure().randomInt(1, 31);
                 break;
             case FEBRUARY:
-                day = RandomUtils.nextInt(1, 30);
+                day = RandomUtils.insecure().randomInt(1, 30);
                 break;
             default:
-                day = RandomUtils.nextInt(1, 32);
+                day = RandomUtils.insecure().randomInt(1, 32);
         }
         return MonthDay.of(month, day);
     }

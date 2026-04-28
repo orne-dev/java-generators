@@ -87,7 +87,7 @@ extends AbstractTypedGenerator<Charset> {
      */
     @Override
     public @NotNull Charset randomValue() {
-        final int index = RandomUtils.nextInt(0, CHARSETS.size());
+        final int index = RandomUtils.insecure().randomInt(0, CHARSETS.size());
         return CHARSETS.get(index);
     }
 
@@ -97,7 +97,7 @@ extends AbstractTypedGenerator<Charset> {
      * @return A random {@code Charset} that does not support encoding.
      */
     public @NotNull Charset randomDecodeOnlyValue() {
-        final int index = RandomUtils.nextInt(0, DECODE_ONLY_CHARSETS.size());
+        final int index = RandomUtils.insecure().randomInt(0, DECODE_ONLY_CHARSETS.size());
         return DECODE_ONLY_CHARSETS.get(index);
     }
 }

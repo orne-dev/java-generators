@@ -70,6 +70,6 @@ extends AbstractTypedGenerator<Duration> {
         while (unit.isDurationEstimated()) {
             unit = Generators.randomValue(ChronoUnit.class);
         }
-        return Duration.of(RandomUtils.nextInt(), unit);
+        return Duration.of(RandomUtils.insecure().randomInt(), unit);
     }
 }

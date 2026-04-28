@@ -67,7 +67,7 @@ extends AbstractTypedGenerator<Locale> {
      */
     @Override
     public @NotNull Locale randomValue() {
-        final int index = RandomUtils.nextInt(0, LOCALES.length);
+        final int index = RandomUtils.insecure().randomInt(0, LOCALES.length);
         return LOCALES[index];
     }
 }

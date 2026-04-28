@@ -23,6 +23,7 @@ package dev.orne.test.rnd.params;
  */
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -70,8 +71,8 @@ extends ExecutableGenerator<T> {
     public static <T> FactoryMethodGenerator<T> of(
             final @NotNull Class<T> type,
             final @NotNull Method method) {
-        Validate.notNull(type);
-        Validate.notNull(method);
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(method);
         Validate.isTrue(method.getReturnType().equals(type));
         final TargetedGenerator<?>[] generators = new TargetedGenerator<?>[method.getParameterCount()];
         for (int i = 0; i < generators.length; i++) {

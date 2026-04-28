@@ -70,7 +70,7 @@ extends AbstractTypedGenerator<ZoneId> {
      */
     @Override
     public @NotNull ZoneId randomValue() {
-        final int index = RandomUtils.nextInt(0, IDS.size());
+        final int index = RandomUtils.insecure().randomInt(0, IDS.size());
         return ZoneId.of(IDS.get(index));
     }
 }

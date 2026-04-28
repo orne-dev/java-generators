@@ -22,6 +22,8 @@ package dev.orne.test.rnd.generators;
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomUtils;
@@ -79,7 +81,7 @@ extends AbstractGenerator {
             final @NotNull Class<T> type) {
         assertSupported(type);
         final T[] values = type.getEnumConstants();
-        return values[RandomUtils.nextInt(0, values.length)];
+        return values[RandomUtils.insecure().randomInt(0, values.length)];
     }
 
     /**
@@ -92,10 +94,10 @@ extends AbstractGenerator {
      */
     public static <T extends Enum<T>> @NotNull T randomEnumValue(
             final @NotNull Class<T> type) {
-        Validate.notNull(type);
+        Objects.requireNonNull(type);
         Validate.isTrue(type.isEnum(), "The specified class is not an enumeration");
         final T[] values = type.getEnumConstants();
         Validate.isTrue(values.length > 0, "The specified enumeration has no values");
-        return values[RandomUtils.nextInt(0, values.length)];
+        return values[RandomUtils.insecure().randomInt(0, values.length)];
     }
 }

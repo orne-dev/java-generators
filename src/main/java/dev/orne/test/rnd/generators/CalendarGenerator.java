@@ -72,7 +72,7 @@ extends AbstractTypedGenerator<Calendar> {
         final Calendar result = Calendar.getInstance(
                 Generators.randomValue(TimeZone.class),
                 Generators.randomValue(Locale.class));
-        result.setTimeInMillis(RandomUtils.nextLong());
+        result.setTimeInMillis(RandomUtils.insecure().randomLong());
         return result;
     }
 }

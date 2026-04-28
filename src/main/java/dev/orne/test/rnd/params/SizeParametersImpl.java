@@ -22,9 +22,10 @@ package dev.orne.test.rnd.params;
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -63,7 +64,7 @@ implements SizeParameters,
     public SizeParametersImpl(
             final @NotNull GenerationParameters copy) {
         super();
-        Validate.notNull(copy);
+        Objects.requireNonNull(copy);
         if (copy instanceof SizeParameters) {
             final SizeParameters tcopy = (SizeParameters) copy;
             this.minSize = tcopy.getMinSize();

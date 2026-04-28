@@ -69,6 +69,6 @@ extends AbstractTypedGenerator<LocalDate> {
         final Year year = Generators.randomValue(Year.class);
         return LocalDate.ofYearDay(
                 year.getValue(),
-                RandomUtils.nextInt(1, year.isLeap() ? 367 : 366));
+                RandomUtils.insecure().randomInt(1, year.isLeap() ? 367 : 366));
     }
 }

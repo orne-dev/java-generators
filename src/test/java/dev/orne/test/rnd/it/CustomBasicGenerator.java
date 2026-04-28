@@ -104,7 +104,7 @@ extends AbstractGenerator {
         } else {
             result = new BasicImpl();
         }
-        result.setCode(RandomUtils.nextInt(1, Integer.MAX_VALUE));
+        result.setCode(RandomUtils.insecure().randomInt(1, Integer.MAX_VALUE));
         result.setName(Generators.randomValue(String.class));
         return type.cast(result);
     }

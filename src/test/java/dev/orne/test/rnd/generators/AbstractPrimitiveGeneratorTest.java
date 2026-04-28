@@ -91,7 +91,7 @@ class AbstractPrimitiveGeneratorTest {
     @Test
     void testDefaultValue() {
         final TestGenerator<Integer> generator = spy(new TestGenerator<>(Integer.class));
-        final Integer mockValue = RandomUtils.nextInt();
+        final Integer mockValue = RandomUtils.insecure().randomInt();
         willReturn(mockValue).given(generator).defaultValue();
         assertThrows(UnsupportedValueTypeException.class, () -> {
             generator.nullableDefaultValue(Long.class);

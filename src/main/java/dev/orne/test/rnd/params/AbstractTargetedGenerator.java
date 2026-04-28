@@ -27,6 +27,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -75,8 +76,8 @@ implements TargetedGenerator<T> {
             final @NotNull Class<T> valueType,
             final @NotNull Generator generator) {
         super();
-        this.valueType = Validate.notNull(valueType);
-        this.generator = Validate.notNull(generator);
+        this.valueType = Objects.requireNonNull(valueType);
+        this.generator = Objects.requireNonNull(generator);
         Validate.isTrue(generator.supports(valueType));
     }
 

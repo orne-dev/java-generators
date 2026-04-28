@@ -29,6 +29,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.validation.Validation;
@@ -106,9 +107,9 @@ public final class ConstraintIntrospector {
             final @NotNull Class<?> type,
             final @NotNull String property,
             final @NotNull Class<?>... groups) {
-        Validate.notNull(validator);
-        Validate.notNull(type);
-        Validate.notNull(property);
+        Objects.requireNonNull(validator);
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(property);
         final BeanDescriptor beanDesc = validator.getConstraintsForClass(type);
         final PropertyDescriptor propDesc = beanDesc.getConstraintsForProperty(property);
         if (propDesc == null) {
@@ -147,8 +148,8 @@ public final class ConstraintIntrospector {
             final @NotNull Validator validator,
             final @NotNull Parameter parameter,
             final @NotNull Class<?>... groups) {
-        Validate.notNull(validator);
-        Validate.notNull(parameter);
+        Objects.requireNonNull(validator);
+        Objects.requireNonNull(parameter);
         final Executable exec = parameter.getDeclaringExecutable();
         final BeanDescriptor beanDesc = validator.getConstraintsForClass(
                 exec.getDeclaringClass());
@@ -210,8 +211,8 @@ public final class ConstraintIntrospector {
             final @NotNull Method method,
             final int parameterIndex,
             final @NotNull Class<?>... groups) {
-        Validate.notNull(validator);
-        Validate.notNull(method);
+        Objects.requireNonNull(validator);
+        Objects.requireNonNull(method);
         Validate.validIndex(method.getParameterTypes(), parameterIndex);
         final BeanDescriptor beanDesc = validator.getConstraintsForClass(
                 method.getDeclaringClass());
@@ -255,8 +256,8 @@ public final class ConstraintIntrospector {
             final @NotNull Validator validator,
             final @NotNull Method method,
             final @NotNull Class<?>... groups) {
-        Validate.notNull(validator);
-        Validate.notNull(method);
+        Objects.requireNonNull(validator);
+        Objects.requireNonNull(method);
         final BeanDescriptor beanDesc = validator.getConstraintsForClass(
                 method.getDeclaringClass());
         final MethodDescriptor methodDesc = beanDesc.getConstraintsForMethod(
@@ -304,8 +305,8 @@ public final class ConstraintIntrospector {
             final @NotNull Constructor<?> constructor,
             final int parameterIndex,
             final @NotNull Class<?>... groups) {
-        Validate.notNull(validator);
-        Validate.notNull(constructor);
+        Objects.requireNonNull(validator);
+        Objects.requireNonNull(constructor);
         Validate.validIndex(constructor.getParameterTypes(), parameterIndex);
         final BeanDescriptor beanDesc = validator.getConstraintsForClass(
                 constructor.getDeclaringClass());

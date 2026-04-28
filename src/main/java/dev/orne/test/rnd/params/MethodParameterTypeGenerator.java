@@ -26,6 +26,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -68,7 +69,7 @@ extends AbstractTargetedGenerator<T> {
             @NotNull Method method,
             int parameterIndex) {
         super(valueType);
-        this.method = Validate.notNull(method);
+        this.method = Objects.requireNonNull(method);
         this.parameterIndex = parameterIndex;
         Validate.validIndex(method.getParameterTypes(), parameterIndex);
     }
@@ -87,7 +88,7 @@ extends AbstractTargetedGenerator<T> {
             int parameterIndex,
             @NotNull Generator generator) {
         super(valueType, generator);
-        this.method = Validate.notNull(method);
+        this.method = Objects.requireNonNull(method);
         this.parameterIndex = parameterIndex;
         Validate.validIndex(method.getParameterTypes(), parameterIndex);
     }
@@ -103,7 +104,7 @@ extends AbstractTargetedGenerator<T> {
     public static <T> dev.orne.test.rnd.params.MethodParameterTypeGenerator<T> targeting(
             final @NotNull Method method,
             final int parameterIndex) {
-        Validate.notNull(method);
+        Objects.requireNonNull(method);
         @SuppressWarnings("unchecked")
         final Class<T> targetType = (Class<T>) method.getParameterTypes()[parameterIndex];
         return new MethodParameterTypeGenerator<>(targetType,  method, parameterIndex);
@@ -124,8 +125,8 @@ extends AbstractTargetedGenerator<T> {
             final @NotNull String methodName,
             final int parameterIndex,
             final @NotNull Class<?>... parameterTypes) {
-        Validate.notNull(cls);
-        Validate.notNull(methodName);
+        Objects.requireNonNull(cls);
+        Objects.requireNonNull(methodName);
         final Method method = MethodUtils.getMatchingMethod(cls, methodName, parameterTypes);
         if (method == null) {
             throw new GenerationException("Target method not found");

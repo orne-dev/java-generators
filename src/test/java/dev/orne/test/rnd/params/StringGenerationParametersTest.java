@@ -40,6 +40,9 @@ import org.junit.jupiter.api.Test;
 @Tag("ut")
 class StringGenerationParametersTest {
 
+    /** The random generator used for testing. */
+    private static final RandomUtils RND = RandomUtils.insecure();
+
     /**
      * Unit test for {@link StringGenerationParameters#StringGenerationParameters()}.
      */
@@ -57,9 +60,9 @@ class StringGenerationParametersTest {
     @Test
     void testCopyConstructor() {
         final StringGenerationParameters copy = new StringGenerationParameters();
-        copy.setNullable(RandomUtils.nextBoolean());
-        copy.setMinSize(RandomUtils.nextInt());
-        copy.setMaxSize(RandomUtils.nextInt());
+        copy.setNullable(RND.randomBoolean());
+        copy.setMinSize(RND.randomInt());
+        copy.setMaxSize(RND.randomInt());
         final StringGenerationParameters params = new StringGenerationParameters(copy);
         assertEquals(copy, params);
     }
@@ -95,8 +98,8 @@ class StringGenerationParametersTest {
     @Test
     void testCopyConstructor_SizeParameters() {
         final SizeParameters copy = mock(SizeParameters.class);
-        final int minSize = RandomUtils.nextInt();
-        final int maxSize = RandomUtils.nextInt();
+        final int minSize = RND.randomInt();
+        final int maxSize = RND.randomInt();
         given(copy.getMinSize()).willReturn(minSize);
         given(copy.getMaxSize()).willReturn(maxSize);
         final StringGenerationParameters params = new StringGenerationParameters(copy);
@@ -122,7 +125,7 @@ class StringGenerationParametersTest {
     @Test
     void testWithMinSize() {
         final StringGenerationParameters params = new StringGenerationParameters();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final StringGenerationParameters result = params.withMinSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMinSize());
@@ -134,7 +137,7 @@ class StringGenerationParametersTest {
     @Test
     void testWithMaxSize() {
         final StringGenerationParameters params = new StringGenerationParameters();
-        final int value = RandomUtils.nextInt();
+        final int value = RND.randomInt();
         final StringGenerationParameters result = params.withMaxSize(value);
         assertSame(result, params);
         assertEquals(value, params.getMaxSize());
@@ -157,9 +160,9 @@ class StringGenerationParametersTest {
         assertEquals(params.toString(), other.toString());
         other = new StringGenerationParameters().withNullable(false);
         assertNotEquals(params, other);
-        other = new StringGenerationParameters().withMinSize(RandomUtils.nextInt());
+        other = new StringGenerationParameters().withMinSize(RND.randomInt());
         assertNotEquals(params, other);
-        other = new StringGenerationParameters().withMaxSize(RandomUtils.nextInt());
+        other = new StringGenerationParameters().withMaxSize(RND.randomInt());
         assertNotEquals(params, other);
     }
 }

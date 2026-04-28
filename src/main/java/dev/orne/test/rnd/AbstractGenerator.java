@@ -141,7 +141,7 @@ implements Generator {
      */
     public boolean randomNull(
             final @NotNull Class<?> type) {
-        return RandomUtils.nextFloat(0, 1) < this.nullProbability;
+        return RandomUtils.insecure().randomFloat(0, 1) < this.nullProbability;
     }
 
     /**

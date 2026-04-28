@@ -22,6 +22,8 @@ package dev.orne.test.rnd.params;
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
@@ -60,8 +62,8 @@ implements ParametersSourceExtractor<P, S> {
             final @NotNull Class<P> parametersType,
             final @NotNull Class<S> sourceType) {
         super();
-        this.parametersType = Validate.notNull(parametersType);
-        this.sourceType = Validate.notNull(sourceType);
+        this.parametersType = Objects.requireNonNull(parametersType);
+        this.sourceType = Objects.requireNonNull(sourceType);
     }
 
     /**

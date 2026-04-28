@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ServiceLoader;
 
 import javax.validation.constraints.NotNull;
@@ -113,7 +114,7 @@ public final class ParametersExtractors {
      */
     public static void register(
             final @NotNull ParametersSourceExtractor<?, ?>... extractors) {
-        Validate.notNull(extractors);
+        Objects.requireNonNull(extractors);
         register(Arrays.asList(extractors));
     }
 
@@ -125,7 +126,7 @@ public final class ParametersExtractors {
      */
     public static void register(
             final @NotNull Collection<ParametersSourceExtractor<?, ?>> extractors) {
-        Validate.notNull(extractors);
+        Objects.requireNonNull(extractors);
         Validate.noNullElements(extractors);
         synchronized (Generators.class) {
             final List<ParametersSourceExtractor<?, ?>> intList = getSourceExtractorsInt();
@@ -143,7 +144,7 @@ public final class ParametersExtractors {
      */
     public static void remove(
             final @NotNull ParametersSourceExtractor<?, ?>... extractors) {
-        Validate.notNull(extractors);
+        Objects.requireNonNull(extractors);
         remove(Arrays.asList(extractors));
     }
 
@@ -155,7 +156,7 @@ public final class ParametersExtractors {
      */
     public static void remove(
             final @NotNull Collection<ParametersSourceExtractor<?, ?>> extractors) {
-        Validate.notNull(extractors);
+        Objects.requireNonNull(extractors);
         Validate.noNullElements(extractors);
         synchronized (Generators.class) {
             final List<ParametersSourceExtractor<?, ?>> intList = getSourceExtractorsInt();
@@ -214,7 +215,7 @@ public final class ParametersExtractors {
      */
     public static void setFilter(
             final @NotNull SourceExtractorFilter filter) {
-        ParametersExtractors.filter = Validate.notNull(filter);
+        ParametersExtractors.filter = Objects.requireNonNull(filter);
         reset();
     }
 
@@ -234,7 +235,7 @@ public final class ParametersExtractors {
      */
     public static void setBuilder(
             final @NotNull ExtractorBuilder builder) {
-        ParametersExtractors.builder = Validate.notNull(builder);
+        ParametersExtractors.builder = Objects.requireNonNull(builder);
         reset();
     }
 

@@ -25,11 +25,11 @@ package dev.orne.test.rnd.params;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
@@ -66,8 +66,8 @@ extends AbstractTypedGenerator<T> {
             final @NotNull Executable executable,
             final @NotNull TargetedGenerator<?>[] paramGenerators) {
         super(type);
-        this.executable = Validate.notNull(executable);
-        this.parameterGenerators = Validate.notNull(paramGenerators);
+        this.executable = Objects.requireNonNull(executable);
+        this.parameterGenerators = Objects.requireNonNull(paramGenerators);
     }
 
     /**
