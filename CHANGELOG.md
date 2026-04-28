@@ -1,6 +1,6 @@
 # Orne Java random value generator for tests - Changelog
 
-## 0.3.0 - *Unreleased*
+## 0.3.0 - 2026-14-28
 
 - **Maven coordinates change.**
 
