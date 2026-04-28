@@ -28,11 +28,17 @@ unimplemented):
     - [X] Typed generators
     - [X] Parameterizable generators
         - [X] Generic classes generation support 
-        - [X] Java Validation 2.1 based parameters extractors
+        - [ ] JSpecify based parameters extractors
+        - [X] Jakarta Validation 2.0 based parameters extractors
             - [X] `NotNull` extractor
             - [X] `Size` extractor
             - [X] `Min` extractor
             - [X] `Max` extractor
+        - [ ] Jakarta Validation 3.0 based parameters extractors
+            - [ ] `NotNull` extractor
+            - [ ] `Size` extractor
+            - [ ] `Min` extractor
+            - [ ] `Max` extractor
         - [X] Parameterizable typed generators
         - [X] Targeted generators
             - [X] Property type generator
@@ -63,6 +69,7 @@ unimplemented):
     - [X] `java.util.Currency` generator
     - [X] `java.util.Date` generator
     - [X] `java.util.Locale` generator
+    - [ ] `java.util.Optional` generator
     - [X] `java.util.TimeZone` generator
     - [X] `java.util.URI` generator
     - [X] `java.util.URL` generator
@@ -107,189 +114,13 @@ The binaries can be obtained from [Maven Central][status.maven] with the
 <dependency>
   <groupId>dev.orne.test</groupId>
   <artifactId>orne-test-generators</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
 </dependency>
 ```
 
-To generate random values of a supported type just use the `Generators` class
-static methods:
-
-```java
-String value = Generators.randomValue(String.class);
-```
-
-### Add support for new types
-
-To add support for new types simply implement the `dev.orne.test.rnd.Generator`
-interface and register the new implementations through SPI in a
-`META-INF/services/dev.orne.test.rnd.Generator` file:
-
-```
-org.example.MyNewGenerator
-org.example.AnotherNewGenerator
-```
-
-For simple type generators use the `dev.orne.test.rnd.AbstractTypedGenerator`
-class:
-
-```java
-public class MyGenerator
-extends AbstractTypedGenerator<MyType> {
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public @NotNull MyType defaultValue() {
-        return new MyType();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public @NotNull MyType randomValue() {
-        final MyType instance = new MyType();
-        // Generate random values for bean properties
-        instance.setName(Generators.randomValue(String.class));
-        return instance;
-    }
-}
-```
-
-### Overriding built-in types generation
-
-Registered generators are ordered based on their optional
-`dev.orne.test.rnd.Priority` annotation. To override a built-in generator
-simply provide a new generator implementation with a higher priority than the
-built-in generator.
-
-```java
-@Priority(Priority.DEFAULT)
-public class MyImprovedGenerator ... {
-    ...
-}
-```
-
-All the built-in generators have a priority lower than the default priority, so
-any registered generator without a priority annotation will have higher
-priority than the built-in ones.
-
-### Experimental features
-
-The following features are in an experimental state and both API and
-implementations may change in future versions.
-
-#### Annotated method based generation
-
-Automatic bean generation support can be added annotating a bean constructor
-or factory method with the `dev.orne.test.rnd.GeneratorMethod` annotation:
-
-```java
-public class MyConstrutorBean {
-    ...
-    private String name;
-    ...
-    @GeneratorMethod
-    public MyBean(String name) {
-        this.name = name;
-    }
-    ...
-}
-public class MyFactoryBean {
-    ...
-    private String name;
-    ...
-    @GeneratorMethod
-    public static MyBean factoryMethod(String name) {
-        MyBean instance = new MyBean();
-        instance.name = name;
-        return instance;
-    }
-    ...
-}
-assertNotNull(Generators.defaultValue(MyConstrutorBean.class));
-assertNotNull(Generators.randomValue(MyConstrutorBean.class));
-assertNotNull(Generators.defaultValue(MyFactoryBean.class));
-assertNotNull(Generators.randomValue(MyFactoryBean.class));
-```
-
-#### Generation parameters
-
-Generators can support optional generation parameters implementing the
-`dev.orne.test.rnd.params.ParameterizableGenerator` interface.
-This allows fine-tuning the generated values:
-
-```java
-Generators.randomValue(
-    String.class,
-    GenerationParameters.forNullables().withNullable(false),
-    GenerationParameters.forSizes().withMinSize(10));
-Generators.randomValue(
-    List.class,
-    GenerationParameters.forSimpleGenerics().withElementsType(Integer.class),
-    GenerationParameters.forSizes().withMaxSize(5));
-```
-
-Current built-in generation parameters:
-
-| Type | Supported parameters types | Required parameters types |
-| --- | --- | --- |
-| java.lang.CharSequence | Nullable, Size |  |
-| java.lang.String | Nullable, Size |  |
-| java.lang.Collection | Nullable, Size | SimpleGenerics |
-| java.lang.List | Nullable, Size | SimpleGenerics |
-| java.lang.Set | Nullable, Size | SimpleGenerics |
-| java.lang.Map | Nullable, Size | KeyValueGenerics |
-
-#### Targeted generators
-
-Targeted generators are generator instances that generate values for a target
-usage. Generators targeting bean properties, constructor parameters, method
-parameters and method return types are supported.
-
-When a targeted generator generates values of a type whose registered generator
-is a parameterizable generator uses the runtime information of the target to
-populate the generation parameters. Currently the runtime `ParameterizedType`
-of the target and validation constraints are supported.
-
-```java
-// Property
-TargetedGenerator<String> generator = Generators.forProperty(
-        TestType.class,
-        "name")
-String value = generator.randomValue(MyValidationGroup.class);
-// Constructor parameter
-TargetedGenerator<String> generator = Generators.forParameter(
-        MyBean.class,
-        new Class<?>[] { String.class },
-        0)
-String value = generator.randomValue(MyValidationGroup.class);
-// Method parameter
-TargetedGenerator<String> generator = Generators.forParameter(
-        MyBean.class,
-        "myMethod",
-        new Class<?>[] { String.class },
-        0)
-String value = generator.randomValue(MyValidationGroup.class);
-// Method return type
-TargetedGenerator<String> generator = Generators.forReturnType(
-        MyBean.class,
-        "myMethod",
-        new Class<?>[] { String.class })
-String value = generator.randomValue(MyValidationGroup.class);
-```
-
-Extraction of generation parameters from runtime information is performed
-through registered instances of
-`dev.orne.test.rnd.params.ParametersSourceExtractor`.
-
-See [Javadoc][javadoc] for implementation details.
-
 ## Further information
 
-For further information refer to the [Javadoc][javadoc]
-and [Maven Site][site].
+For further information refer to the [Maven Site][site] and [Javadoc][javadoc].
 
 [site]: https://orne-dev.github.io/java-generators/
 [javadoc]: https://javadoc.io/doc/dev.orne.test/orne-test-generators
