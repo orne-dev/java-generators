@@ -42,7 +42,7 @@
 
     <commons.lang.version>3.20.0</commons.lang.version>
 
-    <javax.validation.version>2.0.1.Final</javax.validation.version>
+    <jakarta.validation.version>2.0.2</jakarta.validation.version>
 
     <hibernate.validation.version>6.2.5.Final</hibernate.validation.version>
     <glassfish.jakarta.el.version>3.0.4</glassfish.jakarta.el.version>
@@ -72,9 +72,9 @@
       <optional>true</optional>
     </dependency>
     <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
-      <version>${javax.validation.version}</version>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+      <version>${jakarta.validation.version}</version>
       <optional>true</optional>
     </dependency>
     <dependency>

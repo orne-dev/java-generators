@@ -28,7 +28,7 @@ unimplemented):
     - [X] Typed generators
     - [X] Parameterizable generators
         - [X] Generic classes generation support 
-        - [X] Java Validation 2.1 based parameters extractors
+        - [X] Jakarta Validation 2.0 based parameters extractors
             - [X] `NotNull` extractor
             - [X] `Size` extractor
             - [X] `Min` extractor
