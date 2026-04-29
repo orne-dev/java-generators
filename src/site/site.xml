@@ -28,12 +28,12 @@
   <skin>
     <groupId>org.apache.maven.skins</groupId>
     <artifactId>maven-fluido-skin</artifactId>
-    <version>1.12.0</version>
+    <version>2.1.0</version>
   </skin>
   <custom>
     <fluidoSkin>
       <gitHub>
-        <projectId>orne-dev/java-beans</projectId>
+        <projectId>orne-dev/java-generators</projectId>
         <ribbonOrientation>right</ribbonOrientation>
         <ribbonColor>red</ribbonColor>
       </gitHub>
@@ -42,7 +42,7 @@
   <body>
     <head><![CDATA[
     <script type="module">
-      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.esm.min.mjs';
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.esm.min.mjs';
       mermaid.init({ startOnLoad: true });
       document.querySelectorAll('.language-mermaid').forEach(s => s.parentElement.classList.remove("prettyprint"));
       await mermaid.run({
