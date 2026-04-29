@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PropertyTypeGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">PropertyTypeGenerator.java</span></div><h1>PropertyTypeGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PropertyTypeGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">PropertyTypeGenerator.java</span></div><h1>PropertyTypeGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
 
 /*-
  * #%L
@@ -26,6 +26,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
@@ -34,7 +35,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generator;
@@ -43,12 +43,12 @@ import dev.orne.test.rnd.Generator;
  * Implementation of {@code TargetedGenerator} that generates random values
  * of the type a target property.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-11
  * @param &lt;T&gt; The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@API(status=API.Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 public class PropertyTypeGenerator&lt;T&gt;
 extends AbstractTargetedGenerator&lt;T&gt; {
 
@@ -69,8 +69,8 @@ extends AbstractTargetedGenerator&lt;T&gt; {
             final @NotNull Class&lt;?&gt; validationClass,
             final @NotNull Field property) {
 <span class="fc" id="L71">        super(valueType);</span>
-<span class="fc" id="L72">        this.validationClass = Validate.notNull(validationClass);</span>
-<span class="fc" id="L73">        this.property = Validate.notNull(property);</span>
+<span class="fc" id="L72">        this.validationClass = Objects.requireNonNull(validationClass);</span>
+<span class="fc" id="L73">        this.property = Objects.requireNonNull(property);</span>
 <span class="fc" id="L74">    }</span>
 
     /**
@@ -87,8 +87,8 @@ extends AbstractTargetedGenerator&lt;T&gt; {
             final @NotNull Field property,
             final @NotNull Generator generator) {
 <span class="nc" id="L89">        super(valueType, generator);</span>
-<span class="nc" id="L90">        this.validationClass = Validate.notNull(validationClass);</span>
-<span class="nc" id="L91">        this.property = Validate.notNull(property);</span>
+<span class="nc" id="L90">        this.validationClass = Objects.requireNonNull(validationClass);</span>
+<span class="nc" id="L91">        this.property = Objects.requireNonNull(property);</span>
 <span class="nc" id="L92">    }</span>
 
     /**
@@ -102,7 +102,7 @@ extends AbstractTargetedGenerator&lt;T&gt; {
      */
     public static &lt;T&gt; dev.orne.test.rnd.params.PropertyTypeGenerator&lt;T&gt; targeting(
             final @NotNull Field field) {
-<span class="nc" id="L105">        Validate.notNull(field);</span>
+<span class="nc" id="L105">        Objects.requireNonNull(field);</span>
 <span class="nc" id="L106">        return targeting(field.getDeclaringClass(), field);</span>
     }
 
@@ -118,8 +118,8 @@ extends AbstractTargetedGenerator&lt;T&gt; {
     public static &lt;T&gt; dev.orne.test.rnd.params.PropertyTypeGenerator&lt;T&gt; targeting(
             final @NotNull Class&lt;?&gt; cls,
             final @NotNull Field field) {
-<span class="fc" id="L121">        Validate.notNull(cls);</span>
-<span class="fc" id="L122">        Validate.notNull(field);</span>
+<span class="fc" id="L121">        Objects.requireNonNull(cls);</span>
+<span class="fc" id="L122">        Objects.requireNonNull(field);</span>
 <span class="fc" id="L123">        Validate.isTrue(field.getDeclaringClass().isAssignableFrom(cls));</span>
         @SuppressWarnings(&quot;unchecked&quot;)
 <span class="fc" id="L125">        final Class&lt;T&gt; targetType = (Class&lt;T&gt;) field.getType();</span>
@@ -143,8 +143,8 @@ extends AbstractTargetedGenerator&lt;T&gt; {
     public static &lt;T&gt; dev.orne.test.rnd.params.PropertyTypeGenerator&lt;T&gt; targeting(
             final @NotNull Class&lt;?&gt; cls,
             final @NotNull String property) {
-<span class="fc" id="L146">        Validate.notNull(cls);</span>
-<span class="fc" id="L147">        Validate.notNull(property);</span>
+<span class="fc" id="L146">        Objects.requireNonNull(cls);</span>
+<span class="fc" id="L147">        Objects.requireNonNull(property);</span>
 <span class="fc" id="L148">        final Field field = FieldUtils.getField(cls, property, true);</span>
 <span class="pc bpc" id="L149" title="1 of 2 branches missed.">        if (field == null) {</span>
 <span class="nc" id="L150">            throw new GenerationException(&quot;Target property not found&quot;);</span>
@@ -220,4 +220,4 @@ extends AbstractTargetedGenerator&lt;T&gt; {
 <span class="nc" id="L220">                .build();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

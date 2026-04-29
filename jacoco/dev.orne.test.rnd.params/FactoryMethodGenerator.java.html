@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FactoryMethodGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">FactoryMethodGenerator.java</span></div><h1>FactoryMethodGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FactoryMethodGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">FactoryMethodGenerator.java</span></div><h1>FactoryMethodGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
 
 /*-
  * #%L
@@ -23,12 +23,12 @@
  */
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generators;
@@ -37,12 +37,12 @@ import dev.orne.test.rnd.Generators;
  * Generator that calls a static factory method with generated parameters to
  * generate values of the target type.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-12
  * @param &lt;T&gt; The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@API(status=API.Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 public class FactoryMethodGenerator&lt;T&gt;
 extends ExecutableGenerator&lt;T&gt; {
 
@@ -71,8 +71,8 @@ extends ExecutableGenerator&lt;T&gt; {
     public static &lt;T&gt; FactoryMethodGenerator&lt;T&gt; of(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull Method method) {
-<span class="fc" id="L74">        Validate.notNull(type);</span>
-<span class="fc" id="L75">        Validate.notNull(method);</span>
+<span class="fc" id="L74">        Objects.requireNonNull(type);</span>
+<span class="fc" id="L75">        Objects.requireNonNull(method);</span>
 <span class="fc" id="L76">        Validate.isTrue(method.getReturnType().equals(type));</span>
 <span class="fc" id="L77">        final TargetedGenerator&lt;?&gt;[] generators = new TargetedGenerator&lt;?&gt;[method.getParameterCount()];</span>
 <span class="fc bfc" id="L78" title="All 2 branches covered.">        for (int i = 0; i &lt; generators.length; i++) {</span>
@@ -102,4 +102,4 @@ extends ExecutableGenerator&lt;T&gt; {
         }
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

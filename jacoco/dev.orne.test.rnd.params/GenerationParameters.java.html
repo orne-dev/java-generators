@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GenerationParameters.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">GenerationParameters.java</span></div><h1>GenerationParameters.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GenerationParameters.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">GenerationParameters.java</span></div><h1>GenerationParameters.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
 
 /*-
  * #%L
@@ -25,16 +25,15 @@
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Base class for value generation parameters.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@API(status=API.Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 public interface GenerationParameters {
 
     /**
@@ -43,7 +42,7 @@ public interface GenerationParameters {
      * @return The {@code NullableParameters} builder.
      */
     public static @NotNull NullableParameters.Builder forNullables() {
-<span class="fc" id="L46">        return new NullableParametersImpl();</span>
+<span class="fc" id="L45">        return new NullableParametersImpl();</span>
     }
 
     /**
@@ -52,7 +51,7 @@ public interface GenerationParameters {
      * @return The instance of {@code NumberParameters} builder.
      */
     public static @NotNull NumberParameters.Builder forNumbers() {
-<span class="fc" id="L55">        return new NumberParametersImpl();</span>
+<span class="fc" id="L54">        return new NumberParametersImpl();</span>
     }
 
     /**
@@ -61,7 +60,7 @@ public interface GenerationParameters {
      * @return The instance of {@code SizeParameters} builder.
      */
     public static @NotNull SizeParameters.Builder forSizes() {
-<span class="fc" id="L64">        return new SizeParametersImpl();</span>
+<span class="fc" id="L63">        return new SizeParametersImpl();</span>
     }
 
     /**
@@ -70,7 +69,7 @@ public interface GenerationParameters {
      * @return The instance of {@code SimpleGenericParameters} builder.
      */
     public static @NotNull SimpleGenericParameters.Builder forSimpleGenerics() {
-<span class="fc" id="L73">        return new SimpleGenericParametersImpl();</span>
+<span class="fc" id="L72">        return new SimpleGenericParametersImpl();</span>
     }
 
     /**
@@ -79,7 +78,7 @@ public interface GenerationParameters {
      * @return The instance of {@code KeyValueGenericParameters} builder.
      */
     public static @NotNull KeyValueGenericParameters.KeysTypeBuilder forKeyValueGenerics() {
-<span class="fc" id="L82">        return new KeyValueGenericParametersImpl();</span>
+<span class="fc" id="L81">        return new KeyValueGenericParametersImpl();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

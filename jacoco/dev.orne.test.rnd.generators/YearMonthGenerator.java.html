@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>YearMonthGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">YearMonthGenerator.java</span></div><h1>YearMonthGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>YearMonthGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">YearMonthGenerator.java</span></div><h1>YearMonthGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
 
 /*-
  * #%L
@@ -29,7 +29,6 @@ import java.time.YearMonth;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 import dev.orne.test.rnd.Generators;
@@ -38,11 +37,11 @@ import dev.orne.test.rnd.Priority;
 /**
  * Generator of {@code YearMonth} values.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.STABLE, since=&quot;0.1&quot;)
+@API(status=API.Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
 public class YearMonthGenerator
 extends AbstractTypedGenerator&lt;YearMonth&gt; {
@@ -51,15 +50,15 @@ extends AbstractTypedGenerator&lt;YearMonth&gt; {
      * Creates a new instance.
      */
     public YearMonthGenerator() {
-<span class="fc" id="L54">        super();</span>
-<span class="fc" id="L55">    }</span>
+<span class="fc" id="L53">        super();</span>
+<span class="fc" id="L54">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull YearMonth defaultValue() {
-<span class="fc" id="L62">        return YearMonth.of(0, Generators.defaultValue(Month.class));</span>
+<span class="fc" id="L61">        return YearMonth.of(0, Generators.defaultValue(Month.class));</span>
     }
 
     /**
@@ -67,9 +66,9 @@ extends AbstractTypedGenerator&lt;YearMonth&gt; {
      */
     @Override
     public @NotNull YearMonth randomValue() {
-<span class="fc" id="L70">        return YearMonth.of(</span>
-<span class="fc" id="L71">                Generators.randomValue(Year.class).getValue(),</span>
-<span class="fc" id="L72">                Generators.randomValue(Month.class));</span>
+<span class="fc" id="L69">        return YearMonth.of(</span>
+<span class="fc" id="L70">                Generators.randomValue(Year.class).getValue(),</span>
+<span class="fc" id="L71">                Generators.randomValue(Month.class));</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

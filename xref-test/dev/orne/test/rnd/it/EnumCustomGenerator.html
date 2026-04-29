@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>EnumCustomGenerator xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
@@ -51,7 +51,7 @@
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> * ({@value dev.orne.test.rnd.Priority#GENERIC_GENERATORS}) and therefore</em>
 <a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> * takes precedence for generation of the supported types.</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> * </em>
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="mailto:wamphiry@orne.dev" target="alexandria_uri">mailto:wamphiry@orne.dev</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="https://github.com/ihernaez" target="alexandria_uri">https://github.com/ihernaez</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> * @version 1.0, 2022-12</em>
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> * @since 0.1</em>
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment"> * @see Priority</em>
@@ -89,7 +89,7 @@
 <a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L82" href="#L82">82</a>      @Override
 <a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">public</strong> @NotNull Values randomValue() {
-<a class="jxr_linenumber" name="L84" href="#L84">84</a>          <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> index = RandomUtils.nextInt(0, GENERATED_VALUES.length);
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>          <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> index = RandomUtils.insecure().randomInt(0, GENERATED_VALUES.length);
 <a class="jxr_linenumber" name="L85" href="#L85">85</a>          <strong class="jxr_keyword">return</strong> GENERATED_VALUES[index];
 <a class="jxr_linenumber" name="L86" href="#L86">86</a>      }
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  
@@ -111,6 +111,6 @@
 <a class="jxr_linenumber" name="L103" href="#L103">103</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2021&#x2013;2023 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2021&#x2013;2026 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
 </body>
 </html>

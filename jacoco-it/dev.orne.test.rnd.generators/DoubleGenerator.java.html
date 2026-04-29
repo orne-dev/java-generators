@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DoubleGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">DoubleGenerator.java</span></div><h1>DoubleGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DoubleGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">DoubleGenerator.java</span></div><h1>DoubleGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
 
 /*-
  * #%L
@@ -25,18 +25,17 @@
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.Priority;
 
 /**
  * Generator of {@code double} and {@code Double} values.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-10
  * @since 0.1
  */
-@API(status=Status.STABLE, since=&quot;0.1&quot;)
+@API(status=API.Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
 public class DoubleGenerator
 extends AbstractPrimitiveGenerator&lt;Double&gt; {
@@ -45,28 +44,28 @@ extends AbstractPrimitiveGenerator&lt;Double&gt; {
     public static final double DEFAULT_VALUE = 0;
 
     /** The bit mask for infinity (NaN) values of double. */
-<span class="fc" id="L48">    private static final long DOUBLE_INFINITY_MASK =</span>
-<span class="fc" id="L49">            Double.doubleToLongBits(Double.NEGATIVE_INFINITY);</span>
+<span class="fc" id="L47">    private static final long DOUBLE_INFINITY_MASK =</span>
+<span class="fc" id="L48">            Double.doubleToLongBits(Double.NEGATIVE_INFINITY);</span>
     /** The bits of double positive infinity. */
-<span class="fc" id="L51">    private static final long DOUBLE_POSITIVE_INFINITY =</span>
-<span class="fc" id="L52">            Double.doubleToLongBits(Double.POSITIVE_INFINITY);</span>
+<span class="fc" id="L50">    private static final long DOUBLE_POSITIVE_INFINITY =</span>
+<span class="fc" id="L51">            Double.doubleToLongBits(Double.POSITIVE_INFINITY);</span>
     /** The bits of double negative infinity. */
-<span class="fc" id="L54">    private static final long DOUBLE_NEGATIVE_INFINITY =</span>
-<span class="fc" id="L55">            Double.doubleToLongBits(Double.NEGATIVE_INFINITY);</span>
+<span class="fc" id="L53">    private static final long DOUBLE_NEGATIVE_INFINITY =</span>
+<span class="fc" id="L54">            Double.doubleToLongBits(Double.NEGATIVE_INFINITY);</span>
 
     /**
      * Creates a new instance.
      */
     public DoubleGenerator() {
-<span class="fc" id="L61">        super();</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L60">        super();</span>
+<span class="fc" id="L61">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Double defaultValue() {
-<span class="fc" id="L69">        return DEFAULT_VALUE;</span>
+<span class="fc" id="L68">        return DEFAULT_VALUE;</span>
     }
 
     /**
@@ -74,7 +73,7 @@ extends AbstractPrimitiveGenerator&lt;Double&gt; {
      */
     @Override
     public @NotNull Double randomValue() {
-<span class="fc" id="L77">        return randomDouble();</span>
+<span class="fc" id="L76">        return randomDouble();</span>
     }
 
     /**
@@ -84,12 +83,12 @@ extends AbstractPrimitiveGenerator&lt;Double&gt; {
      * @return A random {@code double} value
      */
     public static double randomDouble() {
-<span class="fc" id="L87">        long bits = LongGenerator.randomLong();</span>
+<span class="fc" id="L86">        long bits = LongGenerator.randomLong();</span>
         // We ignore NaN values
-<span class="pc bpc" id="L89" title="3 of 4 branches missed.">        while (isNaN(bits) &amp;&amp; !isInfinity(bits)) {</span>
-<span class="nc" id="L90">            bits = LongGenerator.randomLong();</span>
+<span class="pc bpc" id="L88" title="3 of 4 branches missed.">        while (isNaN(bits) &amp;&amp; !isInfinity(bits)) {</span>
+<span class="nc" id="L89">            bits = LongGenerator.randomLong();</span>
         }
-<span class="fc" id="L92">        return Double.longBitsToDouble(bits);</span>
+<span class="fc" id="L91">        return Double.longBitsToDouble(bits);</span>
     }
 
     /**
@@ -99,12 +98,12 @@ extends AbstractPrimitiveGenerator&lt;Double&gt; {
      * @return A random {@code double} value
      */
     public static double randomFiniteDouble() {
-<span class="nc" id="L102">        long bits = LongGenerator.randomLong();</span>
+<span class="nc" id="L101">        long bits = LongGenerator.randomLong();</span>
         // We ignore NaN and infinite values
-<span class="nc bnc" id="L104" title="All 2 branches missed.">        while (isNaN(bits)) {</span>
-<span class="nc" id="L105">            bits = LongGenerator.randomLong();</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        while (isNaN(bits)) {</span>
+<span class="nc" id="L104">            bits = LongGenerator.randomLong();</span>
         }
-<span class="nc" id="L107">        return Double.longBitsToDouble(bits);</span>
+<span class="nc" id="L106">        return Double.longBitsToDouble(bits);</span>
     }
 
     /**
@@ -118,7 +117,7 @@ extends AbstractPrimitiveGenerator&lt;Double&gt; {
      */
     static boolean isNaN(
             final long bits) {
-<span class="pc bpc" id="L121" title="2 of 4 branches missed.">        return (bits &amp; DOUBLE_INFINITY_MASK) == DOUBLE_POSITIVE_INFINITY</span>
+<span class="pc bpc" id="L120" title="2 of 4 branches missed.">        return (bits &amp; DOUBLE_INFINITY_MASK) == DOUBLE_POSITIVE_INFINITY</span>
                 || (bits &amp; DOUBLE_INFINITY_MASK) == DOUBLE_NEGATIVE_INFINITY;
     }
 
@@ -132,8 +131,8 @@ extends AbstractPrimitiveGenerator&lt;Double&gt; {
      */
     static boolean isInfinity(
             final long bits) {
-<span class="nc bnc" id="L135" title="All 4 branches missed.">        return bits == DOUBLE_POSITIVE_INFINITY</span>
+<span class="nc bnc" id="L134" title="All 4 branches missed.">        return bits == DOUBLE_POSITIVE_INFINITY</span>
                 || bits == DOUBLE_NEGATIVE_INFINITY;
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CalendarGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">CalendarGenerator.java</span></div><h1>CalendarGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CalendarGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">CalendarGenerator.java</span></div><h1>CalendarGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
 
 /*-
  * #%L
@@ -30,7 +30,6 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.RandomUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 import dev.orne.test.rnd.Generators;
@@ -39,11 +38,11 @@ import dev.orne.test.rnd.Priority;
 /**
  * Generator of {@code Calendar} values.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-11
  * @since 0.1
  */
-@API(status=Status.STABLE, since=&quot;0.1&quot;)
+@API(status=API.Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
 public class CalendarGenerator
 extends AbstractTypedGenerator&lt;Calendar&gt; {
@@ -52,17 +51,17 @@ extends AbstractTypedGenerator&lt;Calendar&gt; {
      * Creates a new instance.
      */
     public CalendarGenerator() {
-<span class="fc" id="L55">        super();</span>
-<span class="fc" id="L56">    }</span>
+<span class="fc" id="L54">        super();</span>
+<span class="fc" id="L55">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull Calendar defaultValue() {
-<span class="fc" id="L63">        final Calendar result = Calendar.getInstance();</span>
-<span class="fc" id="L64">        result.setTimeInMillis(0);</span>
-<span class="fc" id="L65">        return result;</span>
+<span class="fc" id="L62">        final Calendar result = Calendar.getInstance();</span>
+<span class="fc" id="L63">        result.setTimeInMillis(0);</span>
+<span class="fc" id="L64">        return result;</span>
     }
 
     /**
@@ -70,11 +69,11 @@ extends AbstractTypedGenerator&lt;Calendar&gt; {
      */
     @Override
     public @NotNull Calendar randomValue() {
-<span class="fc" id="L73">        final Calendar result = Calendar.getInstance(</span>
-<span class="fc" id="L74">                Generators.randomValue(TimeZone.class),</span>
-<span class="fc" id="L75">                Generators.randomValue(Locale.class));</span>
-<span class="fc" id="L76">        result.setTimeInMillis(RandomUtils.nextLong());</span>
-<span class="fc" id="L77">        return result;</span>
+<span class="fc" id="L72">        final Calendar result = Calendar.getInstance(</span>
+<span class="fc" id="L73">                Generators.randomValue(TimeZone.class),</span>
+<span class="fc" id="L74">                Generators.randomValue(Locale.class));</span>
+<span class="fc" id="L75">        result.setTimeInMillis(RandomUtils.insecure().randomLong());</span>
+<span class="fc" id="L76">        return result;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

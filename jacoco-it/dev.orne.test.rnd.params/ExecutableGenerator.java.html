@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExecutableGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">ExecutableGenerator.java</span></div><h1>ExecutableGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExecutableGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">ExecutableGenerator.java</span></div><h1>ExecutableGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
 
 /*-
  * #%L
@@ -25,15 +25,14 @@
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 
@@ -41,12 +40,12 @@ import dev.orne.test.rnd.AbstractTypedGenerator;
  * Abstract generator that calls an executable with generated parameters to
  * generate values of the target type.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-12
  * @param &lt;T&gt; The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@API(status=API.Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 public abstract class ExecutableGenerator&lt;T&gt;
 extends AbstractTypedGenerator&lt;T&gt; {
 
@@ -66,10 +65,10 @@ extends AbstractTypedGenerator&lt;T&gt; {
             final @NotNull Class&lt;T&gt; type,
             final @NotNull Executable executable,
             final @NotNull TargetedGenerator&lt;?&gt;[] paramGenerators) {
-<span class="fc" id="L69">        super(type);</span>
-<span class="fc" id="L70">        this.executable = Validate.notNull(executable);</span>
-<span class="fc" id="L71">        this.parameterGenerators = Validate.notNull(paramGenerators);</span>
-<span class="fc" id="L72">    }</span>
+<span class="fc" id="L68">        super(type);</span>
+<span class="fc" id="L69">        this.executable = Objects.requireNonNull(executable);</span>
+<span class="fc" id="L70">        this.parameterGenerators = Objects.requireNonNull(paramGenerators);</span>
+<span class="fc" id="L71">    }</span>
 
     /**
      * Creates a new instance that will call the specified constructor.
@@ -80,7 +79,7 @@ extends AbstractTypedGenerator&lt;T&gt; {
      */
     public static &lt;T&gt; ConstructorGenerator&lt;T&gt; of(
             final @NotNull Constructor&lt;T&gt; constructor) {
-<span class="fc" id="L83">        return ConstructorGenerator.of(constructor);</span>
+<span class="fc" id="L82">        return ConstructorGenerator.of(constructor);</span>
     }
 
     /**
@@ -94,7 +93,7 @@ extends AbstractTypedGenerator&lt;T&gt; {
     public static &lt;T&gt; FactoryMethodGenerator&lt;T&gt; of(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull Method method) {
-<span class="fc" id="L97">        return FactoryMethodGenerator.of(type, method);</span>
+<span class="fc" id="L96">        return FactoryMethodGenerator.of(type, method);</span>
     }
 
     /**
@@ -103,7 +102,7 @@ extends AbstractTypedGenerator&lt;T&gt; {
      * @return The executable to call
      */
     public @NotNull Executable getExecutable() {
-<span class="fc" id="L106">        return this.executable;</span>
+<span class="fc" id="L105">        return this.executable;</span>
     }
 
     /**
@@ -111,9 +110,8 @@ extends AbstractTypedGenerator&lt;T&gt; {
      * 
      * @return The generator for the executable parameters
      */
-    @SuppressWarnings(&quot;java:S1452&quot;)
     public @NotNull TargetedGenerator&lt;?&gt;[] getParameterGenerators() {
-<span class="nc" id="L116">        return this.parameterGenerators;</span>
+<span class="nc" id="L114">        return this.parameterGenerators;</span>
     }
 
     /**
@@ -122,12 +120,12 @@ extends AbstractTypedGenerator&lt;T&gt; {
      * @return The default instance
      */
     public @NotNull T defaultValue() {
-<span class="fc" id="L125">        final Object[] params = new Object[parameterGenerators.length];</span>
-<span class="fc bfc" id="L126" title="All 2 branches covered.">        for (int i = 0; i &lt; params.length; i++) {</span>
-<span class="fc" id="L127">            final TargetedGenerator&lt;?&gt; generator = parameterGenerators[i];</span>
-<span class="fc" id="L128">            params[i] = generator.nullableDefaultValue(Default.class);</span>
+<span class="fc" id="L123">        final Object[] params = new Object[parameterGenerators.length];</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        for (int i = 0; i &lt; params.length; i++) {</span>
+<span class="fc" id="L125">            final TargetedGenerator&lt;?&gt; generator = parameterGenerators[i];</span>
+<span class="fc" id="L126">            params[i] = generator.nullableDefaultValue(Default.class);</span>
         }
-<span class="fc" id="L130">        return generate(params);</span>
+<span class="fc" id="L128">        return generate(params);</span>
     }
 
     /**
@@ -136,12 +134,12 @@ extends AbstractTypedGenerator&lt;T&gt; {
      * @return A random instance
      */
     public @NotNull T randomValue() {
-<span class="fc" id="L139">        final Object[] params = new Object[parameterGenerators.length];</span>
-<span class="fc bfc" id="L140" title="All 2 branches covered.">        for (int i = 0; i &lt; params.length; i++) {</span>
-<span class="fc" id="L141">            final TargetedGenerator&lt;?&gt; generator = parameterGenerators[i];</span>
-<span class="fc" id="L142">            params[i] = generator.nullableRandomValue(Default.class);</span>
+<span class="fc" id="L137">        final Object[] params = new Object[parameterGenerators.length];</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        for (int i = 0; i &lt; params.length; i++) {</span>
+<span class="fc" id="L139">            final TargetedGenerator&lt;?&gt; generator = parameterGenerators[i];</span>
+<span class="fc" id="L140">            params[i] = generator.nullableRandomValue(Default.class);</span>
         }
-<span class="fc" id="L144">        return generate(params);</span>
+<span class="fc" id="L142">        return generate(params);</span>
     }
 
     /**
@@ -158,11 +156,11 @@ extends AbstractTypedGenerator&lt;T&gt; {
      */
     @Override
     public int hashCode() {
-<span class="nc" id="L161">        return new HashCodeBuilder()</span>
-<span class="nc" id="L162">                .appendSuper(super.hashCode())</span>
-<span class="nc" id="L163">                .append(this.executable)</span>
-<span class="nc" id="L164">                .append(this.parameterGenerators)</span>
-<span class="nc" id="L165">                .build();</span>
+<span class="nc" id="L159">        return new HashCodeBuilder()</span>
+<span class="nc" id="L160">                .appendSuper(super.hashCode())</span>
+<span class="nc" id="L161">                .append(this.executable)</span>
+<span class="nc" id="L162">                .append(this.parameterGenerators)</span>
+<span class="nc" id="L163">                .build();</span>
     }
 
     /**
@@ -170,15 +168,15 @@ extends AbstractTypedGenerator&lt;T&gt; {
      */
     @Override
     public boolean equals(final Object obj) {
-<span class="nc bnc" id="L173" title="All 2 branches missed.">        if (obj == null) { return false; }</span>
-<span class="nc bnc" id="L174" title="All 2 branches missed.">        if (obj == this) { return true; }</span>
-<span class="nc bnc" id="L175" title="All 2 branches missed.">        if (obj.getClass() != getClass()) { return false; }</span>
-<span class="nc" id="L176">        final ExecutableGenerator&lt;?&gt; other = (ExecutableGenerator&lt;?&gt;) obj;</span>
-<span class="nc" id="L177">        return new EqualsBuilder()</span>
-<span class="nc" id="L178">                .appendSuper(super.equals(obj))</span>
-<span class="nc" id="L179">                .append(this.executable, other.executable)</span>
-<span class="nc" id="L180">                .append(this.parameterGenerators, other.parameterGenerators)</span>
-<span class="nc" id="L181">                .build();</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">        if (obj == null) { return false; }</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">        if (obj == this) { return true; }</span>
+<span class="nc bnc" id="L173" title="All 2 branches missed.">        if (obj.getClass() != getClass()) { return false; }</span>
+<span class="nc" id="L174">        final ExecutableGenerator&lt;?&gt; other = (ExecutableGenerator&lt;?&gt;) obj;</span>
+<span class="nc" id="L175">        return new EqualsBuilder()</span>
+<span class="nc" id="L176">                .appendSuper(super.equals(obj))</span>
+<span class="nc" id="L177">                .append(this.executable, other.executable)</span>
+<span class="nc" id="L178">                .append(this.parameterGenerators, other.parameterGenerators)</span>
+<span class="nc" id="L179">                .build();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

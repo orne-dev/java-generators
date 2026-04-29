@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ConstraintIntrospector xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
@@ -37,35 +37,35 @@
 <a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Parameter;
 <a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> java.util.Collections;
 <a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> java.util.HashSet;
-<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> java.util.Set;
-<a class="jxr_linenumber" name="L33" href="#L33">33</a>  
-<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> javax.validation.Validation;
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> javax.validation.Validator;
-<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> javax.validation.constraints.NotNull;
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> javax.validation.groups.Default;
-<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.BeanDescriptor;
-<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ConstraintDescriptor;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ConstructorDescriptor;
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.MethodDescriptor;
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ParameterDescriptor;
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.PropertyDescriptor;
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ReturnValueDescriptor;
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ElementDescriptor.ConstraintFinder;
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ExecutableDescriptor;
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.lang3.Validate;
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">import</strong> org.apiguardian.api.API;
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <strong class="jxr_keyword">import</strong> org.apiguardian.api.API.Status;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> java.util.Objects;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> java.util.Set;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> javax.validation.Validation;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  <strong class="jxr_keyword">import</strong> javax.validation.Validator;
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> javax.validation.constraints.NotNull;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> javax.validation.groups.Default;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.BeanDescriptor;
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ConstraintDescriptor;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ConstructorDescriptor;
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.MethodDescriptor;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ParameterDescriptor;
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.PropertyDescriptor;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ReturnValueDescriptor;
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ElementDescriptor.ConstraintFinder;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">import</strong> javax.validation.metadata.ExecutableDescriptor;
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.lang3.Validate;
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <strong class="jxr_keyword">import</strong> org.apiguardian.api.API;
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>  
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment"> * Utility class for retrieving constraints annotations from generation</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment"> * targets.</em>
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_javadoccomment"> * </em>
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="mailto:wamphiry@orne.dev" target="alexandria_uri">mailto:wamphiry@orne.dev</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="https://github.com/ihernaez" target="alexandria_uri">https://github.com/ihernaez</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_javadoccomment"> * @version 1.1, 2023-11</em>
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_javadoccomment"> * @since 0.1</em>
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>  @API(status=Status.EXPERIMENTAL, since=<span class="jxr_string">"0.1"</span>)
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  @API(status=API.Status.EXPERIMENTAL, since=<span class="jxr_string">"0.1"</span>)
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a name="ConstraintIntrospector" href="../../../../../dev/orne/test/rnd/params/ConstraintIntrospector.html#ConstraintIntrospector">ConstraintIntrospector</a> {
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>  
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>      <em class="jxr_javadoccomment">/** The default validation groups when no one is provided. */</em>
@@ -115,9 +115,9 @@
 <a class="jxr_linenumber" name="L107" href="#L107">107</a>             <strong class="jxr_keyword">final</strong> @NotNull Class&lt;?&gt; type,
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>             <strong class="jxr_keyword">final</strong> @NotNull String property,
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>             <strong class="jxr_keyword">final</strong> @NotNull Class&lt;?&gt;... groups) {
-<a class="jxr_linenumber" name="L110" href="#L110">110</a>         Validate.notNull(validator);
-<a class="jxr_linenumber" name="L111" href="#L111">111</a>         Validate.notNull(type);
-<a class="jxr_linenumber" name="L112" href="#L112">112</a>         Validate.notNull(property);
+<a class="jxr_linenumber" name="L110" href="#L110">110</a>         Objects.requireNonNull(validator);
+<a class="jxr_linenumber" name="L111" href="#L111">111</a>         Objects.requireNonNull(type);
+<a class="jxr_linenumber" name="L112" href="#L112">112</a>         Objects.requireNonNull(property);
 <a class="jxr_linenumber" name="L113" href="#L113">113</a>         <strong class="jxr_keyword">final</strong> BeanDescriptor beanDesc = validator.getConstraintsForClass(type);
 <a class="jxr_linenumber" name="L114" href="#L114">114</a>         <strong class="jxr_keyword">final</strong> PropertyDescriptor propDesc = beanDesc.getConstraintsForProperty(property);
 <a class="jxr_linenumber" name="L115" href="#L115">115</a>         <strong class="jxr_keyword">if</strong> (propDesc == <strong class="jxr_keyword">null</strong>) {
@@ -156,8 +156,8 @@
 <a class="jxr_linenumber" name="L148" href="#L148">148</a>             <strong class="jxr_keyword">final</strong> @NotNull Validator validator,
 <a class="jxr_linenumber" name="L149" href="#L149">149</a>             <strong class="jxr_keyword">final</strong> @NotNull Parameter parameter,
 <a class="jxr_linenumber" name="L150" href="#L150">150</a>             <strong class="jxr_keyword">final</strong> @NotNull Class&lt;?&gt;... groups) {
-<a class="jxr_linenumber" name="L151" href="#L151">151</a>         Validate.notNull(validator);
-<a class="jxr_linenumber" name="L152" href="#L152">152</a>         Validate.notNull(parameter);
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>         Objects.requireNonNull(validator);
+<a class="jxr_linenumber" name="L152" href="#L152">152</a>         Objects.requireNonNull(parameter);
 <a class="jxr_linenumber" name="L153" href="#L153">153</a>         <strong class="jxr_keyword">final</strong> Executable exec = parameter.getDeclaringExecutable();
 <a class="jxr_linenumber" name="L154" href="#L154">154</a>         <strong class="jxr_keyword">final</strong> BeanDescriptor beanDesc = validator.getConstraintsForClass(
 <a class="jxr_linenumber" name="L155" href="#L155">155</a>                 exec.getDeclaringClass());
@@ -219,8 +219,8 @@
 <a class="jxr_linenumber" name="L211" href="#L211">211</a>             <strong class="jxr_keyword">final</strong> @NotNull Method method,
 <a class="jxr_linenumber" name="L212" href="#L212">212</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> parameterIndex,
 <a class="jxr_linenumber" name="L213" href="#L213">213</a>             <strong class="jxr_keyword">final</strong> @NotNull Class&lt;?&gt;... groups) {
-<a class="jxr_linenumber" name="L214" href="#L214">214</a>         Validate.notNull(validator);
-<a class="jxr_linenumber" name="L215" href="#L215">215</a>         Validate.notNull(method);
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>         Objects.requireNonNull(validator);
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>         Objects.requireNonNull(method);
 <a class="jxr_linenumber" name="L216" href="#L216">216</a>         Validate.validIndex(method.getParameterTypes(), parameterIndex);
 <a class="jxr_linenumber" name="L217" href="#L217">217</a>         <strong class="jxr_keyword">final</strong> BeanDescriptor beanDesc = validator.getConstraintsForClass(
 <a class="jxr_linenumber" name="L218" href="#L218">218</a>                 method.getDeclaringClass());
@@ -264,8 +264,8 @@
 <a class="jxr_linenumber" name="L256" href="#L256">256</a>             <strong class="jxr_keyword">final</strong> @NotNull Validator validator,
 <a class="jxr_linenumber" name="L257" href="#L257">257</a>             <strong class="jxr_keyword">final</strong> @NotNull Method method,
 <a class="jxr_linenumber" name="L258" href="#L258">258</a>             <strong class="jxr_keyword">final</strong> @NotNull Class&lt;?&gt;... groups) {
-<a class="jxr_linenumber" name="L259" href="#L259">259</a>         Validate.notNull(validator);
-<a class="jxr_linenumber" name="L260" href="#L260">260</a>         Validate.notNull(method);
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>         Objects.requireNonNull(validator);
+<a class="jxr_linenumber" name="L260" href="#L260">260</a>         Objects.requireNonNull(method);
 <a class="jxr_linenumber" name="L261" href="#L261">261</a>         <strong class="jxr_keyword">final</strong> BeanDescriptor beanDesc = validator.getConstraintsForClass(
 <a class="jxr_linenumber" name="L262" href="#L262">262</a>                 method.getDeclaringClass());
 <a class="jxr_linenumber" name="L263" href="#L263">263</a>         <strong class="jxr_keyword">final</strong> MethodDescriptor methodDesc = beanDesc.getConstraintsForMethod(
@@ -313,8 +313,8 @@
 <a class="jxr_linenumber" name="L305" href="#L305">305</a>             <strong class="jxr_keyword">final</strong> @NotNull Constructor&lt;?&gt; constructor,
 <a class="jxr_linenumber" name="L306" href="#L306">306</a>             <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">int</strong> parameterIndex,
 <a class="jxr_linenumber" name="L307" href="#L307">307</a>             <strong class="jxr_keyword">final</strong> @NotNull Class&lt;?&gt;... groups) {
-<a class="jxr_linenumber" name="L308" href="#L308">308</a>         Validate.notNull(validator);
-<a class="jxr_linenumber" name="L309" href="#L309">309</a>         Validate.notNull(constructor);
+<a class="jxr_linenumber" name="L308" href="#L308">308</a>         Objects.requireNonNull(validator);
+<a class="jxr_linenumber" name="L309" href="#L309">309</a>         Objects.requireNonNull(constructor);
 <a class="jxr_linenumber" name="L310" href="#L310">310</a>         Validate.validIndex(constructor.getParameterTypes(), parameterIndex);
 <a class="jxr_linenumber" name="L311" href="#L311">311</a>         <strong class="jxr_keyword">final</strong> BeanDescriptor beanDesc = validator.getConstraintsForClass(
 <a class="jxr_linenumber" name="L312" href="#L312">312</a>                 constructor.getDeclaringClass());
@@ -372,6 +372,6 @@
 <a class="jxr_linenumber" name="L364" href="#L364">364</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2021&#x2013;2023 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2021&#x2013;2026 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
 </body>
 </html>

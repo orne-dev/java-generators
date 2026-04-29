@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>AbstractTypedParameterizableGeneratorTest xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
@@ -49,7 +49,7 @@
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> * Unit tests for {@code AbstractTypedParameterizableGenerator}.</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> * </em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="mailto:wamphiry@orne.dev" target="alexandria_uri">mailto:wamphiry@orne.dev</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="https://github.com/ihernaez" target="alexandria_uri">https://github.com/ihernaez</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> * @version 1.0, 2022-11</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> * @since 0.1</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> * @see AbstractTypedParameterizableGenerator</em>
@@ -451,80 +451,79 @@
 <a class="jxr_linenumber" name="L443" href="#L443">443</a> <em class="jxr_javadoccomment">     * {@link AbstractTypedParameterizableGenerator#toString()}</em>
 <a class="jxr_linenumber" name="L444" href="#L444">444</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L445" href="#L445">445</a>     @Test
-<a class="jxr_linenumber" name="L446" href="#L446">446</a>     @SuppressWarnings(<span class="jxr_string">"java:S5785"</span>)
-<a class="jxr_linenumber" name="L447" href="#L447">447</a>     <strong class="jxr_keyword">void</strong> testEqualsHashCodeToString() {
-<a class="jxr_linenumber" name="L448" href="#L448">448</a>         <strong class="jxr_keyword">final</strong> DirectChild generator = <strong class="jxr_keyword">new</strong> DirectChild();
-<a class="jxr_linenumber" name="L449" href="#L449">449</a>         assertFalse(generator.equals(<strong class="jxr_keyword">null</strong>));
-<a class="jxr_linenumber" name="L450" href="#L450">450</a>         assertTrue(generator.equals(generator));
-<a class="jxr_linenumber" name="L451" href="#L451">451</a>         assertFalse(generator.equals(<strong class="jxr_keyword">new</strong> Object()));
-<a class="jxr_linenumber" name="L452" href="#L452">452</a>         <strong class="jxr_keyword">final</strong> DirectChild other = <strong class="jxr_keyword">new</strong> DirectChild();
-<a class="jxr_linenumber" name="L453" href="#L453">453</a>         assertTrue(generator.equals(other));
-<a class="jxr_linenumber" name="L454" href="#L454">454</a>         assertEquals(generator.hashCode(), other.hashCode());
-<a class="jxr_linenumber" name="L455" href="#L455">455</a>         assertEquals(generator.toString(), other.toString());
-<a class="jxr_linenumber" name="L456" href="#L456">456</a>     }
-<a class="jxr_linenumber" name="L457" href="#L457">457</a> 
-<a class="jxr_linenumber" name="L458" href="#L458">458</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">interface</strong> MyType {}
-<a class="jxr_linenumber" name="L459" href="#L459">459</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> MyParams
-<a class="jxr_linenumber" name="L460" href="#L460">460</a>     <strong class="jxr_keyword">implements</strong> GenerationParameters {}
-<a class="jxr_linenumber" name="L461" href="#L461">461</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> MyNullableParams
-<a class="jxr_linenumber" name="L462" href="#L462">462</a>     <strong class="jxr_keyword">extends</strong> NullableParametersImpl {}
-<a class="jxr_linenumber" name="L463" href="#L463">463</a> 
-<a class="jxr_linenumber" name="L464" href="#L464">464</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L465" href="#L465">465</a> <em class="jxr_javadoccomment">     * Generic extension of {@code AbstractTypedParameterizableGenerator} for</em>
-<a class="jxr_linenumber" name="L466" href="#L466">466</a> <em class="jxr_javadoccomment">     * test purposes.</em>
-<a class="jxr_linenumber" name="L467" href="#L467">467</a> <em class="jxr_javadoccomment">     * @param &lt;T&gt; The type of generated values</em>
-<a class="jxr_linenumber" name="L468" href="#L468">468</a> <em class="jxr_javadoccomment">     * @param &lt;P&gt; The type of parameters</em>
-<a class="jxr_linenumber" name="L469" href="#L469">469</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L470" href="#L470">470</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> GenericChild&lt;
-<a class="jxr_linenumber" name="L471" href="#L471">471</a>         T,
-<a class="jxr_linenumber" name="L472" href="#L472">472</a>         P <strong class="jxr_keyword">extends</strong> GenerationParameters&gt;
-<a class="jxr_linenumber" name="L473" href="#L473">473</a>     <strong class="jxr_keyword">extends</strong> AbstractTypedParameterizableGenerator&lt;T, P&gt; {
-<a class="jxr_linenumber" name="L474" href="#L474">474</a>         <strong class="jxr_keyword">public</strong> GenericChild() {
-<a class="jxr_linenumber" name="L475" href="#L475">475</a>             <strong class="jxr_keyword">super</strong>();
-<a class="jxr_linenumber" name="L476" href="#L476">476</a>         }
-<a class="jxr_linenumber" name="L477" href="#L477">477</a>         <strong class="jxr_keyword">public</strong> GenericChild(
-<a class="jxr_linenumber" name="L478" href="#L478">478</a>                 <strong class="jxr_keyword">final</strong> @NotNull Class&lt;T&gt; valuesType,
-<a class="jxr_linenumber" name="L479" href="#L479">479</a>                 <strong class="jxr_keyword">final</strong> @NotNull Class&lt;P&gt; paramsType) {
-<a class="jxr_linenumber" name="L480" href="#L480">480</a>             <strong class="jxr_keyword">super</strong>(valuesType, paramsType);
-<a class="jxr_linenumber" name="L481" href="#L481">481</a>         }
-<a class="jxr_linenumber" name="L482" href="#L482">482</a>         @Override
-<a class="jxr_linenumber" name="L483" href="#L483">483</a>         <strong class="jxr_keyword">public</strong> @NotNull T defaultValue(
-<a class="jxr_linenumber" name="L484" href="#L484">484</a>                 <strong class="jxr_keyword">final</strong> @NotNull P parameters) {
-<a class="jxr_linenumber" name="L485" href="#L485">485</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L486" href="#L486">486</a>         }
-<a class="jxr_linenumber" name="L487" href="#L487">487</a>         @Override
-<a class="jxr_linenumber" name="L488" href="#L488">488</a>         <strong class="jxr_keyword">public</strong> @NotNull T randomValue(
-<a class="jxr_linenumber" name="L489" href="#L489">489</a>                 <strong class="jxr_keyword">final</strong> @NotNull P parameters) {
-<a class="jxr_linenumber" name="L490" href="#L490">490</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L491" href="#L491">491</a>         }
-<a class="jxr_linenumber" name="L492" href="#L492">492</a>     }
-<a class="jxr_linenumber" name="L493" href="#L493">493</a> 
-<a class="jxr_linenumber" name="L494" href="#L494">494</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L495" href="#L495">495</a> <em class="jxr_javadoccomment">     * Direct typed extension of {@code AbstractTypedParameterizableGenerator} for</em>
-<a class="jxr_linenumber" name="L496" href="#L496">496</a> <em class="jxr_javadoccomment">     * test purposes.</em>
-<a class="jxr_linenumber" name="L497" href="#L497">497</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L498" href="#L498">498</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> DirectChild
-<a class="jxr_linenumber" name="L499" href="#L499">499</a>     <strong class="jxr_keyword">extends</strong> AbstractTypedParameterizableGenerator&lt;MyType, MyParams&gt; {
-<a class="jxr_linenumber" name="L500" href="#L500">500</a>         @Override
-<a class="jxr_linenumber" name="L501" href="#L501">501</a>         <strong class="jxr_keyword">public</strong> @NotNull MyType defaultValue(
-<a class="jxr_linenumber" name="L502" href="#L502">502</a>                 <strong class="jxr_keyword">final</strong> @NotNull MyParams parameters) {
-<a class="jxr_linenumber" name="L503" href="#L503">503</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L504" href="#L504">504</a>         }
-<a class="jxr_linenumber" name="L505" href="#L505">505</a>         @Override
-<a class="jxr_linenumber" name="L506" href="#L506">506</a>         <strong class="jxr_keyword">public</strong> @NotNull MyType randomValue(
-<a class="jxr_linenumber" name="L507" href="#L507">507</a>                 <strong class="jxr_keyword">final</strong> @NotNull MyParams parameters) {
-<a class="jxr_linenumber" name="L508" href="#L508">508</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
-<a class="jxr_linenumber" name="L509" href="#L509">509</a>         }
-<a class="jxr_linenumber" name="L510" href="#L510">510</a>     }
-<a class="jxr_linenumber" name="L511" href="#L511">511</a> 
-<a class="jxr_linenumber" name="L512" href="#L512">512</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> TypedGrandchild
-<a class="jxr_linenumber" name="L513" href="#L513">513</a>     <strong class="jxr_keyword">extends</strong> GenericChild&lt;MyType, MyParams&gt; {}
-<a class="jxr_linenumber" name="L514" href="#L514">514</a> 
-<a class="jxr_linenumber" name="L515" href="#L515">515</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> TypedUnsupported
-<a class="jxr_linenumber" name="L516" href="#L516">516</a>     <strong class="jxr_keyword">extends</strong> GenericChild&lt;List&lt;String&gt;[], MyParams&gt; {}
-<a class="jxr_linenumber" name="L517" href="#L517">517</a> }
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>     <strong class="jxr_keyword">void</strong> testEqualsHashCodeToString() {
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>         <strong class="jxr_keyword">final</strong> DirectChild generator = <strong class="jxr_keyword">new</strong> DirectChild();
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>         assertNotEquals(generator, (DirectChild) <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L449" href="#L449">449</a>         assertEquals(generator, generator);
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>         assertNotEquals(generator, <strong class="jxr_keyword">new</strong> Object());
+<a class="jxr_linenumber" name="L451" href="#L451">451</a>         <strong class="jxr_keyword">final</strong> DirectChild other = <strong class="jxr_keyword">new</strong> DirectChild();
+<a class="jxr_linenumber" name="L452" href="#L452">452</a>         assertEquals(generator, other);
+<a class="jxr_linenumber" name="L453" href="#L453">453</a>         assertEquals(generator.hashCode(), other.hashCode());
+<a class="jxr_linenumber" name="L454" href="#L454">454</a>         assertEquals(generator.toString(), other.toString());
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>     }
+<a class="jxr_linenumber" name="L456" href="#L456">456</a> 
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">interface</strong> MyType {}
+<a class="jxr_linenumber" name="L458" href="#L458">458</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> MyParams
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>     <strong class="jxr_keyword">implements</strong> GenerationParameters {}
+<a class="jxr_linenumber" name="L460" href="#L460">460</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">class</strong> MyNullableParams
+<a class="jxr_linenumber" name="L461" href="#L461">461</a>     <strong class="jxr_keyword">extends</strong> NullableParametersImpl {}
+<a class="jxr_linenumber" name="L462" href="#L462">462</a> 
+<a class="jxr_linenumber" name="L463" href="#L463">463</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L464" href="#L464">464</a> <em class="jxr_javadoccomment">     * Generic extension of {@code AbstractTypedParameterizableGenerator} for</em>
+<a class="jxr_linenumber" name="L465" href="#L465">465</a> <em class="jxr_javadoccomment">     * test purposes.</em>
+<a class="jxr_linenumber" name="L466" href="#L466">466</a> <em class="jxr_javadoccomment">     * @param &lt;T&gt; The type of generated values</em>
+<a class="jxr_linenumber" name="L467" href="#L467">467</a> <em class="jxr_javadoccomment">     * @param &lt;P&gt; The type of parameters</em>
+<a class="jxr_linenumber" name="L468" href="#L468">468</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> GenericChild&lt;
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>         T,
+<a class="jxr_linenumber" name="L471" href="#L471">471</a>         P <strong class="jxr_keyword">extends</strong> GenerationParameters&gt;
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>     <strong class="jxr_keyword">extends</strong> AbstractTypedParameterizableGenerator&lt;T, P&gt; {
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>         <strong class="jxr_keyword">public</strong> GenericChild() {
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>             <strong class="jxr_keyword">super</strong>();
+<a class="jxr_linenumber" name="L475" href="#L475">475</a>         }
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>         <strong class="jxr_keyword">public</strong> GenericChild(
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>                 <strong class="jxr_keyword">final</strong> @NotNull Class&lt;T&gt; valuesType,
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>                 <strong class="jxr_keyword">final</strong> @NotNull Class&lt;P&gt; paramsType) {
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>             <strong class="jxr_keyword">super</strong>(valuesType, paramsType);
+<a class="jxr_linenumber" name="L480" href="#L480">480</a>         }
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>         @Override
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>         <strong class="jxr_keyword">public</strong> @NotNull T defaultValue(
+<a class="jxr_linenumber" name="L483" href="#L483">483</a>                 <strong class="jxr_keyword">final</strong> @NotNull P parameters) {
+<a class="jxr_linenumber" name="L484" href="#L484">484</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L485" href="#L485">485</a>         }
+<a class="jxr_linenumber" name="L486" href="#L486">486</a>         @Override
+<a class="jxr_linenumber" name="L487" href="#L487">487</a>         <strong class="jxr_keyword">public</strong> @NotNull T randomValue(
+<a class="jxr_linenumber" name="L488" href="#L488">488</a>                 <strong class="jxr_keyword">final</strong> @NotNull P parameters) {
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L490" href="#L490">490</a>         }
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>     }
+<a class="jxr_linenumber" name="L492" href="#L492">492</a> 
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L494" href="#L494">494</a> <em class="jxr_javadoccomment">     * Direct typed extension of {@code AbstractTypedParameterizableGenerator} for</em>
+<a class="jxr_linenumber" name="L495" href="#L495">495</a> <em class="jxr_javadoccomment">     * test purposes.</em>
+<a class="jxr_linenumber" name="L496" href="#L496">496</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L497" href="#L497">497</a>     <strong class="jxr_keyword">protected</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> DirectChild
+<a class="jxr_linenumber" name="L498" href="#L498">498</a>     <strong class="jxr_keyword">extends</strong> AbstractTypedParameterizableGenerator&lt;MyType, MyParams&gt; {
+<a class="jxr_linenumber" name="L499" href="#L499">499</a>         @Override
+<a class="jxr_linenumber" name="L500" href="#L500">500</a>         <strong class="jxr_keyword">public</strong> @NotNull MyType defaultValue(
+<a class="jxr_linenumber" name="L501" href="#L501">501</a>                 <strong class="jxr_keyword">final</strong> @NotNull MyParams parameters) {
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>         }
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>         @Override
+<a class="jxr_linenumber" name="L505" href="#L505">505</a>         <strong class="jxr_keyword">public</strong> @NotNull MyType randomValue(
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>                 <strong class="jxr_keyword">final</strong> @NotNull MyParams parameters) {
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>         }
+<a class="jxr_linenumber" name="L509" href="#L509">509</a>     }
+<a class="jxr_linenumber" name="L510" href="#L510">510</a> 
+<a class="jxr_linenumber" name="L511" href="#L511">511</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> TypedGrandchild
+<a class="jxr_linenumber" name="L512" href="#L512">512</a>     <strong class="jxr_keyword">extends</strong> GenericChild&lt;MyType, MyParams&gt; {}
+<a class="jxr_linenumber" name="L513" href="#L513">513</a> 
+<a class="jxr_linenumber" name="L514" href="#L514">514</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> TypedUnsupported
+<a class="jxr_linenumber" name="L515" href="#L515">515</a>     <strong class="jxr_keyword">extends</strong> GenericChild&lt;List&lt;String&gt;[], MyParams&gt; {}
+<a class="jxr_linenumber" name="L516" href="#L516">516</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2021&#x2013;2023 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2021&#x2013;2026 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
 </body>
 </html>

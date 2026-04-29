@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>TypeDeclarationTest xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
@@ -42,7 +42,7 @@
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * Unit tests for {@code TypeDeclaration}.</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> * </em>
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="mailto:wamphiry@orne.dev" target="alexandria_uri">mailto:wamphiry@orne.dev</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="https://github.com/ihernaez" target="alexandria_uri">https://github.com/ihernaez</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> * @version 1.0, 2022-11</em>
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_javadoccomment"> * @since 0.1</em>
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  <em class="jxr_javadoccomment"> * @see TypeDeclaration</em>
@@ -68,27 +68,26 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_javadoccomment">     * {@link TypeDeclaration#toString()}.</em>
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>      @Test
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>      @SuppressWarnings({ <span class="jxr_string">"java:S5785"</span> })
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>      <strong class="jxr_keyword">void</strong> testEqualsHashCodeToString() {
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          <strong class="jxr_keyword">final</strong> TypeDeclaration params = <strong class="jxr_keyword">new</strong> TypeDeclaration(MyType.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          assertFalse(params.equals(<strong class="jxr_keyword">null</strong>));
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>          assertTrue(params.equals(params));
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>          assertFalse(params.equals(<strong class="jxr_keyword">new</strong> Object()));
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>          TypeDeclaration other = <strong class="jxr_keyword">new</strong> TypeDeclaration(MyType.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>          assertTrue(params.equals(other));
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>          assertEquals(params.hashCode(), other.hashCode());
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>          assertEquals(params.toString(), other.toString());
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>          other = <strong class="jxr_keyword">new</strong> TypeDeclaration(OtherType.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>          assertFalse(params.equals(other));
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>          other = <strong class="jxr_keyword">new</strong> TypeDeclaration(TypeUtils.parameterize(List.<strong class="jxr_keyword">class</strong>, MyType.<strong class="jxr_keyword">class</strong>));
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>          assertFalse(params.equals(other));
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      }
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>  
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">interface</strong> MyType {};
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">interface</strong> OtherType {};
-<a class="jxr_linenumber" name="L81" href="#L81">81</a>  }
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      <strong class="jxr_keyword">void</strong> testEqualsHashCodeToString() {
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <strong class="jxr_keyword">final</strong> TypeDeclaration params = <strong class="jxr_keyword">new</strong> TypeDeclaration(MyType.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>          assertNotEquals(params, (TypeDeclaration) <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>          assertEquals(params, params);
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>          assertNotEquals(params, <strong class="jxr_keyword">new</strong> Object());
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>          TypeDeclaration other = <strong class="jxr_keyword">new</strong> TypeDeclaration(MyType.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          assertEquals(params, other);
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          assertEquals(params.hashCode(), other.hashCode());
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>          assertEquals(params.toString(), other.toString());
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>          other = <strong class="jxr_keyword">new</strong> TypeDeclaration(OtherType.<strong class="jxr_keyword">class</strong>);
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>          assertNotEquals(params, other);
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>          other = <strong class="jxr_keyword">new</strong> TypeDeclaration(TypeUtils.parameterize(List.<strong class="jxr_keyword">class</strong>, MyType.<strong class="jxr_keyword">class</strong>));
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>          assertNotEquals(params, other);
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      }
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">interface</strong> MyType {}
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>      <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">interface</strong> OtherType {}
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2021&#x2013;2023 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2021&#x2013;2026 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
 </body>
 </html>

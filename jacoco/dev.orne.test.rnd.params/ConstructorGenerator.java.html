@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConstructorGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">ConstructorGenerator.java</span></div><h1>ConstructorGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConstructorGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">ConstructorGenerator.java</span></div><h1>ConstructorGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
 
 /*-
  * #%L
@@ -27,7 +27,6 @@ import java.lang.reflect.Constructor;
 import javax.validation.constraints.NotNull;
 
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generators;
@@ -36,12 +35,12 @@ import dev.orne.test.rnd.Generators;
  * Generator that calls a constructor with generated parameters to
  * generate values of the target type.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-12
  * @param &lt;T&gt; The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@API(status=API.Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 public class ConstructorGenerator&lt;T&gt;
 extends ExecutableGenerator&lt;T&gt; {
 
@@ -54,8 +53,8 @@ extends ExecutableGenerator&lt;T&gt; {
     protected ConstructorGenerator(
             final @NotNull Constructor&lt;T&gt; constructor,
             final @NotNull TargetedGenerator&lt;?&gt;[] paramGenerators) {
-<span class="fc" id="L57">        super(constructor.getDeclaringClass(), constructor, paramGenerators);</span>
-<span class="fc" id="L58">    }</span>
+<span class="fc" id="L56">        super(constructor.getDeclaringClass(), constructor, paramGenerators);</span>
+<span class="fc" id="L57">    }</span>
 
     /**
      * Creates a new instance that will call the specified constructor.
@@ -66,11 +65,11 @@ extends ExecutableGenerator&lt;T&gt; {
      */
     public static &lt;T&gt; ConstructorGenerator&lt;T&gt; of(
             final @NotNull Constructor&lt;T&gt; constructor) {
-<span class="fc" id="L69">        final TargetedGenerator&lt;?&gt;[] generators = new TargetedGenerator&lt;?&gt;[constructor.getParameterCount()];</span>
-<span class="fc bfc" id="L70" title="All 2 branches covered.">        for (int i = 0; i &lt; generators.length; i++) {</span>
-<span class="fc" id="L71">            generators[i] = Generators.forParameter(constructor, i);</span>
+<span class="fc" id="L68">        final TargetedGenerator&lt;?&gt;[] generators = new TargetedGenerator&lt;?&gt;[constructor.getParameterCount()];</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        for (int i = 0; i &lt; generators.length; i++) {</span>
+<span class="fc" id="L70">            generators[i] = Generators.forParameter(constructor, i);</span>
         }
-<span class="fc" id="L73">        return new ConstructorGenerator&lt;&gt;(constructor, generators);</span>
+<span class="fc" id="L72">        return new ConstructorGenerator&lt;&gt;(constructor, generators);</span>
     }
 
     /**
@@ -79,7 +78,7 @@ extends ExecutableGenerator&lt;T&gt; {
     @Override
     @SuppressWarnings(&quot;unchecked&quot;)
     public Constructor&lt;T&gt; getExecutable() {
-<span class="fc" id="L82">        return (Constructor&lt;T&gt;) super.getExecutable();</span>
+<span class="fc" id="L81">        return (Constructor&lt;T&gt;) super.getExecutable();</span>
     }
 
     /**
@@ -89,10 +88,10 @@ extends ExecutableGenerator&lt;T&gt; {
     protected @NotNull T generate(
             final Object[] params) {
         try {
-<span class="fc" id="L92">            return getExecutable().newInstance(params);</span>
-<span class="fc" id="L93">        } catch (Exception e) {</span>
-<span class="fc" id="L94">            throw new GenerationException(&quot;Error generating new instance&quot;, e);</span>
+<span class="fc" id="L91">            return getExecutable().newInstance(params);</span>
+<span class="fc" id="L92">        } catch (Exception e) {</span>
+<span class="fc" id="L93">            throw new GenerationException(&quot;Error generating new instance&quot;, e);</span>
         }
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

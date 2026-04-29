@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimpleGenericParametersImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">SimpleGenericParametersImpl.java</span></div><h1>SimpleGenericParametersImpl.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimpleGenericParametersImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">SimpleGenericParametersImpl.java</span></div><h1>SimpleGenericParametersImpl.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
 
 /*-
  * #%L
@@ -25,25 +25,24 @@
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * The basic implementation of {@code SimpleGenericParameters}.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@API(status=API.Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 public class SimpleGenericParametersImpl
 implements SimpleGenericParameters,
         SimpleGenericParameters.Builder {
@@ -55,8 +54,8 @@ implements SimpleGenericParameters,
      * Empty constructor.
      */
     public SimpleGenericParametersImpl() {
-<span class="fc" id="L58">        super();</span>
-<span class="fc" id="L59">    }</span>
+<span class="fc" id="L57">        super();</span>
+<span class="fc" id="L58">    }</span>
 
     /**
      * Copy constructor.
@@ -65,20 +64,20 @@ implements SimpleGenericParameters,
      */
     public SimpleGenericParametersImpl(
             final @NotNull GenerationParameters copy) {
-<span class="fc" id="L68">        super();</span>
-<span class="fc" id="L69">        Validate.notNull(copy);</span>
-<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (copy instanceof SimpleGenericParameters) {</span>
-<span class="fc" id="L71">            final SimpleGenericParameters tcopy = (SimpleGenericParameters) copy;</span>
-<span class="fc" id="L72">            this.type = tcopy.getType();</span>
+<span class="fc" id="L67">        super();</span>
+<span class="fc" id="L68">        Objects.requireNonNull(copy);</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (copy instanceof SimpleGenericParameters) {</span>
+<span class="fc" id="L70">            final SimpleGenericParameters tcopy = (SimpleGenericParameters) copy;</span>
+<span class="fc" id="L71">            this.type = tcopy.getType();</span>
         }
-<span class="fc" id="L74">    }</span>
+<span class="fc" id="L73">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Type getType() {
-<span class="fc" id="L81">        return this.type;</span>
+<span class="fc" id="L80">        return this.type;</span>
     }
     /**
      * {@inheritDoc}
@@ -86,17 +85,17 @@ implements SimpleGenericParameters,
     @Override
     public void setType(
             final Type type) {
-<span class="fc" id="L89">        this.type = type;</span>
-<span class="fc" id="L90">    }</span>
+<span class="fc" id="L88">        this.type = type;</span>
+<span class="fc" id="L89">    }</span>
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull SimpleGenericParametersImpl withElementsType(
             final @NotNull Class&lt;?&gt; type) {
-<span class="fc" id="L97">        Validate.notNull(type);</span>
-<span class="fc" id="L98">        setType(type);</span>
-<span class="fc" id="L99">        return this;</span>
+<span class="fc" id="L96">        Objects.requireNonNull(type);</span>
+<span class="fc" id="L97">        setType(type);</span>
+<span class="fc" id="L98">        return this;</span>
     }
 
     /**
@@ -105,9 +104,9 @@ implements SimpleGenericParameters,
     @Override
     public @NotNull SimpleGenericParametersImpl withElementsType(
             final @NotNull GenericArrayType type) {
-<span class="fc" id="L108">        Validate.notNull(type);</span>
-<span class="fc" id="L109">        setType(type);</span>
-<span class="fc" id="L110">        return this;</span>
+<span class="fc" id="L107">        Objects.requireNonNull(type);</span>
+<span class="fc" id="L108">        setType(type);</span>
+<span class="fc" id="L109">        return this;</span>
     }
 
     /**
@@ -116,30 +115,30 @@ implements SimpleGenericParameters,
     @Override
     public @NotNull SimpleGenericParametersImpl withElementsType(
             final @NotNull ParameterizedType type) {
-<span class="fc" id="L119">        Validate.notNull(type);</span>
-<span class="fc" id="L120">        setType(type);</span>
-<span class="fc" id="L121">        return this;</span>
+<span class="fc" id="L118">        Objects.requireNonNull(type);</span>
+<span class="fc" id="L119">        setType(type);</span>
+<span class="fc" id="L120">        return this;</span>
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L128">        return HashCodeBuilder.reflectionHashCode(this);</span>
+<span class="fc" id="L127">        return HashCodeBuilder.reflectionHashCode(this);</span>
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean equals(Object obj) {
-<span class="fc" id="L135">        return EqualsBuilder.reflectionEquals(this, obj);</span>
+<span class="fc" id="L134">        return EqualsBuilder.reflectionEquals(this, obj);</span>
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
-<span class="fc" id="L142">        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);</span>
+<span class="fc" id="L141">        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

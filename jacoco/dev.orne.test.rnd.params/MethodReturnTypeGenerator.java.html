@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MethodReturnTypeGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">MethodReturnTypeGenerator.java</span></div><h1>MethodReturnTypeGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MethodReturnTypeGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">MethodReturnTypeGenerator.java</span></div><h1>MethodReturnTypeGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
 
 /*-
  * #%L
@@ -26,15 +26,14 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Collection;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.Generator;
@@ -43,12 +42,12 @@ import dev.orne.test.rnd.Generator;
  * Implementation of {@code TargetedGenerator} that generates random values
  * of the target method return type.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-11
  * @param &lt;T&gt; The type of generated values
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@API(status=API.Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 public class MethodReturnTypeGenerator&lt;T&gt;
 extends AbstractTargetedGenerator&lt;T&gt; {
 
@@ -64,9 +63,9 @@ extends AbstractTargetedGenerator&lt;T&gt; {
     protected MethodReturnTypeGenerator(
             final @NotNull Class&lt;T&gt; valueType,
             final @NotNull Method method) {
-<span class="fc" id="L67">        super(valueType);</span>
-<span class="fc" id="L68">        this.method = Validate.notNull(method);</span>
-<span class="fc" id="L69">    }</span>
+<span class="fc" id="L66">        super(valueType);</span>
+<span class="fc" id="L67">        this.method = Objects.requireNonNull(method);</span>
+<span class="fc" id="L68">    }</span>
 
     /**
      * Creates a new instance.
@@ -79,9 +78,9 @@ extends AbstractTargetedGenerator&lt;T&gt; {
             final @NotNull Class&lt;T&gt; valueType,
             final @NotNull Method method,
             final @NotNull Generator generator) {
-<span class="fc" id="L82">        super(valueType, generator);</span>
-<span class="fc" id="L83">        this.method = Validate.notNull(method);</span>
-<span class="fc" id="L84">    }</span>
+<span class="fc" id="L81">        super(valueType, generator);</span>
+<span class="fc" id="L82">        this.method = Objects.requireNonNull(method);</span>
+<span class="fc" id="L83">    }</span>
 
     /**
      * Creates a new generator targeting the specified method return type.
@@ -92,10 +91,10 @@ extends AbstractTargetedGenerator&lt;T&gt; {
      */
     public static &lt;T&gt; dev.orne.test.rnd.params.MethodReturnTypeGenerator&lt;T&gt; targeting(
             final @NotNull Method method) {
-<span class="fc" id="L95">        Validate.notNull(method);</span>
+<span class="fc" id="L94">        Objects.requireNonNull(method);</span>
         @SuppressWarnings(&quot;unchecked&quot;)
-<span class="fc" id="L97">        final Class&lt;T&gt; targetType = (Class&lt;T&gt;) method.getReturnType();</span>
-<span class="fc" id="L98">        return new MethodReturnTypeGenerator&lt;&gt;(targetType, method);</span>
+<span class="fc" id="L96">        final Class&lt;T&gt; targetType = (Class&lt;T&gt;) method.getReturnType();</span>
+<span class="fc" id="L97">        return new MethodReturnTypeGenerator&lt;&gt;(targetType, method);</span>
     }
 
     /**
@@ -111,13 +110,13 @@ extends AbstractTargetedGenerator&lt;T&gt; {
             final @NotNull Class&lt;?&gt; cls,
             final @NotNull String methodName,
             final @NotNull Class&lt;?&gt;... parameterTypes) {
-<span class="fc" id="L114">        Validate.notNull(cls);</span>
-<span class="fc" id="L115">        Validate.notNull(methodName);</span>
-<span class="fc" id="L116">        final Method method = MethodUtils.getMatchingMethod(cls, methodName, parameterTypes);</span>
-<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (method == null) {</span>
-<span class="fc" id="L118">            throw new GenerationException(&quot;Target method not found&quot;);</span>
+<span class="fc" id="L113">        Objects.requireNonNull(cls);</span>
+<span class="fc" id="L114">        Objects.requireNonNull(methodName);</span>
+<span class="fc" id="L115">        final Method method = MethodUtils.getMatchingMethod(cls, methodName, parameterTypes);</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        if (method == null) {</span>
+<span class="fc" id="L117">            throw new GenerationException(&quot;Target method not found&quot;);</span>
         }
-<span class="fc" id="L120">        return targeting(method);</span>
+<span class="fc" id="L119">        return targeting(method);</span>
     }
 
     /**
@@ -126,7 +125,7 @@ extends AbstractTargetedGenerator&lt;T&gt; {
      * @return The target method
      */
     public Method getMethod() {
-<span class="fc" id="L129">        return this.method;</span>
+<span class="fc" id="L128">        return this.method;</span>
     }
 
     /**
@@ -134,7 +133,7 @@ extends AbstractTargetedGenerator&lt;T&gt; {
      */
     @Override
     public @NotNull Type getDeclaredType() {
-<span class="fc" id="L137">        return this.method.getGenericReturnType();</span>
+<span class="fc" id="L136">        return this.method.getGenericReturnType();</span>
     }
 
     /**
@@ -143,7 +142,7 @@ extends AbstractTargetedGenerator&lt;T&gt; {
     @Override
     protected @NotNull Collection&lt;Annotation&gt; getTargetConstraints(
             final @NotNull Class&lt;?&gt;... groups) {
-<span class="fc" id="L146">        return ConstraintIntrospector.findMethodResultConstrains(</span>
+<span class="fc" id="L145">        return ConstraintIntrospector.findMethodResultConstrains(</span>
                 this.method,
                 groups);
     }
@@ -153,10 +152,10 @@ extends AbstractTargetedGenerator&lt;T&gt; {
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L156">        return new HashCodeBuilder()</span>
-<span class="fc" id="L157">                .appendSuper(super.hashCode())</span>
-<span class="fc" id="L158">                .append(this.method)</span>
-<span class="fc" id="L159">                .build();</span>
+<span class="fc" id="L155">        return new HashCodeBuilder()</span>
+<span class="fc" id="L156">                .appendSuper(super.hashCode())</span>
+<span class="fc" id="L157">                .append(this.method)</span>
+<span class="fc" id="L158">                .build();</span>
     }
 
     /**
@@ -164,14 +163,14 @@ extends AbstractTargetedGenerator&lt;T&gt; {
      */
     @Override
     public boolean equals(final Object obj) {
-<span class="fc bfc" id="L167" title="All 2 branches covered.">        if (obj == null) { return false; }</span>
-<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (obj == this) { return true; }</span>
-<span class="fc bfc" id="L169" title="All 2 branches covered.">        if (obj.getClass() != getClass()) { return false; }</span>
-<span class="fc" id="L170">        final MethodReturnTypeGenerator&lt;?&gt; other = (MethodReturnTypeGenerator&lt;?&gt;) obj;</span>
-<span class="fc" id="L171">        return new EqualsBuilder()</span>
-<span class="fc" id="L172">                .appendSuper(super.equals(obj))</span>
-<span class="fc" id="L173">                .append(this.method, other.method)</span>
-<span class="fc" id="L174">                .build();</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">        if (obj == null) { return false; }</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        if (obj == this) { return true; }</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (obj.getClass() != getClass()) { return false; }</span>
+<span class="fc" id="L169">        final MethodReturnTypeGenerator&lt;?&gt; other = (MethodReturnTypeGenerator&lt;?&gt;) obj;</span>
+<span class="fc" id="L170">        return new EqualsBuilder()</span>
+<span class="fc" id="L171">                .appendSuper(super.equals(obj))</span>
+<span class="fc" id="L172">                .append(this.method, other.method)</span>
+<span class="fc" id="L173">                .build();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

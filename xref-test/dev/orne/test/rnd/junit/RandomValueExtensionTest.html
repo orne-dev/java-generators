@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>RandomValueExtensionTest xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
@@ -49,7 +49,7 @@
 <a class="jxr_linenumber" name="L41" href="#L41">41</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L42" href="#L42">42</a>  <em class="jxr_javadoccomment"> * Unit tests for {@code @Random} and {@code RandomValueExtension}.</em>
 <a class="jxr_linenumber" name="L43" href="#L43">43</a>  <em class="jxr_javadoccomment"> * </em>
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="mailto:wamphiry@orne.dev" target="alexandria_uri">mailto:wamphiry@orne.dev</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="https://github.com/ihernaez" target="alexandria_uri">https://github.com/ihernaez</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L45" href="#L45">45</a>  <em class="jxr_javadoccomment"> * @version 1.0, 2021-03</em>
 <a class="jxr_linenumber" name="L46" href="#L46">46</a>  <em class="jxr_javadoccomment"> * @since 0.1</em>
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>  <em class="jxr_javadoccomment"> * @see Random</em>
@@ -275,7 +275,7 @@
 <a class="jxr_linenumber" name="L267" href="#L267">267</a>     <strong class="jxr_keyword">throws</strong> ReflectiveOperationException {
 <a class="jxr_linenumber" name="L268" href="#L268">268</a>         <strong class="jxr_keyword">final</strong> RandomValueExtension extension = <strong class="jxr_keyword">new</strong> RandomValueExtension();
 <a class="jxr_linenumber" name="L269" href="#L269">269</a>         <strong class="jxr_keyword">final</strong> TestTarget instance = <strong class="jxr_keyword">new</strong> TestTarget();
-<a class="jxr_linenumber" name="L270" href="#L270">270</a>         <strong class="jxr_keyword">final</strong> Field  invalidStaticField = TestTarget.<strong class="jxr_keyword">class</strong>.getDeclaredField(<span class="jxr_string">"invalidStaticField"</span>);
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>         <strong class="jxr_keyword">final</strong> Field  invalidStaticField = TestTarget.<strong class="jxr_keyword">class</strong>.getDeclaredField(<span class="jxr_string">"INVALID_STATIC_FIELD"</span>);
 <a class="jxr_linenumber" name="L271" href="#L271">271</a>         <strong class="jxr_keyword">final</strong> Field  staticField = TestTarget.<strong class="jxr_keyword">class</strong>.getDeclaredField(<span class="jxr_string">"staticField"</span>);
 <a class="jxr_linenumber" name="L272" href="#L272">272</a>         <strong class="jxr_keyword">final</strong> Field  invalidInstanceField = TestTarget.<strong class="jxr_keyword">class</strong>.getDeclaredField(<span class="jxr_string">"invalidInstanceField"</span>);
 <a class="jxr_linenumber" name="L273" href="#L273">273</a>         <strong class="jxr_keyword">final</strong> Field  instanceField = TestTarget.<strong class="jxr_keyword">class</strong>.getDeclaredField(<span class="jxr_string">"instanceField"</span>);
@@ -295,7 +295,7 @@
 <a class="jxr_linenumber" name="L287" href="#L287">287</a>     @SuppressWarnings(<span class="jxr_string">"unused"</span>)
 <a class="jxr_linenumber" name="L288" href="#L288">288</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> TestTarget {
 <a class="jxr_linenumber" name="L289" href="#L289">289</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String DEFAULT_VALUE = <span class="jxr_string">"Can be injected"</span>;
-<a class="jxr_linenumber" name="L290" href="#L290">290</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String invalidStaticField = <span class="jxr_string">"Cannot be injected"</span>;
+<a class="jxr_linenumber" name="L290" href="#L290">290</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">final</strong> String INVALID_STATIC_FIELD = <span class="jxr_string">"Cannot be injected"</span>;
 <a class="jxr_linenumber" name="L291" href="#L291">291</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> @Random @NotNull String staticField = DEFAULT_VALUE;
 <a class="jxr_linenumber" name="L292" href="#L292">292</a>         <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">final</strong> String invalidInstanceField = <span class="jxr_string">"Cannot be injected"</span>;
 <a class="jxr_linenumber" name="L293" href="#L293">293</a>         <strong class="jxr_keyword">private</strong> @Random @NotNull String instanceField = DEFAULT_VALUE;
@@ -303,6 +303,6 @@
 <a class="jxr_linenumber" name="L295" href="#L295">295</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2021&#x2013;2023 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2021&#x2013;2026 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>AbstractGeneratorTest xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
@@ -40,7 +40,7 @@
 <a class="jxr_linenumber" name="L32" href="#L32">32</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="L33" href="#L33">33</a>  <em class="jxr_javadoccomment"> * Unit tests for {@code AbstractGenerator}.</em>
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>  <em class="jxr_javadoccomment"> * </em>
-<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="mailto:wamphiry@orne.dev" target="alexandria_uri">mailto:wamphiry@orne.dev</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="https://github.com/ihernaez" target="alexandria_uri">https://github.com/ihernaez</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>  <em class="jxr_javadoccomment"> * @version 1.0, 2021-03</em>
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_javadoccomment"> * @since 0.1</em>
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_javadoccomment"> * @see AbstractGenerator</em>
@@ -55,7 +55,7 @@
 <a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">void</strong> testSetNullProbability() {
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>          <strong class="jxr_keyword">final</strong> AbstractGenerator generator = spy(AbstractGenerator.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>          assertEquals(AbstractGenerator.DEFAULT_NULL_PROBABILITY, generator.getNullProbability());
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">float</strong> newProb = RandomUtils.nextFloat(0, 1);
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>          <strong class="jxr_keyword">float</strong> newProb = RandomUtils.insecure().randomFloat(0, 1);
 <a class="jxr_linenumber" name="L51" href="#L51">51</a>          generator.setNullProbability(newProb);
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>          assertEquals(newProb, generator.getNullProbability());
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>          assertThrows(IllegalArgumentException.<strong class="jxr_keyword">class</strong>, () -&gt; {
@@ -187,20 +187,19 @@
 <a class="jxr_linenumber" name="L179" href="#L179">179</a> <em class="jxr_javadoccomment">     * {@link AbstractGenerator#toString()}</em>
 <a class="jxr_linenumber" name="L180" href="#L180">180</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L181" href="#L181">181</a>     @Test
-<a class="jxr_linenumber" name="L182" href="#L182">182</a>     @SuppressWarnings(<span class="jxr_string">"java:S5785"</span>)
-<a class="jxr_linenumber" name="L183" href="#L183">183</a>     <strong class="jxr_keyword">void</strong> testEqualsHashCodeToString() {
-<a class="jxr_linenumber" name="L184" href="#L184">184</a>         <strong class="jxr_keyword">final</strong> <a name="TestGenerator" href="../../../../dev/orne/test/rnd/TestGenerator.html#TestGenerator">TestGenerator</a> generator = <strong class="jxr_keyword">new</strong> <a name="TestGenerator" href="../../../../dev/orne/test/rnd/TestGenerator.html#TestGenerator">TestGenerator</a>();
-<a class="jxr_linenumber" name="L185" href="#L185">185</a>         assertFalse(generator.equals(<strong class="jxr_keyword">null</strong>));
-<a class="jxr_linenumber" name="L186" href="#L186">186</a>         assertTrue(generator.equals(generator));
-<a class="jxr_linenumber" name="L187" href="#L187">187</a>         assertFalse(generator.equals(<strong class="jxr_keyword">new</strong> Object()));
-<a class="jxr_linenumber" name="L188" href="#L188">188</a>         <strong class="jxr_keyword">final</strong> <a name="TestGenerator" href="../../../../dev/orne/test/rnd/TestGenerator.html#TestGenerator">TestGenerator</a> other = <strong class="jxr_keyword">new</strong> <a name="TestGenerator" href="../../../../dev/orne/test/rnd/TestGenerator.html#TestGenerator">TestGenerator</a>();
-<a class="jxr_linenumber" name="L189" href="#L189">189</a>         assertTrue(generator.equals(other));
-<a class="jxr_linenumber" name="L190" href="#L190">190</a>         assertEquals(generator.hashCode(), other.hashCode());
-<a class="jxr_linenumber" name="L191" href="#L191">191</a>         assertEquals(generator.toString(), other.toString());
-<a class="jxr_linenumber" name="L192" href="#L192">192</a>     }
-<a class="jxr_linenumber" name="L193" href="#L193">193</a> }
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>     <strong class="jxr_keyword">void</strong> testEqualsHashCodeToString() {
+<a class="jxr_linenumber" name="L183" href="#L183">183</a>         <strong class="jxr_keyword">final</strong> <a name="TestGenerator" href="../../../../dev/orne/test/rnd/TestGenerator.html#TestGenerator">TestGenerator</a> generator = <strong class="jxr_keyword">new</strong> <a name="TestGenerator" href="../../../../dev/orne/test/rnd/TestGenerator.html#TestGenerator">TestGenerator</a>();
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>         assertNotEquals(generator, (<a name="TestGenerator" href="../../../../dev/orne/test/rnd/TestGenerator.html#TestGenerator">TestGenerator</a>) <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>         assertEquals(generator, generator);
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>         assertNotEquals(generator, <strong class="jxr_keyword">new</strong> Object());
+<a class="jxr_linenumber" name="L187" href="#L187">187</a>         <strong class="jxr_keyword">final</strong> <a name="TestGenerator" href="../../../../dev/orne/test/rnd/TestGenerator.html#TestGenerator">TestGenerator</a> other = <strong class="jxr_keyword">new</strong> <a name="TestGenerator" href="../../../../dev/orne/test/rnd/TestGenerator.html#TestGenerator">TestGenerator</a>();
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>         assertEquals(generator, other);
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>         assertEquals(generator.hashCode(), other.hashCode());
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>         assertEquals(generator.toString(), other.toString());
+<a class="jxr_linenumber" name="L191" href="#L191">191</a>     }
+<a class="jxr_linenumber" name="L192" href="#L192">192</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2021&#x2013;2023 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2021&#x2013;2026 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
 </body>
 </html>

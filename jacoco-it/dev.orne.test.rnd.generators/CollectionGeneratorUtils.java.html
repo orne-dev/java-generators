@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CollectionGeneratorUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">CollectionGeneratorUtils.java</span></div><h1>CollectionGeneratorUtils.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CollectionGeneratorUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">CollectionGeneratorUtils.java</span></div><h1>CollectionGeneratorUtils.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
 
 /*-
  * #%L
@@ -24,12 +24,11 @@
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.GenerationException;
 import dev.orne.test.rnd.GeneratorNotFoundException;
@@ -40,11 +39,11 @@ import dev.orne.test.rnd.params.TypeDeclaration;
 /**
  * Utility class for generating components for generic types.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@API(status=API.Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 public final class CollectionGeneratorUtils {
 
     /** The error message for unsupported component types. */
@@ -71,20 +70,20 @@ public final class CollectionGeneratorUtils {
      */
     public static @NotNull Object randomComponent(
             final @NotNull Type type) {
-<span class="fc" id="L74">        Validate.notNull(type);</span>
+<span class="fc" id="L73">        Objects.requireNonNull(type);</span>
         final Object result;
-<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if (type instanceof Class&lt;?&gt;) {</span>
-<span class="fc" id="L77">            result = Generators.randomValue((Class&lt;?&gt;) type);</span>
-<span class="nc bnc" id="L78" title="All 2 branches missed.">        } else if (type instanceof ParameterizedType) {</span>
-<span class="nc" id="L79">            result = Generators.randomValue(</span>
-<span class="nc" id="L80">                    (Class&lt;?&gt;) ((ParameterizedType) type).getRawType(),</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">        if (type instanceof Class&lt;?&gt;) {</span>
+<span class="fc" id="L76">            result = Generators.randomValue((Class&lt;?&gt;) type);</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        } else if (type instanceof ParameterizedType) {</span>
+<span class="nc" id="L78">            result = Generators.randomValue(</span>
+<span class="nc" id="L79">                    (Class&lt;?&gt;) ((ParameterizedType) type).getRawType(),</span>
                     new TypeDeclaration(type));
         } else {
-<span class="nc" id="L83">            throw new GenerationException(String.format(</span>
+<span class="nc" id="L82">            throw new GenerationException(String.format(</span>
                     TYPE_NOT_SUPPORTED_ERR,
                     type));
         }
-<span class="fc" id="L87">        return result;</span>
+<span class="fc" id="L86">        return result;</span>
     }
 
     /**
@@ -104,20 +103,20 @@ public final class CollectionGeneratorUtils {
      */
     public static @NotNull Object nullableRandomComponent(
             final @NotNull Type type) {
-<span class="fc" id="L107">        Validate.notNull(type);</span>
+<span class="fc" id="L106">        Objects.requireNonNull(type);</span>
         final Object result;
-<span class="pc bpc" id="L109" title="1 of 2 branches missed.">        if (type instanceof Class&lt;?&gt;) {</span>
-<span class="fc" id="L110">            result = Generators.nullableRandomValue((Class&lt;?&gt;) type);</span>
-<span class="nc bnc" id="L111" title="All 2 branches missed.">        } else if (type instanceof ParameterizedType) {</span>
-<span class="nc" id="L112">            result = Generators.nullableRandomValue(</span>
-<span class="nc" id="L113">                    (Class&lt;?&gt;) ((ParameterizedType) type).getRawType(),</span>
+<span class="pc bpc" id="L108" title="1 of 2 branches missed.">        if (type instanceof Class&lt;?&gt;) {</span>
+<span class="fc" id="L109">            result = Generators.nullableRandomValue((Class&lt;?&gt;) type);</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">        } else if (type instanceof ParameterizedType) {</span>
+<span class="nc" id="L111">            result = Generators.nullableRandomValue(</span>
+<span class="nc" id="L112">                    (Class&lt;?&gt;) ((ParameterizedType) type).getRawType(),</span>
                     new TypeDeclaration(type));
         } else {
-<span class="nc" id="L116">            throw new GenerationException(String.format(</span>
+<span class="nc" id="L115">            throw new GenerationException(String.format(</span>
                     TYPE_NOT_SUPPORTED_ERR,
                     type));
         }
-<span class="fc" id="L120">        return result;</span>
+<span class="fc" id="L119">        return result;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

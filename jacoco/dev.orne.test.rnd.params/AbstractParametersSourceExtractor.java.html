@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractParametersSourceExtractor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">AbstractParametersSourceExtractor.java</span></div><h1>AbstractParametersSourceExtractor.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractParametersSourceExtractor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">AbstractParametersSourceExtractor.java</span></div><h1>AbstractParametersSourceExtractor.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
 
 /*-
  * #%L
@@ -22,6 +22,8 @@
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
@@ -31,18 +33,17 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * Abstract implementation of {@code ParametersSourceExtractor}.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-11
  * @param &lt;P&gt; The generation parameters type
  * @param &lt;S&gt; The metadata sources type
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@API(status=API.Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 public abstract class AbstractParametersSourceExtractor&lt;P, S&gt;
 implements ParametersSourceExtractor&lt;P, S&gt; {
 
@@ -60,10 +61,10 @@ implements ParametersSourceExtractor&lt;P, S&gt; {
     protected AbstractParametersSourceExtractor(
             final @NotNull Class&lt;P&gt; parametersType,
             final @NotNull Class&lt;S&gt; sourceType) {
-<span class="fc" id="L63">        super();</span>
-<span class="fc" id="L64">        this.parametersType = Validate.notNull(parametersType);</span>
-<span class="fc" id="L65">        this.sourceType = Validate.notNull(sourceType);</span>
-<span class="fc" id="L66">    }</span>
+<span class="fc" id="L64">        super();</span>
+<span class="fc" id="L65">        this.parametersType = Objects.requireNonNull(parametersType);</span>
+<span class="fc" id="L66">        this.sourceType = Objects.requireNonNull(sourceType);</span>
+<span class="fc" id="L67">    }</span>
 
     /**
      * Crates a new instance.
@@ -82,29 +83,29 @@ implements ParametersSourceExtractor&lt;P, S&gt; {
      */
     @SuppressWarnings(&quot;unchecked&quot;)
     protected AbstractParametersSourceExtractor() {
-<span class="fc" id="L85">        super();</span>
-<span class="fc" id="L86">        this.parametersType = (Class&lt;P&gt;) TypeUtils.unrollVariables(</span>
-<span class="fc" id="L87">                TypeUtils.getTypeArguments(getClass(), AbstractParametersSourceExtractor.class),</span>
-<span class="fc" id="L88">                AbstractParametersSourceExtractor.class.getTypeParameters()[0]);</span>
-<span class="fc" id="L89">        this.sourceType = (Class&lt;S&gt;) TypeUtils.unrollVariables(</span>
-<span class="fc" id="L90">                TypeUtils.getTypeArguments(getClass(), AbstractParametersSourceExtractor.class),</span>
-<span class="fc" id="L91">                AbstractParametersSourceExtractor.class.getTypeParameters()[1]);</span>
-<span class="fc" id="L92">        Validate.notNull(</span>
+<span class="fc" id="L86">        super();</span>
+<span class="fc" id="L87">        this.parametersType = (Class&lt;P&gt;) TypeUtils.unrollVariables(</span>
+<span class="fc" id="L88">                TypeUtils.getTypeArguments(getClass(), AbstractParametersSourceExtractor.class),</span>
+<span class="fc" id="L89">                AbstractParametersSourceExtractor.class.getTypeParameters()[0]);</span>
+<span class="fc" id="L90">        this.sourceType = (Class&lt;S&gt;) TypeUtils.unrollVariables(</span>
+<span class="fc" id="L91">                TypeUtils.getTypeArguments(getClass(), AbstractParametersSourceExtractor.class),</span>
+<span class="fc" id="L92">                AbstractParametersSourceExtractor.class.getTypeParameters()[1]);</span>
+<span class="fc" id="L93">        Validate.notNull(</span>
                 this.parametersType,
                 &quot;Cannot infer the target generation parameters type from class %s. Wrong implementation?&quot;,
-<span class="fc" id="L95">                getClass());</span>
-<span class="fc" id="L96">        Validate.notNull(</span>
+<span class="fc" id="L96">                getClass());</span>
+<span class="fc" id="L97">        Validate.notNull(</span>
                 this.sourceType,
                 &quot;Cannot infer the metadata sources type from class %s. Wrong implementation?&quot;,
-<span class="fc" id="L99">                getClass());</span>
-<span class="fc" id="L100">    }</span>
+<span class="fc" id="L100">                getClass());</span>
+<span class="fc" id="L101">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Class&lt;P&gt; getParametersType() {
-<span class="fc" id="L107">        return this.parametersType;</span>
+<span class="fc" id="L108">        return this.parametersType;</span>
     }
 
     /**
@@ -112,7 +113,7 @@ implements ParametersSourceExtractor&lt;P, S&gt; {
      */
     @Override
     public Class&lt;S&gt; getSourceType() {
-<span class="fc" id="L115">        return this.sourceType;</span>
+<span class="fc" id="L116">        return this.sourceType;</span>
     }
 
     /**
@@ -120,11 +121,11 @@ implements ParametersSourceExtractor&lt;P, S&gt; {
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L123">        return new HashCodeBuilder()</span>
-<span class="fc" id="L124">                .append(getClass())</span>
-<span class="fc" id="L125">                .append(this.parametersType)</span>
-<span class="fc" id="L126">                .append(this.sourceType)</span>
-<span class="fc" id="L127">                .build();</span>
+<span class="fc" id="L124">        return new HashCodeBuilder()</span>
+<span class="fc" id="L125">                .append(getClass())</span>
+<span class="fc" id="L126">                .append(this.parametersType)</span>
+<span class="fc" id="L127">                .append(this.sourceType)</span>
+<span class="fc" id="L128">                .build();</span>
     }
 
     /**
@@ -132,14 +133,14 @@ implements ParametersSourceExtractor&lt;P, S&gt; {
      */
     @Override
     public boolean equals(final Object obj) {
-<span class="fc bfc" id="L135" title="All 2 branches covered.">        if (obj == null) { return false; }</span>
-<span class="fc bfc" id="L136" title="All 2 branches covered.">        if (obj == this) { return true; }</span>
-<span class="fc bfc" id="L137" title="All 2 branches covered.">        if (obj.getClass() != getClass()) { return false; }</span>
-<span class="fc" id="L138">        final AbstractParametersSourceExtractor&lt;?, ?&gt; other = (AbstractParametersSourceExtractor&lt;?, ?&gt;) obj;</span>
-<span class="fc" id="L139">        return new EqualsBuilder()</span>
-<span class="fc" id="L140">                .append(this.parametersType, other.parametersType)</span>
-<span class="fc" id="L141">                .append(this.sourceType, other.sourceType)</span>
-<span class="fc" id="L142">                .build();</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        if (obj == null) { return false; }</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        if (obj == this) { return true; }</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">        if (obj.getClass() != getClass()) { return false; }</span>
+<span class="fc" id="L139">        final AbstractParametersSourceExtractor&lt;?, ?&gt; other = (AbstractParametersSourceExtractor&lt;?, ?&gt;) obj;</span>
+<span class="fc" id="L140">        return new EqualsBuilder()</span>
+<span class="fc" id="L141">                .append(this.parametersType, other.parametersType)</span>
+<span class="fc" id="L142">                .append(this.sourceType, other.sourceType)</span>
+<span class="fc" id="L143">                .build();</span>
     }
 
     /**
@@ -147,7 +148,7 @@ implements ParametersSourceExtractor&lt;P, S&gt; {
      */
     @Override
     public String toString() {
-<span class="fc" id="L150">        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);</span>
+<span class="fc" id="L151">        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

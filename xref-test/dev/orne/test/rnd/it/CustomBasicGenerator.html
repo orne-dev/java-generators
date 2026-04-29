@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>CustomBasicGenerator xref</title>
 <link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
@@ -56,7 +56,7 @@
 <a class="jxr_linenumber" name="L48" href="#L48">48</a>  <em class="jxr_javadoccomment"> * ({@value dev.orne.test.rnd.Priority#GENERIC_GENERATORS}) and therefore</em>
 <a class="jxr_linenumber" name="L49" href="#L49">49</a>  <em class="jxr_javadoccomment"> * takes precedence for generation of the supported types.</em>
 <a class="jxr_linenumber" name="L50" href="#L50">50</a>  <em class="jxr_javadoccomment"> * </em>
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="mailto:wamphiry@orne.dev" target="alexandria_uri">mailto:wamphiry@orne.dev</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <em class="jxr_javadoccomment"> * @author &lt;a href="<a href="https://github.com/ihernaez" target="alexandria_uri">https://github.com/ihernaez</a>"&gt;(w) Iker Hernaez&lt;/a&gt;</em>
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  <em class="jxr_javadoccomment"> * @version 1.0, 2022-10</em>
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_javadoccomment"> * @since 0.1</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_javadoccomment"> * @see Priority</em>
@@ -112,7 +112,7 @@
 <a class="jxr_linenumber" name="L104" href="#L104">104</a>         } <strong class="jxr_keyword">else</strong> {
 <a class="jxr_linenumber" name="L105" href="#L105">105</a>             result = <strong class="jxr_keyword">new</strong> BasicImpl();
 <a class="jxr_linenumber" name="L106" href="#L106">106</a>         }
-<a class="jxr_linenumber" name="L107" href="#L107">107</a>         result.setCode(RandomUtils.nextInt(1, Integer.MAX_VALUE));
+<a class="jxr_linenumber" name="L107" href="#L107">107</a>         result.setCode(RandomUtils.insecure().randomInt(1, Integer.MAX_VALUE));
 <a class="jxr_linenumber" name="L108" href="#L108">108</a>         result.setName(Generators.randomValue(String.<strong class="jxr_keyword">class</strong>));
 <a class="jxr_linenumber" name="L109" href="#L109">109</a>         <strong class="jxr_keyword">return</strong> type.<strong class="jxr_keyword">cast</strong>(result);
 <a class="jxr_linenumber" name="L110" href="#L110">110</a>     }
@@ -225,6 +225,6 @@
 <a class="jxr_linenumber" name="L217" href="#L217">217</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2021&#x2013;2023 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2021&#x2013;2026 <a href="https://github.com/orne-dev">Orne Developments</a>. All rights reserved.</div>
 </body>
 </html>

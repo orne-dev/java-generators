@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractParameterizableGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">AbstractParameterizableGenerator.java</span></div><h1>AbstractParameterizableGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AbstractParameterizableGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">AbstractParameterizableGenerator.java</span></div><h1>AbstractParameterizableGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
 
 /*-
  * #%L
@@ -22,6 +22,8 @@
  * #L%
  */
 
+import java.util.Objects;
+
 import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.Validate;
@@ -29,19 +31,18 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.reflect.TypeUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractGenerator;
 
 /**
  * Abstract implementation of {@code ParameterizableGenerator}.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-11
  * @param &lt;P&gt; The parameters type
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@API(status=API.Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 public abstract class AbstractParameterizableGenerator&lt;
         P extends GenerationParameters&gt;
 extends AbstractGenerator
@@ -57,24 +58,24 @@ implements ParameterizableGenerator {
      */
     protected AbstractParameterizableGenerator(
             final @NotNull Class&lt;P&gt; paramsType) {
-<span class="fc" id="L60">        super();</span>
-<span class="fc" id="L61">        this.parametersType = Validate.notNull(paramsType);</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L61">        super();</span>
+<span class="fc" id="L62">        this.parametersType = Objects.requireNonNull(paramsType);</span>
+<span class="fc" id="L63">    }</span>
 
     /**
      * Crates a new instance.
      */
     @SuppressWarnings(&quot;unchecked&quot;)
     protected AbstractParameterizableGenerator() {
-<span class="fc" id="L69">        super();</span>
-<span class="fc" id="L70">        this.parametersType = (Class&lt;P&gt;) TypeUtils.unrollVariables(</span>
-<span class="fc" id="L71">                TypeUtils.getTypeArguments(getClass(), AbstractParameterizableGenerator.class),</span>
-<span class="fc" id="L72">                AbstractParameterizableGenerator.class.getTypeParameters()[0]);</span>
-<span class="fc" id="L73">        Validate.notNull(</span>
+<span class="fc" id="L70">        super();</span>
+<span class="fc" id="L71">        this.parametersType = (Class&lt;P&gt;) TypeUtils.unrollVariables(</span>
+<span class="fc" id="L72">                TypeUtils.getTypeArguments(getClass(), AbstractParameterizableGenerator.class),</span>
+<span class="fc" id="L73">                AbstractParameterizableGenerator.class.getTypeParameters()[0]);</span>
+<span class="fc" id="L74">        Validate.notNull(</span>
                 this.parametersType,
                 &quot;Cannot infer the type of parameters from class %s. Wrong implementation?&quot;,
-<span class="fc" id="L76">                getClass());</span>
-<span class="fc" id="L77">    }</span>
+<span class="fc" id="L77">                getClass());</span>
+<span class="fc" id="L78">    }</span>
 
     /**
      * Returns the type of generation parameters.
@@ -82,7 +83,7 @@ implements ParameterizableGenerator {
      * @return The type of generation parameters
      */
     public @NotNull Class&lt;P&gt; getParametersType() {
-<span class="fc" id="L85">        return this.parametersType;</span>
+<span class="fc" id="L86">        return this.parametersType;</span>
     }
 
     /**
@@ -91,7 +92,7 @@ implements ParameterizableGenerator {
      * @return The generation parameters extractor
      */
     public @NotNull ParametersExtractor&lt;P&gt; getExtractor() {
-<span class="fc" id="L94">        return ParametersExtractors.getExtractor(this.parametersType);</span>
+<span class="fc" id="L95">        return ParametersExtractors.getExtractor(this.parametersType);</span>
     }
 
     /**
@@ -100,7 +101,7 @@ implements ParameterizableGenerator {
     @Override
     public &lt;T&gt; @NotNull T defaultValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L103">        return defaultValue(type, createEmptyParams());</span>
+<span class="fc" id="L104">        return defaultValue(type, createEmptyParams());</span>
     }
 
     /**
@@ -110,7 +111,7 @@ implements ParameterizableGenerator {
     public &lt;T&gt; @NotNull T defaultValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull Object... sources) {
-<span class="fc" id="L113">        return defaultValue(type, createParams(sources));</span>
+<span class="fc" id="L114">        return defaultValue(type, createParams(sources));</span>
     }
 
     /**
@@ -132,7 +133,7 @@ implements ParameterizableGenerator {
     @Override
     public &lt;T&gt; T nullableDefaultValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L135">        return nullableDefaultValue(type, createEmptyParams());</span>
+<span class="fc" id="L136">        return nullableDefaultValue(type, createEmptyParams());</span>
     }
 
     /**
@@ -142,7 +143,7 @@ implements ParameterizableGenerator {
     public &lt;T&gt; T nullableDefaultValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull Object... sources) {
-<span class="fc" id="L145">        return nullableDefaultValue(type, createParams(sources));</span>
+<span class="fc" id="L146">        return nullableDefaultValue(type, createParams(sources));</span>
     }
 
     /**
@@ -161,16 +162,16 @@ implements ParameterizableGenerator {
     public &lt;T&gt; T nullableDefaultValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull P parameters) {
-<span class="fc" id="L164">        assertSupported(type);</span>
+<span class="fc" id="L165">        assertSupported(type);</span>
         final T value;
-<span class="fc bfc" id="L166" title="All 2 branches covered.">        final boolean nullsAllowed = !(parameters instanceof NullableParameters)</span>
-<span class="fc bfc" id="L167" title="All 2 branches covered.">                || ((NullableParameters) parameters).isNullable();</span>
-<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (nullsAllowed) {</span>
-<span class="fc" id="L169">            value = null;</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        final boolean nullsAllowed = !(parameters instanceof NullableParameters)</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">                || ((NullableParameters) parameters).isNullable();</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">        if (nullsAllowed) {</span>
+<span class="fc" id="L170">            value = null;</span>
         } else {
-<span class="fc" id="L171">            value = defaultValue(type, parameters);</span>
+<span class="fc" id="L172">            value = defaultValue(type, parameters);</span>
         }
-<span class="fc" id="L173">        return value;</span>
+<span class="fc" id="L174">        return value;</span>
     }
 
     /**
@@ -179,7 +180,7 @@ implements ParameterizableGenerator {
     @Override
     public &lt;T&gt; @NotNull T randomValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L182">        return randomValue(type, createEmptyParams());</span>
+<span class="fc" id="L183">        return randomValue(type, createEmptyParams());</span>
     }
 
     /**
@@ -189,7 +190,7 @@ implements ParameterizableGenerator {
     public &lt;T&gt; @NotNull T randomValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull Object... sources) {
-<span class="fc" id="L192">        return randomValue(type, createParams(sources));</span>
+<span class="fc" id="L193">        return randomValue(type, createParams(sources));</span>
     }
 
     /**
@@ -211,7 +212,7 @@ implements ParameterizableGenerator {
     @Override
     public &lt;T&gt; T nullableRandomValue(
             final @NotNull Class&lt;T&gt; type) {
-<span class="fc" id="L214">        return nullableRandomValue(type, createEmptyParams());</span>
+<span class="fc" id="L215">        return nullableRandomValue(type, createEmptyParams());</span>
     }
 
     /**
@@ -221,7 +222,7 @@ implements ParameterizableGenerator {
     public &lt;T&gt; T nullableRandomValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull Object... sources) {
-<span class="fc" id="L224">        return nullableRandomValue(type, createParams(sources));</span>
+<span class="fc" id="L225">        return nullableRandomValue(type, createParams(sources));</span>
     }
 
     /**
@@ -241,16 +242,16 @@ implements ParameterizableGenerator {
     public &lt;T&gt; T nullableRandomValue(
             final @NotNull Class&lt;T&gt; type,
             final @NotNull P parameters) {
-<span class="fc" id="L244">        assertSupported(type);</span>
+<span class="fc" id="L245">        assertSupported(type);</span>
         final T value;
-<span class="fc bfc" id="L246" title="All 2 branches covered.">        final boolean nullsAllowed = !(parameters instanceof NullableParameters)</span>
-<span class="fc bfc" id="L247" title="All 2 branches covered.">                || ((NullableParameters) parameters).isNullable();</span>
-<span class="fc bfc" id="L248" title="All 4 branches covered.">        if (nullsAllowed &amp;&amp; randomNull(type)) {</span>
-<span class="fc" id="L249">            value = null;</span>
+<span class="fc bfc" id="L247" title="All 2 branches covered.">        final boolean nullsAllowed = !(parameters instanceof NullableParameters)</span>
+<span class="fc bfc" id="L248" title="All 2 branches covered.">                || ((NullableParameters) parameters).isNullable();</span>
+<span class="fc bfc" id="L249" title="All 4 branches covered.">        if (nullsAllowed &amp;&amp; randomNull(type)) {</span>
+<span class="fc" id="L250">            value = null;</span>
         } else {
-<span class="fc" id="L251">            value = randomValue(type, parameters);</span>
+<span class="fc" id="L252">            value = randomValue(type, parameters);</span>
         }
-<span class="fc" id="L253">        return value;</span>
+<span class="fc" id="L254">        return value;</span>
     }
 
     /**
@@ -260,9 +261,9 @@ implements ParameterizableGenerator {
      */
     public @NotNull P createEmptyParams() {
         try {
-<span class="fc" id="L263">            return getParametersType().getDeclaredConstructor().newInstance();</span>
-<span class="fc" id="L264">        } catch (final Exception e ) {</span>
-<span class="fc" id="L265">            throw new IllegalArgumentException(&quot;The parameters type has not default constructor. Override createEmptyParams().&quot;, e);</span>
+<span class="fc" id="L264">            return getParametersType().getDeclaredConstructor().newInstance();</span>
+<span class="fc" id="L265">        } catch (final Exception e ) {</span>
+<span class="fc" id="L266">            throw new IllegalArgumentException(&quot;The parameters type has not default constructor. Override createEmptyParams().&quot;, e);</span>
         }
     }
 
@@ -275,9 +276,9 @@ implements ParameterizableGenerator {
      */
     public @NotNull P createParams(
             final @NotNull Object... sources) {
-<span class="fc" id="L278">        final P result = createEmptyParams();</span>
-<span class="fc" id="L279">        getExtractor().extractParameters(result, sources);</span>
-<span class="fc" id="L280">        return result;</span>
+<span class="fc" id="L279">        final P result = createEmptyParams();</span>
+<span class="fc" id="L280">        getExtractor().extractParameters(result, sources);</span>
+<span class="fc" id="L281">        return result;</span>
     }
 
     /**
@@ -285,10 +286,10 @@ implements ParameterizableGenerator {
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L288">        return new HashCodeBuilder()</span>
-<span class="fc" id="L289">                .appendSuper(super.hashCode())</span>
-<span class="fc" id="L290">                .append(this.parametersType)</span>
-<span class="fc" id="L291">                .build();</span>
+<span class="fc" id="L289">        return new HashCodeBuilder()</span>
+<span class="fc" id="L290">                .appendSuper(super.hashCode())</span>
+<span class="fc" id="L291">                .append(this.parametersType)</span>
+<span class="fc" id="L292">                .build();</span>
     }
 
     /**
@@ -296,14 +297,14 @@ implements ParameterizableGenerator {
      */
     @Override
     public boolean equals(final Object obj) {
-<span class="fc bfc" id="L299" title="All 2 branches covered.">        if (obj == null) { return false; }</span>
-<span class="fc bfc" id="L300" title="All 2 branches covered.">        if (obj == this) { return true; }</span>
-<span class="fc bfc" id="L301" title="All 2 branches covered.">        if (obj.getClass() != getClass()) { return false; }</span>
-<span class="fc" id="L302">        final AbstractParameterizableGenerator&lt;?&gt; other = (AbstractParameterizableGenerator&lt;?&gt;) obj;</span>
-<span class="fc" id="L303">        return new EqualsBuilder()</span>
-<span class="fc" id="L304">                .appendSuper(super.equals(obj))</span>
-<span class="fc" id="L305">                .append(this.parametersType, other.parametersType)</span>
-<span class="fc" id="L306">                .build();</span>
+<span class="fc bfc" id="L300" title="All 2 branches covered.">        if (obj == null) { return false; }</span>
+<span class="fc bfc" id="L301" title="All 2 branches covered.">        if (obj == this) { return true; }</span>
+<span class="fc bfc" id="L302" title="All 2 branches covered.">        if (obj.getClass() != getClass()) { return false; }</span>
+<span class="fc" id="L303">        final AbstractParameterizableGenerator&lt;?&gt; other = (AbstractParameterizableGenerator&lt;?&gt;) obj;</span>
+<span class="fc" id="L304">        return new EqualsBuilder()</span>
+<span class="fc" id="L305">                .appendSuper(super.equals(obj))</span>
+<span class="fc" id="L306">                .append(this.parametersType, other.parametersType)</span>
+<span class="fc" id="L307">                .build();</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

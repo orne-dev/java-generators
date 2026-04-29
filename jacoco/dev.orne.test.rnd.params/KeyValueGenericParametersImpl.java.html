@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>KeyValueGenericParametersImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">KeyValueGenericParametersImpl.java</span></div><h1>KeyValueGenericParametersImpl.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>KeyValueGenericParametersImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.params</a> &gt; <span class="el_source">KeyValueGenericParametersImpl.java</span></div><h1>KeyValueGenericParametersImpl.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.params;
 
 /*-
  * #%L
@@ -25,25 +25,24 @@
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 /**
  * The basic implementation of {@code KeyValueGenericParameters}.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-12
  * @since 0.1
  */
-@API(status=Status.EXPERIMENTAL, since=&quot;0.1&quot;)
+@API(status=API.Status.EXPERIMENTAL, since=&quot;0.1&quot;)
 public class KeyValueGenericParametersImpl
 implements KeyValueGenericParameters,
         KeyValueGenericParameters.KeysTypeBuilder,
@@ -58,8 +57,8 @@ implements KeyValueGenericParameters,
      * Empty constructor.
      */
     public KeyValueGenericParametersImpl() {
-<span class="fc" id="L61">        super();</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L60">        super();</span>
+<span class="fc" id="L61">    }</span>
 
     /**
      * Copy constructor.
@@ -68,21 +67,21 @@ implements KeyValueGenericParameters,
      */
     public KeyValueGenericParametersImpl(
             final @NotNull GenerationParameters copy) {
-<span class="fc" id="L71">        super();</span>
-<span class="fc" id="L72">        Validate.notNull(copy);</span>
-<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (copy instanceof KeyValueGenericParameters) {</span>
-<span class="fc" id="L74">            final KeyValueGenericParameters tcopy = (KeyValueGenericParameters) copy;</span>
-<span class="fc" id="L75">            this.keysType = tcopy.getKeysType();</span>
-<span class="fc" id="L76">            this.valuesType = tcopy.getValuesType();</span>
+<span class="fc" id="L70">        super();</span>
+<span class="fc" id="L71">        Objects.requireNonNull(copy);</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (copy instanceof KeyValueGenericParameters) {</span>
+<span class="fc" id="L73">            final KeyValueGenericParameters tcopy = (KeyValueGenericParameters) copy;</span>
+<span class="fc" id="L74">            this.keysType = tcopy.getKeysType();</span>
+<span class="fc" id="L75">            this.valuesType = tcopy.getValuesType();</span>
         }
-<span class="fc" id="L78">    }</span>
+<span class="fc" id="L77">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public Type getKeysType() {
-<span class="fc" id="L85">        return this.keysType;</span>
+<span class="fc" id="L84">        return this.keysType;</span>
     }
     /**
      * {@inheritDoc}
@@ -90,17 +89,17 @@ implements KeyValueGenericParameters,
     @Override
     public void setKeysType(
             final Type type) {
-<span class="fc" id="L93">        this.keysType = type;</span>
-<span class="fc" id="L94">    }</span>
+<span class="fc" id="L92">        this.keysType = type;</span>
+<span class="fc" id="L93">    }</span>
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull KeyValueGenericParametersImpl withKeysType(
             final @NotNull Class&lt;?&gt; type) {
-<span class="fc" id="L101">        Validate.notNull(type);</span>
-<span class="fc" id="L102">        setKeysType(type);</span>
-<span class="fc" id="L103">        return this;</span>
+<span class="fc" id="L100">        Objects.requireNonNull(type);</span>
+<span class="fc" id="L101">        setKeysType(type);</span>
+<span class="fc" id="L102">        return this;</span>
     }
     /**
      * {@inheritDoc}
@@ -108,9 +107,9 @@ implements KeyValueGenericParameters,
     @Override
     public @NotNull KeyValueGenericParametersImpl withKeysType(
             final @NotNull ParameterizedType type) {
-<span class="fc" id="L111">        Validate.notNull(type);</span>
-<span class="fc" id="L112">        setKeysType(type);</span>
-<span class="fc" id="L113">        return this;</span>
+<span class="fc" id="L110">        Objects.requireNonNull(type);</span>
+<span class="fc" id="L111">        setKeysType(type);</span>
+<span class="fc" id="L112">        return this;</span>
     }
     /**
      * {@inheritDoc}
@@ -118,16 +117,16 @@ implements KeyValueGenericParameters,
     @Override
     public @NotNull KeyValueGenericParametersImpl withKeysType(
             final @NotNull GenericArrayType type) {
-<span class="fc" id="L121">        Validate.notNull(type);</span>
-<span class="fc" id="L122">        setKeysType(type);</span>
-<span class="fc" id="L123">        return this;</span>
+<span class="fc" id="L120">        Objects.requireNonNull(type);</span>
+<span class="fc" id="L121">        setKeysType(type);</span>
+<span class="fc" id="L122">        return this;</span>
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public Type getValuesType() {
-<span class="fc" id="L130">        return this.valuesType;</span>
+<span class="fc" id="L129">        return this.valuesType;</span>
     }
     /**
      * {@inheritDoc}
@@ -135,17 +134,17 @@ implements KeyValueGenericParameters,
     @Override
     public void setValuesType(
             final Type type) {
-<span class="fc" id="L138">        this.valuesType = type;</span>
-<span class="fc" id="L139">    }</span>
+<span class="fc" id="L137">        this.valuesType = type;</span>
+<span class="fc" id="L138">    }</span>
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull KeyValueGenericParametersImpl withValuesType(
             final @NotNull Class&lt;?&gt; type) {
-<span class="fc" id="L146">        Validate.notNull(type);</span>
-<span class="fc" id="L147">        setValuesType(type);</span>
-<span class="fc" id="L148">        return this;</span>
+<span class="fc" id="L145">        Objects.requireNonNull(type);</span>
+<span class="fc" id="L146">        setValuesType(type);</span>
+<span class="fc" id="L147">        return this;</span>
     }
     /**
      * {@inheritDoc}
@@ -153,9 +152,9 @@ implements KeyValueGenericParameters,
     @Override
     public @NotNull KeyValueGenericParametersImpl withValuesType(
             final @NotNull ParameterizedType type) {
-<span class="fc" id="L156">        Validate.notNull(type);</span>
-<span class="fc" id="L157">        setValuesType(type);</span>
-<span class="fc" id="L158">        return this;</span>
+<span class="fc" id="L155">        Objects.requireNonNull(type);</span>
+<span class="fc" id="L156">        setValuesType(type);</span>
+<span class="fc" id="L157">        return this;</span>
     }
     /**
      * {@inheritDoc}
@@ -163,30 +162,30 @@ implements KeyValueGenericParameters,
     @Override
     public @NotNull KeyValueGenericParametersImpl withValuesType(
             final @NotNull GenericArrayType type) {
-<span class="fc" id="L166">        Validate.notNull(type);</span>
-<span class="fc" id="L167">        setValuesType(type);</span>
-<span class="fc" id="L168">        return this;</span>
+<span class="fc" id="L165">        Objects.requireNonNull(type);</span>
+<span class="fc" id="L166">        setValuesType(type);</span>
+<span class="fc" id="L167">        return this;</span>
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public int hashCode() {
-<span class="fc" id="L175">        return HashCodeBuilder.reflectionHashCode(this);</span>
+<span class="fc" id="L174">        return HashCodeBuilder.reflectionHashCode(this);</span>
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean equals(Object obj) {
-<span class="fc" id="L182">        return EqualsBuilder.reflectionEquals(this, obj);</span>
+<span class="fc" id="L181">        return EqualsBuilder.reflectionEquals(this, obj);</span>
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public String toString() {
-<span class="fc" id="L189">        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);</span>
+<span class="fc" id="L188">        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>

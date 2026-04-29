@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BigIntegerGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">BigIntegerGenerator.java</span></div><h1>BigIntegerGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BigIntegerGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Orne Test Generators</a> &gt; <a href="index.source.html" class="el_package">dev.orne.test.rnd.generators</a> &gt; <span class="el_source">BigIntegerGenerator.java</span></div><h1>BigIntegerGenerator.java</h1><pre class="source lang-java linenums">package dev.orne.test.rnd.generators;
 
 /*-
  * #%L
@@ -29,7 +29,6 @@ import javax.validation.constraints.NotNull;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
 
 import dev.orne.test.rnd.AbstractTypedGenerator;
 import dev.orne.test.rnd.Priority;
@@ -37,17 +36,17 @@ import dev.orne.test.rnd.Priority;
 /**
  * Generator of {@code BigInteger} values.
  * 
- * @author &lt;a href=&quot;mailto:wamphiry@orne.dev&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
+ * @author &lt;a href=&quot;https://github.com/ihernaez&quot;&gt;(w) Iker Hernaez&lt;/a&gt;
  * @version 1.0, 2022-10
  * @since 0.1
  */
-@API(status=Status.STABLE, since=&quot;0.1&quot;)
+@API(status=API.Status.STABLE, since=&quot;0.1&quot;)
 @Priority(Priority.NATIVE_GENERATORS)
 public class BigIntegerGenerator
 extends AbstractTypedGenerator&lt;BigInteger&gt; {
 
     /** The default value. */
-<span class="fc" id="L50">    public static final BigInteger DEFAULT_VALUE = BigInteger.ZERO;</span>
+<span class="fc" id="L49">    public static final BigInteger DEFAULT_VALUE = BigInteger.ZERO;</span>
     /** The maximum 10 base exponent of generated values. */
     private static final int MAX_EXPONENT = 32;
 
@@ -55,15 +54,15 @@ extends AbstractTypedGenerator&lt;BigInteger&gt; {
      * Creates a new instance.
      */
     public BigIntegerGenerator() {
-<span class="fc" id="L58">        super();</span>
-<span class="fc" id="L59">    }</span>
+<span class="fc" id="L57">        super();</span>
+<span class="fc" id="L58">    }</span>
 
     /**
      * {@inheritDoc}
      */
     @Override
     public @NotNull BigInteger defaultValue() {
-<span class="fc" id="L66">        return DEFAULT_VALUE;</span>
+<span class="fc" id="L65">        return DEFAULT_VALUE;</span>
     }
 
     /**
@@ -71,7 +70,7 @@ extends AbstractTypedGenerator&lt;BigInteger&gt; {
      */
     @Override
     public @NotNull BigInteger randomValue() {
-<span class="fc" id="L74">        return randomBigInteger();</span>
+<span class="fc" id="L73">        return randomBigInteger();</span>
     }
 
     /**
@@ -81,12 +80,12 @@ extends AbstractTypedGenerator&lt;BigInteger&gt; {
      * @return A random {@code BigInteger} value
      */
     public static BigInteger randomBigInteger() {
-<span class="fc" id="L84">        final int size = RandomUtils.nextInt(1, MAX_EXPONENT + 1);</span>
-<span class="fc" id="L85">        BigInteger result = new BigInteger(RandomStringUtils.randomNumeric(size));</span>
-<span class="fc bfc" id="L86" title="All 2 branches covered.">        if (RandomUtils.nextBoolean()) {</span>
-<span class="fc" id="L87">            result = result.negate();</span>
+<span class="fc" id="L83">        final int size = RandomUtils.insecure().randomInt(1, MAX_EXPONENT + 1);</span>
+<span class="fc" id="L84">        BigInteger result = new BigInteger(RandomStringUtils.insecure().nextNumeric(size));</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (RandomUtils.insecure().randomBoolean()) {</span>
+<span class="fc" id="L86">            result = result.negate();</span>
         }
-<span class="fc" id="L89">        return result;</span>
+<span class="fc" id="L88">        return result;</span>
     }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.13.202504020838</span></div></body></html>
